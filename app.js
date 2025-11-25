@@ -2,7 +2,7 @@
 // 1. CONFIGURACIÓN FINAL (CORREGIDA)
 // ==========================================
 // URL del proyecto
-const SUPABASE_URL = 'https://rlympzqzxqwpgmogpqql.supabase.co'; 
+const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co'; 
 
 // CLAVE ANÓNIMA (¡PEGA TU CLAVE COMPLETA REAL AQUI!)
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A'; 
@@ -96,3 +96,4 @@ async function showLoggedInUI(user) {
 
 // Arrancar la app
 checkSession();
+
