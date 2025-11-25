@@ -1,343 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuO | The Ultimate Windows Optimization Utility</title>
+    <title>QuO | Ultimate Optimization</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            500: '#ef4444',
-                            600: '#dc2626',
-                            900: '#7f1d1d',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="antialiased selection:bg-red-500 selection:text-white">
+<body class="selection:bg-red-500 selection:text-white">
 
     <div class="bg-noise"></div>
     
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-red-600/10 rounded-full blur-[150px] -z-10 pointer-events-none"></div>
+    <div class="fixed top-[-20%] left-[20%] w-[600px] h-[600px] bg-red-600/20 rounded-full blur-[120px] pointer-events-none animate-pulse"></div>
+    <div class="fixed bottom-[-10%] right-[10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-    <nav class="fixed w-full z-50 border-b border-white/5 bg-black/80 backdrop-blur-xl">
+    <nav class="fixed w-full z-50 top-0 border-b border-white/5 bg-black/50 backdrop-blur-xl">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3 group">
-                <div class="relative">
-                    <div class="absolute inset-0 bg-red-600 blur-md opacity-50 group-hover:opacity-100 transition"></div>
-                    <div class="relative w-10 h-10 bg-gradient-to-br from-red-600 to-black border border-red-500/50 rounded-lg flex items-center justify-center font-black text-white text-xl">Q</div>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-lg font-bold tracking-tight text-white leading-none">QuO</span>
-                    <span class="text-[10px] text-red-500 font-mono tracking-widest uppercase">System Tweaks</span>
-                </div>
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center font-bold text-white shadow-[0_0_20px_rgba(220,38,38,0.5)]">Q</div>
+                <span class="font-bold text-xl tracking-tight">QuO</span>
             </a>
 
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
                 <a href="#features" class="hover:text-white transition">Features</a>
-                <a href="#performance" class="hover:text-white transition">Benchmarks</a>
+                <a href="#benchmarks" class="hover:text-white transition">Benchmarks</a>
                 <a href="pricing.html" class="hover:text-white transition">Pricing</a>
-                <a href="#" class="hover:text-white transition">Support</a>
             </div>
 
-            <div id="auth-section" class="flex items-center gap-4">
-                <button onclick="loginWithGoogle()" class="text-sm font-medium text-gray-300 hover:text-white transition">Log In</button>
-                <a href="download.html" class="btn-red px-6 py-2.5 rounded-lg text-white text-sm font-bold flex items-center gap-2">
-                    <i data-lucide="download" class="w-4 h-4"></i> Download
-                </a>
+            <div id="auth-section" class="flex gap-4 items-center">
+                <button onclick="loginWithGoogle()" class="text-sm font-medium text-gray-300 hover:text-white transition">Login</button>
+                <a href="download.html" class="bg-white text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-gray-200 transition">Download</a>
             </div>
         </div>
     </nav>
 
-    <section class="relative pt-48 pb-32 px-6 flex flex-col items-center text-center overflow-hidden">
-        <div data-aos="fade-down" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-500/20 bg-red-500/5 text-red-400 text-xs font-bold tracking-wide uppercase mb-8">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-            </span>
-            v2.0 Stable Release Available
-        </div>
-
-        <h1 data-aos="fade-up" class="text-6xl md:text-8xl font-black tracking-tighter mb-6 max-w-5xl mx-auto leading-[0.9]">
-            UNLEASH YOUR <br>
-            <span class="text-gradient">HARDWARE LIMITS</span>
-        </h1>
-
-        <p data-aos="fade-up" data-aos-delay="100" class="text-gray-400 text-lg md:text-xl max-w-2xl mb-12 leading-relaxed">
-            Stop letting Windows hold back your PC. QuO disables telemetry, optimizes kernel threads, and reduces system latency by up to 45%.
-        </p>
-
-        <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col sm:flex-row gap-5 w-full max-w-lg justify-center z-10">
-            <a href="download.html" class="btn-red px-8 py-4 rounded-xl text-white font-bold text-lg flex items-center justify-center gap-3 w-full sm:w-auto">
-                <i data-lucide="download-cloud" class="w-5 h-5"></i> Download Free
-            </a>
-            <a href="pricing.html" class="px-8 py-4 rounded-xl glass-panel text-white font-bold text-lg flex items-center justify-center gap-3 hover:bg-white/5 transition w-full sm:w-auto">
-                <i data-lucide="crown" class="w-5 h-5 text-yellow-500"></i> Get Premium
-            </a>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="300" class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 border-t border-white/5 pt-10 text-center">
-            <div>
-                <div class="text-3xl font-black text-white">120+</div>
-                <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Services Killed</div>
+    <main class="pt-40 pb-20 px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto text-center">
+            <div data-aos="fade-down" class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-red-500/20 bg-red-900/10 text-red-400 text-xs font-bold uppercase tracking-widest mb-8">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> v2.0 Released
             </div>
-            <div>
-                <div class="text-3xl font-black text-white">-45%</div>
-                <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Input Latency</div>
-            </div>
-            <div>
-                <div class="text-3xl font-black text-white">15k+</div>
-                <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Active Users</div>
-            </div>
-            <div>
-                <div class="text-3xl font-black text-white">0%</div>
-                <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Ban Risk</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="px-4 pb-32">
-        <div data-aos="zoom-in" class="max-w-6xl mx-auto rounded-xl border border-white/10 p-2 glass-panel shadow-[0_0_100px_rgba(239,68,68,0.15)]">
-            <div class="aspect-[16/9] bg-[#0f0f0f] rounded-lg overflow-hidden relative group">
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="text-center">
-                        <p class="text-red-500 font-mono text-sm mb-2">INTERFACE_PREVIEW</p>
-                        <h3 class="text-3xl font-bold text-white">QuO Dashboard</h3>
-                    </div>
-                </div>
-                <div class="absolute top-0 left-0 w-64 h-full bg-[#111] border-r border-white/5 p-6 hidden md:block">
-                    <div class="w-full h-8 bg-red-900/20 rounded mb-4"></div>
-                    <div class="w-3/4 h-4 bg-white/5 rounded mb-8"></div>
-                    <div class="space-y-3">
-                        <div class="w-full h-10 bg-white/5 rounded hover:bg-red-500/10 transition"></div>
-                        <div class="w-full h-10 bg-white/5 rounded"></div>
-                        <div class="w-full h-10 bg-white/5 rounded"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="py-24 max-w-7xl mx-auto px-6">
-        <div class="mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4">Under the <span class="text-red-500">Hood</span></h2>
-            <p class="text-gray-400 max-w-xl">We don't just change settings. We restructure how Windows interacts with your hardware.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
-            <div data-aos="fade-right" class="glass-panel p-8 rounded-3xl md:col-span-2 md:row-span-2 flex flex-col justify-between relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[80px] -z-10 group-hover:bg-red-600/20 transition duration-500"></div>
-                <div>
-                    <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500 mb-6">
-                        <i data-lucide="cpu" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">Kernel Scheduler Optimization</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        Windows defaults to balancing power and efficiency. QuO forces the Kernel Scheduler to prioritize active foreground processes (your game), allocating CPU quantum time slices exclusively to what matters.
-                    </p>
-                </div>
-                <div class="mt-8">
-                    <div class="flex items-center gap-3 text-sm text-gray-300 border-b border-white/5 py-2">
-                        <i data-lucide="check" class="text-red-500 w-4"></i> Disable CPU Parking
-                    </div>
-                    <div class="flex items-center gap-3 text-sm text-gray-300 border-b border-white/5 py-2">
-                        <i data-lucide="check" class="text-red-500 w-4"></i> IRQ Affinity Tweaks
-                    </div>
-                    <div class="flex items-center gap-3 text-sm text-gray-300 py-2">
-                        <i data-lucide="check" class="text-red-500 w-4"></i> Reduce DPC Latency
-                    </div>
-                </div>
-            </div>
-
-            <div data-aos="fade-down" class="glass-panel p-8 rounded-3xl relative overflow-hidden group">
-                <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500 mb-4">
-                    <i data-lucide="trash-2" class="w-6 h-6"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-2">Deep Debloat</h3>
-                <p class="text-gray-400 text-sm">Strips Windows down to the bare metal. Removes Cortana, Telemetry, and 50+ background spies.</p>
-            </div>
-
-            <div data-aos="fade-up" class="glass-panel p-8 rounded-3xl relative overflow-hidden group">
-                <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500 mb-4">
-                    <i data-lucide="zap" class="w-6 h-6"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-2">Power Plan X</h3>
-                <p class="text-gray-400 text-sm">A custom power profile that prevents frequency scaling, keeping your clock speeds at 100%.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="performance" class="py-24 bg-black/50 border-y border-white/5">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             
-            <div data-aos="fade-right">
-                <h2 class="text-4xl font-bold mb-6">Proven <span class="text-red-500">Results</span></h2>
-                <p class="text-gray-400 mb-8">
-                    Don't take our word for it. Look at the frame times. QuO delivers smoother gameplay by eliminating micro-stutters.
-                </p>
-                <div class="space-y-6">
-                    <div>
-                        <div class="flex justify-between text-sm font-bold mb-2">
-                            <span>Valorant (FPS)</span>
-                            <span class="text-red-500">+42% Increase</span>
-                        </div>
-                        <div class="bar-container">
-                            <div class="bar-fill" style="width: 45%; background: #333; justify-content: flex-start; padding-left: 10px; color: #777;">Stock</div>
-                            <div class="absolute top-0 left-0 bar-fill shadow-[0_0_20px_#ef4444]" style="width: 85%; opacity: 0.8; z-index: 2;">QuO Enabled</div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm font-bold mb-2">
-                            <span>Warzone (1% Lows)</span>
-                            <span class="text-red-500">+28% Stability</span>
-                        </div>
-                        <div class="bar-container">
-                            <div class="bar-fill" style="width: 50%; background: #333; justify-content: flex-start; padding-left: 10px; color: #777;">Stock</div>
-                            <div class="absolute top-0 left-0 bar-fill shadow-[0_0_20px_#ef4444]" style="width: 78%; opacity: 0.8; z-index: 2;">QuO Enabled</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h1 data-aos="fade-up" class="text-6xl md:text-8xl font-black tracking-tight leading-[0.9] mb-8">
+                BREAK YOUR <br>
+                <span class="text-gradient">LIMITS</span>
+            </h1>
 
-            <div data-aos="fade-left" class="glass-panel p-8 rounded-2xl border border-red-500/20 text-center">
-                <h3 class="text-2xl font-bold mb-2">System Latency</h3>
-                <p class="text-gray-500 text-sm mb-8">Lower is better (ms)</p>
-                
-                <div class="flex items-end justify-center gap-8 h-64">
-                    <div class="w-20 bg-gray-800 rounded-t-lg relative group h-3/4 flex items-end justify-center pb-4">
-                        <span class="text-white font-bold text-xl group-hover:scale-110 transition">8.5ms</span>
-                        <span class="absolute -bottom-8 text-xs text-gray-500">Stock</span>
-                    </div>
-                    <div class="w-20 bg-gradient-to-t from-red-900 to-red-500 rounded-t-lg relative group h-1/3 flex items-end justify-center pb-4 shadow-[0_0_30px_rgba(239,68,68,0.5)]">
-                        <span class="text-white font-bold text-xl group-hover:scale-110 transition">3.2ms</span>
-                        <span class="absolute -bottom-8 text-xs text-red-500 font-bold">QuO</span>
-                    </div>
-                </div>
-            </div>
+            <p data-aos="fade-up" data-aos-delay="100" class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12">
+                The most aggressive Windows optimization tool. Reduce latency, disable telemetry, and unlock raw hardware performance with one click.
+            </p>
 
-        </div>
-    </section>
-
-    <section class="py-24 max-w-4xl mx-auto px-6">
-        <h2 class="text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
-        
-        <div class="space-y-4">
-            <div data-aos="fade-up" class="glass-panel rounded-lg overflow-hidden">
-                <details class="group">
-                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg">
-                        <span>Is this safe for my PC?</span>
-                        <span class="transition group-open:rotate-180">
-                            <i data-lucide="chevron-down"></i>
-                        </span>
-                    </summary>
-                    <div class="text-gray-400 p-6 pt-0 leading-relaxed">
-                        Yes. QuO creates a System Restore Point automatically before applying any changes. All tweaks are done using standard Windows APIs and Registry edits that are completely reversible.
-                    </div>
-                </details>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="100" class="glass-panel rounded-lg overflow-hidden">
-                <details class="group">
-                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg">
-                        <span>Will I get banned in games?</span>
-                        <span class="transition group-open:rotate-180">
-                            <i data-lucide="chevron-down"></i>
-                        </span>
-                    </summary>
-                    <div class="text-gray-400 p-6 pt-0 leading-relaxed">
-                        Absolutely not. QuO does not inject code into games, modify game files, or interact with anti-cheat software. It purely optimizes the Windows Operating System environment.
-                    </div>
-                </details>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="200" class="glass-panel rounded-lg overflow-hidden">
-                <details class="group">
-                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg">
-                        <span>What is the difference between Free and Premium?</span>
-                        <span class="transition group-open:rotate-180">
-                            <i data-lucide="chevron-down"></i>
-                        </span>
-                    </summary>
-                    <div class="text-gray-400 p-6 pt-0 leading-relaxed">
-                        The Free version includes basic optimizations like temporary file cleaning and generic debloating. Premium unlocks the hardware-level tweaks (CPU priority, Network optimization, custom Power Plans) that drastically improve FPS.
-                    </div>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-black border-t border-white/10 pt-20 pb-10 px-6">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            <div class="col-span-1 md:col-span-1">
-                <a href="#" class="flex items-center gap-2 mb-6">
-                    <div class="w-8 h-8 bg-red-600 rounded flex items-center justify-center font-bold text-white">Q</div>
-                    <span class="text-xl font-bold text-white">QuO</span>
+            <div data-aos="fade-up" data-aos-delay="200" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="download.html" class="btn-glow px-8 py-4 bg-red-600 rounded-xl text-white font-bold flex items-center gap-2">
+                    <i data-lucide="download"></i> Download Free
                 </a>
-                <p class="text-gray-500 text-sm mb-6">
-                    The #1 Windows Optimization utility for competitive gamers. Built with WinUI 3.
-                </p>
-                <div class="flex gap-4">
-                    <a href="#" class="text-gray-500 hover:text-white"><i data-lucide="twitter" class="w-5"></i></a>
-                    <a href="#" class="text-gray-500 hover:text-white"><i data-lucide="discord" class="w-5"></i></a>
-                    <a href="#" class="text-gray-500 hover:text-white"><i data-lucide="youtube" class="w-5"></i></a>
+                <a href="#benchmarks" class="px-8 py-4 border border-white/10 rounded-xl text-white font-bold hover:bg-white/5 transition flex items-center gap-2">
+                    <i data-lucide="bar-chart-2"></i> See Benchmarks
+                </a>
+            </div>
+
+            <div data-aos="zoom-in" data-aos-delay="300" class="mt-24 relative max-w-5xl mx-auto">
+                <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-purple-600 rounded-2xl blur opacity-20"></div>
+                <div class="relative bg-[#0a0a0a] border border-white/10 rounded-xl overflow-hidden shadow-2xl aspect-video flex items-center justify-center group">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1629654297299-c8506221ca16?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30 group-hover:opacity-10 transition duration-700"></div>
+                    <div class="z-10 text-center">
+                        <i data-lucide="zap" class="w-16 h-16 text-red-500 mx-auto mb-4 animate-pulse"></i>
+                        <h3 class="text-2xl font-bold">System Optimized</h3>
+                        <p class="text-green-400 font-mono text-sm mt-2">Latency: 0.5ms | FPS: Unlocked</p>
+                    </div>
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
                 </div>
             </div>
-            
-            <div>
-                <h4 class="text-white font-bold mb-6">Product</h4>
-                <ul class="space-y-4 text-sm text-gray-500">
-                    <li><a href="#" class="hover:text-red-500 transition">Features</a></li>
-                    <li><a href="pricing.html" class="hover:text-red-500 transition">Pricing</a></li>
-                    <li><a href="download.html" class="hover:text-red-500 transition">Changelog</a></li>
-                    <li><a href="download.html" class="hover:text-red-500 transition">Download</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="text-white font-bold mb-6">Resources</h4>
-                <ul class="space-y-4 text-sm text-gray-500">
-                    <li><a href="#" class="hover:text-red-500 transition">Documentation</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition">Optimization Guide</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition">Community</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition">Help Center</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="text-white font-bold mb-6">Legal</h4>
-                <ul class="space-y-4 text-sm text-gray-500">
-                    <li><a href="#" class="hover:text-red-500 transition">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition">Terms of Service</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition">Refund Policy</a></li>
-                </ul>
-            </div>
         </div>
+    </main>
+
+    <section id="features" class="py-24 px-6 max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center">Engineered for <span class="text-red-500">Speed</span></h2>
         
-        <div class="max-w-7xl mx-auto border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-            <p>&copy; 2025 QuO Software. All rights reserved.</p>
-            <p>Made with ❤️ for high FPS.</p>
+        <div class="bento-grid" id="cards-container">
+            <div class="spotlight-card rounded-3xl p-8 bento-col-span-2 bento-row-span-2 flex flex-col justify-end relative group">
+                <div class="absolute top-0 right-0 p-8 opacity-20 group-hover:opacity-40 transition duration-500 transform group-hover:scale-110">
+                    <i data-lucide="cpu" class="w-48 h-48 text-red-600"></i>
+                </div>
+                <div class="relative z-10">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center text-red-500 mb-4 border border-red-500/20">
+                        <i data-lucide="layers"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Kernel Scheduler Remapping</h3>
+                    <p class="text-gray-400">We don't just clear cache. We rewrite how Windows assigns CPU threads to your games, ensuring 100% core affinity for active windows.</p>
+                </div>
+            </div>
+
+            <div class="spotlight-card rounded-3xl p-8 flex flex-col justify-between">
+                <i data-lucide="wifi" class="text-red-500 w-8 h-8 mb-4"></i>
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Packet Stabilization</h3>
+                    <p class="text-sm text-gray-400">Custom TCP/IP algorithms to prevent jitter.</p>
+                </div>
+            </div>
+
+            <div class="spotlight-card rounded-3xl p-8 flex flex-col justify-between">
+                <i data-lucide="trash" class="text-red-500 w-8 h-8 mb-4"></i>
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Zero Bloatware</h3>
+                    <p class="text-sm text-gray-400">Removes Cortana, Edge, and 40+ tracking services.</p>
+                </div>
+            </div>
+
+            <div class="spotlight-card rounded-3xl p-8 bento-col-span-2 flex items-center gap-6">
+                <div class="hidden md:block w-32 h-32 bg-red-600/10 rounded-full flex-shrink-0 flex items-center justify-center animate-pulse">
+                    <span class="text-red-500 font-bold text-3xl">AI</span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Smart Power Plan</h3>
+                    <p class="text-gray-400">Dynamically adjusts voltage and clock speeds. Idle when you work, full throttle when you game.</p>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <section id="benchmarks" class="py-24 border-y border-white/5 bg-black/40">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-4xl font-bold mb-6">Proven <span class="text-red-500">Results</span></h2>
+                <p class="text-gray-400 mb-8">Tested on i9-13900K & RTX 4090. The numbers speak for themselves.</p>
+                
+                <div class="mb-6 group">
+                    <div class="flex justify-between text-sm font-mono text-gray-400 mb-2">
+                        <span>VALORANT (FPS)</span>
+                        <span class="text-white">Stock: 420 | <span class="text-red-500 font-bold">QuO: 610</span></span>
+                    </div>
+                    <div class="h-4 bg-gray-800 rounded overflow-hidden relative">
+                        <div class="perf-bar h-full bg-gradient-to-r from-gray-600 to-gray-500" data-width="65%"></div>
+                        <div class="perf-bar absolute top-0 left-0 h-full bg-gradient-to-r from-red-600 to-red-400 shadow-[0_0_15px_rgba(220,38,38,0.8)]" data-width="92%"></div>
+                    </div>
+                </div>
+
+                <div class="mb-6 group">
+                    <div class="flex justify-between text-sm font-mono text-gray-400 mb-2">
+                        <span>SYSTEM LATENCY (ms)</span>
+                        <span class="text-white">Stock: 4.2ms | <span class="text-red-500 font-bold">QuO: 1.1ms</span></span>
+                    </div>
+                    <div class="h-4 bg-gray-800 rounded overflow-hidden relative">
+                        <div class="perf-bar h-full bg-gradient-to-r from-gray-600 to-gray-500" data-width="80%"></div>
+                        <div class="perf-bar absolute top-0 left-0 h-full bg-gradient-to-r from-green-500 to-green-400 shadow-[0_0_15px_rgba(34,197,94,0.8)]" data-width="20%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative h-[400px] border border-white/10 rounded-2xl bg-black/50 p-6 flex items-end gap-4">
+                <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                
+                <div class="w-1/3 h-[40%] bg-gray-800 rounded-t-lg relative group">
+                    <span class="absolute -top-8 w-full text-center text-gray-500 font-mono text-xs">STOCK</span>
+                </div>
+                <div class="w-1/3 h-[65%] bg-gray-700 rounded-t-lg relative group">
+                    <span class="absolute -top-8 w-full text-center text-gray-500 font-mono text-xs">OPTIMIZED</span>
+                </div>
+                <div class="w-1/3 h-[90%] bg-gradient-to-t from-red-900 to-red-600 rounded-t-lg relative group shadow-[0_0_50px_rgba(220,38,38,0.3)]">
+                    <span class="absolute -top-8 w-full text-center text-red-500 font-bold font-mono text-xs">QuO PRO</span>
+                    <div class="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent opacity-50"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-gray-600 text-sm bg-black border-t border-white/5">
+        <p>&copy; 2025 QuO Software. WinUI 3 Native.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="app.js"></script>
-    <script>
-        lucide.createIcons();
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
