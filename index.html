@@ -316,6 +316,221 @@
         </div>
     </section>
 
+    <section class="py-24 max-w-7xl mx-auto px-6 spotlight-group" onmousemove="handleMouseMove(event)">
+        <div class="mb-16 flex items-end justify-between">
+            <div>
+                <span class="text-brand font-mono text-xs tracking-widest uppercase mb-2 block">// SYSTEM_INTERNALS</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-white">Under the <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-red-500">Hood</span></h2>
+            </div>
+            <div class="hidden md:block text-right text-gray-500 font-mono text-xs">
+                MODULES LOADED: 12/12<br>
+                OPTIMIZATION LEVEL: EXTREME
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[600px]">
+            
+            <div class="spotlight-card md:col-span-2 p-8 flex flex-col justify-between group">
+                <div class="spotlight-content">
+                    <div class="flex justify-between items-start mb-4">
+                        <i data-lucide="clock" class="text-brand w-8 h-8"></i>
+                        <span class="bg-brand/10 text-brand px-2 py-1 rounded text-xs font-mono">0.5ms</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">High Precision Timer</h3>
+                    <p class="text-gray-400 text-sm">
+                        Standard Windows timer resolution fluctuates between 15ms and 1ms. QuO enforces a strict <span class="text-white font-bold">0.500ms</span> resolution, forcing the CPU to update game state twice as fast.
+                    </p>
+                </div>
+                <div class="spotlight-content mt-4 h-16 flex items-end gap-1 opacity-50 group-hover:opacity-100 transition">
+                    <div class="w-1/6 bg-gray-700 h-[20%]"></div>
+                    <div class="w-1/6 bg-gray-700 h-[40%]"></div>
+                    <div class="w-1/6 bg-gray-700 h-[30%]"></div>
+                    <div class="w-1/6 bg-brand h-[100%] shadow-[0_0_15px_#FF003C]"></div>
+                    <div class="w-1/6 bg-brand h-[100%] shadow-[0_0_15px_#FF003C]"></div>
+                    <div class="w-1/6 bg-brand h-[100%] shadow-[0_0_15px_#FF003C]"></div>
+                </div>
+            </div>
+
+            <div class="spotlight-card md:col-span-1 md:row-span-2 p-0 overflow-hidden relative">
+                <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-[#0F0F11] to-transparent z-10"></div>
+                <div class="spotlight-content p-6 z-20 absolute top-0 w-full">
+                    <h3 class="text-lg font-bold mb-1">Service Killer</h3>
+                    <p class="text-gray-500 text-xs font-mono">120+ Disabled</p>
+                </div>
+                
+                <div class="opacity-40 font-mono text-xs text-red-500/80 p-6 pt-24 space-y-2 animate-pulse-slow">
+                    <p>[KILL] SysMain</p>
+                    <p>[KILL] DiagTrack</p>
+                    <p>[KILL] WSearch</p>
+                    <p>[KILL] MapsBroker</p>
+                    <p>[KILL] XboxGipSvc</p>
+                    <p>[KILL] PrintSpooler</p>
+                    <p>[KILL] Fax</p>
+                    <p>[KILL] WerSvc</p>
+                    <p>[KILL] WalletService</p>
+                    <p>[KILL] PhoneSvc</p>
+                    <p>[KILL] BiometricSvc</p>
+                    <p>[KILL] RetailDemo</p>
+                    <p class="text-white font-bold">... and 98 more</p>
+                </div>
+                <div class="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-[#0F0F11] to-transparent z-10"></div>
+            </div>
+
+            <div class="spotlight-card md:col-span-1 p-8 flex flex-col justify-center items-center text-center">
+                <div class="spotlight-content">
+                    <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="zap" class="text-yellow-400 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">MSI Mode</h3>
+                    <p class="text-gray-400 text-xs mt-2">Forces GPU into Message Signaled Interrupts mode to reduce CPU overhead.</p>
+                </div>
+            </div>
+
+            <div class="spotlight-card md:col-span-1 p-8 flex flex-col justify-center items-center text-center">
+                <div class="spotlight-content">
+                    <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="file-code" class="text-blue-400 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-bold">Registry Hive</h3>
+                    <p class="text-gray-400 text-xs mt-2">Imports 450+ validated registry keys to tune visual effects and memory management.</p>
+                </div>
+            </div>
+
+            <div class="spotlight-card md:col-span-2 p-6 font-mono text-xs md:text-sm bg-black border border-white/10">
+                <div class="flex gap-1.5 mb-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="space-y-1 text-gray-400">
+                    <p><span class="text-green-500">user@quo:~$</span> check_latency</p>
+                    <p class="text-white">Analyzing DPC Latency...</p>
+                    <p>Current: <span class="text-red-500">1200µs</span> (Bad)</p>
+                    <p><span class="text-green-500">user@quo:~$</span> sudo quo_optimize --aggressive</p>
+                    <p class="text-white">Applying Kernel Tweaks... [OK]</p>
+                    <p class="text-white">Disabling HPET... [OK]</p>
+                    <p>New Latency: <span class="text-green-400">45µs</span> (Excellent)</p>
+                    <p class="animate-pulse">_</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-24 bg-[#08080a] border-y border-white/5">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">The Difference is <span class="text-brand">Measurable</span></h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-8 items-center">
+                
+                <div class="p-8 rounded-2xl border border-white/5 bg-white/[0.02] opacity-60 hover:opacity-100 transition duration-500">
+                    <h3 class="text-xl font-bold text-gray-400 mb-6 flex items-center gap-2">
+                        <i data-lucide="monitor" class="w-5"></i> Stock Windows
+                    </h3>
+                    <ul class="space-y-6">
+                        <li class="flex justify-between border-b border-white/5 pb-2">
+                            <span class="text-gray-500">Processes</span>
+                            <span class="text-white">180 - 220</span>
+                        </li>
+                        <li class="flex justify-between border-b border-white/5 pb-2">
+                            <span class="text-gray-500">RAM Usage (Idle)</span>
+                            <span class="text-white">4.5 GB</span>
+                        </li>
+                        <li class="flex justify-between border-b border-white/5 pb-2">
+                            <span class="text-gray-500">Input Latency</span>
+                            <span class="text-red-400">15ms - 25ms</span>
+                        </li>
+                        <li class="flex justify-between pb-2">
+                            <span class="text-gray-500">Telemetry</span>
+                            <span class="text-red-400">Always On</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="p-8 rounded-3xl border border-brand/50 bg-gradient-to-b from-brand/10 to-black relative transform md:scale-105 shadow-[0_0_50px_rgba(255,0,60,0.1)]">
+                    <div class="absolute -top-3 right-8 bg-brand text-white text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED</div>
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i data-lucide="zap" class="w-5 text-brand"></i> QuO Optimized
+                    </h3>
+                    <ul class="space-y-6">
+                        <li class="flex justify-between border-b border-white/10 pb-2">
+                            <span class="text-gray-300">Processes</span>
+                            <span class="text-brand font-bold">45 - 60</span>
+                        </li>
+                        <li class="flex justify-between border-b border-white/10 pb-2">
+                            <span class="text-gray-300">RAM Usage (Idle)</span>
+                            <span class="text-brand font-bold">1.2 GB</span>
+                        </li>
+                        <li class="flex justify-between border-b border-white/10 pb-2">
+                            <span class="text-gray-300">Input Latency</span>
+                            <span class="text-green-400 font-bold">0.5ms - 2ms</span>
+                        </li>
+                        <li class="flex justify-between pb-2">
+                            <span class="text-gray-300">Telemetry</span>
+                            <span class="text-green-400 font-bold">Hard Disabled</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 max-w-3xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-10 text-center">Frequently Asked <span class="text-gray-500">Questions</span></h2>
+        
+        <div class="space-y-4">
+            <div class="border border-white/10 rounded-xl bg-[#0F0F11] overflow-hidden group">
+                <details class="p-6 cursor-pointer">
+                    <summary class="flex justify-between items-center font-medium text-lg list-none">
+                        <span class="group-hover:text-brand transition">Will this get me banned in games?</span>
+                        <i data-lucide="chevron-down" class="w-5 text-gray-500 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-gray-400 mt-4 leading-relaxed text-sm">
+                        <span class="text-green-400 font-bold">Absolutely not.</span> QuO modifies Windows Registry keys and Power Plans. It does not inject code into games (like .dll injection) and does not interact with game memory. Anti-Cheats (Vanguard, RICOChet, VAC) do not flag system optimizations.
+                    </p>
+                </details>
+            </div>
+
+            <div class="border border-white/10 rounded-xl bg-[#0F0F11] overflow-hidden group">
+                <details class="p-6 cursor-pointer">
+                    <summary class="flex justify-between items-center font-medium text-lg list-none">
+                        <span class="group-hover:text-brand transition">Is it safe? Can I revert changes?</span>
+                        <i data-lucide="chevron-down" class="w-5 text-gray-500 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-gray-400 mt-4 leading-relaxed text-sm">
+                        Yes. QuO automatically creates a <span class="text-white">System Restore Point</span> before applying any tweaks. If you don't like the changes, you can click "Restore" inside the app to return your PC to its exact previous state in seconds.
+                    </p>
+                </details>
+            </div>
+
+            <div class="border border-white/10 rounded-xl bg-[#0F0F11] overflow-hidden group">
+                <details class="p-6 cursor-pointer">
+                    <summary class="flex justify-between items-center font-medium text-lg list-none">
+                        <span class="group-hover:text-brand transition">Does this work on Windows 11?</span>
+                        <i data-lucide="chevron-down" class="w-5 text-gray-500 transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <p class="text-gray-400 mt-4 leading-relaxed text-sm">
+                        Yes, QuO v2.0 is fully optimized for the latest builds of Windows 10 (20H2+) and Windows 11 (22H2/23H2). It specifically targets Windows 11's Virtualization-Based Security (VBS) features that hurt gaming performance.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-brand/5 -z-10"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand/10 rounded-full blur-[120px] -z-10"></div>
+        
+        <h2 class="text-4xl md:text-6xl font-black mb-6">Ready to <span class="text-white">Dominate?</span></h2>
+        <p class="text-gray-400 mb-10 text-lg">Join 20,000+ players who have already unlocked their hardware's potential.</p>
+        
+        <a href="download.html" class="inline-flex items-center gap-3 bg-white text-black px-12 py-5 rounded-full font-bold text-xl hover:bg-gray-200 hover:scale-105 transition shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+            Download Now <i data-lucide="arrow-right" class="w-6"></i>
+        </a>
+        <p class="mt-4 text-xs text-gray-600 font-mono">v2.1 Stable • Windows 10/11 • 12MB</p>
+    </section>
+
     <footer class="bg-[#050505] border-t border-white/10 pt-20 pb-10">
         <div class="max-w-7xl mx-auto px-6">
             
@@ -424,3 +639,4 @@
     </script>
 </body>
 </html>
+
