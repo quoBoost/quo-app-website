@@ -1,93 +1,101 @@
-// ==========================================
-// 1. CONFIGURACIÓN
-// ==========================================
+// 1. Configuración SUPABASE
 const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co'; 
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A'; // <--- ¡NO OLVIDES PEGAR TU CLAVE!
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ==========================================
-// 2. ELEMENTOS DEL DOM
-// ==========================================
-const authSection = document.getElementById('auth-section');
+// 2. Inicialización de UI
+document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+    if(window.AOS) AOS.init({ duration: 800, once: true });
+    
+    checkSession();
+    initSpotlightEffect();
+    initPerformanceBars();
+});
 
-// ==========================================
-// 3. FUNCIONES DE AUTH
-// ==========================================
+// 3. Efecto Spotlight (Estilo React.bits)
+function initSpotlightEffect() {
+    const cards = document.querySelectorAll('.spotlight-card');
+    const container = document.getElementById('cards-container');
 
+    if (container) {
+        container.onmousemove = e => {
+            for(const card of cards) {
+                const rect = card.getBoundingClientRect(),
+                      x = e.clientX - rect.left,
+                      y = e.clientY - rect.top;
+
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            }
+        }
+    }
+}
+
+// 4. Animación de Barras de Rendimiento (Observer)
+function initPerformanceBars() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bars = entry.target.querySelectorAll('.perf-bar');
+                bars.forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-width');
+                });
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const section = document.querySelector('#benchmarks');
+    if(section) observer.observe(section);
+}
+
+// 5. Autenticación (Supabase)
 async function checkSession() {
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    if (session) {
-        updateNavbarLoggedIn(session.user);
+    const { data: { session } } = await supabase.auth.getSession();
+    const authContainer = document.getElementById('auth-section');
+    
+    if (session && authContainer) {
+        // Obtener estado premium
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('is_premium')
+            .eq('id', session.user.id)
+            .single();
+            
+        const isPro = profile?.is_premium;
+        
+        authContainer.innerHTML = `
+            <div class="flex items-center gap-3 relative group">
+                <div class="text-right hidden sm:block">
+                    <p class="text-xs text-gray-400 font-bold">Welcome</p>
+                    <p class="text-sm font-bold text-white">${session.user.email.split('@')[0]}</p>
+                </div>
+                <div class="w-10 h-10 rounded-lg ${isPro ? 'bg-gradient-to-br from-red-600 to-purple-600 shadow-[0_0_15px_#ef4444]' : 'bg-gray-800'} flex items-center justify-center border border-white/10 cursor-pointer">
+                    ${session.user.user_metadata.avatar_url ? `<img src="${session.user.user_metadata.avatar_url}" class="rounded-lg">` : '<i data-lucide="user" class="text-white w-5"></i>'}
+                </div>
+                
+                <div class="absolute right-0 top-12 w-48 bg-[#0a0a0a] border border-white/10 rounded-xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-2xl">
+                    <a href="download.html" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:bg-white/5 rounded-lg hover:text-white transition">
+                        <i data-lucide="download" class="w-4"></i> Download
+                    </a>
+                    <button onclick="logout()" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-400 hover:bg-red-900/10 rounded-lg transition text-left">
+                        <i data-lucide="log-out" class="w-4"></i> Sign Out
+                    </button>
+                </div>
+            </div>
+        `;
+        lucide.createIcons();
     }
 }
 
 async function loginWithGoogle() {
-    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+    await supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: { redirectTo: 'https://quoboost.vercel.app/' }
+        options: { redirectTo: window.location.origin }
     });
-    if (error) console.error("Login Error:", error);
 }
 
 async function logout() {
-    await supabaseClient.auth.signOut();
+    await supabase.auth.signOut();
     window.location.reload();
 }
-
-// ==========================================
-// 4. UI UPDATES
-// ==========================================
-
-async function updateNavbarLoggedIn(user) {
-    if (!authSection) return;
-
-    // Obtener estado Premium
-    const { data: profile } = await supabaseClient
-        .from('profiles')
-        .select('is_premium')
-        .eq('id', user.id)
-        .single();
-
-    const isPremium = profile?.is_premium;
-    const badgeColor = isPremium ? 'bg-gradient-to-r from-blue-600 to-purple-600' : 'bg-gray-700';
-    const badgeText = isPremium ? 'PRO' : 'FREE';
-
-    // Reemplazar botones de login por Perfil de Usuario
-    authSection.innerHTML = `
-        <div class="flex items-center gap-3">
-            <div class="text-right hidden sm:block">
-                <div class="text-xs text-gray-400 uppercase font-bold tracking-wider">Welcome</div>
-                <div class="text-sm font-bold text-white truncate max-w-[150px]">${user.email.split('@')[0]}</div>
-            </div>
-            <div class="relative group cursor-pointer">
-                <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
-                    ${user.user_metadata.avatar_url 
-                        ? `<img src="${user.user_metadata.avatar_url}" class="w-full h-full object-cover">` 
-                        : user.email[0].toUpperCase()}
-                </div>
-                <div class="absolute -bottom-1 -right-1 px-1.5 py-0.5 bg-black rounded border border-white/20 text-[10px] font-bold ${isPremium ? 'text-blue-400' : 'text-gray-400'}">
-                    ${badgeText}
-                </div>
-
-                <div class="absolute right-0 mt-2 w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
-                    <div class="p-2 space-y-1">
-                        <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1">${user.email}</div>
-                        ${isPremium 
-                            ? `<a href="download.html" class="block px-3 py-2 text-sm text-white hover:bg-white/10 rounded flex items-center gap-2"><i data-lucide="download" class="w-4"></i> Download App</a>` 
-                            : `<a href="pricing.html" class="block px-3 py-2 text-sm text-yellow-400 hover:bg-white/10 rounded flex items-center gap-2"><i data-lucide="zap" class="w-4"></i> Go Premium</a>`
-                        }
-                        <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
-                            <i data-lucide="log-out" class="w-4"></i> Logout
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Reinicializar iconos para el nuevo contenido inyectado
-    if(window.lucide) lucide.createIcons();
-}
-
-// Init
-checkSession();
