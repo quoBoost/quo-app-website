@@ -1,5 +1,5 @@
 // ==========================================
-// 1. CONFIGURACIÓN FINAL (CONFIRMADA)
+// 1. CONFIGURACIÓN FINAL (CORREGIDA)
 // ==========================================
 // URL del proyecto
 const SUPABASE_URL = 'https://rlympzqzxqwpgmogpqql.supabase.co'; 
@@ -7,8 +7,8 @@ const SUPABASE_URL = 'https://rlympzqzxqwpgmogpqql.supabase.co';
 // CLAVE ANÓNIMA (¡PEGA TU CLAVE COMPLETA REAL AQUI!)
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A'; 
 
-// Inicializar cliente
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// Inicializar cliente con nombre único para evitar conflicto de SCOPE
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Elementos del DOM (HTML)
 const authSection = document.getElementById('auth-section');
@@ -24,7 +24,8 @@ const contentPremium = document.getElementById('content-premium');
 // ==========================================
 
 async function checkSession() {
-    const { data: { session } } = await supabase.auth.getSession();
+    // Usamos supabaseClient
+    const { data: { session } } = await supabaseClient.auth.getSession();
     if (session) {
         showLoggedInUI(session.user);
     } else {
@@ -33,7 +34,8 @@ async function checkSession() {
 }
 
 async function loginWithGoogle() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    // Usamos supabaseClient
+    const { data, error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'google',
         options: {
             redirectTo: window.location.href 
@@ -43,7 +45,8 @@ async function loginWithGoogle() {
 }
 
 async function logout() {
-    const { error } = await supabase.auth.signOut();
+    // Usamos supabaseClient
+    const { error } = await supabaseClient.auth.signOut();
     if (error) console.error("Error al cerrar sesión:", error);
     window.location.reload();
 }
@@ -64,7 +67,9 @@ async function showLoggedInUI(user) {
     authSection.innerHTML = `<span class="text-green-500 text-xs mr-2">● ONLINE</span>`;
     userEmailDisplay.textContent = user.email;
 
-    const { data: profile, error } = await supabase
+    // CONSULTAR BASE DE DATOS: ¿ES PREMIUM?
+    // Usamos supabaseClient
+    const { data: profile, error } = await supabaseClient
         .from('profiles')
         .select('is_premium') 
         .eq('id', user.id)
