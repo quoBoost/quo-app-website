@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuO | Next-Gen Windows Optimization</title>
+    <title>QuO | Next-Gen Windows Optimization & Latency Killer</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -22,25 +23,29 @@
                     },
                     colors: {
                         brand: {
-                            500: '#FF2E2E',
+                            500: '#FF2E2E', /* Rojo principal */
                             600: '#D91818',
                             900: '#450a0a',
-                        }
+                        },
+                        dark: '#050505'
                     },
                     animation: {
-                        'blob': 'blob 7s infinite',
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'gradual-blur': 'gradualBlur 3s ease-out forwards',
+                        'counter': 'counter 1.5s ease-out forwards',
+                        'tilt': 'tilt 10s infinite linear',
                     },
                     keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        gradualBlur: {
+                            '0%': { filter: 'blur(10px)', opacity: '0' },
+                            '100%': { filter: 'blur(0)', opacity: '1' },
                         },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        counter: {
+                            '0%': { transform: 'translateY(10px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        tilt: {
+                            '0%, 100%': { transform: 'rotateX(2deg) rotateY(-2deg)' },
+                            '50%': { transform: 'rotateX(-2deg) rotateY(2deg)' },
                         }
                     }
                 }
@@ -54,8 +59,8 @@
             color: #ffffff;
             overflow-x: hidden;
         }
-
-        /* Fondo de Rejilla Tecnológico */
+        
+        /* Grid de Fondo */
         .bg-grid {
             background-size: 50px 50px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -67,218 +72,221 @@
             z-index: -1;
         }
 
-        /* Efecto Glass */
-        .glass {
+        /* Glass / Card Look */
+        .glass-card {
             background: rgba(10, 10, 10, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s;
+        }
+        
+        /* Tilted Card Effect */
+        .tilted-card-container {
+            perspective: 1000px;
+        }
+        .tilted-card {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease-out;
+            transform: rotateX(5deg) rotateY(-5deg) scale(0.95);
+        }
+        .tilted-card-container:hover .tilted-card {
+            transform: rotateX(0deg) rotateY(0deg) scale(1);
         }
 
-        /* Efecto Spotlight (Cursor Follower) */
-        .spotlight-group:hover .spotlight-card::after {
-            opacity: 1;
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(45deg, #ffffff 40%, #ff6e6e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .spotlight-card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 1rem;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.2s;
-        }
-        .spotlight-card:hover {
-            transform: translateY(-2px);
-        }
-        .spotlight-card::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 46, 46, 0.1), transparent 40%);
+        
+        /* Counter */
+        .counter-value {
             opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .spotlight-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Texto Gradiente */
-        .text-glow {
-            text-shadow: 0 0 30px rgba(255, 46, 46, 0.5);
         }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-500 selection:text-white">
 
     <div class="bg-grid"></div>
-    <div class="fixed top-0 left-1/4 w-96 h-96 bg-brand-600/20 rounded-full blur-[128px] animate-blob mix-blend-screen"></div>
-    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[128px] animate-blob animation-delay-2000 mix-blend-screen"></div>
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-brand-600/20 rounded-full blur-[150px] mix-blend-screen -z-10 animate-pulse"></div>
 
     <nav class="fixed w-full z-50 top-0 border-b border-white/5 bg-black/50 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-2 group">
-                <div class="w-8 h-8 bg-brand-600 rounded flex items-center justify-center font-bold text-white shadow-[0_0_15px_rgba(255,46,46,0.4)] group-hover:shadow-[0_0_25px_rgba(255,46,46,0.6)] transition duration-300">Q</div>
-                <span class="font-bold tracking-tight text-lg">QuO</span>
+            <a href="#" class="flex items-center gap-2 font-extrabold text-xl">
+                <div class="w-8 h-8 bg-brand-600 rounded flex items-center justify-center text-white">Q</div>
+                QuO<span class="text-brand-500 text-xs font-mono ml-1">v2.1</span>
             </a>
 
             <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
-                <a href="#features" class="hover:text-white transition">Capabilities</a>
-                <a href="#benchmarks" class="hover:text-white transition">Benchmarks</a>
+                <a href="#features" class="hover:text-white transition">Features</a>
+                <a href="#data" class="hover:text-white transition">Deep Data</a>
                 <a href="pricing.html" class="hover:text-white transition">Pricing</a>
             </div>
 
-            <div id="auth-container" class="flex items-center gap-4">
-                <button onclick="login()" class="text-sm font-medium text-gray-300 hover:text-white transition">Login</button>
-                <a href="download.html" class="bg-white text-black px-5 py-2 rounded-lg text-sm font-bold hover:bg-gray-200 transition shadow-lg shadow-white/10">Get Started</a>
+            <div id="auth-container">
+                <a href="download.html" class="bg-brand-500 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-brand-600 transition shadow-lg shadow-brand-500/20">
+                    <i data-lucide="download" class="w-4 h-4 inline-block mr-1"></i> Download QuO
+                </a>
             </div>
         </div>
     </nav>
 
     <main class="relative pt-32 pb-20 px-6">
         <div class="max-w-5xl mx-auto text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-500 text-xs font-bold uppercase tracking-wider mb-8 animate-fade-in-up">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-                </span>
-                QuO v2.1 Is Live
-            </div>
-
-            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tight mb-8 leading-[1] animate-fade-in-up" style="animation-delay: 0.1s;">
-                Unlock Your Hardware's <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-500">True Potential</span>
+            
+            <h1 class="text-6xl md:text-8xl font-black tracking-tight mb-8 leading-[1.1] animate-gradual-blur" style="animation-delay: 0.1s;">
+                <span class="text-gradient">LATENCY</span> IS A CHOICE. <br>
+                UNLOCK <span class="text-brand-500">REAL FPS.</span>
             </h1>
 
-            <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up" style="animation-delay: 0.2s;">
-                Windows wasn't built for gaming. <strong class="text-white">QuO</strong> is. Eliminate input lag, optimize kernel threads, and stabilize frametimes with a single click.
+            <p class="text-lg text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed animate-gradual-blur" style="animation-delay: 0.3s;">
+                QuO re-engineers Windows 10/11 for competitive gaming. We dive into the kernel, stabilize frame times, and reduce DPC latency by up to 80%.
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style="animation-delay: 0.3s;">
-                <a href="download.html" class="group relative px-8 py-4 bg-brand-600 rounded-xl text-white font-bold overflow-hidden">
-                    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></div>
-                    <span class="flex items-center gap-2 relative z-10"><i data-lucide="download"></i> Download Free</span>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-gradual-blur" style="animation-delay: 0.5s;">
+                <a href="download.html" class="group relative px-10 py-4 bg-brand-500 rounded-xl text-white font-extrabold text-lg uppercase shadow-xl shadow-brand-600/30 hover:shadow-brand-500/50 transition duration-300">
+                    <span class="flex items-center gap-2"><i data-lucide="download-cloud" class="w-6 h-6"></i> FREE DOWNLOAD</span>
                 </a>
-                <a href="#benchmarks" class="px-8 py-4 rounded-xl border border-white/10 text-white font-bold hover:bg-white/5 transition flex items-center gap-2">
-                    <i data-lucide="bar-chart-2" class="text-gray-400"></i> View Data
+                <a href="#features" class="px-10 py-4 rounded-xl border border-white/10 text-white font-bold hover:bg-white/5 transition flex items-center gap-2 text-lg">
+                    <i data-lucide="zap" class="text-brand-500"></i> See the Tech
                 </a>
             </div>
             
-            <div class="mt-24 relative max-w-4xl mx-auto animate-fade-in-up" style="animation-delay: 0.5s;">
-                <div class="absolute -inset-1 bg-gradient-to-r from-brand-600 to-purple-600 rounded-2xl blur-lg opacity-30"></div>
-                <div class="relative glass rounded-xl overflow-hidden aspect-video flex flex-col shadow-2xl">
-                    <div class="h-10 border-b border-white/10 bg-black/40 flex items-center px-4 gap-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
-                        <span class="ml-4 text-xs font-mono text-gray-500">QuO_Engine.exe</span>
-                    </div>
-                    <div class="flex-1 p-8 flex items-center justify-center bg-[#0a0a0a]">
-                        <div class="grid grid-cols-3 gap-8 w-full">
-                            <div class="bg-white/5 rounded-lg p-6 border border-white/5 text-center">
-                                <p class="text-gray-500 text-xs uppercase tracking-widest mb-2">Input Delay</p>
-                                <p class="text-4xl font-mono font-bold text-brand-500">0.5ms</p>
-                            </div>
-                            <div class="bg-white/5 rounded-lg p-6 border border-white/5 text-center">
-                                <p class="text-gray-500 text-xs uppercase tracking-widest mb-2">FPS Stability</p>
-                                <p class="text-4xl font-mono font-bold text-green-400">99.9%</p>
-                            </div>
-                            <div class="bg-white/5 rounded-lg p-6 border border-white/5 text-center">
-                                <p class="text-gray-500 text-xs uppercase tracking-widest mb-2">Processes</p>
-                                <p class="text-4xl font-mono font-bold text-white">-124</p>
-                            </div>
-                        </div>
+            <div class="mt-20 relative max-w-6xl mx-auto group">
+                <div class="absolute inset-4 bg-brand-500/30 rounded-3xl blur-[80px] opacity-40 group-hover:opacity-70 transition duration-500"></div>
+                
+                <div class="relative glass-card rounded-3xl overflow-hidden shadow-2xl border-brand-500/20">
+                    <img src="assets/hardwarepage.png" 
+                         alt="Captura de la aplicación QuO, mostrando la página de hardware optimizado." 
+                         class="w-full h-auto object-cover"
+                         style="aspect-ratio: 16/9;"
+                    >
+                    <div class="absolute top-0 left-0 right-0 h-8 border-b border-white/10 bg-black/40 flex items-center px-4">
+                        <span class="text-xs font-mono text-gray-500">hardwarepage.png</span>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <section id="features" class="py-24 max-w-7xl mx-auto px-6 spotlight-group" onmousemove="handleMouseMove(event)">
-        <div class="mb-16">
-            <h2 class="text-4xl font-bold mb-4">Engineered for <span class="text-brand-500">Performance</span></h2>
-            <p class="text-gray-400">Not just a cleaner. A system restructuring tool.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="spotlight-card md:col-span-2 md:row-span-2 p-10 flex flex-col justify-between h-96 group">
-                <div class="spotlight-content h-full flex flex-col">
-                    <div class="w-12 h-12 bg-brand-500/10 rounded-lg flex items-center justify-center text-brand-500 mb-6 border border-brand-500/20">
-                        <i data-lucide="cpu" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-brand-500 transition-colors">Kernel Scheduler Remapping</h3>
-                    <p class="text-gray-400 text-lg leading-relaxed max-w-md">
-                        Windows balances efficiency. We force the kernel to prioritize your game's thread, ensuring 100% core affinity and preventing context switching mid-frame.
-                    </p>
-                    <div class="mt-auto pt-6 flex gap-4 text-sm font-mono text-gray-500">
-                        <span>> IRQ_PRIORITY_HIGH</span>
-                        <span>> THREAD_BOOST_ENABLED</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="spotlight-card p-8 group">
-                <div class="spotlight-content">
-                    <i data-lucide="wifi" class="text-brand-500 w-8 h-8 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Network Stack</h3>
-                    <p class="text-sm text-gray-400">Disables Nagle's algorithm and optimizes TCP MTU for zero packet jitter.</p>
-                </div>
-            </div>
-
-            <div class="spotlight-card p-8 group">
-                <div class="spotlight-content">
-                    <i data-lucide="trash-2" class="text-brand-500 w-8 h-8 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Deep Debloat</h3>
-                    <p class="text-sm text-gray-400">Removes Cortana, Telemetry, and 50+ dormant background services.</p>
-                </div>
-            </div>
-            
-            <div class="spotlight-card md:col-span-3 p-8 flex items-center justify-between gap-8 group">
-                <div class="spotlight-content flex-1">
-                    <div class="flex items-center gap-3 mb-2">
-                         <i data-lucide="shield-check" class="text-brand-500 w-6 h-6"></i>
-                         <h3 class="text-xl font-bold">100% Safe & Reversible</h3>
-                    </div>
-                    <p class="text-gray-400">QuO automatically creates a System Restore Point before applying any changes. Sandbox tested.</p>
-                </div>
-                <div class="hidden md:block pr-8 opacity-50 font-mono text-xs text-right">
-                    SECURE_BOOT_COMPATIBLE<br>
-                    NO_FILE_INJECTION
-                </div>
+    <section class="py-16 bg-black/50 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-lg font-mono text-brand-500 mb-4 tracking-widest uppercase">Trusted by the Pros</p>
+            <div id="user-counter" class="text-6xl md:text-8xl font-extrabold text-white flex justify-center items-center gap-4">
+                <span id="counter-display" class="counter-value text-gradient">0</span>
+                <span class="text-5xl md:text-8xl">+</span>
+                <span class="text-3xl font-light text-gray-400">GAMERS OPTIMIZED</span>
             </div>
         </div>
     </section>
 
-    <footer class="border-t border-white/5 bg-black py-12 text-center text-sm text-gray-600">
-        <p>&copy; 2025 QuO Optimization. Built for WinUI 3.</p>
-    </footer>
+    <section id="features" class="py-24 max-w-7xl mx-auto px-6">
+        <h2 class="text-4xl font-extrabold mb-12 text-center">The <span class="text-brand-500">Unfair</span> Advantage</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            
+            <div class="glass-card rounded-2xl p-8 md:col-span-2 md:row-span-2 group hover:border-brand-500/50">
+                <div class="w-16 h-16 bg-brand-500/10 rounded-xl flex items-center justify-center text-brand-500 mb-6 border border-brand-500/20">
+                    <i data-lucide="cpu" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-3xl font-bold mb-3">Kernel CPU Thread Prioritization</h3>
+                <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                    Redefine Windows' approach to CPU resource allocation. We stop background services from "stealing" critical cycles from your game thread, ensuring minimal input processing delay.
+                </p>
+                <div class="pt-4 border-t border-white/10">
+                    <span class="font-mono text-xs text-gray-500 block">Status: <span class="text-green-400">SYSTEM_CRITICAL_PATCH_APPLIED</span></span>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-8 md:col-span-2 group hover:border-brand-500/50">
+                <i data-lucide="zap" class="text-brand-500 w-8 h-8 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Input Lag Eradication</h3>
+                <p class="text-sm text-gray-400">Targets DPC/ISR routines, minimizing latency from mouse clicks to visual output by eliminating micro-stutters.</p>
+            </div>
+
+            <div class="glass-card rounded-2xl p-8 group hover:border-brand-500/50">
+                <i data-lucide="wifi" class="text-brand-500 w-8 h-8 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Network Stack Refined</h3>
+                <p class="text-sm text-gray-400">Custom TCP/IP parameters for stable ping and reduced packet loss. Bye-bye, jitter.</p>
+            </div>
+
+            <div class="glass-card rounded-2xl p-8 group hover:border-brand-500/50">
+                <i data-lucide="cloud-off" class="text-brand-500 w-8 h-8 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Privacy & Debloat</h3>
+                <p class="text-sm text-gray-400">Complete removal of Microsoft Telemetry, Cortana, and other background resource hogs.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-24 bg-dark/50" id="data">
+        <div class="max-w-4xl mx-auto px-6 tilted-card-container">
+            <div class="tilted-card glass-card rounded-3xl p-12 text-center border-brand-500/40 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+                <p class="text-sm font-mono text-brand-500 uppercase mb-4">Exclusive Data Access</p>
+                <h2 class="text-4xl font-extrabold mb-6">Latency Test Results</h2>
+                <p class="text-xl text-gray-300 mb-8">
+                    Stop guessing. See the before and after with live, reproducible data. Our internal telemetry shows an <span class="text-brand-500 font-bold">average reduction of 65%</span> in overall system latency across 100+ hardware configurations.
+                </p>
+                <a href="#benchmarks" class="px-8 py-3 bg-brand-500 text-white rounded-lg font-bold hover:bg-brand-600 transition inline-flex items-center gap-2">
+                    View Benchmark Graphs <i data-lucide="arrow-right" class="w-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <script>
-        // Init Icons
+        // Inicializar Iconos
         lucide.createIcons();
 
-        // Spotlight Effect Logic
-        function handleMouseMove(e) {
-            const cards = document.getElementsByClassName("spotlight-card");
-            for (const card of cards) {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty("--mouse-x", `${x}px`);
-                card.style.setProperty("--mouse-y", `${y}px`);
-            }
+        // Lógica de Counter (reactbits.dev/components/counter)
+        const counterElement = document.getElementById('counter-display');
+        const targetValue = 20; // 20k
+        const duration = 1500; // ms
+
+        function animateCounter() {
+            if (!counterElement) return;
+
+            // Mostrar el elemento con animación
+            counterElement.style.animationName = 'counter';
+            
+            let start = null;
+            const step = (timestamp) => {
+                if (!start) start = timestamp;
+                const progress = timestamp - start;
+                const percentage = Math.min(progress / duration, 1);
+                
+                // Redondear el número y añadir el 'K'
+                const currentValue = Math.floor(percentage * targetValue);
+                counterElement.textContent = currentValue;
+                
+                if (percentage < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    counterElement.textContent = targetValue.toLocaleString() + 'K';
+                }
+            };
+            window.requestAnimationFrame(step);
         }
 
-        // Supabase Auth Stub (Ready for your Logic)
-        const supabaseUrl = 'YOUR_SUPABASE_URL'; 
-        const supabaseKey = 'YOUR_SUPABASE_KEY';
-        // const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        // Observer para activar el contador cuando es visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter();
+                    observer.unobserve(entry.target); // Detener el observer
+                }
+            });
+        }, { threshold: 0.5 }); // Se activa cuando el 50% del elemento es visible
 
+        const counterSection = document.getElementById('user-counter');
+        if (counterSection) {
+            observer.observe(counterSection);
+        }
+
+        // Placeholder de Lógica Auth
         function login() {
-            console.log("Triggering Google Login...");
-            // await supabase.auth.signInWithOAuth({ provider: 'google' });
+            console.log("Login sequence initiated.");
         }
     </script>
 </body>
