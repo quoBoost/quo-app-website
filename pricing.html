@@ -4,96 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuO | Pricing</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    colors: { brand: { 500: '#FF2E2E', 600: '#D91818' } }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #050505; color: white; }
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
+            position: fixed; inset: 0; z-index: -1;
+        }
+        .card-glass {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .card-glass:hover {
+            border-color: rgba(255, 46, 46, 0.3);
+            box-shadow: 0 0 40px rgba(255, 46, 46, 0.1);
+            transform: translateY(-5px);
+        }
+    </style>
 </head>
-<body class="bg-black text-white selection:bg-red-500 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
 
-    <div class="bg-noise"></div>
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-red-900/20 rounded-full blur-[150px] pointer-events-none -z-10"></div>
+    <div class="bg-grid"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-600/10 rounded-full blur-[150px] -z-10 pointer-events-none"></div>
 
-    <nav class="w-full z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-red-600 rounded flex items-center justify-center font-bold text-white">Q</div>
-                <span class="font-bold">QuO</span>
-            </a>
-            <div id="auth-section">
-                <button onclick="loginWithGoogle()" class="text-sm font-medium text-gray-300">Login</button>
-            </div>
-        </div>
+    <nav class="w-full h-20 flex items-center justify-between px-6 max-w-7xl mx-auto z-50">
+        <a href="index.html" class="flex items-center gap-2 font-bold text-xl">
+            <div class="w-8 h-8 bg-brand-600 rounded flex items-center justify-center text-sm">Q</div>
+            QuO
+        </a>
+        <a href="index.html" class="text-sm text-gray-400 hover:text-white transition">Back to Home</a>
     </nav>
 
-    <main class="flex-grow flex flex-col items-center justify-center py-20 px-6">
-        <div class="text-center mb-16 max-w-2xl">
-            <h1 class="text-5xl md:text-6xl font-black mb-6">Simple <span class="text-gradient">Pricing</span></h1>
-            <p class="text-gray-400 text-lg">Invest in your machine. Less than the cost of a skin.</p>
+    <main class="flex-grow flex flex-col items-center pt-10 pb-20 px-6">
+        
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Invest in <span class="text-brand-500">Performance</span></h1>
+            <p class="text-gray-400">Stop upgrading hardware. Start optimizing software.</p>
         </div>
 
-        <div class="flex items-center bg-white/5 p-1 rounded-full mb-12 border border-white/10">
-            <button id="monthly-btn" class="px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all" onclick="setPlan('monthly')">Monthly</button>
-            <button id="yearly-btn" class="px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all" onclick="setPlan('yearly')">Yearly <span class="text-green-500 text-xs">-20%</span></button>
+        <div class="relative bg-white/5 p-1 rounded-full flex items-center mb-16 border border-white/5">
+            <button onclick="setPeriod('monthly')" id="btn-monthly" class="px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all">Monthly</button>
+            <button onclick="setPeriod('yearly')" id="btn-yearly" class="px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all">
+                Yearly <span class="text-green-400 text-[10px] ml-1">-20%</span>
+            </button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full" id="cards-container">
-            <div class="spotlight-card rounded-3xl p-8 border border-white/5 flex flex-col">
-                <h3 class="text-2xl font-bold mb-2 text-gray-400">Basic</h3>
-                <div class="text-4xl font-bold mb-6 text-white">$0</div>
-                <ul class="space-y-4 mb-8 flex-grow">
-                    <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 text-gray-500"></i> Temp Cleaner</li>
-                    <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 text-gray-500"></i> Basic Debloat</li>
-                    <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 text-gray-500"></i> Restore Points</li>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+            
+            <div class="card-glass rounded-3xl p-8 flex flex-col">
+                <div class="mb-4">
+                    <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
+                    <div class="text-4xl font-bold mt-2 text-white">$0</div>
+                </div>
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 text-gray-500"></i> Basic Temp Cleaner</li>
+                    <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 text-gray-500"></i> Generic Windows Debloat</li>
+                    <li class="flex items-center gap-3 text-sm text-gray-300"><i data-lucide="check" class="w-4 text-gray-500"></i> Restore Point Manager</li>
                 </ul>
-                <a href="download.html" class="w-full py-4 rounded-xl border border-white/10 text-center font-bold hover:bg-white/5 transition">Download</a>
+                <a href="download.html" class="w-full py-4 rounded-xl border border-white/10 text-center font-bold hover:bg-white/5 transition text-sm">Download Free</a>
             </div>
 
-            <div class="spotlight-card rounded-3xl p-8 border border-red-500/30 flex flex-col relative overflow-visible">
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-red-600 text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest shadow-[0_0_20px_rgba(220,38,38,0.5)]">MOST POPULAR</div>
-                
-                <h3 class="text-2xl font-bold mb-2 text-red-500">Ultimate</h3>
-                <div class="flex items-end gap-2 mb-6">
-                    <div id="price-display" class="text-5xl font-bold text-white transition-all duration-300">$9.99</div>
-                    <div id="period-display" class="text-gray-500 mb-2">/ month</div>
+            <div class="card-glass rounded-3xl p-8 relative border-brand-500/30 flex flex-col">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-600 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand-600/40">RECOMMENDED</div>
+                <div class="mb-4">
+                    <span class="text-brand-500 font-bold tracking-widest text-xs uppercase">Ultimate</span>
+                    <div class="flex items-end gap-1 mt-2">
+                        <span id="price-display" class="text-5xl font-bold text-white transition-all">$9.99</span>
+                        <span id="period-display" class="text-gray-500 mb-1 text-sm">/mo</span>
+                    </div>
                 </div>
-
-                <ul class="space-y-4 mb-8 flex-grow">
-                    <li class="flex items-center gap-3 text-sm text-white font-medium"><i data-lucide="zap" class="w-4 text-red-500"></i> Kernel Thread Priority</li>
-                    <li class="flex items-center gap-3 text-sm text-white font-medium"><i data-lucide="zap" class="w-4 text-red-500"></i> Custom Power Plans</li>
-                    <li class="flex items-center gap-3 text-sm text-white font-medium"><i data-lucide="zap" class="w-4 text-red-500"></i> Network Stability (Anti-Jitter)</li>
-                    <li class="flex items-center gap-3 text-sm text-white font-medium"><i data-lucide="zap" class="w-4 text-red-500"></i> 24/7 Priority Support</li>
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="flex items-center gap-3 text-sm text-white"><i data-lucide="zap" class="w-4 text-brand-500"></i> <strong>Kernel Scheduler Optimization</strong></li>
+                    <li class="flex items-center gap-3 text-sm text-white"><i data-lucide="zap" class="w-4 text-brand-500"></i> Custom Power Plan X</li>
+                    <li class="flex items-center gap-3 text-sm text-white"><i data-lucide="zap" class="w-4 text-brand-500"></i> Network Jitter Reduction</li>
+                    <li class="flex items-center gap-3 text-sm text-white"><i data-lucide="zap" class="w-4 text-brand-500"></i> Priority Support</li>
                 </ul>
-                
-                <a id="checkout-link" href="#" class="btn-glow w-full py-4 rounded-xl bg-gradient-to-r from-red-600 to-red-500 text-center font-bold text-white shadow-lg flex justify-center items-center gap-2 group">
-                    Unlock Performance <i data-lucide="arrow-right" class="w-4 group-hover:translate-x-1 transition"></i>
+                <a href="#" id="checkout-btn" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-600 to-red-500 text-center font-bold text-white shadow-lg shadow-brand-600/20 hover:scale-[1.02] transition flex justify-center items-center gap-2">
+                    Upgrade Now <i data-lucide="arrow-right" class="w-4"></i>
                 </a>
             </div>
+
         </div>
     </main>
 
-    <script src="script.js"></script>
     <script>
-        // Pricing Logic
+        lucide.createIcons();
+
         const priceDisplay = document.getElementById('price-display');
         const periodDisplay = document.getElementById('period-display');
-        const btnMonthly = document.getElementById('monthly-btn');
-        const btnYearly = document.getElementById('yearly-btn');
-        const checkoutLink = document.getElementById('checkout-link');
+        const btnMonthly = document.getElementById('btn-monthly');
+        const btnYearly = document.getElementById('btn-yearly');
+        const checkoutBtn = document.getElementById('checkout-btn');
 
-        function setPlan(plan) {
-            if (plan === 'monthly') {
-                priceDisplay.innerHTML = "$9.99";
-                periodDisplay.innerHTML = "/ month";
+        function setPeriod(type) {
+            if (type === 'monthly') {
+                priceDisplay.innerText = "$9.99";
+                periodDisplay.innerText = "/mo";
                 btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
                 btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
-                checkoutLink.href = "https://whop.com/checkout/YOUR_MONTHLY_LINK";
+                // Update Link
+                checkoutBtn.href = "https://whop.com/checkout/MONTHLY_ID";
             } else {
-                priceDisplay.innerHTML = "$79.99";
-                periodDisplay.innerHTML = "/ year";
+                priceDisplay.innerText = "$79.99";
+                periodDisplay.innerText = "/yr";
                 btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
                 btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
-                checkoutLink.href = "https://whop.com/checkout/YOUR_YEARLY_LINK";
+                // Update Link
+                checkoutBtn.href = "https://whop.com/checkout/YEARLY_ID";
             }
         }
     </script>
