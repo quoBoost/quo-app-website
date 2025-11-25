@@ -34,11 +34,11 @@ async function checkSession() {
 }
 
 async function loginWithGoogle() {
-    // Usamos supabaseClient
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'google',
         options: {
-            redirectTo: window.location.href 
+            // SOLUCIÓN: Usamos la URL en vivo forzosamente
+            redirectTo: 'https://quoboost.vercel.app/' 
         }
     });
     if (error) console.error("Error al iniciar sesión con Google:", error);
@@ -96,4 +96,5 @@ async function showLoggedInUI(user) {
 
 // Arrancar la app
 checkSession();
+
 
