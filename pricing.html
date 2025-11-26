@@ -72,6 +72,7 @@
             width: 100% !important;
             height: 100% !important;
             border: none;
+            background: transparent !important;
         }
         
         /* Animación Modal */
@@ -260,13 +261,14 @@
             </div>
 
             <!-- Body: Whop Iframe -->
-            <div class="w-full md:w-2/3 relative bg-white h-full">
-                <div id="whop-wrapper" class="w-full h-full">
+            <!-- CORREGIDO: Fondo oscuro para coincidir con tema "Dark" y overflow ajustado -->
+            <div class="w-full md:w-2/3 relative bg-[#0F0F11] h-full overflow-hidden">
+                <div id="whop-wrapper" class="w-full h-full overflow-y-auto">
                     <!-- IFRAME SE INYECTA AQUÍ -->
                 </div>
                 
                 <!-- Botón cerrar flotante para móvil -->
-                <button onclick="closeModal('whop-modal')" class="absolute top-4 right-4 bg-gray-100 p-2 rounded-full text-black hover:bg-gray-200 md:hidden z-10">
+                <button onclick="closeModal('whop-modal')" class="absolute top-4 right-4 bg-gray-800/80 backdrop-blur p-2 rounded-full text-white hover:bg-gray-700 md:hidden z-10">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -447,7 +449,8 @@
             // Crear Iframe
             const checkoutDiv = document.createElement('div');
             checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
-            checkoutDiv.setAttribute('data-whop-checkout-theme', 'light');
+            // CORREGIDO: Cambiado a 'dark' para que el iframe sea negro
+            checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark'); 
             checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
             // Forzar mostrar precio en Whop por si acaso, aunque ya lo mostramos nosotros
             checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false'); 
