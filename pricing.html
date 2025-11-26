@@ -8,10 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- Librerías Externas -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
+    <!-- SCRIPT OFICIAL DE WHOP -->
     <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
     
     <script>
@@ -65,12 +67,16 @@
         }
         .text-glow { text-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
         
-        /* Estilos para el iframe de Whop dentro del modal */
-        #whop-checkout-container iframe {
+        /* Estilos específicos para el Modal de Whop */
+        #whop-wrapper iframe {
             width: 100% !important;
             height: 100% !important;
-            border-radius: 1rem;
+            border: none;
         }
+        
+        /* Animación Modal */
+        .modal-enter { opacity: 0; transform: scale(0.95); pointer-events: none; }
+        .modal-active { opacity: 1; transform: scale(1); pointer-events: auto; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -78,6 +84,7 @@
     <div class="bg-grid"></div>
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand/10 rounded-full blur-[150px] -z-10 pointer-events-none animate-pulse-slow" style="animation-delay: 1s;"></div>
 
+    <!-- NAVBAR -->
     <nav class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
         <div class="bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-4 md:px-6 py-3 flex justify-between items-center shadow-2xl">
             <a href="/" class="flex items-center gap-2 md:gap-3 group">
@@ -89,11 +96,13 @@
                 <a href="/pricing" class="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition hidden md:block">Pricing</a>
                 
                 <div id="auth-section">
-                    </div>
+                    <!-- JS Inyecta Login/User aquí -->
+                </div>
             </div>
         </div>
     </nav>
 
+    <!-- MAIN CONTENT -->
     <main class="flex-grow flex flex-col items-center pt-32 pb-20 px-6 w-full">
         
         <div class="text-center mb-12 md:mb-16 max-w-3xl">
@@ -103,6 +112,7 @@
             <p class="text-gray-400 text-lg md:text-xl">Stop upgrading hardware. Start mastering your software.</p>
         </div>
 
+        <!-- Period Toggle -->
         <div class="relative bg-white/5 p-1 rounded-full flex items-center mb-12 border border-white/5">
             <button onclick="setPeriod('monthly')" id="btn-monthly" class="px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all">Monthly</button>
             <button onclick="setPeriod('yearly')" id="btn-yearly" class="px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all">
@@ -110,8 +120,10 @@
             </button>
         </div>
 
+        <!-- Pricing Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
             
+            <!-- FREE TIER -->
             <div class="card-glass rounded-3xl p-8 flex flex-col">
                 <div class="mb-6">
                     <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
@@ -123,6 +135,7 @@
                 </a>
             </div>
 
+            <!-- PREMIUM TIER (Subscription) -->
             <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.1)] flex flex-col">
                 <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand/40">ULTIMATE POWER</div>
                 
@@ -136,71 +149,152 @@
                 
                 <p class="text-gray-300 mb-8">Full, kernel-level access to the entire suite of optimization tools for pro-level stability and input.</p>
 
-                <button onclick="initiateCheckout()" id="checkout-btn" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
+                <!-- El botón detecta si es Monthly o Yearly según el estado actual -->
+                <button onclick="startPurchaseFlow('subscription')" id="checkout-btn" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
                     Upgrade Now <i data-lucide="zap" class="w-4"></i>
                 </button>
             </div>
 
-            <div class="card-glass rounded-3xl p-8 flex flex-col">
+            <!-- LIFETIME TIER -->
+             <div class="card-glass rounded-3xl p-8 flex flex-col">
                 <div class="mb-6">
                     <span class="text-green-400 font-bold tracking-widest text-xs uppercase">Lifetime</span>
                     <h3 class="text-4xl font-extrabold mt-2 text-white">$149<span class="text-sm text-gray-500 font-normal"> / one-time</span></h3>
                 </div>
                 <p class="text-gray-400 mb-8">Never pay again. Includes all future updates and features for the lifetime of the product.</p>
-                <button class="w-full py-4 rounded-xl border border-green-400/30 text-center font-bold hover:bg-green-400/5 transition text-sm text-green-400 flex justify-center items-center gap-2 cursor-not-allowed opacity-50">
-                    Coming Soon <i data-lucide="infinity" class="w-4"></i>
+                
+                <button onclick="startPurchaseFlow('lifetime')" class="w-full py-4 rounded-xl border border-green-400/30 text-center font-bold hover:bg-green-400/5 transition text-sm text-green-400 flex justify-center items-center gap-2 cursor-pointer">
+                    Get Lifetime <i data-lucide="infinity" class="w-4"></i>
                 </button>
             </div>
             
         </div>
-
-        <div class="w-full max-w-6xl mt-20">
-            <h2 class="text-3xl font-black text-white text-center mb-10">Detailed Feature Comparison</h2>
-            <div class="bg-surface rounded-2xl border border-white/10 overflow-hidden p-8 text-center text-gray-400">
-                <p>Full feature list available in application.</p>
-            </div>
+        
+        <!-- Feature table placeholder -->
+        <div class="w-full max-w-6xl mt-20 text-center text-gray-500 text-sm">
+            <p>* Features comparison available in app.</p>
         </div>
 
     </main>
 
+    <!-- FOOTER -->
     <footer id="support" class="bg-[#050505] border-t border-white/10 pt-16 md:pt-20 pb-10 mt-auto">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <p class="text-gray-600 text-xs">&copy; 2025 QuO Software Inc.</p>
         </div>
     </footer>
 
-    <div id="checkout-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-md p-4 opacity-0 transition-opacity duration-300">
-        <div class="relative w-full max-w-3xl h-[85vh] bg-[#0F0F11] rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col">
+    <!-- ========================================== -->
+    <!-- MODAL 1: SELECCIÓN DE MÉTODO DE PAGO -->
+    <!-- ========================================== -->
+    <div id="payment-method-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-enter">
+        <div class="bg-surface border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white">Select Payment Method</h3>
+                <button onclick="closeModal('payment-method-modal')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
             
-            <div class="flex justify-between items-center p-4 border-b border-white/5 bg-white/5">
-                <h3 class="text-white font-bold flex items-center gap-2">
-                    <i data-lucide="shield-check" class="w-5 h-5 text-brand"></i> Secure Checkout
-                </h3>
-                <button onclick="closeCheckout()" class="text-gray-400 hover:text-white transition">
-                    <i data-lucide="x" class="w-6 h-6"></i>
+            <div class="space-y-4">
+                <!-- Botón Tarjeta (Whop) -->
+                <button onclick="selectMethod('card')" class="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-brand/50 hover:bg-white/10 transition group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                            <i data-lucide="credit-card" class="w-5 h-5"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="font-bold text-white">Credit/Debit Card</div>
+                            <div class="text-xs text-gray-500">Powered by Whop Secure</div>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600 group-hover:text-white"></i>
+                </button>
+
+                <!-- Botón PayPal -->
+                <button onclick="selectMethod('paypal')" class="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#0070BA]/50 hover:bg-white/10 transition group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#0070BA]/20 flex items-center justify-center text-[#0070BA]">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7.076 21.337l.756-4.803h3.06a7.04 7.04 0 0 0 2.373-.24 4.542 4.542 0 0 0 3.125-3.085c.045-.19.083-.383.115-.58.12-.75.05-1.52-.224-2.227-.376-1.127-1.15-2.03-2.14-2.684A8.775 8.775 0 0 0 9.873 7H3.45a.695.695 0 0 0-.687.587l-2.75 17.5a.336.336 0 0 0 .332.388h4.588a.695.695 0 0 0 .687-.588l.608-3.876a.64.64 0 0 1 .632-.544h.216z"/></svg>
+                        </div>
+                        <div class="text-left">
+                            <div class="font-bold text-white">PayPal</div>
+                            <div class="text-xs text-gray-500">Pay fast and secure</div>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600 group-hover:text-white"></i>
                 </button>
             </div>
-
-            <div id="whop-wrapper" class="flex-grow w-full h-full relative bg-white">
-                </div>
         </div>
     </div>
 
 
+    <!-- ========================================== -->
+    <!-- MODAL 2: WHOP CHECKOUT (REDDISEÑADO) -->
+    <!-- ========================================== -->
+    <div id="whop-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-all duration-300 modal-enter">
+        <div class="relative w-full max-w-5xl h-[90vh] md:h-[80vh] bg-[#0F0F11] rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col md:flex-row">
+            
+            <!-- Sidebar: Resumen de Compra (Soluciona el problema visual) -->
+            <div class="w-full md:w-1/3 bg-[#161618] border-b md:border-b-0 md:border-r border-white/5 p-6 md:p-8 flex flex-col justify-between">
+                <div>
+                    <button onclick="closeModal('whop-modal')" class="mb-6 text-gray-500 hover:text-white flex items-center gap-2 text-sm md:hidden">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+                    </button>
+
+                    <h3 class="text-xs font-bold text-brand uppercase tracking-widest mb-2">Order Summary</h3>
+                    <h2 id="summary-plan-name" class="text-2xl md:text-3xl font-black text-white mb-2">QuO Premium</h2>
+                    <div class="text-3xl md:text-4xl font-medium text-white mb-6" id="summary-price">$9.99</div>
+                    
+                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-400"></i> Instant Delivery</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-400"></i> Secure Encryption</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-400"></i> Premium Support</li>
+                    </ul>
+                </div>
+
+                <div class="hidden md:block">
+                    <div class="flex items-center gap-2 text-xs text-gray-600 mb-2">
+                        <i data-lucide="shield" class="w-3 h-3"></i> Powered by Whop
+                    </div>
+                    <button onclick="closeModal('whop-modal')" class="text-gray-500 hover:text-white text-sm transition">Cancel Transaction</button>
+                </div>
+            </div>
+
+            <!-- Body: Whop Iframe -->
+            <div class="w-full md:w-2/3 relative bg-white h-full">
+                <div id="whop-wrapper" class="w-full h-full">
+                    <!-- IFRAME SE INYECTA AQUÍ -->
+                </div>
+                
+                <!-- Botón cerrar flotante para móvil -->
+                <button onclick="closeModal('whop-modal')" class="absolute top-4 right-4 bg-gray-100 p-2 rounded-full text-black hover:bg-gray-200 md:hidden z-10">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- LOGIC -->
+    <!-- ========================================== -->
     <script>
-        // CONFIGURACIÓN DE SUPABASE
+        // --- 1. CONFIGURATION ---
+        const IDS = {
+            monthly: 'plan_9g0dos5qP6jp9', // ID Actualizado
+            yearly: 'plan_1LTn29l3d2jSF',  // ID Actualizado
+            lifetime: 'plan_ofXEr76XfpuAU' // ID Actualizado
+        };
+
         const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); 
 
-        // CONFIGURACIÓN WHOP
-        const WHOP_MONTHLY_ID = "plan_PKEWD5btP62VV"; 
-        // const WHOP_YEARLY_ID = "plan_XXXX"; // Añadir cuando lo tengas
-
-        let currentPlanId = WHOP_MONTHLY_ID; 
+        // State
+        let selectedPeriod = 'monthly'; // 'monthly' | 'yearly'
+        let pendingPlanType = null;     // 'subscription' | 'lifetime'
         let currentUser = null;
 
-        // --- AUTH LOGIC ---
+        // --- 2. AUTHENTICATION (Supabase) ---
         async function loginWithGoogle() {
             const { error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
@@ -208,7 +302,7 @@
             });
             if (error) console.error("Login Error:", error);
         }
-        window.loginWithGoogle = loginWithGoogle; 
+        window.loginWithGoogle = loginWithGoogle;
 
         async function logout() {
             await supabaseClient.auth.signOut();
@@ -230,26 +324,19 @@
                         <i data-lucide="log-in" class="w-4 h-4"></i> Sign In
                     </a>`;
             } else {
-                // Chequear si ya es premium para mostrar badge
                 checkPremiumStatus(user.id);
             }
             if(window.lucide) lucide.createIcons();
         }
 
         async function checkPremiumStatus(userId) {
-            const { data: profile } = await supabaseClient
-                .from('profile') 
-                .select('is_premium')
-                .eq('id', userId)
-                .single();
-            
+            const { data: profile } = await supabaseClient.from('profile').select('is_premium').eq('id', userId).single();
             const isPremium = profile?.is_premium;
-            const authSection = document.getElementById('auth-section');
-            const avatarUrl = currentUser.user_metadata.avatar_url;
             const badgeText = isPremium ? 'PRO' : 'FREE';
             const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
+            const avatarUrl = currentUser.user_metadata.avatar_url;
 
-            authSection.innerHTML = `
+            document.getElementById('auth-section').innerHTML = `
                 <div class="relative group cursor-pointer flex items-center gap-3">
                     <div class="hidden md:flex flex-col text-right">
                         <span class="text-[10px] text-gray-500 uppercase">Status</span>
@@ -270,108 +357,147 @@
             if(window.lucide) lucide.createIcons();
         }
 
-
-        // --- PRICING TOGGLE LOGIC ---
+        // --- 3. PRICING TOGGLE UI ---
         function setPeriod(type) {
-            const priceDisplay = document.getElementById('price-display');
-            const periodDisplay = document.getElementById('period-display');
+            selectedPeriod = type;
             const btnMonthly = document.getElementById('btn-monthly');
             const btnYearly = document.getElementById('btn-yearly');
             
             if (type === 'monthly') {
-                priceDisplay.innerText = "$9.99";
-                periodDisplay.innerText = "/mo";
-                currentPlanId = WHOP_MONTHLY_ID;
+                document.getElementById('price-display').innerText = "$9.99";
+                document.getElementById('period-display').innerText = "/mo";
                 
-                btnMonthly.classList.replace('text-gray-400', 'text-white');
-                btnMonthly.classList.add('bg-white/10');
-                btnYearly.classList.remove('bg-white/10');
-                btnYearly.classList.replace('text-white', 'text-gray-400');
+                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
+                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
             } else {
-                priceDisplay.innerText = "$59.99";
-                periodDisplay.innerText = "/yr";
-                // currentPlanId = WHOP_YEARLY_ID; // Descomentar cuando tengas el ID
+                document.getElementById('price-display').innerText = "$59.99";
+                document.getElementById('period-display').innerText = "/yr";
                 
-                btnYearly.classList.replace('text-gray-400', 'text-white');
-                btnYearly.classList.add('bg-white/10');
-                btnMonthly.classList.remove('bg-white/10');
-                btnMonthly.classList.replace('text-white', 'text-gray-400');
+                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
+                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
+                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
             }
         }
 
 
-        // --- WHOP CHECKOUT LOGIC ---
-        
-        // 1. Iniciar Checkout
-        function initiateCheckout() {
-            // SEGURIDAD: Obligar login antes de pagar para poder asignar el premium
+        // --- 4. PURCHASE FLOW MANAGER ---
+
+        // Paso 1: Usuario clickea botón "Upgrade" o "Lifetime"
+        function startPurchaseFlow(type) {
+            // Check Auth First
             if (!currentUser) {
                 alert("Please Sign In with Google before upgrading.");
                 loginWithGoogle();
                 return;
             }
 
-            const modal = document.getElementById('checkout-modal');
-            const wrapper = document.getElementById('whop-wrapper');
-
-            // Limpiar contenido previo
-            wrapper.innerHTML = '';
-
-            // Crear el elemento DIV que Whop transformará en iframe
-            const checkoutDiv = document.createElement('div');
-            checkoutDiv.setAttribute('data-whop-checkout-plan-id', currentPlanId);
-            checkoutDiv.setAttribute('data-whop-checkout-theme', 'light'); // O 'dark' según prefieras dentro del iframe
-            checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete'); // Nombre de la función callback
+            pendingPlanType = type; // Guardamos qué botón apretó ('subscription' o 'lifetime')
             
-            // Opcional: Prellenar el email del usuario de Google
-            if(currentUser.email) {
+            // Abrir Modal de Selección de Método
+            openModal('payment-method-modal');
+        }
+
+        // Paso 2: Usuario selecciona Tarjeta o PayPal
+        function selectMethod(method) {
+            closeModal('payment-method-modal');
+
+            if (method === 'paypal') {
+                // Lógica de PayPal (Placeholder)
+                alert("PayPal integration coming soon! Please use Card/Whop for now.");
+                return;
+            }
+
+            if (method === 'card') {
+                // Determinar ID y Detalles para Whop
+                let planIdToUse = '';
+                let planName = '';
+                let planPrice = '';
+
+                if (pendingPlanType === 'lifetime') {
+                    planIdToUse = IDS.lifetime;
+                    planName = "QuO Lifetime Access";
+                    planPrice = "$149.00";
+                } else {
+                    // Subscription: Depende del toggle (Monthly/Yearly)
+                    if (selectedPeriod === 'monthly') {
+                        planIdToUse = IDS.monthly;
+                        planName = "QuO Premium (Monthly)";
+                        planPrice = "$9.99 / mo";
+                    } else {
+                        planIdToUse = IDS.yearly;
+                        planName = "QuO Premium (Annual)";
+                        planPrice = "$59.99 / yr";
+                    }
+                }
+
+                // Iniciar Whop con los datos calculados
+                initiateWhopCheckout(planIdToUse, planName, planPrice);
+            }
+        }
+
+        // Paso 3: Iniciar Checkout de Whop
+        function initiateWhopCheckout(planId, name, price) {
+            const wrapper = document.getElementById('whop-wrapper');
+            wrapper.innerHTML = ''; // Limpiar
+
+            // Actualizar el resumen visual en el sidebar del modal
+            document.getElementById('summary-plan-name').innerText = name;
+            document.getElementById('summary-price').innerText = price;
+
+            // Crear Iframe
+            const checkoutDiv = document.createElement('div');
+            checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
+            checkoutDiv.setAttribute('data-whop-checkout-theme', 'light');
+            checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
+            // Forzar mostrar precio en Whop por si acaso, aunque ya lo mostramos nosotros
+            checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false'); 
+
+            if(currentUser && currentUser.email) {
                  checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
             }
 
             wrapper.appendChild(checkoutDiv);
-
-            // Mostrar Modal
-            modal.classList.remove('hidden');
-            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
-        }
-
-        // 2. Cerrar Modal
-        function closeCheckout() {
-            const modal = document.getElementById('checkout-modal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.getElementById('whop-wrapper').innerHTML = ''; // Limpiar memoria
-            }, 300);
-        }
-
-        // 3. CALLBACK DE ÉXITO (Se llama cuando Whop confirma el pago en el frontend)
-        window.onWhopPurchaseComplete = async (planId, receiptId) => {
-            console.log("Pago exitoso recibido:", planId, receiptId);
             
-            // Actualizar status a PREMIUM en Supabase
+            // Esperar un poco para abrir el modal para que el script inyecte el iframe
+            setTimeout(() => {
+                openModal('whop-modal');
+            }, 100);
+        }
+
+        // Callbacks de Éxito
+        window.onWhopPurchaseComplete = async (planId, receiptId) => {
             if (currentUser) {
                 try {
-                    const { error } = await supabaseClient
-                        .from('profile')
-                        .update({ is_premium: true })
-                        .eq('id', currentUser.id);
-
-                    if (error) {
-                        console.error("Error updating premium status:", error);
-                        alert("Payment successful, but system update failed. Please contact support.");
-                    } else {
-                        alert("Upgrade Successful! Welcome to QuO Premium.");
-                        window.location.href = "/"; // O recargar la página
-                    }
+                    await supabaseClient.from('profile').update({ is_premium: true }).eq('id', currentUser.id);
+                    alert("Upgrade Successful! Welcome to QuO Premium.");
+                    window.location.reload();
                 } catch (err) {
-                    console.error("Unexpected error:", err);
+                    console.error(err);
                 }
             }
-            closeCheckout();
+            closeModal('whop-modal');
         };
 
-        // INICIALIZACIÓN
+        // --- UTILS ---
+        function openModal(id) {
+            const el = document.getElementById(id);
+            el.classList.remove('modal-enter');
+            el.classList.add('modal-active');
+        }
+
+        function closeModal(id) {
+            const el = document.getElementById(id);
+            el.classList.remove('modal-active');
+            el.classList.add('modal-enter');
+            
+            if (id === 'whop-modal') {
+                setTimeout(() => {
+                    document.getElementById('whop-wrapper').innerHTML = ''; // Limpiar memoria
+                }, 300);
+            }
+        }
+
+        // Init
         document.addEventListener('DOMContentLoaded', function () {
             checkUser();
             if(window.lucide) lucide.createIcons();
