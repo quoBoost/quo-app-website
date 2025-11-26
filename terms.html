@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Términos de Servicio | QuO</title>
+    <title>Terms of Service | QuO</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -23,10 +23,10 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        brand: '#FF003C',       /* Rojo Neón Principal */
+                        brand: '#FF003C',       /* Neon Red Primary */
                         brandDark: '#990024',
-                        void: '#030005',        /* Fondo Casi Negro */
-                        surface: '#0F0F11',     /* Fondo de Tarjetas */
+                        void: '#030005',        /* Near Black Background */
+                        surface: '#0F0F11',     /* Card Background */
                     },
                     animation: {
                         'scroll': 'scroll 20s linear infinite',
@@ -54,7 +54,7 @@
             color: white;
             overflow-x: hidden;
         }
-        /* Estilos de documentos legales: fondo simple y limitación de ancho de texto */
+        /* Legal document styles for readability */
         .legal-content h2 {
             font-size: 1.75rem; /* text-3xl */
             font-weight: 800;
@@ -87,11 +87,14 @@
                 <span class="font-bold text-lg md:text-xl tracking-tight text-white">QuO</span>
             </a>
             <div class="flex items-center gap-4">
-                <a href="index.html#ui" class="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition hidden md:block">Interfaz</a>
+                <a href="index.html#ui" class="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition hidden md:block">Interface</a>
                 <a href="pricing.html" class="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition hidden md:block">Pricing</a>
-                <a href="index.html" class="flex items-center gap-2 bg-brand text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-brandDark transition shadow-lg">
-                    <i data-lucide="home" class="w-4 h-4"></i> Home
-                </a>
+                
+                <div id="auth-section">
+                    <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white/10 text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-white/20 transition shadow-lg">
+                        <i data-lucide="log-in" class="w-4 h-4"></i> Sign In
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
@@ -99,40 +102,40 @@
     <main class="relative pt-32 md:pt-44 pb-20 px-6 max-w-7xl mx-auto">
         <div class="max-w-3xl mx-auto legal-content">
 
-            <h1 class="text-4xl md:text-6xl font-black text-white mb-4">Términos de <span class="text-gradient">Servicio</span></h1>
-            <p class="text-gray-500 font-mono text-sm mb-12">Última actualización: 25 de Noviembre de 2025</p>
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-4">Terms of <span class="text-gradient">Service</span></h1>
+            <p class="text-gray-500 font-mono text-sm mb-12">Last updated: November 25, 2025</p>
 
-            <p>Al acceder y utilizar el software QuO, usted acepta estar sujeto a estos Términos de Servicio. Lea estos términos detenidamente antes de utilizar nuestro software.</p>
+            <p>By accessing and using the QuO software, you agree to be bound by these **Terms of Service**. Please read these terms carefully before using our software. These terms are governed by the laws of Costa Rica.</p>
 
-            <h2>1. Licencia y Uso del Software</h2>
-            <p>QuO Software Inc. le otorga una licencia limitada, no exclusiva e intransferible para descargar e instalar el software QuO ("Software") en su dispositivo personal (PC) para su uso. Esta licencia está sujeta a los términos de su compra (Gratuita o Premium).</p>
+            <h2>1. Software License and Use</h2>
+            <p>QuO Software Inc. grants you a limited, non-exclusive, non-transferable license to download and install the QuO software ("Software") on your personal computer (PC) for your use. This license is subject to the terms of your purchase (Free or Premium).</p>
             <ul>
-                <li><strong>Uso Personal:</strong> El Software está destinado únicamente para su uso personal y no comercial.</li>
-                <li><strong>Prohibiciones:</strong> Usted no debe modificar, descompilar, aplicar ingeniería inversa ni crear trabajos derivados del Software. No puede utilizar el Software para ningún fin ilegal o no autorizado.</li>
+                <li><strong>Personal Use:</strong> The Software is intended strictly for personal, non-commercial use.</li>
+                <li><strong>Prohibitions:</strong> You may not modify, decompile, reverse engineer, or create derivative works of the Software. You may not use the Software for any unauthorized or illegal purpose.</li>
             </ul>
 
-            <h2>2. Modificaciones al Sistema</h2>
-            <p>El Software QuO realiza modificaciones a la configuración del sistema operativo Windows, incluyendo cambios en el registro y en los servicios. Al utilizar el Software, usted reconoce que:</p>
+            <h2>2. System Modifications and Risk</h2>
+            <p>The QuO Software performs modifications to the Windows operating system configuration, including changes to the Registry and Services. By using the Software, you acknowledge that:</p>
             <ul>
-                <li>Usted es consciente de la naturaleza del Software y asume toda la responsabilidad por el uso que haga de él.</li>
-                <li>QuO Software Inc. no se hace responsable de daños o inestabilidad causados por el uso del Software, aunque se ofrece una función de Punto de Restauración Automático.</li>
-                <li>Es su responsabilidad hacer una copia de seguridad de su sistema antes de usar el Software.</li>
+                <li>You are aware of the nature of the Software and **assume all responsibility and risk** for its use.</li>
+                <li>QuO Software Inc. is **not liable for damage or instability** caused by the use of the Software, although an **Automatic Restore Point** feature is offered to mitigate risks.</li>
+                <li>It is your ultimate responsibility to back up your system before using the Software.</li>
             </ul>
 
-            <h2>3. Cuentas de Usuario</h2>
-            <p>Para acceder a ciertas funciones (como el estado Premium o la configuración en la nube), debe registrar una cuenta utilizando la autenticación de terceros (ej. Google). Usted es responsable de mantener la confidencialidad de su cuenta.</p>
+            <h2>3. User Accounts and Authentication</h2>
+            <p>To access certain features (such as Premium status or cloud configuration), you must register an account using third-party authentication (e.g., Google). You are responsible for maintaining the confidentiality of your account.</p>
 
-            <h2>4. Terminación</h2>
-            <p>Podemos suspender o dar por terminado su acceso al Software inmediatamente, sin previo aviso, si usted incumple estos Términos de Servicio.</p>
+            <h2>4. Termination</h2>
+            <p>We reserve the right to suspend or terminate your access to the Software immediately, without prior notice, if you breach these Terms of Service.</p>
 
-            <h2>5. Limitación de Responsabilidad</h2>
-            <p>El Software se proporciona "tal cual". QuO Software Inc. no ofrece garantías de que el Software cumplirá con sus requisitos, será ininterrumpido o estará libre de errores. En la máxima medida permitida por la ley aplicable, QuO Software Inc. no será responsable de daños indirectos, incidentales, especiales, consecuentes o punitivos.</p>
+            <h2>5. Limitation of Liability</h2>
+            <p>The Software is provided "as is." QuO Software Inc. offers no warranties that the Software will meet your requirements, be uninterrupted, or be error-free. To the maximum extent permitted by applicable law, QuO Software Inc. shall not be liable for indirect, incidental, special, consequential, or punitive damages.</p>
 
-            <h2>6. Ley Aplicable</h2>
-            <p>Estos Términos se regirán e interpretarán de acuerdo con las leyes del estado de [Insertar Estado/País Principal de Operación], sin tener en cuenta sus disposiciones sobre conflicto de leyes.</p>
+            <h2>6. Governing Law and Jurisdiction</h2>
+            <p>These Terms shall be governed by and construed in accordance with the laws of **Costa Rica**. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts of Costa Rica.</p>
             
-            <h2>7. Contacto</h2>
-            <p>Si tiene preguntas sobre estos Términos de Servicio, puede contactarnos en:</p>
+            <h2>7. Contact Us</h2>
+            <p>If you have any questions about these Terms of Service, please contact us at:</p>
             <p class="font-bold text-white">support@quosoftware.com</p>
         </div>
     </main>
@@ -181,7 +184,7 @@
                     <ul class="space-y-3 text-sm text-gray-500">
                         <li><a href="privacy.html" class="hover:text-brand transition">Privacy Policy</a></li>
                         <li><a href="terms.html" class="hover:text-brand transition">Terms of Service</a></li>
-                        <li><a href="refund.html" class="hover:text-brand transition">Refund Policy</a></li>
+                        <li><a href="refund.html" class="hover:text-brand transition">No Refund Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -196,7 +199,89 @@
     </footer>
 
     <script>
-        lucide.createIcons();
+        // ==========================================
+        // SUPABASE CONFIG AND FUNCTIONS
+        // ==========================================
+        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); 
+
+        async function loginWithGoogle() {
+            const { data, error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: 'https://quoboost.vercel.app/' } 
+            });
+            if (error) console.error("Login Error:", error);
+        }
+        window.loginWithGoogle = loginWithGoogle; 
+
+        async function logout() {
+            await supabaseClient.auth.signOut();
+            window.location.reload();
+        }
+        window.logout = logout;
+
+        async function checkUser() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            const authSection = document.getElementById('auth-section');
+
+            if (session) {
+                const { data: profile } = await supabaseClient
+                    .from('profile') 
+                    .select('is_premium')
+                    .eq('id', session.user.id)
+                    .single();
+                
+                const isPremium = profile?.is_premium;
+                const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
+                const badgeText = isPremium ? 'PRO' : 'FREE';
+                
+                const avatarUrl = session.user.user_metadata.avatar_url;
+                const userEmail = session.user.email;
+                
+                if (authSection) {
+                    authSection.innerHTML = `
+                        <div class="relative group cursor-pointer flex items-center gap-3">
+                            <div class="hidden md:flex flex-col text-right">
+                                <span class="text-[10px] text-gray-500 uppercase">Status</span>
+                                <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
+                            </div>
+
+                            <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
+                                ${avatarUrl 
+                                    ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` 
+                                    : userEmail[0].toUpperCase()}
+                            </div>
+                            
+                            <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
+                                <div class="p-2 space-y-1">
+                                    <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${userEmail}</div>
+                                    <a href="download.html" class="block px-3 py-2 text-sm text-white hover:bg-white/10 rounded flex items-center gap-2"><i data-lucide="download" class="w-4"></i> Download App</a>
+                                    <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
+                                        <i data-lucide="log-out" class="w-4"></i> Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    if(window.lucide) lucide.createIcons();
+                }
+
+            } else {
+                // If not logged in, show the login button
+                authSection.innerHTML = `
+                    <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white/10 text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-white/20 transition shadow-lg">
+                        <i data-lucide="log-in" class="w-4 h-4"></i> Sign In
+                    </a>
+                `;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            checkUser();
+            if(window.lucide) lucide.createIcons();
+        });
     </script>
 </body>
 </html>
