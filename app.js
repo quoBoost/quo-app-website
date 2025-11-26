@@ -16,7 +16,6 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 async function loginWithGoogle() {
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'google',
-        // Redirección forzada al sitio en vivo
         options: { redirectTo: 'https://quoboost.vercel.app/' } 
     });
     if (error) console.error("Login Error:", error);
@@ -61,7 +60,7 @@ async function checkUser() {
     const authSection = document.getElementById('auth-section');
 
     if (session) {
-        // CORRECCIÓN DE BUG: Cambiado de 'profiles' a 'profile' (singular) para el 404.
+        // CORRECCIÓN DE BUG: Cambiado de 'profiles' a 'profile' (singular)
         const { data: profile } = await supabaseClient
             .from('profile') 
             .select('is_premium')
@@ -115,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Inicializar la comprobación de sesión.
     checkUser();
 
-    // Inicialización del Carrusel Splide
+    // 1. Inicialización del Carrusel de Features (#ui-carousel)
     if (document.getElementById('ui-carousel') && typeof Splide !== 'undefined') {
         new Splide('#ui-carousel', {
             type: 'loop', 
@@ -129,6 +128,26 @@ document.addEventListener('DOMContentLoaded', function () {
             gap: '1.5rem', 
             breakpoints: {
                 1024: { perPage: 2, gap: '1rem', },
+                768: { perPage: 1, gap: '1rem', },
+            },
+        }).mount();
+    }
+    
+    // 2. Inicialización del Carrusel de Testimonios (#testimonial-carousel)
+    if (document.getElementById('testimonial-carousel') && typeof Splide !== 'undefined') {
+        new Splide('#testimonial-carousel', {
+            type: 'loop', 
+            perPage: 4, 
+            perMove: 1, 
+            autoplay: true, 
+            interval: 4000, 
+            pauseOnHover: true, 
+            arrows: true, 
+            pagination: false, 
+            gap: '1.5rem',
+            breakpoints: {
+                1280: { perPage: 3, },
+                1024: { perPage: 2, },
                 768: { perPage: 1, gap: '1rem', },
             },
         }).mount();
