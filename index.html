@@ -401,16 +401,63 @@
                         </div>
                     </div>
                 </li>
+                
+                <li class="splide__slide">
+                    <div class="spotlight-card p-6 md:p-8 relative overflow-hidden group h-full">
+                        <div class="absolute top-0 right-0 bg-white/10 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">MEMORY</div>
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-pink-500/10 border border-pink-500/20 rounded-2xl flex items-center justify-center text-pink-500 mb-6 md:mb-8 group-hover:scale-110 transition">
+                            <i data-lucide="memory-stick" class="w-7 h-7 md:w-8 md:h-8"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Standby List Purge</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6 md:mb-8">
+                            Clears the aggressive Windows Standby List memory cache in real-time. Eliminates micro-stuttering caused by background memory access.
+                        </p>
+                        <div class="bg-black p-3 rounded-lg border border-white/5 font-mono text-[10px] text-gray-500">
+                            <p>> BEFORE: 98% Latency Spike</p>
+                            <p>> AFTER: Stable Frame Times</p>
+                        </div>
+                    </div>
+                </li>
 
                 <li class="splide__slide">
                     <div class="spotlight-card p-6 md:p-8 relative overflow-hidden group h-full">
-                        <div class="w-14 h-14 md:w-16 md:h-16 bg-yellow-500/10 border border-yellow-500/20 rounded-2xl flex items-center justify-center text-yellow-500 mb-6 md:mb-8 group-hover:scale-110 transition">
-                            <i data-lucide="cloud" class="w-7 h-7 md:w-8 md:h-8"></i>
+                        <div class="absolute top-0 right-0 bg-white/10 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">INPUT</div>
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-orange-500/10 border border-orange-500/20 rounded-2xl flex items-center justify-center text-orange-500 mb-6 md:mb-8 group-hover:scale-110 transition">
+                            <i data-lucide="mouse-pointer-click" class="w-7 h-7 md:w-8 md:h-8"></i>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Cloud Configs</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Raw Input Filtering</h3>
                         <p class="text-gray-400 text-sm leading-relaxed mb-6 md:mb-8">
-                            Save your custom optimization profiles to the cloud. Formatting your PC? Log in and restore your FPS instantly.
+                            Bypasses Windows filtering layers for mouse and keyboard inputs, ensuring the fastest possible report rate to your game.
                         </p>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-xs text-orange-400 font-mono">
+                                <i data-lucide="minus" class="w-3"></i> <span>Mouse Acceleration OFF</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-orange-400 font-mono">
+                                <i data-lucide="minus" class="w-3"></i> <span>Debounce Timer Set to 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="splide__slide">
+                    <div class="spotlight-card p-6 md:p-8 relative overflow-hidden group h-full">
+                        <div class="absolute top-0 right-0 bg-white/10 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">GPU</div>
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-lime-500/10 border border-lime-500/20 rounded-2xl flex items-center justify-center text-lime-500 mb-6 md:mb-8 group-hover:scale-110 transition">
+                            <i data-lucide="activity" class="w-7 h-7 md:w-8 md:h-8"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-2">VRAM Prioritization</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6 md:mb-8">
+                            Enables Hardware-Accelerated GPU Scheduling and fine-tunes the DWM (Desktop Window Manager) to minimize VRAM contention.
+                        </p>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-xs text-lime-400 font-mono">
+                                <i data-lucide="cpu" class="w-3"></i> <span>HAGS Optimization</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-lime-400 font-mono">
+                                <i data-lucide="cpu" class="w-3"></i> <span>Disable VSync Latency</span>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 
@@ -419,7 +466,7 @@
         
         <ul class="splide__pagination mt-8 flex justify-center items-center gap-2"></ul>
     </div>
-    </section>
+</section>
 
     <section class="py-20 bg-black/40 border-y border-white/5">
         <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -556,6 +603,7 @@
 </script>
 </body>
 </html>
+
 
 
 
