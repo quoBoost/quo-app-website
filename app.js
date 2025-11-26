@@ -1,16 +1,18 @@
 // ==========================================
-// 1. SUPABASE CONFIG Y LOGIC (CORREGIDO)
+// 1. SUPABASE CONFIG Y LOGIC (CORRECCIONES FINALES)
 // ==========================================
 
 // Asegúrate de que esta URL y CLAVE sean correctas. 
-// La clave anon aquí es solo para el Frontend.
 const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
 
-// CORRECCIÓN: Usamos supabaseClient para evitar el conflicto con la librería global.
+// CORRECCIÓN DE BUG: Usamos 'supabaseClient' para evitar el ReferenceError.
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); 
 
-// Función global llamada por el botón del HTML
+// ----------------------------------------------------
+// FUNCIONES GLOBALES (ACCESIBLES DESDE EL HTML)
+// ----------------------------------------------------
+
 async function loginWithGoogle() {
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'google',
@@ -19,21 +21,25 @@ async function loginWithGoogle() {
     });
     if (error) console.error("Login Error:", error);
 }
+// Hacemos la función disponible globalmente para el 'onclick' del HTML.
+window.loginWithGoogle = loginWithGoogle; 
 
-// Función de logout (usada en el menú desplegable)
+
 async function logout() {
     await supabaseClient.auth.signOut();
     window.location.reload();
 }
+// Hacemos la función disponible globalmente para el 'onclick' del HTML.
+window.logout = logout;
 
+
+// ----------------------------------------------------
 // 2. FUNCIÓN DE RASTREO DE MOUSE (PARA EL EFECTO SPOTLIGHT)
-// Nota: Esta función es opcional si el efecto de mouse tracking no es crítico.
-// La mantenemos para que el diseño funcione.
+// ----------------------------------------------------
 
 function handleMouseMove(e) {
     const cards = document.getElementsByClassName("spotlight-card");
     for (const card of cards) {
-        // Solo actualizar si el mouse está cerca del card
         if (card.matches(':hover')) {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -46,29 +52,30 @@ function handleMouseMove(e) {
 document.addEventListener('mousemove', handleMouseMove);
 
 
+// ----------------------------------------------------
 // 3. CHECK USER SESSION Y ACTUALIZACIÓN DE UI
+// ----------------------------------------------------
+
 async function checkUser() {
     const { data: { session } } = await supabaseClient.auth.getSession();
-    
+    const authSection = document.getElementById('auth-section');
+
     if (session) {
-        // ** Aquí se añade la lógica de actualización del Navbar **
-        const authSection = document.getElementById('auth-section');
+        // CORRECCIÓN DE BUG: Cambiado de 'profiles' a 'profile' (singular) para el 404.
+        const { data: profile } = await supabaseClient
+            .from('profile') 
+            .select('is_premium')
+            .eq('id', session.user.id)
+            .single();
+        
+        const isPremium = profile?.is_premium;
+        const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
+        const badgeText = isPremium ? 'PRO' : 'FREE';
+        
+        const avatarUrl = session.user.user_metadata.avatar_url;
+        const userEmail = session.user.email;
+        
         if (authSection) {
-            
-            // Lógica simple de Premium (puedes ampliarla)
-            const { data: profile } = await supabaseClient
-                .from('profiles')
-                .select('is_premium')
-                .eq('id', session.user.id)
-                .single();
-            
-            const isPremium = profile?.is_premium;
-            const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
-            const badgeText = isPremium ? 'PRO' : 'FREE';
-            
-            const avatarUrl = session.user.user_metadata.avatar_url;
-            const userEmail = session.user.email;
-            
             authSection.innerHTML = `
                 <div class="relative group cursor-pointer flex items-center gap-3">
                     <div class="hidden md:flex flex-col text-right">
@@ -93,41 +100,37 @@ async function checkUser() {
                     </div>
                 </div>
             `;
-            // Reinicializar iconos para el nuevo contenido inyectado
             if(window.lucide) lucide.createIcons();
         }
 
-    } else {
-        // Si no está logueado, se mantiene el contenido original del HTML.
-    }
+    } // Si no hay sesión, el HTML original del login se mantiene.
 }
 
+
+// ----------------------------------------------------
+// 4. INICIALIZACIÓN DE LIBRERÍAS AL CARGAR EL DOCUMENTO
+// ----------------------------------------------------
+
 document.addEventListener('DOMContentLoaded', function () {
-    if (document.getElementById('ui-carousel')) {
+    // Inicializar la comprobación de sesión.
+    checkUser();
+
+    // Inicialización del Carrusel Splide
+    if (document.getElementById('ui-carousel') && typeof Splide !== 'undefined') {
         new Splide('#ui-carousel', {
-            type: 'loop', // El carrusel se repite infinitamente
-            perPage: 4, // Mostrar 4 tarjetas en desktop
-            perMove: 1, // Mover una tarjeta a la vez
-            autoplay: true, // Auto-reproducción activada
-            interval: 5000, // Cada 5 segundos
-            pauseOnHover: true, // Pausar al pasar el ratón
-            arrows: true, // Mostrar flechas de navegación
-            pagination: true, // Mostrar puntos de paginación
-            gap: '1.5rem', // Espacio entre las tarjetas (corresponde a 'gap-6' de Tailwind)
+            type: 'loop', 
+            perPage: 4, 
+            perMove: 1, 
+            autoplay: true, 
+            interval: 5000, 
+            pauseOnHover: true, 
+            arrows: true, 
+            pagination: true, 
+            gap: '1.5rem', 
             breakpoints: {
-                1024: { // Para pantallas pequeñas (lg: o menos)
-                    perPage: 2, // Mostrar 2 tarjetas en tablet
-                    gap: '1rem', // Espacio más pequeño
-                },
-                768: { // Para pantallas aún más pequeñas (md: o menos)
-                    perPage: 1, // Mostrar 1 tarjeta en móvil
-                    gap: '1rem',
-                },
+                1024: { perPage: 2, gap: '1rem', },
+                768: { perPage: 1, gap: '1rem', },
             },
         }).mount();
     }
 });
-
-// Inicializar la comprobación de sesión
-checkUser();
-
