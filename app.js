@@ -20,7 +20,6 @@ async function loginWithGoogle() {
     });
     if (error) console.error("Login Error:", error);
 }
-// Hacemos la función disponible globalmente para el 'onclick' del HTML.
 window.loginWithGoogle = loginWithGoogle; 
 
 
@@ -28,7 +27,6 @@ async function logout() {
     await supabaseClient.auth.signOut();
     window.location.reload();
 }
-// Hacemos la función disponible globalmente para el 'onclick' del HTML.
 window.logout = logout;
 
 
@@ -107,14 +105,133 @@ async function checkUser() {
 
 
 // ----------------------------------------------------
-// 4. INICIALIZACIÓN DE LIBRERÍAS AL CARGAR EL DOCUMENTO
+// 4. FUNCIÓN WEBGL PARA EFECTO PRISM
+// ----------------------------------------------------
+
+function initializePrismEffect() {
+    const container = document.getElementById('prism-container');
+    // Verifica si la librería OGL está disponible
+    if (!container || typeof OGL === 'undefined') return; 
+
+    // Usamos el namespace global OGL de la CDN
+    const { Renderer, Triangle, Program, Mesh } = OGL; 
+
+    const vertex = /* glsl */ `
+        attribute vec2 position;
+        void main() {
+            gl_Position = vec4(position, 0.0, 1.0);
+        }
+    `;
+
+    const fragment = /* glsl */ `
+        precision highp float;
+        uniform vec2 iResolution;
+        uniform float iTime;
+        uniform float uSpeed;
+
+        mat2 rotate(float a) {
+            float s=sin(a), c=cos(a);
+            return mat2(c, -s, s, c);
+        }
+
+        void main() {
+            vec2 uv = gl_FragCoord.xy / iResolution.xy;
+            vec2 p = uv - 0.5;
+            p.x *= iResolution.x / iResolution.y;
+
+            float angle = iTime * uSpeed * 0.1;
+            p = rotate(angle) * p;
+
+            float d = length(p * 2.5);
+            float bands = sin(p.x * 10.0 + iTime * uSpeed * 0.5) * 0.5 + 0.5;
+            bands *= sin(p.y * 10.0 + iTime * uSpeed * 0.5) * 0.5 + 0.5;
+            float pulse = sin(iTime * uSpeed * 0.5) * 0.5 + 0.5;
+
+            float c = sin(d * 5.0 + iTime * uSpeed + bands * 2.0);
+            c = pow(c * 0.5 + 0.5, 3.0) * (1.0 - d * 0.5);
+
+            vec3 red = vec3(1.0, 0.0, 0.23); 
+            
+            vec3 finalColor = c * red * 1.5;
+            finalColor += bands * 0.1; 
+
+            finalColor *= (1.0 + pulse * 0.1); 
+            
+            finalColor = mix(vec3(0.03, 0.03, 0.03), finalColor, c * 0.75 + 0.25);
+            
+            gl_FragColor = vec4(finalColor, 1.0);
+        }
+    `;
+
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const renderer = new Renderer({
+        dpr,
+        alpha: true,
+        antialias: false
+    });
+    const gl = renderer.gl;
+    
+    Object.assign(gl.canvas.style, {
+        position: 'absolute',
+        inset: '0',
+        width: '100%',
+        height: '100%',
+        display: 'block'
+    });
+    container.appendChild(gl.canvas);
+
+    const geometry = new Triangle(gl);
+    const iResBuf = new Float32Array(2);
+
+    const program = new Program(gl, {
+        vertex,
+        fragment,
+        uniforms: {
+            iResolution: { value: iResBuf },
+            iTime: { value: 0 },
+            uSpeed: { value: 1.0 },
+        }
+    });
+    const mesh = new Mesh(gl, { geometry, program });
+
+    const resize = () => {
+        const w = container.clientWidth || 1;
+        const h = container.clientHeight || 1;
+        renderer.setSize(w, h);
+        iResBuf[0] = gl.drawingBufferWidth;
+        iResBuf[1] = gl.drawingBufferHeight;
+    };
+    
+    const ro = window.ResizeObserver ? new window.ResizeObserver(resize) : { observe: () => resize(), disconnect: () => {} };
+    ro.observe(container);
+    resize();
+
+    let raf = 0;
+    const t0 = performance.now();
+    const render = (t) => {
+        const time = (t - t0) * 0.001;
+        program.uniforms.iTime.value = time;
+
+        renderer.render({ scene: mesh });
+        raf = requestAnimationFrame(render);
+    };
+    
+    render(t0);
+}
+
+
+// ----------------------------------------------------
+// 5. INICIALIZACIÓN DE LIBRERÍAS AL CARGAR EL DOCUMENTO
 // ----------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', function () {
     // Inicializar la comprobación de sesión.
     checkUser();
+    
+    // 1. Inicializar el efecto PRISM (WebGL) para la sección de descarga.
+    initializePrismEffect();
 
-    // 1. Inicialización del Carrusel de Features (#ui-carousel)
+    // 2. Inicialización del Carrusel de Features (#ui-carousel)
     if (document.getElementById('ui-carousel') && typeof Splide !== 'undefined') {
         new Splide('#ui-carousel', {
             type: 'loop', 
@@ -133,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }).mount();
     }
     
-    // 2. Inicialización del Carrusel de Testimonios (#testimonial-carousel)
+    // 3. Inicialización del Carrusel de Testimonios (#testimonial-carousel)
     if (document.getElementById('testimonial-carousel') && typeof Splide !== 'undefined') {
         new Splide('#testimonial-carousel', {
             type: 'loop', 
