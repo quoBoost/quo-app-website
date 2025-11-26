@@ -534,55 +534,20 @@
         </div>
     </footer>
 
-    <script>
-        lucide.createIcons();
-
-        // 1. SUPABASE CONFIG
-        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co'; 
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        // 2. SPOTLIGHT MOUSE TRACKER
-        function handleMouseMove(e) {
-            const cards = document.getElementsByClassName("spotlight-card");
-            for (const card of cards) {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty("--mouse-x", `${x}px`);
-                card.style.setProperty("--mouse-y", `${y}px`);
-            }
-        }
-
-        // 3. LOGIN LOGIC
-        async function loginWithGoogle() {
-            const { data, error } = await supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: window.location.href }
-            });
-            if (error) console.error("Login Error:", error);
-        }
-
-        // 4. CHECK USER SESSION
-        async function checkUser() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                const btns = document.querySelectorAll('button[onclick="loginWithGoogle()"]');
-                btns.forEach(btn => {
-                    btn.innerHTML = `
-                        <img src="${session.user.user_metadata.avatar_url}" class="w-5 h-5 rounded-full border border-brand">
-                        <span class="hidden sm:inline">${session.user.email.split('@')[0]}</span>
-                    `;
-                    btn.onclick = async () => {
-                        await supabase.auth.signOut();
-                        window.location.reload();
-                    };
-                });
-            }
-        }
-        checkUser();
-    </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="app.js"></script> 
+<script>
+    // Mantenemos solo la inicialización de las librerías
+    lucide.createIcons();
+    // Inicialización de la librería de animaciones
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 50
+    });
+</script>
 </body>
 </html>
+
 
 
