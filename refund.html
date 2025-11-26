@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Política de Reembolso | QuO</title>
+    <title>No Refund Policy | QuO</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -23,10 +23,10 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        brand: '#FF003C',       /* Rojo Neón Principal */
+                        brand: '#FF003C',       /* Neon Red Primary */
                         brandDark: '#990024',
-                        void: '#030005',        /* Fondo Casi Negro */
-                        surface: '#0F0F11',     /* Fondo de Tarjetas */
+                        void: '#030005',        /* Near Black Background */
+                        surface: '#0F0F11',     /* Card Background */
                     },
                     animation: {
                         'scroll': 'scroll 20s linear infinite',
@@ -54,7 +54,7 @@
             color: white;
             overflow-x: hidden;
         }
-        /* Estilos de documentos legales: fondo simple y limitación de ancho de texto */
+        /* Legal document styles for readability */
         .legal-content h2 {
             font-size: 1.75rem; /* text-3xl */
             font-weight: 800;
@@ -87,11 +87,14 @@
                 <span class="font-bold text-lg md:text-xl tracking-tight text-white">QuO</span>
             </a>
             <div class="flex items-center gap-4">
-                <a href="index.html#ui" class="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition hidden md:block">Interfaz</a>
+                <a href="index.html#ui" class="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition hidden md:block">Interface</a>
                 <a href="pricing.html" class="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition hidden md:block">Pricing</a>
-                <a href="index.html" class="flex items-center gap-2 bg-brand text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-brandDark transition shadow-lg">
-                    <i data-lucide="home" class="w-4 h-4"></i> Home
-                </a>
+                
+                <div id="auth-section">
+                    <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white/10 text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-white/20 transition shadow-lg">
+                        <i data-lucide="log-in" class="w-4 h-4"></i> Sign In
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
@@ -99,43 +102,42 @@
     <main class="relative pt-32 md:pt-44 pb-20 px-6 max-w-7xl mx-auto">
         <div class="max-w-3xl mx-auto legal-content">
 
-            <h1 class="text-4xl md:text-6xl font-black text-white mb-4">Política de <span class="text-gradient">Reembolso</span></h1>
-            <p class="text-gray-500 font-mono text-sm mb-12">Válida para compras realizadas después del 1 de Noviembre de 2025</p>
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-4">No Refund <span class="text-gradient">Policy</span></h1>
+            <p class="text-gray-500 font-mono text-sm mb-12">Effective for all purchases made after November 1, 2025</p>
 
-            <p>En QuO Software Inc., estamos comprometidos con la calidad de nuestro software de optimización. Ofrecemos una política de reembolso clara y justa para garantizar la satisfacción del cliente.</p>
+            <p>Due to the nature of our product being a non-tangible, instantly accessible software utility that modifies core operating system functions (Windows Registry, Kernel Services), **QuO Software Inc. operates under a strict No Refund Policy.**</p>
 
-            <h2>1. Periodo de Reembolso</h2>
-            <p>Ofrecemos una garantía de reembolso de **7 días** a partir de la fecha de compra de la licencia Premium de QuO.</p>
+            <h2>1. Policy Statement</h2>
+            <p>All sales of the QuO Software Premium License are **final and non-refundable.** We provide transparent documentation and a free version with essential features, allowing all users to thoroughly evaluate the compatibility and initial performance gains of the software before committing to a purchase.</p>
+
+            <h2>2. Acknowledgement of Service</h2>
+            <p>By purchasing the Premium license, you acknowledge and agree that:</p>
+            <ul>
+                <li>The service is delivered immediately upon payment (digital key activation).</li>
+                <li>The core function of the software is to modify system settings, and results (FPS/Latency) are highly dependent on the user's specific hardware and current system state.</li>
+                <li>You have utilized the free version and documentation to ascertain the suitability of the software for your needs.</li>
+            </ul>
+
+            <h2>3. Exceptions (None)</h2>
+            <p>We do not offer exceptions to this policy based on:</p>
+            <ul>
+                <li>Dissatisfaction with the performance gains (e.g., "I expected more FPS").</li>
+                <li>Technical issues caused by third-party software, conflicting drivers, or user modifications.</li>
+                <li>System instability, as the software is provided with a functional "Automatic Restore Point" feature, which the user is responsible for utilizing.</li>
+                <li>Change of mind after purchase.</li>
+            </ul>
+            <p class="text-brand font-bold mt-4">Note: We are based in Costa Rica. Our policy is established in accordance with local regulations concerning non-tangible digital goods.</p>
+
+
+            <h2>4. Technical Support and Resolution</h2>
+            <p>While refunds are not provided, we are committed to ensuring the software functions as intended on your system. If you experience a critical technical failure, please contact our support team:</p>
+            <ul>
+                <li>We will provide dedicated technical support to diagnose and resolve the issue within 72 hours.</li>
+                <li>If the issue is confirmed to be a fundamental and unresolvable bug in the core QuO code (not related to user hardware or third-party conflicts), we will work to provide a fix in the next update.</li>
+            </ul>
             
-            <h2>2. Condiciones de Elegibilidad</h2>
-            <p>Para ser elegible para un reembolso, debe cumplir las siguientes condiciones:</p>
-            <ul>
-                <li>La solicitud debe realizarse dentro del periodo de **7 días** posterior a la compra.</li>
-                <li>El producto no debe haber sido utilizado o activado en más de **dos dispositivos** diferentes (si aplica la restricción de dispositivos de la licencia).</li>
-                <li>El motivo del reembolso debe estar relacionado con una **falla técnica crítica** del software que QuO Support no pudo resolver en un plazo de 48 horas tras su notificación.</li>
-            </ul>
-
-            <h2>3. Razones NO Elegibles para Reembolso</h2>
-            <p>No se aprobarán reembolsos en los siguientes casos:</p>
-            <ul>
-                <li>**Cambio de Opinión:** El simple arrepentimiento o la decisión de ya no necesitar el software.</li>
-                <li>**Daños por Mal Uso:** Fallas o inestabilidad causadas por el uso incorrecto del software (por ejemplo, aplicar optimizaciones incompatibles con su hardware ignorando las advertencias).</li>
-                <li>**Expectativas de Rendimiento:** La insatisfacción porque las ganancias de FPS o la reducción de latencia no fueron tan altas como se esperaban (los resultados varían según el hardware de cada usuario).</li>
-                <li>**Activación Excesiva:** Si la licencia ha sido activada en 3 o más equipos.</li>
-            </ul>
-
-            <h2>4. Proceso de Solicitud de Reembolso</h2>
-            <p>Para solicitar un reembolso, por favor siga estos pasos:</p>
-            <ol>
-                <li>Envíe un correo electrónico a <strong class="text-white">support@quosoftware.com</strong> con el asunto: "Solicitud de Reembolso - [Su Número de Pedido]".</li>
-                <li>Incluya su nombre completo, el correo electrónico utilizado para la compra y la **fecha de compra**.</li>
-                <li>Explique detalladamente el **motivo de la solicitud** y los pasos de solución de problemas que ya intentó (si es por falla técnica).</li>
-            </ol>
-
-            <p>Una vez que recibamos su solicitud, nuestro equipo de soporte la revisará y se pondrá en contacto con usted en un plazo de **2 a 5 días hábiles**. Si se aprueba, el reembolso se procesará a través de la pasarela de pago original (Whop, Stripe, etc.).</p>
-
-            <h2>5. Contacto</h2>
-            <p>Si tiene preguntas sobre esta Política de Reembolso, puede contactarnos en:</p>
+            <h2>5. Contact Us</h2>
+            <p>If you have any questions regarding this **No Refund Policy**, please contact us before purchase at:</p>
             <p class="font-bold text-white">support@quosoftware.com</p>
         </div>
     </main>
@@ -184,7 +186,7 @@
                     <ul class="space-y-3 text-sm text-gray-500">
                         <li><a href="privacy.html" class="hover:text-brand transition">Privacy Policy</a></li>
                         <li><a href="terms.html" class="hover:text-brand transition">Terms of Service</a></li>
-                        <li><a href="refund.html" class="hover:text-brand transition">Refund Policy</a></li>
+                        <li><a href="refund.html" class="hover:text-brand transition">No Refund Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -199,7 +201,89 @@
     </footer>
 
     <script>
-        lucide.createIcons();
+        // ==========================================
+        // SUPABASE CONFIG AND FUNCTIONS
+        // ==========================================
+        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); 
+
+        async function loginWithGoogle() {
+            const { data, error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: 'https://quoboost.vercel.app/' } 
+            });
+            if (error) console.error("Login Error:", error);
+        }
+        window.loginWithGoogle = loginWithGoogle; 
+
+        async function logout() {
+            await supabaseClient.auth.signOut();
+            window.location.reload();
+        }
+        window.logout = logout;
+
+        async function checkUser() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            const authSection = document.getElementById('auth-section');
+
+            if (session) {
+                const { data: profile } = await supabaseClient
+                    .from('profile') 
+                    .select('is_premium')
+                    .eq('id', session.user.id)
+                    .single();
+                
+                const isPremium = profile?.is_premium;
+                const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
+                const badgeText = isPremium ? 'PRO' : 'FREE';
+                
+                const avatarUrl = session.user.user_metadata.avatar_url;
+                const userEmail = session.user.email;
+                
+                if (authSection) {
+                    authSection.innerHTML = `
+                        <div class="relative group cursor-pointer flex items-center gap-3">
+                            <div class="hidden md:flex flex-col text-right">
+                                <span class="text-[10px] text-gray-500 uppercase">Status</span>
+                                <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
+                            </div>
+
+                            <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
+                                ${avatarUrl 
+                                    ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` 
+                                    : userEmail[0].toUpperCase()}
+                            </div>
+                            
+                            <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
+                                <div class="p-2 space-y-1">
+                                    <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${userEmail}</div>
+                                    <a href="download.html" class="block px-3 py-2 text-sm text-white hover:bg-white/10 rounded flex items-center gap-2"><i data-lucide="download" class="w-4"></i> Download App</a>
+                                    <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
+                                        <i data-lucide="log-out" class="w-4"></i> Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    if(window.lucide) lucide.createIcons();
+                }
+
+            } else {
+                // If not logged in, show the login button
+                authSection.innerHTML = `
+                    <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white/10 text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-white/20 transition shadow-lg">
+                        <i data-lucide="log-in" class="w-4 h-4"></i> Sign In
+                    </a>
+                `;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            checkUser();
+            if(window.lucide) lucide.createIcons();
+        });
     </script>
 </body>
 </html>
