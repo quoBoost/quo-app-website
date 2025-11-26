@@ -102,7 +102,7 @@
         <div class="relative bg-white/5 p-1 rounded-full flex items-center mb-12 border border-white/5">
             <button onclick="setPeriod('monthly')" id="btn-monthly" class="px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all">Monthly</button>
             <button onclick="setPeriod('yearly')" id="btn-yearly" class="px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all">
-                Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 20%</span>
+                Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span> 
             </button>
         </div>
 
@@ -372,6 +372,15 @@
         const checkoutBtn = document.getElementById('checkout-btn');
 
         function setPeriod(type) {
+            // Precio Mensual base
+            const monthlyPrice = 9.99; 
+            // Cálculo del precio anual sin descuento (para referencia visual)
+            const annualPriceFull = monthlyPrice * 12; // $119.88
+            // Precio anual solicitado por el usuario
+            const annualPriceDiscounted = 59.99;
+            // Cálculo del porcentaje de ahorro real (respecto al pago mensual completo)
+            const savings = 100 - (annualPriceDiscounted / annualPriceFull) * 100;
+
             if (type === 'monthly') {
                 priceDisplay.innerText = "$9.99";
                 periodDisplay.innerText = "/mo";
@@ -379,14 +388,20 @@
                 btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
                 // Enlace de Whop mensual (Placeholder)
                 checkoutBtn.href = "https://whop.com/checkout/MONTHLY_ID";
+                
+                // Asegurar que la etiqueta de ahorro muestre el descuento real para el plan anual
+                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE ${Math.round(savings)}%</span>`;
+                
             } else {
-                // Precio anual (9.99 * 12 * 0.80 = 95.88, redondeado a 79.99 por ser un descuento agresivo)
-                priceDisplay.innerText = "$79.99";
+                priceDisplay.innerText = "$59.99"; // PRECIO ANUAL CORREGIDO
                 periodDisplay.innerText = "/yr";
                 btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
                 btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
                 // Enlace de Whop anual (Placeholder)
                 checkoutBtn.href = "https://whop.com/checkout/YEARLY_ID";
+
+                // Asegurar que la etiqueta de ahorro muestre el descuento real para el plan anual
+                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE ${Math.round(savings)}%</span>`;
             }
         }
         // Inicializar por defecto en mensual (o puedes cambiar a 'yearly')
