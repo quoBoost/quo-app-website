@@ -67,10 +67,13 @@
         }
         .text-glow { text-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
         
-        /* Estilos específicos para el Modal de Whop */
+        /* CORRECCIÓN VISUAL DEL IFRAME DE WHOP */
         #whop-wrapper iframe {
             width: 100% !important;
             height: 100% !important;
+            /* Forzamos una altura mínima grande para que el contenido NUNCA se corte.
+               El contenedor padre (#whop-wrapper) manejará el scroll si es necesario. */
+            min-height: 800px !important; 
             border: none;
             background: transparent !important;
         }
@@ -244,7 +247,8 @@
                 </button>
             </div>
 
-            <!-- Modal Body: Whop Iframe (Sin restricciones de ancho) -->
+            <!-- Modal Body: Whop Iframe (Con scroll y altura garantizada) -->
+            <!-- CORRECCIÓN: overflow-y-auto en el contenedor para permitir scroll si el contenido es largo -->
             <div id="whop-wrapper" class="flex-grow w-full h-full relative bg-[#0F0F11] overflow-y-auto">
                 <!-- IFRAME SE INYECTA AQUÍ -->
             </div>
