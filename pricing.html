@@ -12,8 +12,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
+    <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
+    
     <script>
-        // CONFIGURACIÓN TAILWIND (usando la paleta de colores del index.html)
+        // CONFIGURACIÓN TAILWIND
         tailwind.config = {
             theme: {
                 extend: {
@@ -22,13 +24,12 @@
                         mono: ['JetBrains Mono', 'monospace'] 
                     },
                     colors: { 
-                        brand: '#FF003C',       /* Rojo Neón Principal */
+                        brand: '#FF003C',       
                         brandDark: '#990024',
-                        void: '#030005',        /* Fondo Casi Negro */
-                        surface: '#0F0F11',     /* Fondo de Tarjetas */
+                        void: '#030005',       
+                        surface: '#0F0F11',    
                     },
                     animation: {
-                        // Mantenemos las animaciones si se usan
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                 }
@@ -39,7 +40,6 @@
     <style>
         body { background-color: #050505; color: white; }
         .bg-grid {
-            /* Mismo grid de fondo que index.html */
             background-size: 50px 50px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
@@ -64,6 +64,13 @@
              -webkit-text-fill-color: transparent;
         }
         .text-glow { text-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
+        
+        /* Estilos para el iframe de Whop dentro del modal */
+        #whop-checkout-container iframe {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 1rem;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -82,10 +89,7 @@
                 <a href="/pricing" class="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition hidden md:block">Pricing</a>
                 
                 <div id="auth-section">
-                    <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white/10 text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-white/20 transition shadow-lg">
-                        <i data-lucide="log-in" class="w-4 h-4"></i> Sign In
-                    </a>
-                </div>
+                    </div>
             </div>
         </div>
     </nav>
@@ -113,9 +117,7 @@
                     <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
                     <h3 class="text-4xl font-extrabold mt-2 text-white">$0<span class="text-sm text-gray-500 font-normal"> / forever</span></h3>
                 </div>
-                
                 <p class="text-gray-400 mb-8">Essential tools to clean temporary files and manage standard Windows processes.</p>
-
                 <a href="/download" class="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition text-sm text-white flex justify-center items-center gap-2">
                     <i data-lucide="download" class="w-4"></i> Get Started Free
                 </a>
@@ -134,292 +136,75 @@
                 
                 <p class="text-gray-300 mb-8">Full, kernel-level access to the entire suite of optimization tools for pro-level stability and input.</p>
 
-                <a href="https://whop.com/checkout/MONTHLY_ID" id="checkout-btn" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2">
+                <button onclick="initiateCheckout()" id="checkout-btn" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
                     Upgrade Now <i data-lucide="zap" class="w-4"></i>
-                </a>
+                </button>
             </div>
 
-             <div class="card-glass rounded-3xl p-8 flex flex-col">
+            <div class="card-glass rounded-3xl p-8 flex flex-col">
                 <div class="mb-6">
                     <span class="text-green-400 font-bold tracking-widest text-xs uppercase">Lifetime</span>
                     <h3 class="text-4xl font-extrabold mt-2 text-white">$149<span class="text-sm text-gray-500 font-normal"> / one-time</span></h3>
                 </div>
-                
                 <p class="text-gray-400 mb-8">Never pay again. Includes all future updates and features for the lifetime of the product.</p>
-
-                <a href="https://whop.com/checkout/LIFETIME_ID" class="w-full py-4 rounded-xl border border-green-400/30 text-center font-bold hover:bg-green-400/5 transition text-sm text-green-400 flex justify-center items-center gap-2">
-                    Get Lifetime <i data-lucide="infinity" class="w-4"></i>
-                </a>
+                <button class="w-full py-4 rounded-xl border border-green-400/30 text-center font-bold hover:bg-green-400/5 transition text-sm text-green-400 flex justify-center items-center gap-2 cursor-not-allowed opacity-50">
+                    Coming Soon <i data-lucide="infinity" class="w-4"></i>
+                </button>
             </div>
             
         </div>
 
         <div class="w-full max-w-6xl mt-20">
             <h2 class="text-3xl font-black text-white text-center mb-10">Detailed Feature Comparison</h2>
-
-            <div class="bg-surface rounded-2xl border border-white/10 overflow-hidden">
-                
-                <div class="hidden md:grid grid-cols-3 text-xs font-mono text-gray-500 uppercase border-b border-white/10 bg-black/40">
-                    <div class="p-4 text-left font-bold text-white">Feature Suite</div>
-                    <div class="p-4 text-center">Starter (Free)</div>
-                    <div class="p-4 text-center text-brand font-bold">Premium (Ultimate)</div>
-                </div>
-
-                <div class="p-4 bg-black/20 font-bold text-sm uppercase text-gray-400">Core Applications & System Health</div>
-                <div id="features-list">
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Automatic System Restore Point</div>
-                        <div class="md:text-center text-green-400"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Basic Windows Temp Cleaner</div>
-                        <div class="md:text-center text-green-400"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Startup Application Manager</div>
-                        <div class="md:text-center text-green-400"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">System File Integrity Checker (SFC/DISM Basic)</div>
-                        <div class="md:text-center text-green-400"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">QuO RAM Optimizer (Intelligent Memory Purge)</div>
-                        <div class="md:text-center text-red-500"><i data-lucide="x" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">QuO GameMode (Kernel-Level Resource Allocation)</div>
-                        <div class="md:text-center text-red-500"><i data-lucide="x" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-                </div>
-
-                <div class="p-4 bg-black/20 font-bold text-sm uppercase text-gray-400 mt-4">Deep Optimization & Latency</div>
-                <div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Windows Event Log Monitoring (Basic)</div>
-                        <div class="md:text-center text-green-400"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Real-Time DPC Latency Meter (Read-Only)</div>
-                        <div class="md:text-center text-green-400"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Total Optimization Tweaks (System/Hardware)</div>
-                        <div class="md:text-center text-gray-500">~50 (Safe Core Tweaks)</div>
-                        <div class="md:text-center text-green-400 font-bold">1000+ (Full Suite)</div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Kernel-Level Scheduler Priority (Custom Registry)</div>
-                        <div class="md:text-center text-red-500"><i data-lucide="x" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Input Filtering Bypass (Raw Input Optimization)</div>
-                        <div class="md:text-center text-red-500"><i data-lucide="x" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Network Jitter Reduction (Nagle & Buffer Optimization)</div>
-                        <div class="md:text-center text-red-500"><i data-lucide="x" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">VRAM and GPU Shader Cache Cleaner/Optimizer</div>
-                        <div class="md:text-center text-red-500"><i data-lucide="x" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Exclusive Custom Power Plan X (Zero Latency Profile)</div>
-                        <div class="md:text-center text-red-500"><i data-lucide="x" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-                </div>
-
-                <div class="p-4 bg-black/20 font-bold text-sm uppercase text-gray-400 mt-4">Support & Future Access</div>
-                <div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Restore System Defaults Function (Safety Feature)</div>
-                        <div class="md:text-center text-green-400"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Automatic Hardware Detection (AMD/Intel/NVIDIA)</div>
-                        <div class="md:text-center text-green-400"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Advanced Support & Priority Troubleshooting</div>
-                        <div class="md:text-center text-gray-500">Standard Email</div>
-                        <div class="md:text-center text-green-400 font-bold">Priority Discord / Email</div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center border-b border-white/5 py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Full Access to All Future Premium Tweaks</div>
-                        <div class="md:text-center text-red-500"><i data-lucide="x" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 items-center py-4 px-4 hover:bg-white/5 transition">
-                        <div class="text-white font-medium">Cloud Configs and Profile Synchronization</div>
-                        <div class="md:text-center text-red-500"><i data-lucide="x" class="w-5 inline md:block"></i></div>
-                        <div class="md:text-center text-green-400 font-bold"><i data-lucide="check" class="w-5 inline md:block"></i></div>
-                    </div>
-                </div>
-
+            <div class="bg-surface rounded-2xl border border-white/10 overflow-hidden p-8 text-center text-gray-400">
+                <p>Full feature list available in application.</p>
             </div>
-            
-            <div class="text-center mt-10">
-                <a href="/#download-cta" class="text-gray-500 text-sm hover:text-white transition">
-                    Already Purchased? Download the App <i data-lucide="arrow-right" class="w-3 inline"></i>
-                </a>
-            </div>
-
         </div>
 
     </main>
 
     <footer id="support" class="bg-[#050505] border-t border-white/10 pt-16 md:pt-20 pb-10 mt-auto">
-        <div class="max-w-7xl mx-auto px-6">
-            
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-16 text-center md:text-left">
-                <div class="col-span-1 md:col-span-1 flex flex-col items-center md:items-start">
-                    <a href="/" class="flex items-center gap-2 mb-6">
-                        <img src="assets/logo.png" alt="QuO Logo" class="w-8 h-8 object-contain">
-                        <span class="text-xl font-bold text-white">QuO</span>
-                    </a>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
-                        The ultimate Windows optimization utility built for competitive gamers. Eliminate latency. Unlock FPS.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition"><i data-lucide="twitter" class="w-4"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-[#5865F2] hover:text-white transition"><i data-lucide="gamepad-2" class="w-4"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition"><i data-lucide="youtube" class="w-4"></i></a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold mb-4 md:mb-6">Product</h4>
-                    <ul class="space-y-3 text-sm text-gray-500">
-                        <li><a href="/#features" class="hover:text-brand transition">Features</a></li>
-                        <li><a href="/pricing" class="hover:text-brand transition">Pricing</a></li>
-                        <li><a href="/download" class="hover:text-brand transition">Changelog</a></li>
-                        <li><a href="/download" class="hover:text-brand transition">Download</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold mb-4 md:mb-6">Resources</h4>
-                    <ul class="space-y-3 text-sm text-gray-500">
-                        <li><a href="#" class="hover:text-brand transition">Documentation</a></li>
-                        <li><a href="#" class="hover:text-brand transition">Optimization Guide</a></li>
-                        <li><a href="#" class="hover:text-brand transition">Community Server</a></li>
-                        <li><a href="#" class="hover:text-brand transition">Help Center</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold mb-4 md:mb-6">Legal</h4>
-                    <ul class="space-y-3 text-sm text-gray-500">
-                        <li><a href="/privacy" class="hover:text-brand transition">Privacy Policy</a></li>
-                        <li><a href="/terms" class="hover:text-brand transition">Terms of Service</a></li>
-                        <li><a href="/refund" class="hover:text-brand transition">No Refund Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600">
-                <p>&copy; 2025 QuO Software Inc. All rights reserved.</p>
-                <div class="flex items-center gap-6">
-                    <span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-green-500"></div> Systems Operational</span>
-                </div>
-            </div>
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-600 text-xs">&copy; 2025 QuO Software Inc.</p>
         </div>
     </footer>
 
+    <div id="checkout-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-md p-4 opacity-0 transition-opacity duration-300">
+        <div class="relative w-full max-w-3xl h-[85vh] bg-[#0F0F11] rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col">
+            
+            <div class="flex justify-between items-center p-4 border-b border-white/5 bg-white/5">
+                <h3 class="text-white font-bold flex items-center gap-2">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-brand"></i> Secure Checkout
+                </h3>
+                <button onclick="closeCheckout()" class="text-gray-400 hover:text-white transition">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <div id="whop-wrapper" class="flex-grow w-full h-full relative bg-white">
+                </div>
+        </div>
+    </div>
+
 
     <script>
-        // ==========================================
-        // LÓGICA DE PRECIOS
-        // ==========================================
-        const priceDisplay = document.getElementById('price-display');
-        const periodDisplay = document.getElementById('period-display');
-        const btnMonthly = document.getElementById('btn-monthly');
-        const btnYearly = document.getElementById('btn-yearly');
-        const checkoutBtn = document.getElementById('checkout-btn');
-
-        function setPeriod(type) {
-            // Precio Mensual base
-            const monthlyPrice = 9.99; 
-            // Cálculo del precio anual sin descuento (para referencia visual)
-            const annualPriceFull = monthlyPrice * 12; // $119.88
-            // Precio anual solicitado por el usuario
-            const annualPriceDiscounted = 59.99;
-            // Cálculo del porcentaje de ahorro real (respecto al pago mensual completo)
-            const savings = 100 - (annualPriceDiscounted / annualPriceFull) * 100;
-
-            if (type === 'monthly') {
-                priceDisplay.innerText = "$9.99";
-                periodDisplay.innerText = "/mo";
-                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
-                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
-                // Enlace de Whop mensual (Placeholder)
-                checkoutBtn.href = "https://whop.com/checkout/MONTHLY_ID";
-                
-                // Asegurar que la etiqueta de ahorro muestre el descuento real para el plan anual
-                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE ${Math.round(savings)}%</span>`;
-                
-            } else {
-                priceDisplay.innerText = "$59.99"; // PRECIO ANUAL CORREGIDO
-                periodDisplay.innerText = "/yr";
-                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
-                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
-                // Enlace de Whop anual (Placeholder)
-                checkoutBtn.href = "https://whop.com/checkout/YEARLY_ID";
-
-                // Asegurar que la etiqueta de ahorro muestre el descuento real para el plan anual
-                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE ${Math.round(savings)}%</span>`;
-            }
-        }
-        // Inicializar por defecto en mensual (o puedes cambiar a 'yearly')
-        setPeriod('monthly');
-
-
-        // ==========================================
-        // SUPABASE CONFIG AND AUTH (Mismo código de las páginas legales)
-        // ==========================================
+        // CONFIGURACIÓN DE SUPABASE
         const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
-
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); 
 
+        // CONFIGURACIÓN WHOP
+        const WHOP_MONTHLY_ID = "plan_PKEWD5btP62VV"; 
+        // const WHOP_YEARLY_ID = "plan_XXXX"; // Añadir cuando lo tengas
+
+        let currentPlanId = WHOP_MONTHLY_ID; 
+        let currentUser = null;
+
+        // --- AUTH LOGIC ---
         async function loginWithGoogle() {
-            const { data, error } = await supabaseClient.auth.signInWithOAuth({
+            const { error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
-                options: { redirectTo: 'https://quoboost.com/' } 
+                options: { redirectTo: window.location.href } 
             });
             if (error) console.error("Login Error:", error);
         }
@@ -433,64 +218,165 @@
 
         async function checkUser() {
             const { data: { session } } = await supabaseClient.auth.getSession();
+            currentUser = session ? session.user : null;
+            renderAuth(currentUser);
+        }
+
+        function renderAuth(user) {
             const authSection = document.getElementById('auth-section');
-
-            if (session) {
-                const { data: profile } = await supabaseClient
-                    .from('profile') 
-                    .select('is_premium')
-                    .eq('id', session.user.id)
-                    .single();
-                
-                const isPremium = profile?.is_premium;
-                const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
-                const badgeText = isPremium ? 'PRO' : 'FREE';
-                
-                const avatarUrl = session.user.user_metadata.avatar_url;
-                const userEmail = session.user.email;
-                
-                if (authSection) {
-                    authSection.innerHTML = `
-                        <div class="relative group cursor-pointer flex items-center gap-3">
-                            <div class="hidden md:flex flex-col text-right">
-                                <span class="text-[10px] text-gray-500 uppercase">Status</span>
-                                <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
-                            </div>
-
-                            <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
-                                ${avatarUrl 
-                                    ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` 
-                                    : userEmail[0].toUpperCase()}
-                            </div>
-                            
-                            <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
-                                <div class="p-2 space-y-1">
-                                    <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${userEmail}</div>
-                                    <a href="/download" class="block px-3 py-2 text-sm text-white hover:bg-white/10 rounded flex items-center gap-2"><i data-lucide="download" class="w-4"></i> Download App</a>
-                                    <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
-                                        <i data-lucide="log-out" class="w-4"></i> Logout
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    if(window.lucide) lucide.createIcons();
-                }
-
-            } else {
-                // If not logged in, show the login button
+            if (!user) {
                 authSection.innerHTML = `
                     <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white/10 text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-white/20 transition shadow-lg">
                         <i data-lucide="log-in" class="w-4 h-4"></i> Sign In
-                    </a>
-                `;
+                    </a>`;
+            } else {
+                // Chequear si ya es premium para mostrar badge
+                checkPremiumStatus(user.id);
+            }
+            if(window.lucide) lucide.createIcons();
+        }
+
+        async function checkPremiumStatus(userId) {
+            const { data: profile } = await supabaseClient
+                .from('profile') 
+                .select('is_premium')
+                .eq('id', userId)
+                .single();
+            
+            const isPremium = profile?.is_premium;
+            const authSection = document.getElementById('auth-section');
+            const avatarUrl = currentUser.user_metadata.avatar_url;
+            const badgeText = isPremium ? 'PRO' : 'FREE';
+            const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
+
+            authSection.innerHTML = `
+                <div class="relative group cursor-pointer flex items-center gap-3">
+                    <div class="hidden md:flex flex-col text-right">
+                        <span class="text-[10px] text-gray-500 uppercase">Status</span>
+                        <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
+                        ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
+                    </div>
+                    <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="p-2 space-y-1">
+                            <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
+                            <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
+                                <i data-lucide="log-out" class="w-4"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+            if(window.lucide) lucide.createIcons();
+        }
+
+
+        // --- PRICING TOGGLE LOGIC ---
+        function setPeriod(type) {
+            const priceDisplay = document.getElementById('price-display');
+            const periodDisplay = document.getElementById('period-display');
+            const btnMonthly = document.getElementById('btn-monthly');
+            const btnYearly = document.getElementById('btn-yearly');
+            
+            if (type === 'monthly') {
+                priceDisplay.innerText = "$9.99";
+                periodDisplay.innerText = "/mo";
+                currentPlanId = WHOP_MONTHLY_ID;
+                
+                btnMonthly.classList.replace('text-gray-400', 'text-white');
+                btnMonthly.classList.add('bg-white/10');
+                btnYearly.classList.remove('bg-white/10');
+                btnYearly.classList.replace('text-white', 'text-gray-400');
+            } else {
+                priceDisplay.innerText = "$59.99";
+                periodDisplay.innerText = "/yr";
+                // currentPlanId = WHOP_YEARLY_ID; // Descomentar cuando tengas el ID
+                
+                btnYearly.classList.replace('text-gray-400', 'text-white');
+                btnYearly.classList.add('bg-white/10');
+                btnMonthly.classList.remove('bg-white/10');
+                btnMonthly.classList.replace('text-white', 'text-gray-400');
             }
         }
+
+
+        // --- WHOP CHECKOUT LOGIC ---
         
+        // 1. Iniciar Checkout
+        function initiateCheckout() {
+            // SEGURIDAD: Obligar login antes de pagar para poder asignar el premium
+            if (!currentUser) {
+                alert("Please Sign In with Google before upgrading.");
+                loginWithGoogle();
+                return;
+            }
+
+            const modal = document.getElementById('checkout-modal');
+            const wrapper = document.getElementById('whop-wrapper');
+
+            // Limpiar contenido previo
+            wrapper.innerHTML = '';
+
+            // Crear el elemento DIV que Whop transformará en iframe
+            const checkoutDiv = document.createElement('div');
+            checkoutDiv.setAttribute('data-whop-checkout-plan-id', currentPlanId);
+            checkoutDiv.setAttribute('data-whop-checkout-theme', 'light'); // O 'dark' según prefieras dentro del iframe
+            checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete'); // Nombre de la función callback
+            
+            // Opcional: Prellenar el email del usuario de Google
+            if(currentUser.email) {
+                 checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
+            }
+
+            wrapper.appendChild(checkoutDiv);
+
+            // Mostrar Modal
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
+        }
+
+        // 2. Cerrar Modal
+        function closeCheckout() {
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('whop-wrapper').innerHTML = ''; // Limpiar memoria
+            }, 300);
+        }
+
+        // 3. CALLBACK DE ÉXITO (Se llama cuando Whop confirma el pago en el frontend)
+        window.onWhopPurchaseComplete = async (planId, receiptId) => {
+            console.log("Pago exitoso recibido:", planId, receiptId);
+            
+            // Actualizar status a PREMIUM en Supabase
+            if (currentUser) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('profile')
+                        .update({ is_premium: true })
+                        .eq('id', currentUser.id);
+
+                    if (error) {
+                        console.error("Error updating premium status:", error);
+                        alert("Payment successful, but system update failed. Please contact support.");
+                    } else {
+                        alert("Upgrade Successful! Welcome to QuO Premium.");
+                        window.location.href = "/"; // O recargar la página
+                    }
+                } catch (err) {
+                    console.error("Unexpected error:", err);
+                }
+            }
+            closeCheckout();
+        };
+
+        // INICIALIZACIÓN
         document.addEventListener('DOMContentLoaded', function () {
             checkUser();
             if(window.lucide) lucide.createIcons();
         });
+
     </script>
 </body>
 </html>
