@@ -377,42 +377,57 @@
         }
 
         // Lógica de Checkout REHECHA para forzar visibilidad y scroll
-        function initiateWhopCheckout(planId) {
-            const wrapper = document.getElementById('whop-wrapper');
-            wrapper.innerHTML = ''; // Limpiar cualquier instancia previa
+        // A) MODIFICAR ESTA FUNCIÓN para incluir metadata
+function initiateWhopCheckout(planId) {
+    const wrapper = document.getElementById('whop-wrapper');
+    wrapper.innerHTML = ''; 
 
-            const checkoutDiv = document.createElement('div');
-            
-            // ID del Plan
-            checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
-            
-            // Configuración Visual
-            checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
-            checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
+    const checkoutDiv = document.createElement('div');
+    checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
+    checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
+    checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
 
-            // --- AQUÍ ESTÁ LA SOLUCIÓN PARA QUE SE VEA TODO ---
-            // Ponemos explícitamente en "false" todas las opciones de ocultar
-            checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-features', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-submit-button', 'false'); // Aseguramos que el botón exista
+    // Forzar visibilidad
+    checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
+    checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
+    checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
+    checkoutDiv.setAttribute('data-whop-checkout-hide-features', 'false');
+    checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');
+    checkoutDiv.setAttribute('data-whop-checkout-hide-submit-button', 'false');
 
-            // Callback
-            checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
+    checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
 
-            // Email del usuario
-            if(currentUser && currentUser.email) {
-                 checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
-            }
+    if(currentUser) {
+         checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
+         
+         // --- [NUEVO Y CRÍTICO] ---
+         // Enviamos el ID de Supabase oculto a Whop. 
+         // Whop nos devolverá esto en el Webhook para saber a quién darle Premium.
+         const metadata = JSON.stringify({ supabase_user_id: currentUser.id });
+         checkoutDiv.setAttribute('data-whop-checkout-metadata', metadata);
+    }
 
-            wrapper.appendChild(checkoutDiv);
-            
-            setTimeout(() => {
-                openModal('whop-modal');
-            }, 100);
-        }
+    wrapper.appendChild(checkoutDiv);
+    
+    setTimeout(() => {
+        openModal('whop-modal');
+    }, 100);
+}
+
+// B) MODIFICAR EL CALLBACK (Hacerlo tonto)
+// Ya no actualiza la BD, solo avisa al usuario.
+window.onWhopPurchaseComplete = async (planId, receiptId) => {
+    closeModal('whop-modal');
+    
+    // Mostramos un mensaje de éxito
+    // En un sistema real, el webhook tarda 1-2 segundos.
+    alert("Payment received! Activating your license in the cloud...");
+    
+    // Recargamos para que, si el webhook ya terminó, el usuario vea su estado PRO
+    setTimeout(() => {
+        window.location.reload();
+    }, 2000); 
+};
 
         window.onWhopPurchaseComplete = async (planId, receiptId) => {
             if (currentUser) {
