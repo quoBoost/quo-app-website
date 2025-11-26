@@ -414,33 +414,25 @@ function initiateWhopCheckout(planId) {
     }, 100);
 }
 
-// B) MODIFICAR EL CALLBACK (Hacerlo tonto)
-// Ya no actualiza la BD, solo avisa al usuario.
+        // --- 4. PURCHASE FLOW & WHOP CHECKOUT LOGIC ---
+
+// (Mantener la función initiateWhopCheckout como está, es correcta)
+
+// Función de callback que Whop llama al completar el pago
 window.onWhopPurchaseComplete = async (planId, receiptId) => {
     closeModal('whop-modal');
     
-    // Mostramos un mensaje de éxito
-    // En un sistema real, el webhook tarda 1-2 segundos.
-    alert("Payment received! Activating your license in the cloud...");
+    // El Webhook de Supabase está trabajando ahora mismo en la nube.
+    // Avisamos al usuario y esperamos un momento para que el estado 'PRO' se propague.
+    alert("Payment successful! Activating your QuO Premium license securely...");
     
-    // Recargamos para que, si el webhook ya terminó, el usuario vea su estado PRO
+    // Recargamos la página después de 4 segundos para mostrar el nuevo estado 'PRO'
     setTimeout(() => {
         window.location.reload();
-    }, 2000); 
+    }, 4000); 
 };
-
-        window.onWhopPurchaseComplete = async (planId, receiptId) => {
-            if (currentUser) {
-                try {
-                    await supabaseClient.from('profile').update({ is_premium: true }).eq('id', currentUser.id);
-                    alert("Upgrade Successful! Welcome to QuO Premium.");
-                    window.location.reload();
-                } catch (err) {
-                    console.error(err);
-                }
-            }
-            closeModal('whop-modal');
-        };
+// B) MODIFICAR EL CALLBACK (Hacerlo tonto)
+// Ya no actualiza la BD, solo avisa al usuario.
 
         // --- UTILS ---
         function openModal(id) {
