@@ -102,5 +102,32 @@ async function checkUser() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementById('ui-carousel')) {
+        new Splide('#ui-carousel', {
+            type: 'loop', // El carrusel se repite infinitamente
+            perPage: 4, // Mostrar 4 tarjetas en desktop
+            perMove: 1, // Mover una tarjeta a la vez
+            autoplay: true, // Auto-reproducción activada
+            interval: 5000, // Cada 5 segundos
+            pauseOnHover: true, // Pausar al pasar el ratón
+            arrows: true, // Mostrar flechas de navegación
+            pagination: true, // Mostrar puntos de paginación
+            gap: '1.5rem', // Espacio entre las tarjetas (corresponde a 'gap-6' de Tailwind)
+            breakpoints: {
+                1024: { // Para pantallas pequeñas (lg: o menos)
+                    perPage: 2, // Mostrar 2 tarjetas en tablet
+                    gap: '1rem', // Espacio más pequeño
+                },
+                768: { // Para pantallas aún más pequeñas (md: o menos)
+                    perPage: 1, // Mostrar 1 tarjeta en móvil
+                    gap: '1rem',
+                },
+            },
+        }).mount();
+    }
+});
+
 // Inicializar la comprobación de sesión
 checkUser();
+
