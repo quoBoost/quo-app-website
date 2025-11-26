@@ -48,6 +48,51 @@
     </script>
 
     <style>
+
+        /* -- AGREGAR DENTRO DE TU ETIQUETA <style> EXISTENTE -- */
+
+/* 6. PRISM BACKGROUND EFFECT (ReactBits inspired) */
+.prism-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.prism-bg::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 0, 60, 0.1) 0,
+        rgba(255, 0, 60, 0.1) 1px,
+        transparent 1px,
+        transparent 50px
+    ),
+    repeating-linear-gradient(
+        -45deg,
+        rgba(255, 0, 60, 0.1) 0,
+        rgba(255, 0, 60, 0.1) 1px,
+        transparent 1px,
+        transparent 50px
+    );
+    background-size: 50px 50px;
+    animation: prism-scroll 20s linear infinite;
+    transform: rotate(45deg); /* Base rotation for prism effect */
+    opacity: 0.3; /* Subtle effect */
+    pointer-events: none;
+}
+
+@keyframes prism-scroll {
+    0% { background-position: 0 0; }
+    100% { background-position: -500px 500px; }
+}
+
+/* ---------------------------------------------------- */
         body {
             background-color: var(--void);
             color: white;
@@ -842,6 +887,56 @@
         </div>
     </section>
 
+    <section id="download-cta" class="relative py-20 md:py-32 overflow-hidden bg-void">
+    
+    <div class="prism-bg"></div>
+
+    <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand/30 bg-brand/5 text-brand font-mono text-sm tracking-widest mb-6 md:mb-8">
+            <i data-lucide="zap" class="w-4 h-4"></i> GET QUO NOW
+        </div>
+        
+        <h2 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6 md:mb-8">
+            Unlock <span class="text-gradient text-glow">MAXIMUM PERFORMANCE.</span>
+        </h2>
+        
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 md:mb-12">
+            The free version offers essential stability fixes. Upgrade to Pro for kernel-level optimization and persistent latency management.
+        </p>
+
+        <div class="bg-surface/90 backdrop-blur-md border border-brand/20 rounded-2xl p-6 md:p-10 shadow-2xl relative overflow-hidden group hover:shadow-[0_0_50px_rgba(255,0,60,0.4)] transition duration-500">
+            
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+                
+                <div class="text-left flex-shrink-0">
+                    <p class="text-white text-2xl md:text-3xl font-bold mb-1 flex items-center gap-2">
+                        QuO Optimizer <span class="text-xs font-medium text-brand border border-brand/50 rounded-md px-1.5 py-0.5">V2.1</span>
+                    </p>
+                    <p class="text-gray-500 text-sm">Download Size: 5MB | Windows 10/11 Compatible</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                    
+                    <a href="download.html" class="btn-primary text-white px-8 py-3 rounded-xl font-bold text-base flex items-center justify-center gap-3 whitespace-nowrap">
+                        <i data-lucide="download" class="w-5 h-5"></i> DOWNLOAD FREE
+                    </a>
+                    
+                    <a href="pricing.html" class="bg-white/10 text-white px-8 py-3 rounded-xl font-bold text-base hover:bg-white/20 transition flex items-center justify-center gap-3 whitespace-nowrap">
+                        <i data-lucide="zap" class="w-5 h-5 text-brand"></i> GO PRO
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <p class="mt-8 text-xs text-gray-600 font-mono">
+            *Kernel modifications are safe and reversible via Auto-Restore Point.
+        </p>
+
+    </div>
+</section>
+
     <footer id="support" class="bg-[#050505] border-t border-white/10 pt-16 md:pt-20 pb-10">
         <div class="max-w-7xl mx-auto px-6">
             
@@ -918,6 +1013,7 @@
 </script>
 </body>
 </html>
+
 
 
 
