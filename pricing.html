@@ -402,6 +402,7 @@
 
         // Paso 3: Iniciar Checkout de Whop (CON TODO VISIBLE)
         // Paso 3: Iniciar Checkout de Whop (CORREGIDO)
+// Paso 3: Iniciar Checkout de Whop (VERSIÓN FINAL Y COMPLETA)
 function initiateWhopCheckout(planId) {
     const wrapper = document.getElementById('whop-wrapper');
     wrapper.innerHTML = ''; 
@@ -409,21 +410,22 @@ function initiateWhopCheckout(planId) {
     const checkoutDiv = document.createElement('div');
     checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
     
-    // TEMA OSCURO
+    // TEMA Y CALLBACK
     checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark'); 
-    
-    // CALLBACK DE EXITO
     checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
-    
-    // --- AQUÍ ESTÁ EL CAMBIO IMPORTANTE ---
-    // Forzamos explícitamente que NO se oculte nada.
+    checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
+
+    // ==============================================================
+    // LÍNEAS CLAVE: FORZAR QUE NO SE OCULTE NADA (Price, Plan Info, etc.)
+    // *Whop por defecto oculta esto en vistas minimalistas, lo forzamos a 'false'.
+    // ==============================================================
     checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
     checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
     checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
-    checkoutDiv.setAttribute('data-whop-checkout-hide-order-bump', 'false'); // Si tienes upsells
+    checkoutDiv.setAttribute('data-whop-checkout-hide-features', 'false'); // Mostrar características
+    checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');     // Mostrar Términos
     
-    // Personalización de color
-    checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
+    // ==============================================================
 
     if(currentUser && currentUser.email) {
          checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
