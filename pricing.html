@@ -401,36 +401,40 @@
         }
 
         // Paso 3: Iniciar Checkout de Whop (CON TODO VISIBLE)
-        function initiateWhopCheckout(planId) {
-            const wrapper = document.getElementById('whop-wrapper');
-            wrapper.innerHTML = ''; 
+        // Paso 3: Iniciar Checkout de Whop (CORREGIDO)
+function initiateWhopCheckout(planId) {
+    const wrapper = document.getElementById('whop-wrapper');
+    wrapper.innerHTML = ''; 
 
-            const checkoutDiv = document.createElement('div');
-            checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
-            
-            // TEMA OSCURO PARA QUE COMBINE CON TU APP
-            checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark'); 
-            
-            // CALLBACK DE EXITO
-            checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
-            
-            // --- CONFIGURACIÓN DE VISIBILIDAD (ELIMINAR ATRIBUTOS PARA MOSTRAR TODO POR DEFECTO) ---
-            // Al no poner 'hide-price', por defecto es FALSE (Visible)
-            // Al no poner 'hide-tos', por defecto es FALSE (Visible)
-            
-            // Personalización de color (Rojo Marca)
-            checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
+    const checkoutDiv = document.createElement('div');
+    checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
+    
+    // TEMA OSCURO
+    checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark'); 
+    
+    // CALLBACK DE EXITO
+    checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
+    
+    // --- AQUÍ ESTÁ EL CAMBIO IMPORTANTE ---
+    // Forzamos explícitamente que NO se oculte nada.
+    checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
+    checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
+    checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
+    checkoutDiv.setAttribute('data-whop-checkout-hide-order-bump', 'false'); // Si tienes upsells
+    
+    // Personalización de color
+    checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
 
-            if(currentUser && currentUser.email) {
-                 checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
-            }
+    if(currentUser && currentUser.email) {
+         checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
+    }
 
-            wrapper.appendChild(checkoutDiv);
-            
-            setTimeout(() => {
-                openModal('whop-modal');
-            }, 100);
-        }
+    wrapper.appendChild(checkoutDiv);
+    
+    setTimeout(() => {
+        openModal('whop-modal');
+    }, 100);
+}
 
         window.onWhopPurchaseComplete = async (planId, receiptId) => {
             if (currentUser) {
