@@ -229,48 +229,24 @@
 
 
     <!-- ========================================== -->
-    <!-- MODAL 2: WHOP CHECKOUT (REDDISEÑADO) -->
+    <!-- MODAL 2: WHOP CHECKOUT (CLÁSICO Y COMPLETO) -->
     <!-- ========================================== -->
     <div id="whop-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-all duration-300 modal-enter">
-        <div class="relative w-full max-w-5xl h-[90vh] md:h-[80vh] bg-[#0F0F11] rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col md:flex-row">
+        <div class="relative w-full max-w-3xl h-[85vh] bg-[#0F0F11] rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col">
             
-            <!-- Sidebar: Resumen de Compra (Soluciona el problema visual) -->
-            <div class="w-full md:w-1/3 bg-[#161618] border-b md:border-b-0 md:border-r border-white/5 p-6 md:p-8 flex flex-col justify-between">
-                <div>
-                    <button onclick="closeModal('whop-modal')" class="mb-6 text-gray-500 hover:text-white flex items-center gap-2 text-sm md:hidden">
-                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
-                    </button>
-
-                    <h3 class="text-xs font-bold text-brand uppercase tracking-widest mb-2">Order Summary</h3>
-                    <h2 id="summary-plan-name" class="text-2xl md:text-3xl font-black text-white mb-2">QuO Premium</h2>
-                    <div class="text-3xl md:text-4xl font-medium text-white mb-6" id="summary-price">$9.99</div>
-                    
-                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-400"></i> Instant Delivery</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-400"></i> Secure Encryption</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-400"></i> Premium Support</li>
-                    </ul>
-                </div>
-
-                <div class="hidden md:block">
-                    <div class="flex items-center gap-2 text-xs text-gray-600 mb-2">
-                        <i data-lucide="shield" class="w-3 h-3"></i> Powered by Whop
-                    </div>
-                    <button onclick="closeModal('whop-modal')" class="text-gray-500 hover:text-white text-sm transition">Cancel Transaction</button>
-                </div>
+            <!-- Modal Header: Clásico -->
+            <div class="flex justify-between items-center p-4 border-b border-white/5 bg-white/5">
+                <h3 class="text-white font-bold flex items-center gap-2">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-brand"></i> Secure Checkout
+                </h3>
+                <button onclick="closeModal('whop-modal')" class="text-gray-400 hover:text-white transition">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
             </div>
 
-            <!-- Body: Whop Iframe -->
-            <!-- CORREGIDO: Fondo oscuro para coincidir con tema "Dark" y overflow ajustado -->
-            <div class="w-full md:w-2/3 relative bg-[#0F0F11] h-full overflow-hidden">
-                <div id="whop-wrapper" class="w-full h-full overflow-y-auto">
-                    <!-- IFRAME SE INYECTA AQUÍ -->
-                </div>
-                
-                <!-- Botón cerrar flotante para móvil -->
-                <button onclick="closeModal('whop-modal')" class="absolute top-4 right-4 bg-gray-800/80 backdrop-blur p-2 rounded-full text-white hover:bg-gray-700 md:hidden z-10">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
+            <!-- Modal Body: Whop Iframe (Sin restricciones de ancho) -->
+            <div id="whop-wrapper" class="flex-grow w-full h-full relative bg-[#0F0F11] overflow-y-auto">
+                <!-- IFRAME SE INYECTA AQUÍ -->
             </div>
         </div>
     </div>
@@ -282,9 +258,9 @@
     <script>
         // --- 1. CONFIGURATION ---
         const IDS = {
-            monthly: 'plan_9g0dos5qP6jp9', // ID Actualizado
-            yearly: 'plan_1LTn29l3d2jSF',  // ID Actualizado
-            lifetime: 'plan_ofXEr76XfpuAU' // ID Actualizado
+            monthly: 'plan_9g0dos5qP6jp9', 
+            yearly: 'plan_1LTn29l3d2jSF', 
+            lifetime: 'plan_ofXEr76XfpuAU' 
         };
 
         const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
@@ -292,8 +268,8 @@
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); 
 
         // State
-        let selectedPeriod = 'monthly'; // 'monthly' | 'yearly'
-        let pendingPlanType = null;     // 'subscription' | 'lifetime'
+        let selectedPeriod = 'monthly'; 
+        let pendingPlanType = null;     
         let currentUser = null;
 
         // --- 2. AUTHENTICATION (Supabase) ---
@@ -384,90 +360,71 @@
 
         // --- 4. PURCHASE FLOW MANAGER ---
 
-        // Paso 1: Usuario clickea botón "Upgrade" o "Lifetime"
         function startPurchaseFlow(type) {
-            // Check Auth First
             if (!currentUser) {
                 alert("Please Sign In with Google before upgrading.");
                 loginWithGoogle();
                 return;
             }
 
-            pendingPlanType = type; // Guardamos qué botón apretó ('subscription' o 'lifetime')
-            
-            // Abrir Modal de Selección de Método
+            pendingPlanType = type; 
             openModal('payment-method-modal');
         }
 
-        // Paso 2: Usuario selecciona Tarjeta o PayPal
         function selectMethod(method) {
             closeModal('payment-method-modal');
 
             if (method === 'paypal') {
-                // Lógica de PayPal (Placeholder)
                 alert("PayPal integration coming soon! Please use Card/Whop for now.");
                 return;
             }
 
             if (method === 'card') {
-                // Determinar ID y Detalles para Whop
                 let planIdToUse = '';
-                let planName = '';
-                let planPrice = '';
 
                 if (pendingPlanType === 'lifetime') {
                     planIdToUse = IDS.lifetime;
-                    planName = "QuO Lifetime Access";
-                    planPrice = "$149.00";
                 } else {
-                    // Subscription: Depende del toggle (Monthly/Yearly)
                     if (selectedPeriod === 'monthly') {
                         planIdToUse = IDS.monthly;
-                        planName = "QuO Premium (Monthly)";
-                        planPrice = "$9.99 / mo";
                     } else {
                         planIdToUse = IDS.yearly;
-                        planName = "QuO Premium (Annual)";
-                        planPrice = "$59.99 / yr";
                     }
                 }
 
-                // Iniciar Whop con los datos calculados
-                initiateWhopCheckout(planIdToUse, planName, planPrice);
+                initiateWhopCheckout(planIdToUse);
             }
         }
 
-        // Paso 3: Iniciar Checkout de Whop
-        function initiateWhopCheckout(planId, name, price) {
+        // Paso 3: Iniciar Checkout de Whop (CON TODO VISIBLE)
+        function initiateWhopCheckout(planId) {
             const wrapper = document.getElementById('whop-wrapper');
-            wrapper.innerHTML = ''; // Limpiar
+            wrapper.innerHTML = ''; 
 
-            // Actualizar el resumen visual en el sidebar del modal
-            document.getElementById('summary-plan-name').innerText = name;
-            document.getElementById('summary-price').innerText = price;
-
-            // Crear Iframe
             const checkoutDiv = document.createElement('div');
             checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
-            // CORREGIDO: Cambiado a 'dark' para que el iframe sea negro
+            
+            // TEMA OSCURO PARA QUE COMBINE CON TU APP
             checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark'); 
+            
+            // CALLBACK DE EXITO
             checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
-            // Forzar mostrar precio en Whop por si acaso, aunque ya lo mostramos nosotros
-            checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false'); 
-
+            
+            // --- AQUÍ ESTÁ LA MAGIA: MOSTRAR TODO ---
+            checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false'); // Muestra el precio
+            checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');   // Muestra Términos
+            
             if(currentUser && currentUser.email) {
                  checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
             }
 
             wrapper.appendChild(checkoutDiv);
             
-            // Esperar un poco para abrir el modal para que el script inyecte el iframe
             setTimeout(() => {
                 openModal('whop-modal');
             }, 100);
         }
 
-        // Callbacks de Éxito
         window.onWhopPurchaseComplete = async (planId, receiptId) => {
             if (currentUser) {
                 try {
@@ -500,7 +457,6 @@
             }
         }
 
-        // Init
         document.addEventListener('DOMContentLoaded', function () {
             checkUser();
             if(window.lucide) lucide.createIcons();
