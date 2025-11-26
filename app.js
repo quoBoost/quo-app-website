@@ -16,7 +16,7 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 async function loginWithGoogle() {
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'google',
-        options: { redirectTo: 'https://quoboost.vercel.app/' } 
+        options: { redirectTo: 'https://quoboost.com/' } 
     });
     if (error) console.error("Login Error:", error);
 }
@@ -270,3 +270,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }).mount();
     }
 });
+
