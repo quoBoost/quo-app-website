@@ -253,6 +253,8 @@
 
             <!-- Feature 4: DWM Thread Priority -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">DWM (Desktop Window Manager) Thread Priority</div>
+                <div class="flex justify-center text-gray-500"><i data-lucide="minus" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand font-bold">Real-time HAGS Priority</div>
             </div>
 
@@ -315,6 +317,13 @@
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
+            <!-- Feature 4: DWM Thread Priority -->
+            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">DWM (Desktop Window Manager) Thread Priority</div>
+                <div class="flex justify-center text-gray-500"><i data-lucide="minus" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand font-bold">Real-time HAGS Priority</div>
+            </div>
+            
             <!-- SECTION: NETWORK & INPUT -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 Network & Input Latency
@@ -722,13 +731,14 @@
         async function checkPremiumStatus(userId) {
             
             // 1. Intentar buscar por ID (método principal)
-            let { data: profile, error } = await supabaseClient.from('profile').select('is_premium, email').eq('id', userId).single();
+            // CORRECCIÓN: Cambiado 'profile' a 'profiles' para coincidir con el error PGRST205
+            let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email').eq('id', userId).single();
             
-            // 2. Si la búsqueda por ID falla (es decir, el perfil es null, lo que genera 'undefined' en profile?.is_premium),
-            //    intentamos buscar por email como fallback. Esto es útil si el webhook de Whop no usa el ID de auth.
+            // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
             if (!profile && currentUser.email) {
                 console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
-                ({ data: profile, error } = await supabaseClient.from('profile').select('is_premium').eq('email', currentUser.email).single());
+                // CORRECCIÓN: Cambiado 'profile' a 'profiles' aquí también
+                ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium').eq('email', currentUser.email).single());
             }
 
             // Log error, but ignore "No rows found" (PGRST116) which is expected for new/free users
