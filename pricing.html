@@ -734,6 +734,7 @@
             const isPremium = !!profile?.is_premium; 
 
             // --- DEBUG LOG ADDED ---
+            console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
             console.log(`[AUTH DEBUG] User ID: ${userId}`);
             console.log(`[AUTH DEBUG] is_premium raw value from DB: ${profile?.is_premium}`);
             console.log(`[AUTH DEBUG] isPremium (calculated boolean): ${isPremium}`);
