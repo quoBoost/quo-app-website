@@ -170,9 +170,13 @@
                 
                 <p class="text-gray-300 mb-8">Full, kernel-level access to the entire suite of optimization tools for pro-level stability and input.</p>
 
-                <button onclick="startPurchaseFlow('subscription')" id="btn-premium-sub" class="mt-auto w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
-                    Upgrade Now <i data-lucide="zap" class="w-4"></i>
-                </button>
+                <div class="mt-auto w-full space-y-3">
+                    <button onclick="startPurchaseFlow('subscription')" id="btn-premium-sub" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
+                        Upgrade Now <i data-lucide="zap" class="w-4"></i>
+                    </button>
+                    <!-- Contenedor para el botón de cancelación -->
+                    <div id="cancel-sub-container"></div>
+                </div>
             </div>
 
             <!-- TARJETA LIFETIME -->
@@ -624,6 +628,7 @@
         </div>
     </footer>
 
+    <!-- MODAL 1: SELECT PAYMENT METHOD (EXISTING) -->
     <div id="payment-method-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-enter">
         <div class="bg-surface border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all">
             <div class="flex justify-between items-center mb-6">
@@ -657,6 +662,27 @@
                     </div>
                     <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600 group-hover:text-white"></i>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: PLAN CONFLICT WARNING (NEW) -->
+    <div id="plan-conflict-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-enter">
+        <div class="bg-surface border border-brand/50 rounded-2xl p-8 max-w-md w-full shadow-2xl shadow-brand/20 transform transition-all">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-brand flex items-center gap-2"><i data-lucide="alert-triangle" class="w-6 h-6"></i> Plan Conflict</h3>
+                <button onclick="closeModal('plan-conflict-modal')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            
+            <p id="conflict-message" class="text-gray-300 mb-6">
+                You already have an active subscription (or a Lifetime plan) running. Please cancel your current plan first before switching.
+            </p>
+
+            <div class="flex justify-end gap-3">
+                <button onclick="closeModal('plan-conflict-modal')" class="px-5 py-3 rounded-xl text-sm font-bold text-white/50 hover:text-white transition">Keep Current</button>
+                <a href="/account" class="px-5 py-3 rounded-xl text-sm font-bold bg-brand text-black hover:bg-red-400 transition flex items-center gap-2">
+                    <i data-lucide="external-link" class="w-4 h-4"></i> Go to Account
+                </a>
             </div>
         </div>
     </div>
@@ -743,13 +769,11 @@
         async function checkPremiumStatus(userId) {
             
             // 1. Intentar buscar por ID (método principal)
-            // CORRECCIÓN: Cambiado 'profile' a 'profiles' para coincidir con el error PGRST205
             let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
             
             // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
             if (!profile && currentUser.email) {
                 console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
-                // CORRECCIÓN: Cambiado 'profile' a 'profiles' aquí también
                 ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
             }
 
@@ -761,6 +785,14 @@
             // CRITICAL FIX: Use !! to enforce a strict boolean check, ensuring 'is_premium' is always true or false.
             const isPremium = !!profile?.is_premium; 
             userPlanType = profile?.plan_type || 'free'; // Capture the actual plan type
+
+            // --- FALLBACK FIX: If is_premium is TRUE but plan_type is missing/false, assume monthly subscription ---
+            if (isPremium && userPlanType === 'free') {
+                userPlanType = 'monthly'; // Default to monthly if plan_type is missing but premium status is confirmed
+                console.warn("[FALLBACK] plan_type was 'free' but is_premium is TRUE. Forcing userPlanType to 'monthly' for correct UI display.");
+            }
+            // -----------------------------------------------------------------------------------------------------
+
 
             // --- DEBUG LOG UPDATED ---
             console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
@@ -803,6 +835,11 @@
             const starterBtn = document.getElementById('btn-starter');
             const premiumSubBtn = document.getElementById('btn-premium-sub');
             const lifetimeBtn = document.getElementById('btn-lifetime');
+            const cancelContainer = document.getElementById('cancel-sub-container');
+            
+            // Reset cancel container
+            cancelContainer.innerHTML = '';
+
 
             // 1. STARTER/FREE Button Logic
             if (userPlanType === 'free') {
@@ -824,6 +861,14 @@
                 premiumSubBtn.classList.add('btn-disabled');
                 premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
                 premiumSubBtn.style.backgroundColor = '#FF003C'; // Ensures it uses brand color instead of gradient when current
+                
+                // Add Cancel Subscription Button
+                cancelContainer.innerHTML = `
+                    <a href="/account" class="w-full py-3 rounded-xl border border-white/20 text-center font-bold text-sm text-gray-400 hover:text-white hover:border-white/50 transition flex justify-center items-center gap-2">
+                        <i data-lucide="x-octagon" class="w-4"></i> Cancel Subscription
+                    </a>
+                `;
+
             } else {
                 premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="zap" class="w-4"></i>';
                 premiumSubBtn.classList.remove('btn-disabled');
@@ -870,19 +915,14 @@
                 btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
                 btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
             }
-
-            // When the toggle changes, update the premium button to reflect the current plan if needed
-            // However, since subscription button is generic for monthly/yearly, we only call renderPlanButtons on load.
-            // When the user has a 'monthly' or 'yearly' plan, the premium button will ALWAYS show 'Current Plan' regardless of the toggle state.
-            // If the user is on the free plan, the toggle simply changes the price display.
         }
 
 
         // --- 4. PURCHASE FLOW & WHOP CHECKOUT LOGIC ---
 
-        function startPurchaseFlow(type) {
+        function startPurchaseFlow(targetPlan) {
             // Check if button is disabled (Current Plan)
-            const buttonId = (type === 'lifetime') ? 'btn-lifetime' : 'btn-premium-sub';
+            const buttonId = (targetPlan === 'lifetime') ? 'btn-lifetime' : 'btn-premium-sub';
             const button = document.getElementById(buttonId);
             if (button && button.classList.contains('btn-disabled')) {
                 console.log("Button is disabled because this is the current plan.");
@@ -890,12 +930,34 @@
             }
 
             if (!currentUser) {
-                // Cambiado de alert a console.error para entornos sin modal
                 console.error("Please Sign In with Google before upgrading."); 
                 loginWithGoogle();
                 return;
             }
-            pendingPlanType = type; 
+            
+            const isSubscription = userPlanType === 'monthly' || userPlanType === 'yearly';
+            const isLifetime = userPlanType === 'lifetime';
+
+            // --- PLAN CONFLICT LOGIC ---
+            let conflict = false;
+            let conflictMsg = "";
+            
+            if (isSubscription && targetPlan === 'lifetime') {
+                conflict = true;
+                conflictMsg = "To purchase the LIFETIME plan, you must first cancel your current monthly or annual subscription. Please go to your Account page to manage your existing plan.";
+            } else if (isLifetime && targetPlan === 'subscription') {
+                conflict = true;
+                conflictMsg = "To switch to a monthly/annual subscription, you must first contact support to remove your LIFETIME license. Please go to your Account page for support links.";
+            }
+
+            if (conflict) {
+                document.getElementById('conflict-message').innerText = conflictMsg;
+                openModal('plan-conflict-modal');
+                return;
+            }
+            // --- END PLAN CONFLICT LOGIC ---
+
+            pendingPlanType = targetPlan; 
             openModal('payment-method-modal');
         }
         window.startPurchaseFlow = startPurchaseFlow;
@@ -973,6 +1035,8 @@
             const el = document.getElementById(id);
             el.classList.remove('modal-enter');
             el.classList.add('modal-active');
+            // Ensure icons are rendered in modals
+            if(window.lucide) lucide.createIcons();
         }
         window.openModal = openModal;
 
