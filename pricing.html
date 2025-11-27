@@ -733,6 +733,12 @@
             // CRITICAL FIX: Use !! to enforce a strict boolean check, ensuring 'is_premium' is always true or false.
             const isPremium = !!profile?.is_premium; 
 
+            // --- DEBUG LOG ADDED ---
+            console.log(`[AUTH DEBUG] User ID: ${userId}`);
+            console.log(`[AUTH DEBUG] is_premium raw value from DB: ${profile?.is_premium}`);
+            console.log(`[AUTH DEBUG] isPremium (calculated boolean): ${isPremium}`);
+            // -------------------------
+
             const badgeText = isPremium ? 'PRO' : 'FREE';
             const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
             const avatarUrl = currentUser.user_metadata.avatar_url;
