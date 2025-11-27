@@ -786,13 +786,13 @@
             const isPremium = !!profile?.is_premium; 
             userPlanType = profile?.plan_type || 'free'; // Capture the actual plan type
 
-            // --- FALLBACK FIX: If is_premium is TRUE but plan_type is missing/false, assume monthly subscription ---
-            if (isPremium && userPlanType === 'free') {
-                userPlanType = 'monthly'; // Default to monthly if plan_type is missing but premium status is confirmed
-                console.warn("[FALLBACK] plan_type was 'free' but is_premium is TRUE. Forcing userPlanType to 'monthly' for correct UI display.");
-            }
-            // -----------------------------------------------------------------------------------------------------
-
+            // --- REMOVING FALLBACK FIX: Trusting the database value now that Supabase function is fixed ---
+            // If the Webhook works, plan_type will be correct. If it fails, userPlanType will be 'free'.
+            // if (isPremium && userPlanType === 'free') {
+            //     userPlanType = 'monthly'; 
+            //     console.warn("[FALLBACK] plan_type was 'free' but is_premium is TRUE. Forcing userPlanType to 'monthly' for correct UI display.");
+            // }
+            // ------------------------------------------------------------------------------------------
 
             // --- DEBUG LOG UPDATED ---
             console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
