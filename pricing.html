@@ -253,8 +253,6 @@
 
             <!-- Feature 4: DWM Thread Priority -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">DWM (Desktop Window Manager) Thread Priority</div>
-                <div class="flex justify-center text-gray-500"><i data-lucide="minus" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand font-bold">Real-time HAGS Priority</div>
             </div>
 
@@ -722,9 +720,17 @@
         }
 
         async function checkPremiumStatus(userId) {
-            // CRITICAL FIX: Include error check in the Supabase query
-            const { data: profile, error } = await supabaseClient.from('profile').select('is_premium').eq('id', userId).single();
             
+            // 1. Intentar buscar por ID (método principal)
+            let { data: profile, error } = await supabaseClient.from('profile').select('is_premium, email').eq('id', userId).single();
+            
+            // 2. Si la búsqueda por ID falla (es decir, el perfil es null, lo que genera 'undefined' en profile?.is_premium),
+            //    intentamos buscar por email como fallback. Esto es útil si el webhook de Whop no usa el ID de auth.
+            if (!profile && currentUser.email) {
+                console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
+                ({ data: profile, error } = await supabaseClient.from('profile').select('is_premium').eq('email', currentUser.email).single());
+            }
+
             // Log error, but ignore "No rows found" (PGRST116) which is expected for new/free users
             if (error && error.code !== 'PGRST116') {
                  console.error("Supabase Profile Query Error:", error);
@@ -733,7 +739,7 @@
             // CRITICAL FIX: Use !! to enforce a strict boolean check, ensuring 'is_premium' is always true or false.
             const isPremium = !!profile?.is_premium; 
 
-            // --- DEBUG LOG ADDED ---
+            // --- DEBUG LOG UPDATED ---
             console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
             console.log(`[AUTH DEBUG] User ID: ${userId}`);
             console.log(`[AUTH DEBUG] is_premium raw value from DB: ${profile?.is_premium}`);
