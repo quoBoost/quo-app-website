@@ -87,6 +87,14 @@
         /* Animación Modal */
         .modal-enter { opacity: 0; transform: scale(0.95); pointer-events: none; }
         .modal-active { opacity: 1; transform: scale(1); pointer-events: auto; }
+
+        /* Estilo deshabilitado */
+        .btn-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -136,17 +144,19 @@
         <!-- Tarjetas de Precio -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
             
+            <!-- TARJETA STARTER (FREE) -->
             <div class="card-glass rounded-3xl p-8 flex flex-col">
                 <div class="mb-6">
                     <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
                     <h3 class="text-4xl font-extrabold mt-2 text-white">$0<span class="text-sm text-gray-500 font-normal"> / forever</span></h3>
                 </div>
                 <p class="text-gray-400 mb-8">Essential tools to clean temporary files and manage standard Windows processes.</p>
-                <a href="/download" class="mt-auto w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition text-sm text-white flex justify-center items-center gap-2">
+                <a href="/download" id="btn-starter" class="mt-auto w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition text-sm text-white flex justify-center items-center gap-2">
                     <i data-lucide="download" class="w-4"></i> Get Started Free
                 </a>
             </div>
 
+            <!-- TARJETA PREMIUM (MONTHLY/YEARLY) -->
             <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.1)] flex flex-col">
                 <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand/40">ULTIMATE POWER</div>
                 
@@ -160,11 +170,12 @@
                 
                 <p class="text-gray-300 mb-8">Full, kernel-level access to the entire suite of optimization tools for pro-level stability and input.</p>
 
-                <button onclick="startPurchaseFlow('subscription')" id="checkout-btn" class="mt-auto w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
+                <button onclick="startPurchaseFlow('subscription')" id="btn-premium-sub" class="mt-auto w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
                     Upgrade Now <i data-lucide="zap" class="w-4"></i>
                 </button>
             </div>
 
+            <!-- TARJETA LIFETIME -->
             <div class="card-glass rounded-3xl p-8 flex flex-col">
                 <div class="mb-6">
                     <span class="text-green-400 font-bold tracking-widest text-xs uppercase">Lifetime</span>
@@ -172,7 +183,7 @@
                 </div>
                 <p class="text-gray-400 mb-8">Never pay again. Includes all future updates and features for the lifetime of the product.</p>
                 
-                <button onclick="startPurchaseFlow('lifetime')" class="mt-auto w-full py-4 rounded-xl border border-green-400/30 text-center font-bold hover:bg-green-400/5 transition text-sm text-green-400 flex justify-center items-center gap-2 cursor-pointer">
+                <button onclick="startPurchaseFlow('lifetime')" id="btn-lifetime" class="mt-auto w-full py-4 rounded-xl border border-green-400/30 text-center font-bold hover:bg-green-400/5 transition text-sm text-green-400 flex justify-center items-center gap-2 cursor-pointer">
                     Get Lifetime <i data-lucide="infinity" class="w-4"></i>
                 </button>
             </div>
@@ -685,6 +696,7 @@
         let selectedPeriod = 'monthly'; 
         let pendingPlanType = null;      
         let currentUser = null;
+        let userPlanType = 'free'; // New state variable to hold the current plan (e.g., 'monthly', 'yearly', 'lifetime')
 
         // --- 2. AUTHENTICATION (Supabase) ---
         async function loginWithGoogle() {
@@ -732,13 +744,13 @@
             
             // 1. Intentar buscar por ID (método principal)
             // CORRECCIÓN: Cambiado 'profile' a 'profiles' para coincidir con el error PGRST205
-            let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email').eq('id', userId).single();
+            let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
             
             // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
             if (!profile && currentUser.email) {
                 console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
                 // CORRECCIÓN: Cambiado 'profile' a 'profiles' aquí también
-                ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium').eq('email', currentUser.email).single());
+                ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
             }
 
             // Log error, but ignore "No rows found" (PGRST116) which is expected for new/free users
@@ -748,11 +760,13 @@
             
             // CRITICAL FIX: Use !! to enforce a strict boolean check, ensuring 'is_premium' is always true or false.
             const isPremium = !!profile?.is_premium; 
+            userPlanType = profile?.plan_type || 'free'; // Capture the actual plan type
 
             // --- DEBUG LOG UPDATED ---
             console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
             console.log(`[AUTH DEBUG] User ID: ${userId}`);
             console.log(`[AUTH DEBUG] is_premium raw value from DB: ${profile?.is_premium}`);
+            console.log(`[AUTH DEBUG] Current Plan Type (userPlanType): ${userPlanType}`); // New log
             console.log(`[AUTH DEBUG] isPremium (calculated boolean): ${isPremium}`);
             // -------------------------
 
@@ -779,7 +793,61 @@
                     </div>
                 </div>`;
             if(window.lucide) lucide.createIcons();
+            
+            // Call the new rendering function after fetching the plan data
+            renderPlanButtons(); 
         }
+
+        // --- NEW FUNCTION: Renders button state based on userPlanType ---
+        function renderPlanButtons() {
+            const starterBtn = document.getElementById('btn-starter');
+            const premiumSubBtn = document.getElementById('btn-premium-sub');
+            const lifetimeBtn = document.getElementById('btn-lifetime');
+
+            // 1. STARTER/FREE Button Logic
+            if (userPlanType === 'free') {
+                starterBtn.innerText = "Current Plan";
+                starterBtn.classList.remove('bg-white/5', 'hover:bg-white/10');
+                starterBtn.classList.add('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
+                starterBtn.style.pointerEvents = 'none';
+            } else {
+                starterBtn.innerText = "Get Started Free";
+                starterBtn.classList.remove('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
+                starterBtn.classList.add('bg-white/5', 'hover:bg-white/10');
+                starterBtn.style.pointerEvents = 'auto';
+            }
+
+
+            // 2. PREMIUM SUBSCRIPTION Button Logic
+            if (userPlanType === 'monthly' || userPlanType === 'yearly') {
+                premiumSubBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
+                premiumSubBtn.classList.add('btn-disabled');
+                premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
+                premiumSubBtn.style.backgroundColor = '#FF003C'; // Ensures it uses brand color instead of gradient when current
+            } else {
+                premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="zap" class="w-4"></i>';
+                premiumSubBtn.classList.remove('btn-disabled');
+                premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
+                premiumSubBtn.style.backgroundColor = ''; // Remove specific color to use gradient
+            }
+            
+            // 3. LIFETIME Button Logic
+            if (userPlanType === 'lifetime') {
+                lifetimeBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
+                lifetimeBtn.classList.add('btn-disabled');
+                lifetimeBtn.classList.remove('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
+                lifetimeBtn.classList.add('bg-green-700/50', 'text-white', 'border-green-500/50');
+            } else {
+                lifetimeBtn.innerHTML = 'Get Lifetime <i data-lucide="infinity" class="w-4"></i>';
+                lifetimeBtn.classList.remove('btn-disabled');
+                lifetimeBtn.classList.add('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
+                lifetimeBtn.classList.remove('bg-green-700/50', 'text-white', 'border-green-500/50');
+            }
+
+            // Ensure icons are rendered after changing innerHTML
+            if(window.lucide) lucide.createIcons();
+        }
+        window.renderPlanButtons = renderPlanButtons;
 
         // --- 3. PRICING TOGGLE UI ---
         function setPeriod(type) {
@@ -802,12 +870,25 @@
                 btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
                 btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
             }
+
+            // When the toggle changes, update the premium button to reflect the current plan if needed
+            // However, since subscription button is generic for monthly/yearly, we only call renderPlanButtons on load.
+            // When the user has a 'monthly' or 'yearly' plan, the premium button will ALWAYS show 'Current Plan' regardless of the toggle state.
+            // If the user is on the free plan, the toggle simply changes the price display.
         }
 
 
         // --- 4. PURCHASE FLOW & WHOP CHECKOUT LOGIC ---
 
         function startPurchaseFlow(type) {
+            // Check if button is disabled (Current Plan)
+            const buttonId = (type === 'lifetime') ? 'btn-lifetime' : 'btn-premium-sub';
+            const button = document.getElementById(buttonId);
+            if (button && button.classList.contains('btn-disabled')) {
+                console.log("Button is disabled because this is the current plan.");
+                return; 
+            }
+
             if (!currentUser) {
                 // Cambiado de alert a console.error para entornos sin modal
                 console.error("Please Sign In with Google before upgrading."); 
