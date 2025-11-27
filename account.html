@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuO | Account</title>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        // CONFIGURACIÓN DE TAILWIND (Mantener igual que tu código de pricing)
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }, colors: { brand: '#FF003C', surface: '#0F0F11' } } } };
+    </script>
+
+    <style>
+        /* Estilos base (Mantener igual que tu código de pricing) */
+        body { background-color: #050505; color: white; }
+        .bg-grid { /* ... estilos de grid ... */ }
+        .card-glass { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); }
+        .modal-enter { opacity: 0; transform: scale(0.95); pointer-events: none; }
+        .modal-active { opacity: 1; transform: scale(1); pointer-events: auto; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <nav class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
+        <div class="bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-4 md:px-6 py-3 flex justify-between items-center shadow-2xl">
+            <a href="/" class="flex items-center gap-2">
+                <img src="assets/logo.png" alt="QuO Logo" class="w-8 h-8 object-contain">
+                <span class="font-bold text-lg text-white">QuO</span>
+            </a>
+            <div id="auth-section"></div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex flex-col items-center pt-32 pb-20 px-6 w-full">
+        
+        <div class="text-center mb-12 max-w-3xl">
+            <h1 class="text-4xl md:text-6xl font-black mb-4">Your Account</h1>
+        </div>
+
+        <div class="w-full max-w-3xl space-y-8" id="account-content">
+            <div id="loader" class="text-center p-20 text-gray-500">
+                <i data-lucide="loader-circle" class="w-10 h-10 animate-spin mx-auto mb-4"></i>
+                <p>Loading user data...</p>
+            </div>
+
+            <div id="user-details-card" class="card-glass rounded-2xl p-8 space-y-6 hidden">
+                <h2 class="text-2xl font-bold text-white border-b border-white/10 pb-4 flex items-center gap-3">
+                    <i data-lucide="user-circle" class="w-6 h-6 text-brand"></i> Profile & Plan Details
+                </h2>
+
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-white/5 p-4 rounded-lg">
+                    <span class="text-sm font-medium text-gray-400 w-48 shrink-0">Email</span>
+                    <span id="detail-email" class="font-mono text-white text-base md:text-lg"></span>
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-white/5 p-4 rounded-lg">
+                    <span class="text-sm font-medium text-gray-400 w-48 shrink-0">Subscription Plan</span>
+                    <div class="flex items-center gap-2">
+                        <span id="detail-plan" class="font-bold text-lg"></span>
+                        <span id="detail-status-badge" class="px-3 py-1 text-xs font-bold rounded-full"></span>
+                    </div>
+                </div>
+
+                <div id="whop-id-detail" class="flex flex-col md:flex-row justify-between items-start md:items-center p-4 rounded-lg border border-white/10 hidden">
+                    <span class="text-sm font-medium text-gray-400 w-48 shrink-0">Whop Membership ID</span>
+                    <span id="detail-whop-id" class="font-mono text-sm text-gray-300 truncate"></span>
+                </div>
+            </div>
+
+            <div id="manage-sub-card" class="card-glass rounded-2xl p-8 space-y-6 hidden">
+                <h2 class="text-2xl font-bold text-white border-b border-white/10 pb-4 flex items-center gap-3">
+                    <i data-lucide="credit-card" class="w-6 h-6 text-brand"></i> Manage Subscription
+                </h2>
+                <div id="subscription-action-content"></div>
+            </div>
+        </div>
+
+    </main>
+    
+    <div id="cancel-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-enter">
+        <div class="bg-surface border border-brand/50 rounded-2xl p-8 max-w-md w-full shadow-2xl shadow-brand/20 transform transition-all">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-brand flex items-center gap-2"><i data-lucide="alert-triangle" class="w-6 h-6"></i> Confirm Cancellation</h3>
+                <button onclick="closeModal('cancel-modal')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <p class="text-gray-300 mb-6">
+                Are you sure you want to cancel your <span class="font-bold" id="cancel-plan-name"></span> plan? Your license will remain active until the end of the current billing period.
+            </p>
+            <div class="flex justify-end gap-3">
+                <button onclick="closeModal('cancel-modal')" class="px-5 py-3 rounded-xl text-sm font-bold text-white/50 hover:text-white transition">Keep Plan</button>
+                <button id="confirm-cancel-btn" onclick="performCancellation()" class="px-5 py-3 rounded-xl text-sm font-bold bg-red-600 text-white hover:bg-red-700 transition flex items-center gap-2 disabled:opacity-50 disabled:pointer-events-none">
+                    <i data-lucide="x-octagon" class="w-4 h-4"></i> Confirm Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="status-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-all duration-300 modal-enter">
+        <div class="bg-surface border border-white/10 rounded-2xl p-8 max-w-xs w-full shadow-2xl text-center">
+            <div id="status-icon" class="mx-auto w-12 h-12 mb-4 text-white"></div>
+            <p id="status-message" class="text-white font-medium">Processing request...</p>
+            <button id="status-close-btn" onclick="closeModal('status-modal')" class="mt-6 px-4 py-2 bg-brand rounded-lg text-sm font-bold text-black hidden">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. CONFIGURACIÓN CRÍTICA ---
+        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A'; 
+        
+        // 🚨 URL DE LA EDGE FUNCTION QUE DEBES DESPLEGAR 🚨
+        const CANCELLATION_API_ENDPOINT = 'https://rljvnsqnzxqwogmppqzi.supabase.co/functions/v1/cancel-whop-membership'; 
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); 
+        let currentUser = null;
+        let userProfile = null; 
+
+        // --- Funciones de Utilidad (Auth, Modals) ---
+
+        async function loginWithGoogle() { /* ... Tu código de login ... */ }
+        window.loginWithGoogle = loginWithGoogle;
+
+        async function logout() { await supabaseClient.auth.signOut(); window.location.reload(); }
+        window.logout = logout;
+        
+        function openModal(id) { const el = document.getElementById(id); el.classList.remove('modal-enter'); el.classList.add('modal-active'); if(window.lucide) lucide.createIcons(); }
+        window.openModal = openModal;
+
+        function closeModal(id) { const el = document.getElementById(id); el.classList.remove('modal-active'); el.classList.add('modal-enter'); }
+        window.closeModal = closeModal;
+        
+        function showStatusModal(type, message) { 
+            // ... (Implementación de tu modal de estado) ...
+            const statusIcon = document.getElementById('status-icon');
+            const statusMessage = document.getElementById('status-message');
+            const statusCloseBtn = document.getElementById('status-close-btn');
+
+            statusMessage.innerText = message;
+            statusIcon.innerHTML = type === 'loading' ? `<i data-lucide="loader-circle" class="w-12 h-12 animate-spin text-brand"></i>` : (type === 'success' ? `<i data-lucide="check-circle" class="w-12 h-12 text-green-500"></i>` : `<i data-lucide="x-octagon" class="w-12 h-12 text-red-500"></i>`);
+            statusCloseBtn.classList.toggle('hidden', type === 'loading');
+            
+            openModal('status-modal'); 
+        }
+
+        // --- Lógica Principal ---
+
+        async function checkUserAndLoadData() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            currentUser = session ? session.user : null;
+            
+            document.getElementById('loader').classList.add('hidden');
+
+            if (!currentUser) {
+                // ... Mostrar UI para no autenticado ...
+                document.getElementById('account-content').innerHTML = `<div class="text-center p-12 card-glass rounded-xl"><p class="text-xl font-bold mb-2">Access Denied</p><button onclick="loginWithGoogle()" class="bg-brand text-black px-6 py-3 rounded-full font-bold">Sign in with Google</button></div>`;
+                renderAuth(null);
+                if(window.lucide) lucide.createIcons();
+                return;
+            }
+
+            // 1. Fetch Profile
+            let { data: profile, error } = await supabaseClient.from('profiles').select('*').eq('id', currentUser.id).single();
+            if (error && error.code === 'PGRST116') {
+                 // Fallback: intentar por email si la búsqueda por ID falla (esencial si no hay una fila)
+                 ({ data: profile, error } = await supabaseClient.from('profiles').select('*').eq('email', currentUser.email).single());
+            }
+            if (error && error.code !== 'PGRST116') console.error("Supabase Profile Query Error:", error);
+
+            userProfile = profile || { is_premium: false, plan_type: 'free', whop_member_id: null, email: currentUser.email };
+            
+            renderAuth(currentUser);
+            renderAccountDetails();
+        }
+
+        function renderAuth(user) {
+            // ... Tu código para renderizar el avatar y estado premium/free en el navbar...
+            const authSection = document.getElementById('auth-section');
+            const isPremium = userProfile ? userProfile.is_premium : false;
+            const badgeText = isPremium ? 'PRO' : 'FREE';
+            const avatarUrl = user ? user.user_metadata.avatar_url : null;
+            // Simplificado para el ejemplo:
+            authSection.innerHTML = user ? `<div class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</div>` : `<button onclick="loginWithGoogle()" class="bg-white text-black px-4 py-2 rounded-full font-bold">Sign in</button>`;
+            if(window.lucide) lucide.createIcons();
+        }
+
+        function renderAccountDetails() {
+            const { email, plan_type, is_premium, whop_member_id } = userProfile;
+
+            // 1. Llenar detalles
+            document.getElementById('detail-email').innerText = email;
+            document.getElementById('detail-plan').innerText = plan_type.charAt(0).toUpperCase() + plan_type.slice(1);
+            document.getElementById('detail-status-badge').innerText = is_premium ? 'PREMIUM' : 'FREE';
+            
+            // 2. Lógica de botón de acción
+            const actionContent = document.getElementById('subscription-action-content');
+            if (is_premium && (plan_type === 'monthly' || plan_type === 'yearly')) {
+                // Mostrar botón CANCELAR (Solo si es suscripción y tiene ID de Whop)
+                actionContent.innerHTML = `
+                    <p class="text-gray-400 mb-4">Your current plan is **${plan_type.toUpperCase()}**. Cancel future billing here.</p>
+                    <button onclick="openCancelModal('${plan_type}')" class="w-full py-4 rounded-xl bg-red-600/20 border border-red-600/50 text-center font-bold text-red-400 hover:bg-red-600/40 transition flex justify-center items-center gap-2">
+                        <i data-lucide="x-octagon" class="w-4"></i> Cancel Subscription
+                    </button>
+                `;
+                document.getElementById('detail-whop-id').innerText = whop_member_id || 'N/A';
+                document.getElementById('whop-id-detail').classList.remove('hidden');
+
+            } else {
+                 // Mostrar botón UPGRADE (Para FREE o LIFETIME)
+                 actionContent.innerHTML = `
+                    <p class="text-gray-400 mb-4">You are currently on the **${plan_type.toUpperCase()}** plan. </p>
+                    <a href="/pricing" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2">
+                        Upgrade to Premium <i data-lucide="zap" class="w-4"></i>
+                    </a>
+                `;
+                document.getElementById('whop-id-detail').classList.add('hidden');
+            }
+
+            document.getElementById('user-details-card').classList.remove('hidden');
+            document.getElementById('manage-sub-card').classList.remove('hidden');
+            if(window.lucide) lucide.createIcons();
+        }
+
+        function openCancelModal(planType) {
+            document.getElementById('cancel-plan-name').innerText = planType.toUpperCase();
+            openModal('cancel-modal');
+        }
+        window.openCancelModal = openCancelModal;
+
+
+        async function performCancellation() {
+            const confirmBtn = document.getElementById('confirm-cancel-btn');
+            confirmBtn.disabled = true;
+            confirmBtn.innerHTML = '<i data-lucide="loader-circle" class="w-4 h-4 animate-spin"></i> Processing...';
+            closeModal('cancel-modal');
+            showStatusModal('loading', 'Initiating cancellation with Whop...');
+
+            const whopMemberId = userProfile?.whop_member_id;
+
+            try {
+                // Llamar a la Edge Function
+                const response = await fetch(CANCELLATION_API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        whop_member_id: whopMemberId,
+                        supabase_user_id: currentUser.id 
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ message: 'Server error' }));
+                    throw new Error(errorData.message || 'Cancellation failed.');
+                }
+                
+                showStatusModal('success', 'Subscription successfully cancelled! Your plan will expire soon. Reloading...');
+                setTimeout(() => { window.location.reload(); }, 3000); 
+
+            } catch (error) {
+                console.error("Cancellation Error:", error);
+                showStatusModal('error', `Cancellation failed: ${error.message}`);
+                confirmBtn.disabled = false;
+                confirmBtn.innerHTML = '<i data-lucide="x-octagon" class="w-4 h-4"></i> Confirm Cancel';
+                if(window.lucide) lucide.createIcons();
+            }
+        }
+        window.performCancellation = performCancellation;
+
+
+        document.addEventListener('DOMContentLoaded', checkUserAndLoadData);
+    </script>
+</body>
+</html>
