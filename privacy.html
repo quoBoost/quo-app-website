@@ -86,16 +86,18 @@
                 <img src="assets/logo.png" alt="QuO Logo" class="w-8 h-8 md:w-9 md:h-9 object-contain rotate-3 group-hover:rotate-0 transition">
                 <span class="font-bold text-lg md:text-xl tracking-tight text-white">QuO</span>
             </a>
-            <div class="flex items-center gap-4">
-                <a href="/#ui" class="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition hidden md:block">Home</a>
-                <a href="/pricing" class="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition hidden md:block">Pricing</a>
-                
-                <div id="auth-section">
+                               <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+            <a href="/" class="hover:text-white hover:text-glow transition">Home</a>
+            <a href="/download" class="hover:text-white hover:text-glow transition">Download</a>
+            <a href="/pricing" class="hover:text-white hover:text-glow transition">Pricing</a>
+            <a href="/about-us" class="hover:text-white hover:text-glow transition">About Us</a>
+
+        </div>
+                                                    <div id="auth-section">
                     <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white/10 text-white px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-white/20 transition shadow-lg">
                         <i data-lucide="log-in" class="w-4 h-4"></i> Sign In
                     </a>
                 </div>
-            </div>
         </div>
     </nav>
     
