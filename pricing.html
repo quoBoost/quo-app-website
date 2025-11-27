@@ -189,20 +189,26 @@
     </div>
 
     <!-- Pricing Boxes / CTA -->
-    <div class="grid grid-cols-3 gap-4 font-mono text-center mb-12 md:mb-16">
-        <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
-            <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Total Optimizations</p>
-            <p class="text-2xl font-bold text-green-400">~200</p>
-        </div>
-        <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
-            <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Optimization Buttons</p>
-            <p class="text-2xl font-bold text-green-400">Basic</p>
-        </div>
-        <div class="col-span-1 bg-surface rounded-xl p-4 border border-brand/50 bg-brand/5 shadow-lg shadow-brand/20">
-            <p class="text-sm text-brand mb-1 uppercase tracking-wider font-bold">Total Optimizations</p>
-            <p class="text-2xl font-bold text-white">~1500+</p>
-        </div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-mono text-center mb-12 md:mb-16">
+    <!-- Columna 1: FREE - Total Optimizations -->
+    <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
+        <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Free Total Optimizations</p>
+        <p class="text-2xl font-bold text-green-400">~200</p>
     </div>
+    
+    <!-- Columna 2: FREE - Optimization Buttons -->
+    <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
+        <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Free Features</p>
+        <p class="text-2xl font-bold text-green-400">~250</p>
+    </div>
+    
+    <!-- Columna 3: PREMIUM - Total Optimizations (Destacada) -->
+    <!-- En móvil, esta columna podría ocupar todo el ancho si solo hubiera 2, pero al ser 3, mantendremos el ajuste de `grid-cols-1 sm:grid-cols-2` -->
+    <div class="col-span-1 sm:col-span-2 md:col-span-1 bg-surface rounded-xl p-4 border border-brand/50 bg-brand/5 shadow-lg shadow-brand/20">
+        <p class="text-sm text-brand mb-1 uppercase tracking-wider font-bold">Premium Total Optimizations</p>
+        <p class="text-2xl font-bold text-white">~1500+</p>
+    </div>
+</div>
 
 
     <!-- Comparison Table (Using Divs for Responsiveness) -->
@@ -369,6 +375,164 @@
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
+            <!-- SECTION: CPU & SCHEDULING -->
+        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+            CPU Core Scheduling & Latency
+        </div>
+
+        <!-- Feature 19: Context Switch Latency Reduction -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Context Switch Latency Reduction</div>
+            <div class="flex justify-center text-gray-500">Basic API Call</div>
+            <div class="flex justify-center text-brand font-bold">Kernel-Level Priority Adjustment</div>
+        </div>
+
+        <!-- Feature 20: Hyper-Threading/SMT Optimization -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Hyper-Threading/SMT Dynamic Toggle (AMD/Intel)</div>
+            <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+
+        <!-- Feature 21: Core Isolation (P-Core/E-Core) -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">P-Core/E-Core Thread Assignment (Windows 11)</div>
+            <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+
+        <!-- Feature 22: Windows Process Scheduler Tuning -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Aggressive Windows Scheduler Tuning</div>
+            <div class="flex justify-center text-gray-500">Standard</div>
+            <div class="flex justify-center text-brand font-bold">Aggressive (20% faster thread priority)</div>
+        </div>
+
+        <!-- Feature 23: CPU Throttling Bypass -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">CPU Power Limit Throttling Bypass (Advanced)</div>
+            <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+        
+        <!-- SECTION: GPU & VIDEO SUB-SYSTEM -->
+        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+            GPU & Video Sub-System Tuning
+        </div>
+        
+        <!-- Feature 24: HAGS Tweaks -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Hardware-Accelerated GPU Scheduling (HAGS) Tweaks</div>
+            <div class="flex justify-center text-gray-500">Basic Enable/Disable</div>
+            <div class="flex justify-center text-brand font-bold">Driver-Level Parameter Tuning</div>
+        </div>
+
+        <!-- Feature 25: VRAM Memory Prioritization Bypass -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">VRAM Memory Prioritization Bypass</div>
+            <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+
+        <!-- Feature 26: Shader Cache Cleanup -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">DirectX/Vulkan Shader Cache Automated Cleanup</div>
+            <div class="flex justify-center text-gray-500">Manual (User Prompt)</div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+
+        <!-- Feature 27: Fullscreen Optimizations Bypass -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Fullscreen Optimizations (FSO) Bypass</div>
+            <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand font-bold">Driver-Level Injection Bypass</div>
+        </div>
+
+        <!-- Feature 28: Low Latency Mode -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Global Ultra-Low Latency Mode Enforcement</div>
+            <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+
+        <!-- SECTION: STORAGE & DISK I/O -->
+        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+            Storage & Disk I/O Optimization
+        </div>
+
+        <!-- Feature 29: Disk Write Cache Policy Tuning -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Disk Write Cache Policy Tuning (Latency vs. Safety)</div>
+            <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+
+        <!-- Feature 30: High-Priority Disk I/O Queue Setup -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">High-Priority Disk I/O Queue Setup for Games</div>
+            <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+
+        <!-- SECTION: SYSTEM SERVICES & DEBLOAT -->
+        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+            System Services & Deep Debloat
+        </div>
+
+        <!-- Feature 31: Full Telemetry Debloat -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Windows Telemetry & Diagnostic Debloat (Total Services)</div>
+            <div class="flex justify-center text-gray-500">~20 Services</div>
+            <div class="flex justify-center text-brand font-bold">~80+ Services (Deep)</div>
+        </div>
+
+        <!-- Feature 32: Background Apps/Task Scheduler Cleanup -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Aggressive Background Apps/Task Scheduler Cleanup</div>
+            <div class="flex justify-center text-gray-500">Basic Apps</div>
+            <div class="flex justify-center text-brand font-bold">Aggressive (System, OS, Scheduled)</div>
+        </div>
+        
+        <!-- Feature 33: Cortana/Edge Kill Switch -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Cortana/Microsoft Edge Background Process Kill Switch</div>
+            <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+
+        <!-- SECTION: UTILITIES & SUPPORT -->
+        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+            Utilities & Support
+        </div>
+
+        <!-- Feature 34: Custom Desktop Cleanup -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Custom Desktop Cleanup Automation</div>
+            <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+
+        <!-- Feature 35: Full System Revert Snapshot Manager -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Full System Revert Snapshot Manager</div>
+            <div class="flex justify-center text-gray-500">Single Snapshot</div>
+            <div class="flex justify-center text-brand font-bold">Multi-slot History (5 Snapshots)</div>
+        </div>
+
+        <!-- Feature 36: Performance Monitoring Overlay -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">In-Game Performance Monitoring Overlay</div>
+            <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+            <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+        </div>
+
+        <!-- Feature 37: Dedicated VIP Support Channel -->
+        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+            <div class="text-white text-sm">Dedicated VIP Support Channel (Discord/Email)</div>
+            <div class="flex justify-center text-gray-500">Standard Email Support</div>
+            <div class="flex justify-center text-brand font-bold">Priority Ticketing</div>
+        </div>
+
         </div>
     </div>
     
@@ -384,9 +548,61 @@
 
     </main>
 
-    <footer id="support" class="bg-[#050505] border-t border-white/10 pt-16 md:pt-20 pb-10 mt-auto">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <p class="text-gray-600 text-xs">&copy; 2025 QuO Software Inc.</p>
+     <footer id="support" class="bg-[#050505] border-t border-white/10 pt-16 md:pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-16 text-center md:text-left">
+                <div class="col-span-1 md:col-span-1 flex flex-col items-center md:items-start">
+                    <a href="/" class="flex items-center gap-2 mb-6">
+                        <img src="assets/logo.png" alt="QuO Logo" class="w-8 h-8 object-contain">
+                        <span class="text-xl font-bold text-white">QuO</span>
+                    </a>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                        The ultimate Windows optimization utility built for competitive gamers. Eliminate latency. Unlock FPS.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition"><i data-lucide="twitter" class="w-4"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-[#5865F2] hover:text-white transition"><i data-lucide="gamepad-2" class="w-4"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition"><i data-lucide="youtube" class="w-4"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 md:mb-6">Product</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="/#features" class="hover:text-brand transition">Features</a></li>
+                        <li><a href="/pricing" class="hover:text-brand transition">Pricing</a></li>
+                        <li><a href="/download" class="hover:text-brand transition">Changelog</a></li>
+                        <li><a href="/download" class="hover:text-brand transition">Download</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 md:mb-6">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-brand transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-brand transition">Optimization Guide</a></li>
+                        <li><a href="#" class="hover:text-brand transition">Community Server</a></li>
+                        <li><a href="#" class="hover:text-brand transition">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 md:mb-6">Legal</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="/privacy" class="hover:text-brand transition">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-brand transition">Terms of Service</a></li>
+                        <li><a href="/refund" class="hover:text-brand transition">No Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600">
+                <p>&copy; 2025 QuO Software Inc. All rights reserved.</p>
+                <div class="flex items-center gap-6">
+                    <span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-green-500"></div> Systems Operational</span>
+                </div>
+            </div>
         </div>
     </footer>
 
