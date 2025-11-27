@@ -23,10 +23,10 @@
                         mono: ['JetBrains Mono', 'monospace'] 
                     },
                     colors: { 
-                        brand: '#FF003C',        
+                        brand: '#FF003C', 
                         brandDark: '#990024',
-                        void: '#030005',        
-                        surface: '#0F0F11',     
+                        void: '#030005', 
+                        surface: '#0F0F11', 
                     },
                     animation: {
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -68,26 +68,23 @@
         .text-glow { text-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
         
         /* --- ARREGLO CRÍTICO DEL SCROLL DE WHOP --- */
-        /* Esto asegura que si el iframe es muy alto, aparezca una barra de scroll dentro del modal y no se corte el botón */
         #whop-wrapper {
             width: 100%;
             height: 100%;
-            overflow-y: auto; /* Permite scroll vertical */
+            overflow-y: auto; 
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
-            background-color: #0F0F11; /* Fondo sólido para evitar transparencias raras */
+            background-color: #0F0F11; 
             display: block;
         }
 
         #whop-wrapper iframe {
             width: 100% !important;
-            /* No forzamos height 100% aquí para dejar que Whop calcule su altura, 
-               el contenedor #whop-wrapper manejará el scroll */
             min-height: 700px; 
             border: none;
         }
 
-        /* Animación Modal asdasd */
+        /* Animación Modal */
         .modal-enter { opacity: 0; transform: scale(0.95); pointer-events: none; }
         .modal-active { opacity: 1; transform: scale(1); pointer-events: auto; }
     </style>
@@ -252,7 +249,7 @@
 
         const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); 
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
 
         // State
         let selectedPeriod = 'monthly'; 
@@ -349,7 +346,8 @@
 
         function startPurchaseFlow(type) {
             if (!currentUser) {
-                alert("Please Sign In with Google before upgrading.");
+                // Cambiado de alert a console.error para entornos sin modal
+                console.error("Please Sign In with Google before upgrading."); 
                 loginWithGoogle();
                 return;
             }
@@ -361,7 +359,7 @@
             closeModal('payment-method-modal');
 
             if (method === 'paypal') {
-                alert("PayPal integration coming soon! Please use Card/Whop for now.");
+                console.error("PayPal integration coming soon! Please use Card/Whop for now.");
                 return;
             }
 
@@ -376,63 +374,55 @@
             }
         }
 
-        // Lógica de Checkout REHECHA para forzar visibilidad y scroll
-        // A) MODIFICAR ESTA FUNCIÓN para incluir metadata
-function initiateWhopCheckout(planId) {
-    const wrapper = document.getElementById('whop-wrapper');
-    wrapper.innerHTML = ''; 
+        // A) FUNCIÓN CORREGIDA para enviar la metadata correctamente
+        function initiateWhopCheckout(planId) {
+            const wrapper = document.getElementById('whop-wrapper');
+            wrapper.innerHTML = ''; 
 
-    const checkoutDiv = document.createElement('div');
-    checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
-    checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
-    checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
+            const checkoutDiv = document.createElement('div');
+            checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
+            checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
+            checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
 
-    // Forzar visibilidad
-    checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
-    checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
-    checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
-    checkoutDiv.setAttribute('data-whop-checkout-hide-features', 'false');
-    checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');
-    checkoutDiv.setAttribute('data-whop-checkout-hide-submit-button', 'false');
+            // Forzar visibilidad
+            checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-features', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-submit-button', 'false');
 
-    checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
+            checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
 
-    if(currentUser) {
-         checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
-         
-         // --- [NUEVO Y CRÍTICO] ---
-         // Enviamos el ID de Supabase oculto a Whop. 
-         // Whop nos devolverá esto en el Webhook para saber a quién darle Premium.
-         const metadata = JSON.stringify({ supabase_user_id: currentUser.id });
-         checkoutDiv.setAttribute('data-whop-checkout-metadata', metadata);
-    }
+            if(currentUser) {
+                checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
+                
+                // --- [CORRECCIÓN CRÍTICA DE METADATA] ---
+                // 1. Usamos 'supabaseUserID' (camelCase) para evitar conflictos.
+                // 2. Usamos JSON.stringify para el valor.
+                const metadataString = JSON.stringify({ supabaseUserID: currentUser.id });
+                checkoutDiv.setAttribute('data-whop-checkout-metadata', metadataString);
+            }
 
-    wrapper.appendChild(checkoutDiv);
-    
-    setTimeout(() => {
-        openModal('whop-modal');
-    }, 100);
-}
+            wrapper.appendChild(checkoutDiv);
+            
+            setTimeout(() => {
+                openModal('whop-modal');
+            }, 100);
+        }
 
-        // --- 4. PURCHASE FLOW & WHOP CHECKOUT LOGIC ---
-
-// (Mantener la función initiateWhopCheckout como easdstá, es correcta)
-
-// Función de callback que Whop llama al completar el pago
-window.onWhopPurchaseComplete = async (planId, receiptId) => {
-    closeModal('whop-modal');
-    
-    // El Webhook de Supabase está trabajando ahora mismo en la nube.
-    // Avisamos al usuario y esperamos un momento para que el estado 'PRO' se propague.
-    alert("Payment successful! Activating your QuO Premium license securely...");
-    
-    // Recargamos la página después de 4 segundos para mostrar el nuevo estado 'PRO'
-    setTimeout(() => {
-        window.location.reload();
-    }, 4000); 
-};
-// B) MODIFICAR EL CALLBACK (Hacerlo tonto)
-// Ya no actualiza la BD, solo avisa al usuario.
+        // B) FUNCIÓN DE CALLBACK CORREGIDA (Solo recarga, el backend hace la actualización)
+        window.onWhopPurchaseComplete = async (planId, receiptId) => {
+            closeModal('whop-modal');
+            
+            // Avisamos al usuario que el Webhook está trabajando
+            alert("Payment successful! Activating your QuO Premium license securely...");
+            
+            // Esperamos 4 segundos para que el Webhook de Supabase termine.
+            setTimeout(() => {
+                window.location.reload();
+            }, 4000); 
+        };
 
         // --- UTILS ---
         function openModal(id) {
