@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <!-- AOS CSS agregado aquí -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -27,6 +29,7 @@
                         brandDark: '#990024',
                         void: '#030005',        /* Near Black Background */
                         surface: '#0F0F11',     /* Card Background */
+                        surfaceLight: '#1A1A1E', /* New intermediate background color */
                         discord: '#5865F2',     /* Discord Blue */
                     },
                     animation: {
@@ -34,6 +37,7 @@
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'neon-pulse': 'neon-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slow-spin': 'spin 60s linear infinite', 
                     },
                     keyframes: {
                         scroll: {
@@ -55,6 +59,7 @@
     </script>
 
     <style>
+        /* --- CORE STYLES --- */
         body {
             background-color: var(--void);
             color: white;
@@ -68,31 +73,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .card-impact {
-            position: relative;
-            background: #0F0F11;
-            border: 1px solid rgba(255, 0, 60, 0.2);
-            box-shadow: 0 0 20px rgba(255, 0, 60, 0.1);
-            transition: all 0.3s ease;
-        }
-        .card-impact:hover {
-            border-color: #FF003C;
-            box-shadow: 0 0 30px rgba(255, 0, 60, 0.4);
-            transform: translateY(-5px);
-        }
-        /* Estilos añadidos para el fondo animado (cyber-grid) */
-        .cyber-grid {
-            position: fixed;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px; 
-            mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
-            z-index: -2;
-            pointer-events: none;
-        }
-        
+
+        /* --- BUTTON STYLES --- */
         .btn-filled {
             display: inline-flex;
             align-items: center;
@@ -104,7 +86,6 @@
             text-align: center;
             width: 100%;
         }
-
         .btn-brand {
             background-color: var(--brand);
             color: white;
@@ -114,7 +95,6 @@
             background-color: var(--brandDark);
             box-shadow: 0 5px 20px rgba(255, 0, 60, 0.8);
         }
-
         .btn-discord {
             background-color: var(--discord);
             color: white;
@@ -124,7 +104,6 @@
             background-color: #4f5bcf;
             box-shadow: 0 5px 20px rgba(88, 101, 242, 0.8);
         }
-        /* New custom style for the locked button */
         .btn-locked {
             background-color: #1f2937; /* Gray-800 */
             color: #9ca3af; /* Gray-400 */
@@ -133,12 +112,99 @@
             opacity: 0.7;
         }
 
+        /* --- CARD STYLES (NEW AGGRESSIVE DESIGN) --- */
+        .cyber-card {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .cyber-card:hover {
+            border-color: rgba(255, 0, 60, 0.5);
+            box-shadow: 0 0 25px rgba(255, 0, 60, 0.2);
+            transform: translateY(-3px);
+        }
+        .cyber-card.highlight {
+            border-color: var(--brand);
+            box-shadow: 0 0 40px rgba(255, 0, 60, 0.4);
+            background: linear-gradient(135deg, #0F0F11 0%, #1A050A 100%);
+        }
+
+        /* --- BACKGROUND & DIVIDER STYLES (Dynamic/Reactive Design) --- */
+
+        /* Animated Grid Pattern (Original prism-bg) */
+        .prism-bg {
+            position: fixed; /* Changed to fixed for better performance/scroll effect */
+            inset: 0;
+            overflow: hidden;
+            z-index: -3;
+        }
+        .prism-bg::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 0, 60, 0.1) 0,
+                rgba(255, 0, 60, 0.1) 1px,
+                transparent 1px,
+                transparent 50px
+            ),
+            repeating-linear-gradient(
+                -45deg,
+                rgba(255, 0, 60, 0.1) 0,
+                rgba(255, 0, 60, 0.1) 1px,
+                transparent 1px,
+                transparent 50px
+            );
+            background-size: 50px 50px;
+            animation: prism-scroll 20s linear infinite;
+            transform: rotate(45deg);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @keyframes prism-scroll {
+            0% { background-position: 0 0; }
+            100% { background-position: -500px 500px; }
+        }
+
+        /* Static Grid Pattern (for better texture/replaced .cyber-grid) */
+        .static-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px; 
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Mission Section specific styling */
+        .mission-item-card {
+            background: var(--surface);
+            border-left: 3px solid var(--brand);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .mission-item-card:hover {
+            background: var(--surfaceLight);
+            transform: translateX(5px);
+        }
+        
     </style>
 </head>
 <body class="bg-[#030005]">
     
-    <!-- Efectos de fondo añadidos -->
-    <div class="cyber-grid"></div>
+    <!-- EFECTOS DE FONDO -->
+    <div class="prism-bg"></div>
+    <div class="static-grid"></div>
+    <!-- Big central light source -->
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] md:w-[800px] h-[500px] bg-brand/10 rounded-full blur-[100px] md:blur-[150px] -z-10 animate-pulse-slow"></div>
 
     <nav class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
@@ -163,86 +229,95 @@
     
     <main class="relative pt-32 md:pt-44 pb-20 px-6 max-w-7xl mx-auto min-h-[90vh]">
         
-        <!-- Sección 1: Impacto Global y Estadísticas -->
-        <section class="text-center space-y-8 z-10">
+        <!-- Sección 1: Impacto Global y Héroe - Más visual -->
+        <section class="text-center space-y-8 z-10" data-aos="fade-up">
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-[1] tracking-tighter text-white max-w-5xl mx-auto">
                 USED BY GAMERS <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-red-400 text-glow">WORLDWIDE</span>
             </h1>
             
-            <p class="text-gray-400 text-base md:text-xl max-w-3xl mx-auto leading-relaxed pt-4">
+            <p class="text-gray-400 text-base md:text-xl max-w-3xl mx-auto leading-relaxed pt-4" data-aos="fade-up" data-aos-delay="50">
                 QuO is more than software; it's a global community of competitive players demanding peak performance and zero compromise.
             </p>
             
-            <div class="pt-8">
-                <!-- Imagen del mapa global -->
+            <div class="pt-12 relative">
+                <!-- Capa de fondo del mapa más oscura -->
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-black/50 blur-lg rounded-full z-0"></div>
+                <!-- Imagen del mapa global con animación flotante -->
                 <img 
                     src="assets/worldwide.png" 
                     alt="Global Gaming Map" 
-                    class="mx-auto w-full max-w-2xl object-contain opacity-80 animate-neon-pulse"
-                    onerror="this.onerror=null; this.src='https://placehold.co/800x400/0F0F11/FF003C?text=Image+Not+Found'"
+                    class="mx-auto w-full max-w-3xl object-contain opacity-90 animate-float relative z-10"
+                    onerror="this.onerror=null; this.src='https://placehold.co/900x450/0F0F11/FF003C?text=Global+Network+Visualization'"
+                    data-aos="zoom-in" data-aos-delay="200"
                 >
             </div>
         </section>
-
-        <!-- Sección 2: Estadísticas Clave -->
-        <section class="mt-20 md:mt-24">
-            <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-12">
+        
+        <!-- Sección 2: Estadísticas Clave - Diseño de Grid más audaz -->
+        <section class="mt-20 md:mt-24 bg-surface/50 border border-white/5 rounded-3xl p-6 md:p-10 shadow-xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+            <!-- Título fuera de la cuadrícula -->
+            <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-10">
                 Our <span class="text-gradient">Community</span> at a Glance
             </h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 
-                <div class="card-impact p-6 rounded-2xl text-center">
+                <div class="cyber-card p-6 rounded-2xl text-center" data-aos="fade-up" data-aos-delay="400">
                     <i data-lucide="users" class="w-10 h-10 text-brand mx-auto mb-4"></i>
-                    <p class="text-5xl font-extrabold text-white">20K+</p>
-                    <p class="text-gray-400 text-sm mt-1">Active Users Worldwide</p>
+                    <p class="text-6xl font-extrabold text-white">20K+</p>
+                    <p class="text-gray-400 text-sm mt-1 uppercase tracking-wider">Active Users Worldwide</p>
                 </div>
                 
-                <div class="card-impact p-6 rounded-2xl text-center">
+                <div class="cyber-card p-6 rounded-2xl text-center" data-aos="fade-up" data-aos-delay="500">
                     <i data-lucide="instagram" class="w-10 h-10 text-pink-500 mx-auto mb-4"></i>
-                    <p class="text-5xl font-extrabold text-white">13K+</p>
-                    <p class="text-gray-400 text-sm mt-1">Followers on Instagram</p>
+                    <p class="text-6xl font-extrabold text-white">13K+</p>
+                    <p class="text-gray-400 text-sm mt-1 uppercase tracking-wider">Followers on Instagram</p>
                 </div>
 
-                <div class="card-impact p-6 rounded-2xl text-center">
+                <div class="cyber-card p-6 rounded-2xl text-center" data-aos="fade-up" data-aos-delay="600">
                     <i data-lucide="server" class="w-10 h-10 text-blue-400 mx-auto mb-4"></i>
-                    <!-- Estadística de Discord actualizada a 2K -->
-                    <p class="text-5xl font-extrabold text-white">2K+</p>
-                    <p class="text-gray-400 text-sm mt-1">Discord Members in Community</p>
+                    <p class="text-6xl font-extrabold text-white">2K+</p>
+                    <p class="text-gray-400 text-sm mt-1 uppercase tracking-wider">Discord Members</p>
                 </div>
             </div>
         </section>
 
-        <!-- Sección 3: Nuestra Misión -->
-        <section class="mt-20 md:mt-32 border-t border-white/5 pt-12">
-            <div class="max-w-4xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-12">
+        <!-- Sección 3: Nuestra Misión - Estilo de lista avanzada con barra lateral -->
+        <section class="pt-12 bg-surfaceLight/50 rounded-3xl mt-20 md:mt-32 border-t border-white/5" data-aos="fade-up" data-aos-delay="700">
+            <div class="max-w-6xl mx-auto py-12">
+                <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-16">
                     The <span class="text-gradient">QuO</span> Mission
                 </h2>
                 
-                <div class="bg-surface border border-white/10 rounded-2xl p-6 md:p-10 space-y-6">
-                    <div class="flex items-start gap-4">
-                        <i data-lucide="target" class="w-6 h-6 text-brand mt-1 flex-shrink-0"></i>
-                        <div>
-                            <h3 class="font-bold text-white mb-1">Zero Latency Philosophy</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Left Column - Mission Summary (Sticky or just prominent) -->
+                    <div class="md:col-span-1" data-aos="fade-right" data-aos-delay="800">
+                        <div class="sticky top-28 bg-surface border border-brand/50 p-6 rounded-2xl shadow-lg">
+                            <i data-lucide="rocket" class="w-12 h-12 text-brand mb-4"></i>
+                            <h3 class="font-extrabold text-3xl text-white mb-3">CORE PRINCIPLES</h3>
+                            <p class="text-gray-400 text-base">
+                                We are committed to pushing the boundaries of competitive gaming by delivering deep, stable, and transparent system optimization.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Detailed Points -->
+                    <div class="md:col-span-2 space-y-6">
+                        <div class="mission-item-card rounded-2xl" data-aos="fade-left" data-aos-delay="900">
+                            <h3 class="font-bold text-xl text-white mb-1 flex items-center gap-2"><i data-lucide="target" class="w-5 h-5 text-brand"></i> Zero Latency Philosophy</h3>
                             <p class="text-gray-400 text-sm">
                                 We believe that in competitive gaming, the difference between winning and losing is measured in milliseconds. Our mission is to eliminate every avoidable millisecond of input lag and system delay.
                             </p>
                         </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <i data-lucide="code" class="w-6 h-6 text-green-400 mt-1 flex-shrink-0"></i>
-                        <div>
-                            <h3 class="font-bold text-white mb-1">Kernel-Level Precision</h3>
+                        <div class="mission-item-card rounded-2xl" data-aos="fade-left" data-aos-delay="1000">
+                            <h3 class="font-bold text-xl text-white mb-1 flex items-center gap-2"><i data-lucide="code" class="w-5 h-5 text-green-400"></i> Kernel-Level Precision</h3>
                             <p class="text-gray-400 text-sm">
                                 We operate beyond simple tweaks. QuO modifies core system files and registry keys, ensuring deep optimization that surface tools cannot reach. This requires expertise and continuous research.
                             </p>
                         </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <i data-lucide="shield-half" class="w-6 h-6 text-yellow-400 mt-1 flex-shrink-0"></i>
-                        <div>
-                            <h3 class="font-bold text-white mb-1">Safety First, Always</h3>
+                        <div class="mission-item-card rounded-2xl" data-aos="fade-left" data-aos-delay="1100">
+                            <h3 class="font-bold text-xl text-white mb-1 flex items-center gap-2"><i data-lucide="shield-half" class="w-5 h-5 text-yellow-400"></i> Safety First, Always</h3>
                             <p class="text-gray-400 text-sm">
                                 Despite kernel access, safety is paramount. Every major change includes a rollback feature and a system integrity check to keep your PC secure and stable.
                             </p>
@@ -252,16 +327,16 @@
             </div>
         </section>
         
-        <!-- NEW SECTION: CLAIM PREMIUM ROLE -->
-        <section class="mt-20 md:mt-32">
-            <div class="max-w-4xl mx-auto bg-surface border border-white/10 rounded-2xl p-8 md:p-12 text-center relative overflow-hidden shadow-2xl">
-                <!-- Neon Glow Effect -->
-                <div class="absolute inset-0 bg-brand/10 rounded-2xl opacity-30 blur-xl z-0 animate-pulse-slow pointer-events-none"></div>
+        <!-- NEW SECTION: CLAIM PREMIUM ROLE (Highlighted) -->
+        <section class="mt-20 md:mt-32" data-aos="fade-up" data-aos-delay="1200">
+            <div class="max-w-5xl mx-auto cyber-card highlight rounded-3xl p-8 md:p-16 text-center relative overflow-hidden shadow-2xl">
+                <!-- Subtle internal light source -->
+                <div class="absolute inset-0 bg-brand/5 rounded-3xl opacity-50 blur-xl z-0 animate-pulse-slow pointer-events-none"></div>
                 <div class="relative z-10">
                     <h2 class="text-4xl md:text-5xl font-black text-white mb-4">
                         CLAIM YOUR <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-red-400 text-glow">PREMIUM ROLE</span>
                     </h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto mb-8">
+                    <p class="text-gray-300 max-w-2xl mx-auto mb-10 text-lg">
                         Verify your purchase and instantly unlock your **PRO status** on our Discord server. This grants you access to priority support channels and exclusive content.
                     </p>
                     
@@ -280,20 +355,20 @@
         </section>
         <!-- END NEW SECTION -->
 
-        <!-- Sección 4: Soporte - Rediseño en Cards y botones llenos (Filled Buttons) -->
-        <section class="mt-20 md:mt-32 border-t border-white/5 pt-12">
-            <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-12">
+        <!-- Sección 4: Soporte - Diseño de Cards revisado -->
+        <section class="mt-20 md:mt-32 border-t border-white/5 pt-12" data-aos="fade-up" data-aos-delay="1300">
+            <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-16">
                 Global <span class="text-gradient">Support</span> Network
             </h2>
             
             <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
 
                 <!-- Card 1: Priority Support (Premium) -->
-                <div class="card-impact p-6 md:p-8 rounded-2xl flex flex-col justify-between border-brand border-2">
+                <div class="cyber-card highlight p-6 md:p-8 rounded-2xl flex flex-col justify-between border-brand border-2" data-aos="fade-up" data-aos-delay="1400">
                     <div>
-                        <i data-lucide="zap" class="w-10 h-10 text-brand mb-4 animate-pulse-slow"></i>
+                        <i data-lucide="zap" class="w-10 h-10 text-white mb-4 animate-pulse-slow bg-brand p-2 rounded-full"></i>
                         <h3 class="font-extrabold text-2xl text-white mb-2">PRIORITY SUPPORT</h3>
-                        <p class="text-gray-400 text-sm mb-6">
+                        <p class="text-gray-300 text-sm mb-6">
                             Exclusive support and guaranteed faster response times for all **Premium** members. Use our dedicated ticket system on Discord for immediate assistance.
                         </p>
                     </div>
@@ -304,7 +379,7 @@
                 </div>
 
                 <!-- Card 2: Community & Free Support (Discord) -->
-                <div class="card-impact p-6 md:p-8 rounded-2xl flex flex-col justify-between">
+                <div class="cyber-card p-6 md:p-8 rounded-2xl flex flex-col justify-between" data-aos="fade-up" data-aos-delay="1500">
                     <div>
                         <!-- Usamos el logo de Discord en SVG inline para garantizar la carga -->
                         <svg class="w-10 h-10 text-discord mb-4" viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -322,7 +397,7 @@
                 </div>
 
                 <!-- Card 3: Business & General Email Contact -->
-                <div class="card-impact p-6 md:p-8 rounded-2xl flex flex-col justify-between">
+                <div class="cyber-card p-6 md:p-8 rounded-2xl flex flex-col justify-between" data-aos="fade-up" data-aos-delay="1600">
                     <div>
                         <i data-lucide="mail-open" class="w-10 h-10 text-yellow-400 mb-4"></i>
                         <h3 class="font-extrabold text-2xl text-white mb-2">BUSINESS & GENERAL INQUIRIES</h3>
@@ -406,6 +481,8 @@
         </div>
     </footer>
 
+    <!-- Scripts de la librería AOS y inicialización añadidos -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // --- 1. CONFIGURACIÓN ---
         const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
@@ -542,6 +619,17 @@
 
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', function () {
+            // Inicialización de la librería AOS
+            try {
+                if(window.AOS) {
+                    AOS.init({
+                        duration: 800,
+                        once: true,
+                        offset: 50
+                    });
+                }
+            } catch(e) { console.error("AOS Init error", e); }
+
             checkUser();
             if(window.lucide) lucide.createIcons();
         });
