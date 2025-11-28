@@ -164,7 +164,7 @@
 
                 <div class="card-impact p-6 rounded-2xl text-center">
                     <i data-lucide="server" class="w-10 h-10 text-blue-400 mx-auto mb-4"></i>
-                    <!-- Estadística de Discord actualizada de 35K a 2K -->
+                    <!-- Estadística de Discord actualizada a 2K -->
                     <p class="text-5xl font-extrabold text-white">2K+</p>
                     <p class="text-gray-400 text-sm mt-1">Discord Members in Community</p>
                 </div>
@@ -279,8 +279,9 @@
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_5Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
 
-        // Estado global para mantener el objeto de usuario
+        // Estado global para mantener el objeto de usuario y el plan (CORREGIDO)
         let currentUser = null; 
+        let userPlanType = 'free'; // Inicializado
 
         // --- 2. AUTENTICACIÓN (Supabase) ---
         async function loginWithGoogle() {
@@ -300,29 +301,37 @@
         
         async function checkUser() {
             const { data: { session } } = await supabaseClient.auth.getSession();
-            currentUser = session ? session.user : null;
+            currentUser = session ? session.user : null; // Asignamos el usuario a la global
             renderAuth(currentUser);
         }
 
-        async function checkPremiumStatus(user) {
+        // checkPremiumStatus ahora solo recibe el userId (consistente con download.html)
+        async function checkPremiumStatus(userId) {
             
             // 1. Intentar buscar por ID (método principal)
-            let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('id', user.id).single();
+            let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('id', userId).single();
             
             // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
-            if (!profile && user.email) {
+            // Usamos el global currentUser para el email
+            if (!profile && currentUser.email) {
                 console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
-                ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', user.email).single());
+                ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
             }
 
             if (error && error.code !== 'PGRST116') {
                  console.error("Supabase Profile Query Error:", error);
             }
             
+            // Actualizar estados globales
             const isPremium = !!profile?.is_premium; 
+            userPlanType = profile?.plan_type || 'free'; 
+            
             const badgeText = isPremium ? 'PRO' : 'FREE';
             const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
-            const avatarUrl = user.user_metadata.avatar_url;
+            
+            // Usamos currentUser para obtener el avatar y el email (consistente con download.html)
+            const avatarUrl = currentUser.user_metadata.avatar_url;
+            const userEmail = currentUser.email;
 
             document.getElementById('auth-section').innerHTML = `
                 <div class="relative group cursor-pointer flex items-center gap-3">
@@ -331,11 +340,11 @@
                         <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
                     </div>
                     <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
-                        ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : user.email[0].toUpperCase()}
+                        ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : userEmail[0].toUpperCase()}
                     </div>
                     <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform origin-top-right">
                         <div class="p-2 space-y-1">
-                            <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${user.email}</div>
+                            <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${userEmail}</div>
                             <a href="/download" class="block px-3 py-2 text-sm text-white hover:bg-white/10 rounded flex items-center gap-2"><i data-lucide="download" class="w-4"></i> Download App</a>
                             <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
                                 <i data-lucide="log-out" class="w-4"></i> Logout
@@ -349,7 +358,7 @@
         function renderAuth(user) {
             const authSection = document.getElementById('auth-section');
             if (!user) {
-                // Si no hay usuario, mostramos el botón de login con el icono de Google (actualizado para usar el diseño robusto)
+                // Si no hay usuario, mostramos el botón de login con el icono de Google
                 authSection.innerHTML = `
                     <button onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
                         <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
@@ -363,7 +372,7 @@
                     </button>
                 `;
             } else {
-                checkPremiumStatus(user);
+                checkPremiumStatus(user.id); // Pasamos solo el ID
             }
             if(window.lucide) lucide.createIcons();
         }
