@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuO | Pricing & Plans</title>
-    
+   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- AOS CSS agregado -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -42,7 +44,7 @@
         .bg-grid {
             background-size: 50px 50px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+                             linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
             -webkit-mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
             position: fixed; inset: 0; z-index: -1;
@@ -67,6 +69,17 @@
         }
         .text-glow { text-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
         
+        /* Estilo para el botón CTA debajo de la tabla */
+        .btn-primary {
+            background: #FF003C;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.7);
+            transform: scale(1.02);
+        }
+
         /* --- ARREGLO CRÍTICO DEL SCROLL DE WHOP --- */
         #whop-wrapper {
             width: 100%;
@@ -96,6 +109,8 @@
             box-shadow: none !important;
         }
     </style>
+    <!-- AOS CSS agregado aquí (si ya estaba en el head, se mantiene, si no, se agrega) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -125,7 +140,7 @@
 
     <main class="flex-grow flex flex-col items-center pt-32 pb-20 px-6 w-full">
         
-        <div class="text-center mb-12 md:mb-16 max-w-3xl">
+        <div class="text-center mb-12 md:mb-16 max-w-3xl" data-aos="fade-up">
             <h1 class="text-4xl md:text-6xl font-black mb-4 leading-tight">
                 Unlock <span class="text-gradient text-glow">Competitive Power</span>
             </h1>
@@ -133,7 +148,7 @@
         </div>
 
         <!-- Toggle mensual/anual -->
-        <div class="relative bg-white/5 p-1 rounded-full flex items-center mb-12 border border-white/5">
+        <div class="relative bg-white/5 p-1 rounded-full flex items-center mb-12 border border-white/5" data-aos="fade-up" data-aos-delay="100">
             <button onclick="setPeriod('monthly')" id="btn-monthly" class="px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all">Monthly</button>
             <!-- ID CORREGIDO de btn-yearly-inner a btn-yearly -->
             <button onclick="setPeriod('yearly')" id="btn-yearly" class="px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all">
@@ -145,7 +160,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
             
             <!-- TARJETA STARTER (FREE) -->
-            <div class="card-glass rounded-3xl p-8 flex flex-col">
+            <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
                 <div class="mb-6">
                     <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
                     <h3 class="text-4xl font-extrabold mt-2 text-white">$0<span class="text-sm text-gray-500 font-normal"> / forever</span></h3>
@@ -157,7 +172,7 @@
             </div>
 
             <!-- TARJETA PREMIUM (MONTHLY/YEARLY) -->
-            <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.1)] flex flex-col">
+            <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.1)] flex flex-col" data-aos="fade-up" data-aos-delay="300">
                 <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand/40">ULTIMATE POWER</div>
                 
                 <div class="mb-6">
@@ -180,7 +195,7 @@
             </div>
 
             <!-- TARJETA LIFETIME -->
-            <div class="card-glass rounded-3xl p-8 flex flex-col">
+            <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="400">
                 <div class="mb-6">
                     <span class="text-green-400 font-bold tracking-widest text-xs uppercase">Lifetime</span>
                     <h3 class="text-4xl font-extrabold mt-2 text-white">$149<span class="text-sm text-gray-500 font-normal"> / one-time</span></h3>
@@ -196,7 +211,7 @@
         
 <div class="w-full max-w-7xl mx-auto mt-24 md:mt-32">
     <!-- Comparison Header -->
-    <div class="text-center mb-12 md:mb-16">
+    <div class="text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="500">
         <h2 class="text-3xl md:text-5xl font-black text-white mb-4">
             QuO <span class="text-gradient text-glow">Free vs Premium</span>
         </h2>
@@ -206,7 +221,7 @@
     </div>
 
     <!-- Pricing Boxes / CTA -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-mono text-center mb-12 md:mb-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-mono text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="600">
         <!-- Columna 1: FREE - Total Optimizations -->
         <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
             <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Free Total Optimizations</p>
@@ -228,7 +243,7 @@
 
 
     <!-- Comparison Table (Using Divs for Responsiveness) -->
-    <div class="bg-surface rounded-3xl overflow-hidden border border-white/10 shadow-xl">
+    <div class="bg-surface rounded-3xl overflow-hidden border border-white/10 shadow-xl" data-aos="fade-up" data-aos-delay="700">
         
         <!-- Table Header -->
         <div class="grid grid-cols-3 text-sm md:text-base font-bold text-white uppercase tracking-wider border-b border-white/10 bg-black/50 sticky top-0 z-10">
@@ -559,7 +574,7 @@
     </div>
     
     <!-- CTA Button Below Table -->
-    <div class="mt-12 text-center" data-aos="fade-up" data-aos-delay="400">
+    <div class="mt-12 text-center" data-aos="fade-up" data-aos-delay="800">
         <a href="/pricing" class="btn-primary text-white px-12 py-4 rounded-xl font-bold text-lg md:text-xl flex items-center justify-center gap-3 w-full max-w-sm mx-auto shadow-2xl shadow-brand/50">
             <i data-lucide="zap" class="w-6 h-6"></i> UPGRADE TO PREMIUM
         </a>
@@ -653,7 +668,7 @@
                 <button onclick="selectMethod('paypal')" class="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#0070BA]/50 hover:bg-white/10 transition group">
                     <div class="flex items-center gap-4">
                         <div class="w-10 h-10 rounded-full bg-[#0070BA]/20 flex items-center justify-center text-[#0070BA]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7.076 21.337l.756-4.803h3.06a7.04 7.04 0 0 0 2.373-.24 4.542 4.542 0 0 0 3.125-3.085c.045-.19.083-.383.115-.58.12-.75.05-1.52-.224-2.227-.376-1.127-1.15-2.03-2.14-2.684A8.775 8.775 0 0 0 9.873 7H3.45a.695.695 0 0 0-.687.587l-2.75 17.5a.336.336 0 0 0 .332.388h4.588a.695.695 0 0 0 .687-.588l.608-3.876a.64.64 0 0 1 .632-.544h.216z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7.076 21.337l.756-4.803h3.06a7.04 7.04 0 0 0 2.373-.24 4.542 4.542 0 0 0 3.125-3.085c.045-.19.083-.383.115-.58.12-.75.05-1.52-.224-2.227-.376-1.127-1.15-2.14-2.684A8.775 8.775 0 0 0 9.873 7H3.45a.695.695 0 0 0-.687.587l-2.75 17.5a.336.336 0 0 0 .332.388h4.588a.695.695 0 0 0 .687-.588l.608-3.876a.64.64 0 0 1 .632-.544h.216z"/></svg>
                         </div>
                         <div class="text-left">
                             <div class="font-bold text-white">PayPal</div>
@@ -705,6 +720,8 @@
         </div>
     </div>
 
+    <!-- Script de AOS agregado -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
         // --- 1. CONFIGURON ---
@@ -752,14 +769,14 @@
                 authSection.innerHTML = `
                     <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
                          <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
-                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
-                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
-                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
-                        </svg>
-                        <span class="hidden sm:inline">Sign in</span>
-                        <span class="inline sm:hidden">Login</span>
-                    </a>`;
+                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+                             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+                         </svg>
+                         <span class="hidden sm:inline">Sign in</span>
+                         <span class="inline sm:hidden">Login</span>
+                     </a>`;
             } else {
                 checkPremiumStatus(user.id);
             }
@@ -785,14 +802,6 @@
             // CRITICAL FIX: Use !! to enforce a strict boolean check, ensuring 'is_premium' is always true or false.
             const isPremium = !!profile?.is_premium; 
             userPlanType = profile?.plan_type || 'free'; // Capture the actual plan type
-
-            // --- REMOVING FALLBACK FIX: Trusting the database value now that Supabase function is fixed ---
-            // If the Webhook works, plan_type will be correct. If it fails, userPlanType will be 'free'.
-            // if (isPremium && userPlanType === 'free') {
-            //     userPlanType = 'monthly'; 
-            //     console.warn("[FALLBACK] plan_type was 'free' but is_premium is TRUE. Forcing userPlanType to 'monthly' for correct UI display.");
-            // }
-            // ------------------------------------------------------------------------------------------
 
             // --- DEBUG LOG UPDATED ---
             console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
@@ -966,7 +975,8 @@
             closeModal('payment-method-modal');
 
             if (method === 'paypal') {
-                console.error("PayPal integration coming soon! Please use Card/Whop for now.");
+                // IMPORTANT: Use custom modal instead of alert()
+                openModal('paypal-soon-modal');
                 return;
             }
 
@@ -1021,9 +1031,22 @@
         window.onWhopPurchaseComplete = async (planId, receiptId) => {
             closeModal('whop-modal');
             
-            // Avisamos al usuario que el Webhook está trabajando
-            alert("Payment successful! Activating your QuO Premium license securely...");
-            
+            // Creamos un modal temporal para informar sobre la activación
+            const activationModal = document.createElement('div');
+            activationModal.id = 'activation-modal';
+            activationModal.className = 'fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-active';
+            activationModal.innerHTML = `
+                <div class="bg-surface border border-green-500 rounded-2xl p-8 max-w-sm w-full shadow-2xl shadow-green-500/20 transform transition-all">
+                    <div class="text-center">
+                        <i data-lucide="check-circle" class="w-12 h-12 text-green-500 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">Payment Successful!</h3>
+                        <p class="text-gray-400">Activating your QuO Premium license securely. Refreshing page in a moment...</p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(activationModal);
+            if(window.lucide) lucide.createIcons();
+
             // Esperamos 4 segundos para que el Webhook de Supabase termine.
             setTimeout(() => {
                 window.location.reload();
@@ -1055,6 +1078,17 @@
         window.closeModal = closeModal;
 
         document.addEventListener('DOMContentLoaded', function () {
+            // Inicialización de la librería AOS
+            try {
+                if(window.AOS) {
+                    AOS.init({
+                        duration: 800,
+                        once: true,
+                        offset: 50
+                    });
+                }
+            } catch(e) { console.error("AOS Init error", e); }
+            
             checkUser();
             setPeriod(selectedPeriod); // Asegura que el toggle se inicialice correctamente
             if(window.lucide) lucide.createIcons();
