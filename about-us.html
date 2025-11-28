@@ -276,12 +276,13 @@
     <script>
         // --- 1. CONFIGURACIÓN ---
         const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_5Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
+        // CLAVE CORREGIDA: Usando la clave de API anon que funcionaba en otros archivos.
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A'; 
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
 
-        // Estado global para mantener el objeto de usuario y el plan (CORREGIDO)
+        // Estado global para mantener el objeto de usuario y el plan
         let currentUser = null; 
-        let userPlanType = 'free'; // Inicializado
+        let userPlanType = 'free'; 
 
         // --- 2. AUTENTICACIÓN (Supabase) ---
         async function loginWithGoogle() {
@@ -301,18 +302,16 @@
         
         async function checkUser() {
             const { data: { session } } = await supabaseClient.auth.getSession();
-            currentUser = session ? session.user : null; // Asignamos el usuario a la global
+            currentUser = session ? session.user : null; 
             renderAuth(currentUser);
         }
 
-        // checkPremiumStatus ahora solo recibe el userId (consistente con download.html)
         async function checkPremiumStatus(userId) {
             
             // 1. Intentar buscar por ID (método principal)
             let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('id', userId).single();
             
             // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
-            // Usamos el global currentUser para el email
             if (!profile && currentUser.email) {
                 console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
                 ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
@@ -329,7 +328,6 @@
             const badgeText = isPremium ? 'PRO' : 'FREE';
             const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
             
-            // Usamos currentUser para obtener el avatar y el email (consistente con download.html)
             const avatarUrl = currentUser.user_metadata.avatar_url;
             const userEmail = currentUser.email;
 
@@ -372,7 +370,7 @@
                     </button>
                 `;
             } else {
-                checkPremiumStatus(user.id); // Pasamos solo el ID
+                checkPremiumStatus(user.id); 
             }
             if(window.lucide) lucide.createIcons();
         }
