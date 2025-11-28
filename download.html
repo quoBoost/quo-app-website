@@ -191,7 +191,8 @@ body {
             </div>
 
             <div id="auth-section">
-                <!-- Se rellena con Sign In o Avatar y estado PRO/FREE por JS -->
+                <!-- Fallback inicial para evitar parpadeos -->
+                <div class="animate-pulse bg-white/10 h-8 w-20 rounded-full"></div>
             </div>
         </div>
     </nav>
@@ -400,91 +401,121 @@ body {
     <script src="https://cdn.jsdelivr.net/npm/ogl@0.0.35/dist/ogl.min.js"></script>
     <script src="app.js"></script> 
     <script>
-        // --- 1. CONFIGURACIÓN DE SUPABASE (CLAVES PÚBLICAS) ---
-        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
-
-        // Estado global
+        // CONFIGURACIÓN GLOBAL
+        let supabaseClient = null;
         let currentUser = null;
         let userPlanType = 'free';
 
-        // --- 2. FUNCIONES DE AUTENTICACIÓN ---
+        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
+
+        // --- 1. FUNCIONES DE AUTENTICACIÓN Y SUPABASE ---
+
+        function initSupabase() {
+            try {
+                if (typeof supabase !== 'undefined') {
+                    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                    checkUser();
+                } else {
+                    console.warn("Supabase SDK not loaded. Rendering default auth state.");
+                    renderAuth(null);
+                }
+            } catch (e) {
+                console.error("Critical Error initializing Supabase:", e);
+                renderAuth(null);
+            }
+        }
 
         async function loginWithGoogle() {
-            const { error } = await supabaseClient.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: window.location.href } 
-            });
-            if (error) console.error("Login Error:", error);
+            if (!supabaseClient) {
+                alert("Authentication service unavailable.");
+                return;
+            }
+            try {
+                const { error } = await supabaseClient.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: { redirectTo: window.location.href } 
+                });
+                if (error) throw error;
+            } catch (error) {
+                console.error("Login Error:", error);
+            }
         }
         window.loginWithGoogle = loginWithGoogle;
 
         async function logout() {
+            if (!supabaseClient) return;
             await supabaseClient.auth.signOut();
             window.location.reload();
         }
         window.logout = logout;
 
-        // --- 3. COMPROBACIÓN DE ESTADO PREMIUM (LÓGICA CRÍTICA) ---
-
         async function checkUser() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            currentUser = session ? session.user : null;
-            renderAuth(currentUser);
+            try {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                currentUser = session ? session.user : null;
+                renderAuth(currentUser);
+            } catch (e) {
+                console.error("Session Check Error:", e);
+                renderAuth(null);
+            }
         }
 
         async function checkPremiumStatus(userId) {
-            
-            // 1. Consulta el perfil en Supabase
-            let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
-            
-            // 2. Fallback por email si falla la búsqueda por ID (para evitar errores en la migración de datos)
-            if (!profile && currentUser.email) {
-                console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
-                ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
+            try {
+                // 1. Consulta el perfil
+                let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
+                
+                // 2. Fallback por email si falla ID
+                if (!profile && currentUser.email) {
+                    ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
+                }
+
+                if (error && error.code !== 'PGRST116') console.error("Profile Error:", error);
+                
+                // 3. Determina estado
+                const isPremium = !!profile?.is_premium; 
+                
+                // 4. Renderizado Final
+                const badgeText = isPremium ? 'PRO' : 'FREE';
+                const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
+                const avatarUrl = currentUser.user_metadata.avatar_url;
+
+                const authContainer = document.getElementById('auth-section');
+                if(authContainer) {
+                    authContainer.innerHTML = `
+                        <div class="relative group cursor-pointer flex items-center gap-3">
+                            <div class="hidden md:flex flex-col text-right">
+                                <span class="text-[10px] text-gray-500 uppercase">Status</span>
+                                <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
+                            </div>
+                            <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
+                                ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
+                            </div>
+                            <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div class="p-2 space-y-1">
+                                    <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
+                                    <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
+                                        <i data-lucide="log-out" class="w-4"></i> Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>`;
+                    if(window.lucide) lucide.createIcons();
+                }
+            } catch (e) {
+                console.error("Premium Check Error:", e);
+                // Fallback visual en caso de error
+                renderAuth(currentUser); 
             }
-
-            if (error && error.code !== 'PGRST116') {
-                 console.error("Supabase Profile Query Error:", error);
-            }
-            
-            // 3. Determina el estado
-            const isPremium = !!profile?.is_premium; 
-            userPlanType = profile?.plan_type || 'free'; 
-
-            // 4. RENDERIZADO FINAL DEL AVATAR/ESTADO
-            const badgeText = isPremium ? 'PRO' : 'FREE';
-            const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
-            const avatarUrl = currentUser.user_metadata.avatar_url;
-
-            document.getElementById('auth-section').innerHTML = `
-                <div class="relative group cursor-pointer flex items-center gap-3">
-                    <div class="hidden md:flex flex-col text-right">
-                        <span class="text-[10px] text-gray-500 uppercase">Status</span>
-                        <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
-                    </div>
-                    <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
-                        ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
-                    </div>
-                    <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                        <div class="p-2 space-y-1">
-                            <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
-                            <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
-                                <i data-lucide="log-out" class="w-4"></i> Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>`;
-            if(window.lucide) lucide.createIcons();
         }
-
-        // --- 4. FUNCIÓN DE RENDERIZADO DEL NAV (Sign In o Avatar) ---
 
         function renderAuth(user) {
             const authSection = document.getElementById('auth-section');
+            if (!authSection) return;
+
             if (!user) {
-                // Usuario no logueado: Muestra el botón de Sign In
+                // Usuario no logueado
                 authSection.innerHTML = `
                     <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
                         <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
@@ -497,38 +528,46 @@ body {
                         <span class="inline sm:hidden">Login</span>
                     </a>`;
             } else {
-                // Usuario logueado: Obtiene el estado Premium
+                // Logueado: Verificar estado premium
                 checkPremiumStatus(user.id);
             }
             if(window.lucide) lucide.createIcons();
         }
         
-        // --- 5. INICIALIZACIONES DE PÁGINA ESPECÍFICAS ---
+        // --- 2. INICIALIZACIÓN SEGURA ---
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Inicia el flujo de autenticación y comprobación de estado
-            checkUser(); 
+            
+            // PRIORIDAD 1: Elementos Visuales (AOS e Iconos)
+            // Se inician ANTES de cualquier lógica de red para evitar pantalla en blanco si JS falla después.
+            try {
+                if(window.AOS) {
+                    AOS.init({
+                        duration: 800,
+                        once: true,
+                        offset: 50
+                    });
+                }
+                if(window.lucide) lucide.createIcons();
+            } catch (e) {
+                console.error("Visual Init Error:", e);
+                // Si AOS falla, forzamos visibilidad para no dejar la pantalla negra
+                document.querySelectorAll('[data-aos]').forEach(el => el.style.opacity = '1');
+            }
 
-            // Inicialización de la librería AOS (Animate On Scroll)
-            if(window.AOS) AOS.init({
-                duration: 800,
-                once: true,
-                offset: 50
-            });
-
-            // Lógica de descarga simulada
+            // PRIORIDAD 2: Lógica de Descarga (Mock)
             const downloadButton = document.getElementById('download-free-button');
             if (downloadButton) {
                 downloadButton.addEventListener('click', function(e) {
                     e.preventDefault();
-                    // Importante: cambié el 'alert' por 'console.log' para cumplir con las reglas.
-                    console.log('Download Initiated! (Frontend Simulation) - Replace the href="#" with your actual installer URL.');
-                    alert('Download Initiated! (This is a simulation)');
+                    console.log('Download Initiated!');
+                    alert('Download Initiated! (Simulation)');
                 });
             }
-            
-            // Inicializa los iconos de Lucide (ya se llama en renderAuth, pero para asegurar iconos estáticos)
-            if(window.lucide) lucide.createIcons();
+
+            // PRIORIDAD 3: Autenticación (Supabase)
+            // Encapsulado para no romper el resto si falla.
+            setTimeout(initSupabase, 100); 
         });
     </script>
 </body>
