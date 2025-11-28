@@ -15,7 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
-    <script src="https://assets.lemonsqueezy.com/js/checkout.js"></script>
     
     <script>
         tailwind.config = {
@@ -724,435 +723,382 @@
     <!-- Script de AOS agregado -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-<script>
-    // --- 1. CONFIGURACIÓN DE CONSTANTES (ACTUALIZADO) ---
+    <script>
+        // --- 1. CONFIGURON ---
+        const IDS = {
+            monthly: 'plan_WJyjmf0udVC7q', 
+            yearly: 'plan_1LTn29l3d2jSF', 
+            lifetime: 'plan_ofXEr76XfpuAU' 
+        };
 
-    // ¡IMPORTANTE! Hemos confirmado la URL de tu tienda.
-    const LEMON_SQUEEZY_STORE_URL = 'https://quoboost.lemonsqueezy.com'; 
+        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
 
-    const IDS = {
-        // IDS de Lemon Squeezy (LS) para PayPal/Otros
-        ls_monthly: '1116197',    
-        ls_yearly: '1116215',     
-        ls_lifetime: '1116219',
-        
-        // IDS de Whop (MANTENIDOS PARA TARJETA)
-        whop_monthly: 'plan_WJyjmf0udVC7q', 
-        whop_yearly: 'plan_1LTn29l3d2jSF', 
-        whop_lifetime: 'plan_ofXEr76XfpuAU',
-    };
+        // State
+        let selectedPeriod = 'monthly'; 
+        let pendingPlanType = null;      
+        let currentUser = null;
+        let userPlanType = 'free'; // New state variable to hold the current plan (e.g., 'monthly', 'yearly', 'lifetime')
 
-    // Usamos las claves de Whop como alias para mantener la compatibilidad con el código antiguo si es necesario.
-    // Esto se corrige en la función initiateWhopCheckout, pero se añade por seguridad de compatibilidad
-    // El plan type debe mapearse a las claves whop_*
-    IDS.monthly = IDS.whop_monthly;
-    IDS.yearly = IDS.whop_yearly;
-    IDS.lifetime = IDS.whop_lifetime;
-
-
-    const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w5JbBuMMHcpw-L1FGT8O1A';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
-
-    // State
-    let selectedPeriod = 'monthly'; 
-    let pendingPlanType = null;      
-    let currentUser = null;
-    let userPlanType = 'free'; // New state variable to hold the current plan (e.g., 'monthly', 'yearly', 'lifetime')
-
-    // --- 2. AUTHENTICATION (Supabase) ---
-    async function loginWithGoogle() {
-        const { error } = await supabaseClient.auth.signInWithOAuth({
-            provider: 'google',
-            options: { redirectTo: window.location.href } 
-        });
-        if (error) console.error("Login Error:", error);
-    }
-    window.loginWithGoogle = loginWithGoogle;
-
-    async function logout() {
-        await supabaseClient.auth.signOut();
-        window.location.reload();
-    }
-    window.logout = logout;
-
-    async function checkUser() {
-        const { data: { session } } = await supabaseClient.auth.getSession();
-        currentUser = session ? session.user : null;
-        renderAuth(currentUser);
-    }
-
-    function renderAuth(user) {
-        const authSection = document.getElementById('auth-section');
-        if (!user) {
-            authSection.innerHTML = `
-                <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
-                     <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
-                           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
-                           <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
-                           <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
-                           <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
-                     </svg>
-                     <span class="hidden sm:inline">Sign in</span>
-                     <span class="inline sm:hidden">Login</span>
-                </a>`;
-        } else {
-            checkPremiumStatus(user.id);
+        // --- 2. AUTHENTICATION (Supabase) ---
+        async function loginWithGoogle() {
+            const { error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.href } 
+            });
+            if (error) console.error("Login Error:", error);
         }
-        if(window.lucide) lucide.createIcons();
-    }
+        window.loginWithGoogle = loginWithGoogle;
 
-    async function checkPremiumStatus(userId) {
-        
-        // 1. Intentar buscar por ID (método principal)
-        let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
-        
-        // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
-        if (!profile && currentUser.email) {
-            console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
-            ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
+        async function logout() {
+            await supabaseClient.auth.signOut();
+            window.location.reload();
+        }
+        window.logout = logout;
+
+        async function checkUser() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            currentUser = session ? session.user : null;
+            renderAuth(currentUser);
         }
 
-        // Log error, but ignore "No rows found" (PGRST116) which is expected for new/free users
-        if (error && error.code !== 'PGRST116') {
-             console.error("Supabase Profile Query Error:", error);
+        function renderAuth(user) {
+            const authSection = document.getElementById('auth-section');
+            if (!user) {
+                authSection.innerHTML = `
+                    <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
+                         <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
+                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+                             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+                         </svg>
+                         <span class="hidden sm:inline">Sign in</span>
+                         <span class="inline sm:hidden">Login</span>
+                     </a>`;
+            } else {
+                checkPremiumStatus(user.id);
+            }
+            if(window.lucide) lucide.createIcons();
         }
-        
-        // CRITICAL FIX: Use !! to enforce a strict boolean check, ensuring 'is_premium' is always true or false.
-        const isPremium = !!profile?.is_premium; 
-        userPlanType = profile?.plan_type || 'free'; // Capture the actual plan type
 
-        // --- DEBUG LOG UPDATED ---
-        console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
-        console.log(`[AUTH DEBUG] User ID: ${userId}`);
-        console.log(`[AUTH DEBUG] is_premium raw value from DB: ${profile?.is_premium}`);
-        console.log(`[AUTH DEBUG] Current Plan Type (userPlanType): ${userPlanType}`); // New log
-        console.log(`[AUTH DEBUG] isPremium (calculated boolean): ${isPremium}`);
-        // -------------------------
+        async function checkPremiumStatus(userId) {
+            
+            // 1. Intentar buscar por ID (método principal)
+            let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
+            
+            // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
+            if (!profile && currentUser.email) {
+                console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
+                ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
+            }
 
-        const badgeText = isPremium ? 'PRO' : 'FREE';
-        const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
-        const avatarUrl = currentUser.user_metadata.avatar_url;
+            // Log error, but ignore "No rows found" (PGRST116) which is expected for new/free users
+            if (error && error.code !== 'PGRST116') {
+                 console.error("Supabase Profile Query Error:", error);
+            }
+            
+            // CRITICAL FIX: Use !! to enforce a strict boolean check, ensuring 'is_premium' is always true or false.
+            const isPremium = !!profile?.is_premium; 
+            userPlanType = profile?.plan_type || 'free'; // Capture the actual plan type
 
-        document.getElementById('auth-section').innerHTML = `
-            <div class="relative group cursor-pointer flex items-center gap-3">
-                <div class="hidden md:flex flex-col text-right">
-                    <span class="text-[10px] text-gray-500 uppercase">Status</span>
-                    <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
-                </div>
-                <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
-                    ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
-                </div>
-                <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <div class="p-2 space-y-1">
-                        <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
+            // --- DEBUG LOG UPDATED ---
+            console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
+            console.log(`[AUTH DEBUG] User ID: ${userId}`);
+            console.log(`[AUTH DEBUG] is_premium raw value from DB: ${profile?.is_premium}`);
+            console.log(`[AUTH DEBUG] Current Plan Type (userPlanType): ${userPlanType}`); // New log
+            console.log(`[AUTH DEBUG] isPremium (calculated boolean): ${isPremium}`);
+            // -------------------------
+
+            const badgeText = isPremium ? 'PRO' : 'FREE';
+            const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
+            const avatarUrl = currentUser.user_metadata.avatar_url;
+
+            document.getElementById('auth-section').innerHTML = `
+                <div class="relative group cursor-pointer flex items-center gap-3">
+                    <div class="hidden md:flex flex-col text-right">
+                        <span class="text-[10px] text-gray-500 uppercase">Status</span>
+                        <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
+                        ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
+                    </div>
+                    <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="p-2 space-y-1">
+                            <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
 
 
-                        <a href="/account" class="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-white/10 rounded flex items-center gap-2">
+                            <a href="/account" class="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-white/10 rounded flex items-center gap-2">
             <i data-lucide="settings" class="w-4"></i> Account Settings
         </a>
-                        <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
-                            <i data-lucide="log-out" class="w-4"></i> Logout
-                        </button>
+                            <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
+                                <i data-lucide="log-out" class="w-4"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+            if(window.lucide) lucide.createIcons();
+            
+            // Call the new rendering function after fetching the plan data
+            renderPlanButtons(); 
+        }
+
+        // --- NEW FUNCTION: Renders button state based on userPlanType ---
+        function renderPlanButtons() {
+            const starterBtn = document.getElementById('btn-starter');
+            const premiumSubBtn = document.getElementById('btn-premium-sub');
+            const lifetimeBtn = document.getElementById('btn-lifetime');
+            const cancelContainer = document.getElementById('cancel-sub-container');
+            
+            // Reset cancel container
+            cancelContainer.innerHTML = '';
+
+
+            // 1. STARTER/FREE Button Logic
+            if (userPlanType === 'free') {
+                starterBtn.innerText = "Current Plan";
+                starterBtn.classList.remove('bg-white/5', 'hover:bg-white/10');
+                starterBtn.classList.add('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
+                starterBtn.style.pointerEvents = 'none';
+            } else {
+                starterBtn.innerText = "Get Started Free";
+                starterBtn.classList.remove('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
+                starterBtn.classList.add('bg-white/5', 'hover:bg-white/10');
+                starterBtn.style.pointerEvents = 'auto';
+            }
+
+
+            // 2. PREMIUM SUBSCRIPTION Button Logic
+            if (userPlanType === 'monthly' || userPlanType === 'yearly') {
+                premiumSubBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
+                premiumSubBtn.classList.add('btn-disabled');
+                premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
+                premiumSubBtn.style.backgroundColor = '#FF003C'; // Ensures it uses brand color instead of gradient when current
+                
+                // Add Cancel Subscription Button
+                cancelContainer.innerHTML = `
+                    <a href="/account" class="w-full py-3 rounded-xl border border-white/20 text-center font-bold text-sm text-gray-400 hover:text-white hover:border-white/50 transition flex justify-center items-center gap-2">
+                        <i data-lucide="x-octagon" class="w-4"></i> Cancel Subscription
+                    </a>
+                `;
+
+            } else {
+                premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="zap" class="w-4"></i>';
+                premiumSubBtn.classList.remove('btn-disabled');
+                premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
+                premiumSubBtn.style.backgroundColor = ''; // Remove specific color to use gradient
+            }
+            
+            // 3. LIFETIME Button Logic
+            if (userPlanType === 'lifetime') {
+                lifetimeBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
+                lifetimeBtn.classList.add('btn-disabled');
+                lifetimeBtn.classList.remove('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
+                lifetimeBtn.classList.add('bg-green-700/50', 'text-white', 'border-green-500/50');
+            } else {
+                lifetimeBtn.innerHTML = 'Get Lifetime <i data-lucide="infinity" class="w-4"></i>';
+                lifetimeBtn.classList.remove('btn-disabled');
+                lifetimeBtn.classList.add('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
+                lifetimeBtn.classList.remove('bg-green-700/50', 'text-white', 'border-green-500/50');
+            }
+
+            // Ensure icons are rendered after changing innerHTML
+            if(window.lucide) lucide.createIcons();
+        }
+        window.renderPlanButtons = renderPlanButtons;
+
+        // --- 3. PRICING TOGGLE UI ---
+        function setPeriod(type) {
+            selectedPeriod = type;
+            const btnMonthly = document.getElementById('btn-monthly');
+            const btnYearly = document.getElementById('btn-yearly');
+            
+            if (type === 'monthly') {
+                document.getElementById('price-display').innerText = "$9.99";
+                document.getElementById('period-display').innerText = "/mo";
+                
+                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
+                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
+                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
+            } else {
+                document.getElementById('price-display').innerText = "$59.99";
+                document.getElementById('period-display').innerText = "/yr";
+                
+                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
+                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
+                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
+            }
+        }
+
+
+        // --- 4. PURCHASE FLOW & WHOP CHECKOUT LOGIC ---
+
+        function startPurchaseFlow(targetPlan) {
+            // Check if button is disabled (Current Plan)
+            const buttonId = (targetPlan === 'lifetime') ? 'btn-lifetime' : 'btn-premium-sub';
+            const button = document.getElementById(buttonId);
+            if (button && button.classList.contains('btn-disabled')) {
+                console.log("Button is disabled because this is the current plan.");
+                return; 
+            }
+
+            if (!currentUser) {
+                console.error("Please Sign In with Google before upgrading."); 
+                loginWithGoogle();
+                return;
+            }
+            
+            const isSubscription = userPlanType === 'monthly' || userPlanType === 'yearly';
+            const isLifetime = userPlanType === 'lifetime';
+
+            // --- PLAN CONFLICT LOGIC ---
+            let conflict = false;
+            let conflictMsg = "";
+            
+            if (isSubscription && targetPlan === 'lifetime') {
+                conflict = true;
+                conflictMsg = "To purchase the LIFETIME plan, you must first cancel your current monthly or annual subscription. Please go to your Account page to manage your existing plan.";
+            } else if (isLifetime && targetPlan === 'subscription') {
+                conflict = true;
+                conflictMsg = "To switch to a monthly/annual subscription, you must first contact support to remove your LIFETIME license. Please go to your Account page for support links.";
+            }
+
+            if (conflict) {
+                document.getElementById('conflict-message').innerText = conflictMsg;
+                openModal('plan-conflict-modal');
+                return;
+            }
+            // --- END PLAN CONFLICT LOGIC ---
+
+            pendingPlanType = targetPlan; 
+            openModal('payment-method-modal');
+        }
+        window.startPurchaseFlow = startPurchaseFlow;
+
+        function selectMethod(method) {
+            closeModal('payment-method-modal');
+
+            if (method === 'paypal') {
+                // IMPORTANT: Use custom modal instead of alert()
+                openModal('paypal-soon-modal');
+                return;
+            }
+
+            if (method === 'card') {
+                let planIdToUse = '';
+                if (pendingPlanType === 'lifetime') {
+                    planIdToUse = IDS.lifetime;
+                } else {
+                    planIdToUse = (selectedPeriod === 'monthly') ? IDS.monthly : IDS.yearly;
+                }
+                initiateWhopCheckout(planIdToUse);
+            }
+        }
+        window.selectMethod = selectMethod;
+
+        // A) FUNCIÓN CORREGIDA para enviar la metadata correctamente
+        function initiateWhopCheckout(planId) {
+            const wrapper = document.getElementById('whop-wrapper');
+            wrapper.innerHTML = ''; 
+
+            const checkoutDiv = document.createElement('div');
+            checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
+            checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
+            checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
+
+            // Forzar visibilidad
+            checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-features', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-submit-button', 'false');
+
+            checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
+
+            if(currentUser) {
+                checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
+                
+                // --- [CORRECCIÓN CRÍTICA DE METADATA] ---
+                const metadataString = JSON.stringify({ supabaseUserID: currentUser.id });
+                checkoutDiv.setAttribute('data-whop-checkout-metadata', metadataString);
+            }
+
+            wrapper.appendChild(checkoutDiv);
+            
+            setTimeout(() => {
+                openModal('whop-modal');
+            }, 100);
+        }
+
+        // B) FUNCIÓN DE CALLBACK CORREGIDA (Solo recarga, el backend hace la actualización)
+        window.onWhopPurchaseComplete = async (planId, receiptId) => {
+            closeModal('whop-modal');
+            
+            // Creamos un modal temporal para informar sobre la activación
+            const activationModal = document.createElement('div');
+            activationModal.id = 'activation-modal';
+            activationModal.className = 'fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-active';
+            activationModal.innerHTML = `
+                <div class="bg-surface border border-green-500 rounded-2xl p-8 max-w-sm w-full shadow-2xl shadow-green-500/20 transform transition-all">
+                    <div class="text-center">
+                        <i data-lucide="check-circle" class="w-12 h-12 text-green-500 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">Payment Successful!</h3>
+                        <p class="text-gray-400">Activating your QuO Premium license securely. Refreshing page in a moment...</p>
                     </div>
                 </div>
-            </div>`;
-        if(window.lucide) lucide.createIcons();
-        
-        // Call the new rendering function after fetching the plan data
-        renderPlanButtons(); 
-    }
-
-    // --- NEW FUNCTION: Renders button state based on userPlanType ---
-    function renderPlanButtons() {
-        const starterBtn = document.getElementById('btn-starter');
-        const premiumSubBtn = document.getElementById('btn-premium-sub');
-        const lifetimeBtn = document.getElementById('btn-lifetime');
-        const cancelContainer = document.getElementById('cancel-sub-container');
-        
-        // Reset cancel container
-        cancelContainer.innerHTML = '';
-
-
-        // 1. STARTER/FREE Button Logic
-        if (userPlanType === 'free') {
-            starterBtn.innerText = "Current Plan";
-            starterBtn.classList.remove('bg-white/5', 'hover:bg-white/10');
-            starterBtn.classList.add('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
-            starterBtn.style.pointerEvents = 'none';
-        } else {
-            starterBtn.innerText = "Get Started Free";
-            starterBtn.classList.remove('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
-            starterBtn.classList.add('bg-white/5', 'hover:bg-white/10');
-            starterBtn.style.pointerEvents = 'auto';
-        }
-
-
-        // 2. PREMIUM SUBSCRIPTION Button Logic
-        if (userPlanType === 'monthly' || userPlanType === 'yearly') {
-            premiumSubBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
-            premiumSubBtn.classList.add('btn-disabled');
-            premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
-            premiumSubBtn.style.backgroundColor = '#FF003C'; // Ensures it uses brand color instead of gradient when current
-            
-            // Add Cancel Subscription Button
-            cancelContainer.innerHTML = `
-                <a href="/account" class="w-full py-3 rounded-xl border border-white/20 text-center font-bold text-sm text-gray-400 hover:text-white hover:border-white/50 transition flex justify-center items-center gap-2">
-                    <i data-lucide="x-octagon" class="w-4"></i> Cancel Subscription
-                </a>
             `;
+            document.body.appendChild(activationModal);
+            if(window.lucide) lucide.createIcons();
 
-        } else {
-            premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="zap" class="w-4"></i>';
-            premiumSubBtn.classList.remove('btn-disabled');
-            premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
-            premiumSubBtn.style.backgroundColor = ''; // Remove specific color to use gradient
-        }
-        
-        // 3. LIFETIME Button Logic
-        if (userPlanType === 'lifetime') {
-            lifetimeBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
-            lifetimeBtn.classList.add('btn-disabled');
-            lifetimeBtn.classList.remove('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
-            lifetimeBtn.classList.add('bg-green-700/50', 'text-white', 'border-green-500/50');
-        } else {
-            lifetimeBtn.innerHTML = 'Get Lifetime <i data-lucide="infinity" class="w-4"></i>';
-            lifetimeBtn.classList.remove('btn-disabled');
-            lifetimeBtn.classList.add('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
-            lifetimeBtn.classList.remove('bg-green-700/50', 'text-white', 'border-green-500/50');
-        }
-
-        // Ensure icons are rendered after changing innerHTML
-        if(window.lucide) lucide.createIcons();
-    }
-    window.renderPlanButtons = renderPlanButtons;
-
-    // --- 3. PRICING TOGGLE UI ---
-    function setPeriod(type) {
-        selectedPeriod = type;
-        const btnMonthly = document.getElementById('btn-monthly');
-        const btnYearly = document.getElementById('btn-yearly');
-        
-        if (type === 'monthly') {
-            document.getElementById('price-display').innerText = "$9.99";
-            document.getElementById('period-display').innerText = "/mo";
-            
-            btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
-            btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
-            btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
-        } else {
-            document.getElementById('price-display').innerText = "$59.99";
-            document.getElementById('period-display').innerText = "/yr";
-            
-            btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
-            btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
-            btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
-        }
-    }
-
-
-    // --- 4. PURCHASE FLOW & CHECKOUT LOGIC (CORREGIDO) ---
-
-    function startPurchaseFlow(targetPlan) {
-        // Check if button is disabled (Current Plan)
-        const buttonId = (targetPlan === 'lifetime') ? 'btn-lifetime' : 'btn-premium-sub';
-        const button = document.getElementById(buttonId);
-        if (button && button.classList.contains('btn-disabled')) {
-            console.log("Button is disabled because this is the current plan.");
-            return; 
-        }
-
-        if (!currentUser) {
-            console.error("Please Sign In with Google before upgrading."); 
-            loginWithGoogle();
-            return;
-        }
-        
-        const isSubscription = userPlanType === 'monthly' || userPlanType === 'yearly';
-        const isLifetime = userPlanType === 'lifetime';
-
-        // --- PLAN CONFLICT LOGIC ---
-        let conflict = false;
-        let conflictMsg = "";
-        
-        if (isSubscription && targetPlan === 'lifetime') {
-            conflict = true;
-            conflictMsg = "To purchase the LIFETIME plan, you must first cancel your current monthly or annual subscription. Please go to your Account page to manage your existing plan.";
-        } else if (isLifetime && targetPlan === 'subscription') {
-            conflict = true;
-            conflictMsg = "To switch to a monthly/annual subscription, you must first contact support to remove your LIFETIME license. Please go to your Account page for support links.";
-        }
-
-        if (conflict) {
-            document.getElementById('conflict-message').innerText = conflictMsg;
-            openModal('plan-conflict-modal');
-            return;
-        }
-        // --- END PLAN CONFLICT LOGIC ---
-
-        // CRÍTICO: Asignar el plan pendiente correctamente
-        pendingPlanType = (targetPlan === 'lifetime') ? 'lifetime' : 
-                          (targetPlan === 'subscription' ? selectedPeriod : null);
-                          
-        if (!pendingPlanType) return; // Seguridad
-
-        openModal('payment-method-modal');
-    }
-    window.startPurchaseFlow = startPurchaseFlow;
-
-    // --- FUNCIÓN MODIFICADA: Ahora dirige a Whop o LS ---
-    function selectMethod(method) {
-        closeModal('payment-method-modal');
-        const planType = pendingPlanType; 
-
-        if (method === 'paypal') {
-            // FLUJO DE LEMON SQUEEZY
-            initiateLemonSqueezyCheckout(planType);
-        } else if (method === 'card') {
-            // FLUJO DE WHOP
-            const whopID = IDS[`whop_${planType}`]; 
-            initiateWhopCheckout(whopID, planType);
-        }
-    }
-    window.selectMethod = selectMethod;
-
-    // --- FUNCIÓN AÑADIDA: INICIAR CHECKOUT DE LEMON SQUEEZY ---
-    function initiateLemonSqueezyCheckout(planType) {
-        const variantId = IDS[`ls_${planType}`]; // ls_monthly, ls_yearly, ls_lifetime
-        
-        if (!variantId) {
-             console.error(`LS Variant ID not found for plan: ${planType}`);
-             alert("Payment error: Invalid plan configuration (LS).");
-             return;
-        }
-
-        const customData = {
-            supabaseUserID: currentUser.id, // ID para el webhook
-            planType: planType              // Tipo de plan para actualizar en DB
-        };
-        
-        if (window.LemonSqueezy) {
-            window.LemonSqueezy.Url.Open(
-                `${LEMON_SQUEEZY_STORE_URL}/checkout/buy/${variantId}`, 
-                {
-                    custom: customData, // Metadata para el webhook
-                    checkoutData: {
-                        email: currentUser.email,
-                    }
-                }
-            );
-            console.log(`[LS Checkout] Opening for variant ${variantId}. Plan: ${planType}`);
-        } else {
-            // Fallback
-            alert("Lemon Squeezy script not loaded. Redirecting to backup link.");
-            window.location.href = `${LEMON_SQUEEZY_STORE_URL}/checkout/buy/${variantId}?custom=${btoa(JSON.stringify(customData))}`;
-        }
-    }
-    window.initiateLemonSqueezyCheckout = initiateLemonSqueezyCheckout;
-
-
-    // A) FUNCIÓN DE WHOP (AJUSTADA PARA ENVIAR planType)
-    function initiateWhopCheckout(whopID, planType) {
-        const wrapper = document.getElementById('whop-wrapper');
-        wrapper.innerHTML = ''; 
-
-        const checkoutDiv = document.createElement('div');
-        checkoutDiv.setAttribute('data-whop-checkout-plan-id', whopID);
-        checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
-        checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
-
-        // Forzar visibilidad (MANTENIDO)
-        checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
-        checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
-        checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
-        checkoutDiv.setAttribute('data-whop-checkout-hide-features', 'false');
-        checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');
-        checkoutDiv.setAttribute('data-whop-checkout-hide-submit-button', 'false');
-
-        checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
-
-        if(currentUser) {
-            checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
-            
-            // --- [CRÍTICO] Enviamos el planType para que el webhook de Whop sepa qué plan activar ---
-            const metadataString = JSON.stringify({ supabaseUserID: currentUser.id, planType: planType });
-            checkoutDiv.setAttribute('data-whop-checkout-metadata', metadataString);
-        }
-
-        wrapper.appendChild(checkoutDiv);
-        
-        setTimeout(() => {
-            openModal('whop-modal');
-        }, 100);
-    }
-
-    // B) FUNCIÓN DE CALLBACK DE WHOP (MANTENIDO)
-    window.onWhopPurchaseComplete = async (planId, receiptId) => {
-        closeModal('whop-modal');
-        
-        // Creamos un modal temporal para informar sobre la activación
-        const activationModal = document.createElement('div');
-        activationModal.id = 'activation-modal';
-        activationModal.className = 'fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-active';
-        activationModal.innerHTML = `
-            <div class="bg-surface border border-green-500 rounded-2xl p-8 max-w-sm w-full shadow-2xl shadow-green-500/20 transform transition-all">
-                <div class="text-center">
-                    <i data-lucide="check-circle" class="w-12 h-12 text-green-500 mx-auto mb-4"></i>
-                    <h3 class="text-xl font-bold text-white mb-2">Payment Successful!</h3>
-                    <p class="text-gray-400">Activating your QuO Premium license securely. Refreshing page in a moment...</p>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(activationModal);
-        if(window.lucide) lucide.createIcons();
-
-        // Esperamos 4 segundos para que el Webhook de Supabase termine.
-        setTimeout(() => {
-            window.location.reload();
-        }, 4000); 
-    };
-
-    // --- UTILS ---
-    function openModal(id) {
-        const el = document.getElementById(id);
-        el.classList.remove('modal-enter');
-        el.classList.add('modal-active');
-        // Ensure icons are rendered in modals
-        if(window.lucide) lucide.createIcons();
-    }
-    window.openModal = openModal;
-
-    function closeModal(id) {
-        const el = document.getElementById(id);
-        el.classList.remove('modal-active');
-        el.classList.add('modal-enter');
-        
-        if (id === 'whop-modal') {
-            // Pequeño delay para vaciar el wrapper después de la animación de cierre
+            // Esperamos 4 segundos para que el Webhook de Supabase termine.
             setTimeout(() => {
-                document.getElementById('whop-wrapper').innerHTML = ''; 
-            }, 300);
+                window.location.reload();
+            }, 4000); 
+        };
+
+        // --- UTILS ---
+        function openModal(id) {
+            const el = document.getElementById(id);
+            el.classList.remove('modal-enter');
+            el.classList.add('modal-active');
+            // Ensure icons are rendered in modals
+            if(window.lucide) lucide.createIcons();
         }
-    }
-    window.closeModal = closeModal;
+        window.openModal = openModal;
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // Inicialización de la librería AOS
-        try {
-            if(window.AOS) {
-                AOS.init({
-                    duration: 800,
-                    once: true,
-                    offset: 50
-                });
+        function closeModal(id) {
+            const el = document.getElementById(id);
+            el.classList.remove('modal-active');
+            el.classList.add('modal-enter');
+            
+            if (id === 'whop-modal') {
+                // Pequeño delay para vaciar el wrapper después de la animación de cierre
+                setTimeout(() => {
+                    document.getElementById('whop-wrapper').innerHTML = ''; 
+                }, 300);
             }
-        } catch(e) { console.error("AOS Init error", e); }
-        
-        checkUser();
-        setPeriod(selectedPeriod); // Asegura que el toggle se inicialice correctamente
-        if(window.lucide) lucide.createIcons();
-    });
+        }
+        window.closeModal = closeModal;
 
-</script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Inicialización de la librería AOS
+            try {
+                if(window.AOS) {
+                    AOS.init({
+                        duration: 800,
+                        once: true,
+                        offset: 50
+                    });
+                }
+            } catch(e) { console.error("AOS Init error", e); }
+            
+            checkUser();
+            setPeriod(selectedPeriod); // Asegura que el toggle se inicialice correctamente
+            if(window.lucide) lucide.createIcons();
+        });
+
+    </script>
 </body>
 </html>
