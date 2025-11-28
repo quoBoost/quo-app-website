@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuO | Download - Windows Latency & FPS Optimizer</title>
-    
+   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
@@ -26,7 +26,7 @@
                         brand: '#FF003C',       /* Rojo Neón Principal */
                         brandDark: '#990024',
                         void: '#030005',        /* Fondo Casi Negro */
-                        surface: '#0F0F11',     /* Fondo de Tarjetas */
+                        surface: '#0F0F11',    /* Fondo de Tarjetas */
                     },
                     animation: {
                         'scroll': 'scroll 20s linear infinite',
@@ -50,16 +50,6 @@
     </script>
 
     <style>
-/* CSS DE SEGURIDAD PARA EVITAR PANTALLA NEGRA */
-/* Si AOS falla, esto asegura que el contenido sea visible */
-[data-aos] {
-    pointer-events: auto !important;
-}
-body.no-js [data-aos] {
-    opacity: 1 !important;
-    transform: none !important;
-}
-
 /* Prism/Grid Effects from base code */
 .prism-bg {
     position: absolute;
@@ -193,16 +183,24 @@ body {
                 <span class="font-bold text-lg md:text-xl tracking-tight text-white">QuO</span>
             </a>
 
-            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400 items-center">
+            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
                 <a href="/index" class="hover:text-white hover:text-glow transition">Home</a>
                 <a href="/download" class="text-brand text-glow transition border-b-2 border-brand font-bold">Download</a>
                 <a href="/pricing" class="hover:text-white hover:text-glow transition">Pricing</a>
                 <a href="/about-us" class="hover:text-white hover:text-glow transition">About Us</a>
             </div>
 
-            <div id="auth-section">
-                <!-- Fallback inicial para evitar parpadeos -->
-                <div class="animate-pulse bg-white/10 h-8 w-20 rounded-full"></div>
+            <div id="auth-section" class="flex items-center gap-4">
+                <button onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
+                    <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+                    </svg>
+                    <span class="hidden sm:inline">Sign in</span>
+                    <span class="inline sm:hidden">Login</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -411,190 +409,25 @@ body {
     <script src="https://cdn.jsdelivr.net/npm/ogl@0.0.35/dist/ogl.min.js"></script>
     <script src="app.js"></script> 
     <script>
-        // CONFIGURACIÓN GLOBAL
-        let supabaseClient = null;
-        let currentUser = null;
-        let userPlanType = 'free';
-
-        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
-
-        // --- 1. FUNCIONES DE AUTENTICACIÓN Y SUPABASE ---
-
-        function initSupabase() {
-            try {
-                if (typeof supabase !== 'undefined') {
-                    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-                    checkUser();
-                } else {
-                    console.warn("Supabase SDK not loaded. Rendering default auth state.");
-                    renderAuth(null);
-                }
-            } catch (e) {
-                console.error("Critical Error initializing Supabase:", e);
-                renderAuth(null);
-            }
-        }
-
-        async function loginWithGoogle() {
-            if (!supabaseClient) {
-                alert("Authentication service unavailable.");
-                return;
-            }
-            try {
-                const { error } = await supabaseClient.auth.signInWithOAuth({
-                    provider: 'google',
-                    options: { redirectTo: window.location.href } 
-                });
-                if (error) throw error;
-            } catch (error) {
-                console.error("Login Error:", error);
-            }
-        }
-        window.loginWithGoogle = loginWithGoogle;
-
-        async function logout() {
-            if (!supabaseClient) return;
-            await supabaseClient.auth.signOut();
-            window.location.reload();
-        }
-        window.logout = logout;
-
-        async function checkUser() {
-            try {
-                const { data: { session } } = await supabaseClient.auth.getSession();
-                currentUser = session ? session.user : null;
-                renderAuth(currentUser);
-            } catch (e) {
-                console.error("Session Check Error:", e);
-                renderAuth(null);
-            }
-        }
-
-        async function checkPremiumStatus(userId) {
-            try {
-                // 1. Consulta el perfil
-                let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
-                
-                // 2. Fallback por email si falla ID
-                if (!profile && currentUser.email) {
-                    ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
-                }
-
-                if (error && error.code !== 'PGRST116') console.error("Profile Error:", error);
-                
-                // 3. Determina estado
-                const isPremium = !!profile?.is_premium; 
-                
-                // 4. Renderizado Final
-                const badgeText = isPremium ? 'PRO' : 'FREE';
-                const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
-                const avatarUrl = currentUser.user_metadata.avatar_url;
-
-                const authContainer = document.getElementById('auth-section');
-                if(authContainer) {
-                    authContainer.innerHTML = `
-                        <div class="relative group cursor-pointer flex items-center gap-3">
-                            <div class="hidden md:flex flex-col text-right">
-                                <span class="text-[10px] text-gray-500 uppercase">Status</span>
-                                <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
-                            </div>
-                            <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
-                                ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
-                            </div>
-                            <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                <div class="p-2 space-y-1">
-                                    <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
-                                    <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
-                                        <i data-lucide="log-out" class="w-4"></i> Logout
-                                    </button>
-                                </div>
-                            </div>
-                        </div>`;
-                    if(window.lucide) lucide.createIcons();
-                }
-            } catch (e) {
-                console.error("Premium Check Error:", e);
-                // Fallback visual en caso de error
-                renderAuth(currentUser); 
-            }
-        }
-
-        function renderAuth(user) {
-            const authSection = document.getElementById('auth-section');
-            if (!authSection) return;
-
-            if (!user) {
-                // Usuario no logueado
-                authSection.innerHTML = `
-                    <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
-                        <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
-                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
-                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
-                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
-                        </svg>
-                        <span class="hidden sm:inline">Sign in</span>
-                        <span class="inline sm:hidden">Login</span>
-                    </a>`;
-            } else {
-                // Logueado: Verificar estado premium
-                checkPremiumStatus(user.id);
-            }
-            if(window.lucide) lucide.createIcons();
-        }
-        
-        // --- 2. INICIALIZACIÓN SEGURA ---
-
-        document.addEventListener('DOMContentLoaded', function () {
-            
-            // PRIORIDAD 1: Elementos Visuales (AOS e Iconos)
-            // Se inician ANTES de cualquier lógica de red para evitar pantalla en blanco si JS falla después.
-            try {
-                if(window.AOS) {
-                    AOS.init({
-                        duration: 800,
-                        once: true,
-                        offset: 50
-                    });
-                }
-                if(window.lucide) lucide.createIcons();
-            } catch (e) {
-                console.error("Visual Init Error:", e);
-                // Si AOS falla, forzamos visibilidad para no dejar la pantalla negra
-                document.querySelectorAll('[data-aos]').forEach(el => el.style.opacity = '1');
-            }
-
-            // PRIORIDAD 2: Lógica de Descarga (Mock)
-            const downloadButton = document.getElementById('download-free-button');
-            if (downloadButton) {
-                downloadButton.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Download Initiated!');
-                    alert('Download Initiated! (Simulation)');
-                });
-            }
-
-            // PRIORIDAD 3: Autenticación (Supabase)
-            // Encapsulado para no romper el resto si falla.
-            setTimeout(initSupabase, 100); 
-            
-            // --- FALLBACK FINAL PARA PANTALLA NEGRA ---
-            // Si por alguna razón AOS no muestra el contenido después de 500ms, lo forzamos.
-            setTimeout(function() {
-                const aosElements = document.querySelectorAll('[data-aos]');
-                aosElements.forEach(el => {
-                    // Si el elemento sigue invisible (opacidad 0 o no tiene la clase de animación)
-                    const style = window.getComputedStyle(el);
-                    if (style.opacity === '0' || style.visibility === 'hidden') {
-                        el.style.opacity = '1';
-                        el.style.visibility = 'visible';
-                        el.style.transform = 'none'; // Quitar transformaciones que puedan estar desplazando el contenido
-                        el.classList.add('aos-animate'); // Intentar forzar la clase de AOS
-                    }
-                });
-            }, 500);
+        lucide.createIcons();
+        // Inicialización de la librería AOS (Animate On Scroll)
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
         });
+
+        // Lógica de descarga simulada
+        document.getElementById('download-free-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Simulación de descarga: cambia este a la URL real de tu archivo
+            alert('Download Initiated! (Frontend Simulation) - Please replace the href="#" with your actual installer URL.');
+        });
+        
+        // Función placeholder para el login de Google
+        function loginWithGoogle() {
+             alert('Google Login functionality coming soon!');
+        }
     </script>
 </body>
 </html>
