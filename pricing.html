@@ -1,1104 +1,1087 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuO | Pricing & Plans</title>
-   
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- AOS CSS agregado -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { 
-                        sans: ['Plus Jakarta Sans', 'sans-serif'], 
-                        mono: ['JetBrains Mono', 'monospace'] 
-                    },
-                    colors: { 
-                        brand: '#FF003C', 
-                        brandDark: '#990024',
-                        void: '#030005', 
-                        surface: '#0F0F11', 
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                }
-            }
-        }
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuO | Pricing & Plans</title>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+        <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
+    
+    <script src="https://assets.lemonsqueezy.com/js/checkout.js" defer></script> 
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Plus Jakarta Sans', 'sans-serif'], 
+                        mono: ['JetBrains Mono', 'monospace'] 
+                    },
+                    colors: { 
+                        brand: '#FF003C', 
+                        brandDark: '#990024',
+                        void: '#030005', 
+                        surface: '#0F0F11', 
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
 
-    <style>
-        body { background-color: #050505; color: white; }
-        
-        .bg-grid {
-            background-size: 50px 50px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                             linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
-            -webkit-mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
-            position: fixed; inset: 0; z-index: -1;
-        }
-        
-        .card-glass {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        .card-glass:hover {
-            border-color: rgba(255, 0, 60, 0.3);
-            box-shadow: 0 0 40px rgba(255, 0, 60, 0.1);
-            transform: translateY(-5px);
-        }
-        
-        .text-gradient {
-             background: linear-gradient(to right, #FF003C, #ff6b6b);
-             -webkit-background-clip: text;
-             -webkit-text-fill-color: transparent;
-        }
-        .text-glow { text-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
-        
-        /* Estilo para el botón CTA debajo de la tabla */
-        .btn-primary {
-            background: #FF003C;
-            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            box-shadow: 0 0 30px rgba(255, 0, 60, 0.7);
-            transform: scale(1.02);
-        }
+    <style>
+        body { background-color: #050505; color: white; }
+        
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                             linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
+            position: fixed; inset: 0; z-index: -1;
+        }
+        
+        .card-glass {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .card-glass:hover {
+            border-color: rgba(255, 0, 60, 0.3);
+            box-shadow: 0 0 40px rgba(255, 0, 60, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .text-gradient {
+             background: linear-gradient(to right, #FF003C, #ff6b6b);
+             -webkit-background-clip: text;
+             -webkit-text-fill-color: transparent;
+        }
+        .text-glow { text-shadow: 0 0 20px rgba(255, 0, 60, 0.4); }
+        
+        /* Estilo para el botón CTA debajo de la tabla */
+        .btn-primary {
+            background: #FF003C;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.7);
+            transform: scale(1.02);
+        }
 
-        /* --- ARREGLO CRÍTICO DEL SCROLL DE WHOP --- */
-        #whop-wrapper {
-            width: 100%;
-            height: 100%;
-            overflow-y: auto; 
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
-            background-color: #0F0F11; 
-            display: block;
-        }
+        /* --- ARREGLO CRÍTICO DEL SCROLL DE WHOP --- */
+        #whop-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto; 
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            background-color: #0F0F11; 
+            display: block;
+        }
 
-        #whop-wrapper iframe {
-            width: 100% !important;
-            min-height: 700px; 
-            border: none;
-        }
+        #whop-wrapper iframe {
+            width: 100% !important;
+            min-height: 700px; 
+            border: none;
+        }
 
-        /* Animación Modal */
-        .modal-enter { opacity: 0; transform: scale(0.95); pointer-events: none; }
-        .modal-active { opacity: 1; transform: scale(1); pointer-events: auto; }
+        /* Animación Modal */
+        .modal-enter { opacity: 0; transform: scale(0.95); pointer-events: none; }
+        .modal-active { opacity: 1; transform: scale(1); pointer-events: auto; }
 
-        /* Estilo deshabilitado */
-        .btn-disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            pointer-events: none;
-            box-shadow: none !important;
-        }
-    </style>
-    <!-- AOS CSS agregado aquí (si ya estaba en el head, se mantiene, si no, se agrega) -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        /* Estilo deshabilitado */
+        .btn-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+            box-shadow: none !important;
+        }
+    </style>
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <div class="bg-grid"></div>
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand/10 rounded-full blur-[150px] -z-10 pointer-events-none animate-pulse-slow" style="animation-delay: 1s;"></div>
+    <div class="bg-grid"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand/10 rounded-full blur-[150px] -z-10 pointer-events-none animate-pulse-slow" style="animation-delay: 1s;"></div>
 
-    <nav class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
-        <div class="bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-4 md:px-6 py-3 flex justify-between items-center shadow-2xl">
-            <a href="/" class="flex items-center gap-2 md:gap-3 group">
-                <img src="assets/logo.png" alt="QuO Logo" class="w-8 h-8 md:w-9 md:h-9 object-contain rotate-3 group-hover:rotate-0 transition">
-                <span class="font-bold text-lg md:text-xl tracking-tight text-white">QuO</span>
-            </a>
-            
-            <!-- ENLACES DE NAVEGACIÓN (items-center añadido para centrado vertical) -->
-            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400 items-center">
-                <a href="/" class="hover:text-white hover:text-glow transition">Home</a>
-                <a href="/download" class="hover:text-white hover:text-glow transition">Download</a>
-                <a href="/pricing" class="text-brand text-glow transition border-b-2 border-brand font-bold">Pricing</a>
-                <a href="/about-us" class="hover:text-white hover:text-glow transition">About Us</a>
-            </div>
+    <nav class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
+        <div class="bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-4 md:px-6 py-3 flex justify-between items-center shadow-2xl">
+            <a href="/" class="flex items-center gap-2 md:gap-3 group">
+                <img src="assets/logo.png" alt="QuO Logo" class="w-8 h-8 md:w-9 md:h-9 object-contain rotate-3 group-hover:rotate-0 transition">
+                <span class="font-bold text-lg md:text-xl tracking-tight text-white">QuO</span>
+            </a>
+            
+                        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400 items-center">
+                <a href="/" class="hover:text-white hover:text-glow transition">Home</a>
+                <a href="/download" class="hover:text-white hover:text-glow transition">Download</a>
+                <a href="/pricing" class="text-brand text-glow transition border-b-2 border-brand font-bold">Pricing</a>
+                <a href="/about-us" class="hover:text-white hover:text-glow transition">About Us</a>
+            </div>
 
-            <div id="auth-section">
-                <!-- Se rellena con Sign In o Avatar por JS -->
-            </div>
-        </div>
-    </nav>
+            <div id="auth-section">
+                            </div>
+        </div>
+    </nav>
 
-    <main class="flex-grow flex flex-col items-center pt-32 pb-20 px-6 w-full">
-        
-        <div class="text-center mb-12 md:mb-16 max-w-3xl" data-aos="fade-up">
-            <h1 class="text-4xl md:text-6xl font-black mb-4 leading-tight">
-                Unlock <span class="text-gradient text-glow">Competitive Power</span>
-            </h1>
-            <p class="text-gray-400 text-lg md:text-xl">Stop upgrading hardware. Start mastering your software.</p>
-        </div>
+    <main class="flex-grow flex flex-col items-center pt-32 pb-20 px-6 w-full">
+        
+        <div class="text-center mb-12 md:mb-16 max-w-3xl" data-aos="fade-up">
+            <h1 class="text-4xl md:text-6xl font-black mb-4 leading-tight">
+                Unlock <span class="text-gradient text-glow">Competitive Power</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl">Stop upgrading hardware. Start mastering your software.</p>
+        </div>
 
-        <!-- Toggle mensual/anual -->
-        <div class="relative bg-white/5 p-1 rounded-full flex items-center mb-12 border border-white/5" data-aos="fade-up" data-aos-delay="100">
-            <button onclick="setPeriod('monthly')" id="btn-monthly" class="px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all">Monthly</button>
-            <!-- ID CORREGIDO de btn-yearly-inner a btn-yearly -->
-            <button onclick="setPeriod('yearly')" id="btn-yearly" class="px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all">
-                Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span> 
-            </button>
-        </div>
+                <div class="relative bg-white/5 p-1 rounded-full flex items-center mb-12 border border-white/5" data-aos="fade-up" data-aos-delay="100">
+            <button onclick="setPeriod('monthly')" id="btn-monthly" class="px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all">Monthly</button>
+                        <button onclick="setPeriod('yearly')" id="btn-yearly" class="px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all">
+                Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span> 
+            </button>
+        </div>
 
-        <!-- Tarjetas de Precio -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
-            
-            <!-- TARJETA STARTER (FREE) -->
-            <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
-                <div class="mb-6">
-                    <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
-                    <h3 class="text-4xl font-extrabold mt-2 text-white">$0<span class="text-sm text-gray-500 font-normal"> / forever</span></h3>
-                </div>
-                <p class="text-gray-400 mb-8">Essential tools to clean temporary files and manage standard Windows processes.</p>
-                <a href="/download" id="btn-starter" class="mt-auto w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition text-sm text-white flex justify-center items-center gap-2">
-                    <i data-lucide="download" class="w-4"></i> Get Started Free
-                </a>
-            </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
+            
+                        <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                <div class="mb-6">
+                    <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
+                    <h3 class="text-4xl font-extrabold mt-2 text-white">$0<span class="text-sm text-gray-500 font-normal"> / forever</span></h3>
+                </div>
+                <p class="text-gray-400 mb-8">Essential tools to clean temporary files and manage standard Windows processes.</p>
+                <a href="/download" id="btn-starter" class="mt-auto w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition text-sm text-white flex justify-center items-center gap-2">
+                    <i data-lucide="download" class="w-4"></i> Get Started Free
+                </a>
+                            </div>
 
-            <!-- TARJETA PREMIUM (MONTHLY/YEARLY) -->
-            <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.1)] flex flex-col" data-aos="fade-up" data-aos-delay="300">
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand/40">ULTIMATE POWER</div>
-                
-                <div class="mb-6">
-                    <span class="text-brand font-bold tracking-widest text-xs uppercase">Premium</span>
-                    <div class="flex items-end gap-1 mt-2">
-                        <span id="price-display" class="text-5xl font-extrabold text-white transition-all">$9.99</span>
-                        <span id="period-display" class="text-gray-500 mb-1 text-sm">/mo</span>
-                    </div>
-                </div>
-                
-                <p class="text-gray-300 mb-8">Full, kernel-level access to the entire suite of optimization tools for pro-level stability and input.</p>
+                        <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.1)] flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand/40">ULTIMATE POWER</div>
+                
+                <div class="mb-6">
+                    <span class="text-brand font-bold tracking-widest text-xs uppercase">Premium</span>
+                    <div class="flex items-end gap-1 mt-2">
+                        <span id="price-display" class="text-5xl font-extrabold text-white transition-all">$9.99</span>
+                        <span id="period-display" class="text-gray-500 mb-1 text-sm">/mo</span>
+                    </div>
+                </div>
+                
+                <p class="text-gray-300 mb-8">Full, kernel-level access to the entire suite of optimization tools for pro-level stability and input.</p>
 
-                <div class="mt-auto w-full space-y-3">
-                    <button onclick="startPurchaseFlow('subscription')" id="btn-premium-sub" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
-                        Upgrade Now <i data-lucide="zap" class="w-4"></i>
-                    </button>
-                    <!-- Contenedor para el botón de cancelación -->
-                    <div id="cancel-sub-container"></div>
-                </div>
-            </div>
+                <div class="mt-auto w-full space-y-3">
+                                        <button onclick="startPurchaseFlow('subscription')" id="btn-premium-sub" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
+                        Upgrade Now <i data-lucide="zap" class="w-4"></i>
+                    </button>
+                                        <div id="cancel-sub-container"></div>
+                </div>
+            </div>
 
-            <!-- TARJETA LIFETIME -->
-            <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="400">
-                <div class="mb-6">
-                    <span class="text-green-400 font-bold tracking-widest text-xs uppercase">Lifetime</span>
-                    <h3 class="text-4xl font-extrabold mt-2 text-white">$149<span class="text-sm text-gray-500 font-normal"> / one-time</span></h3>
-                </div>
-                <p class="text-gray-400 mb-8">Never pay again. Includes all future updates and features for the lifetime of the product.</p>
-                
-                <button onclick="startPurchaseFlow('lifetime')" id="btn-lifetime" class="mt-auto w-full py-4 rounded-xl border border-green-400/30 text-center font-bold hover:bg-green-400/5 transition text-sm text-green-400 flex justify-center items-center gap-2 cursor-pointer">
-                    Get Lifetime <i data-lucide="infinity" class="w-4"></i>
-                </button>
-            </div>
-            
-        </div>
-        
-<div class="w-full max-w-7xl mx-auto mt-24 md:mt-32">
-    <!-- Comparison Header -->
-    <div class="text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="500">
-        <h2 class="text-3xl md:text-5xl font-black text-white mb-4">
-            QuO <span class="text-gradient text-glow">Free vs Premium</span>
-        </h2>
-        <p class="text-gray-400 max-w-3xl mx-auto text-lg">
-            Compare the core differences. Upgrade for kernel-level power and complete access to the full QuO Suite.
-        </p>
-    </div>
+                        <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="400">
+                <div class="mb-6">
+                    <span class="text-green-400 font-bold tracking-widest text-xs uppercase">Lifetime</span>
+                    <h3 class="text-4xl font-extrabold mt-2 text-white">$149<span class="text-sm text-gray-500 font-normal"> / one-time</span></h3>
+                </div>
+                <p class="text-gray-400 mb-8">Never pay again. Includes all future updates and features for the lifetime of the product.</p>
+                
+                <button onclick="startPurchaseFlow('lifetime')" id="btn-lifetime" class="mt-auto w-full py-4 rounded-xl border border-green-400/30 text-center font-bold hover:bg-green-400/5 transition text-sm text-green-400 flex justify-center items-center gap-2 cursor-pointer">
+                    Get Lifetime <i data-lucide="infinity" class="w-4"></i>
+                </button>
+            </div>
+            
+        </div>
+        
+        <div class="w-full max-w-7xl mx-auto mt-24 md:mt-32">
+    <div class="text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="500">
+        <h2 class="text-3xl md:text-5xl font-black text-white mb-4">
+            QuO <span class="text-gradient text-glow">Free vs Premium</span>
+        </h2>
+        <p class="text-gray-400 max-w-3xl mx-auto text-lg">
+            Compare the core differences. Upgrade for kernel-level power and complete access to the full QuO Suite.
+        </p>
+    </div>
 
-    <!-- Pricing Boxes / CTA -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-mono text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="600">
-        <!-- Columna 1: FREE - Total Optimizations -->
-        <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
-            <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Free Total Optimizations</p>
-            <p class="text-2xl font-bold text-green-400">~200</p>
-        </div>
-        
-        <!-- Columna 2: FREE - Optimization Buttons -->
-        <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
-            <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Free Features</p>
-            <p class="text-2xl font-bold text-green-400">~250</p>
-        </div>
-        
-        <!-- Columna 3: PREMIUM - Total Optimizations (Destacada) -->
-        <div class="col-span-1 sm:col-span-2 md:col-span-1 bg-surface rounded-xl p-4 border border-brand/50 bg-brand/5 shadow-lg shadow-brand/20">
-            <p class="text-sm text-brand mb-1 uppercase tracking-wider font-bold">Premium Total Optimizations</p>
-            <p class="text-2xl font-bold text-white">~1500+</p>
-        </div>
-    </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-mono text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="600">
+                <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
+            <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Free Total Optimizations</p>
+            <p class="text-2xl font-bold text-green-400">~200</p>
+        </div>
+        
+                <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
+            <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Free Features</p>
+            <p class="text-2xl font-bold text-green-400">~250</p>
+        </div>
+        
+                <div class="col-span-1 sm:col-span-2 md:col-span-1 bg-surface rounded-xl p-4 border border-brand/50 bg-brand/5 shadow-lg shadow-brand/20">
+            <p class="text-sm text-brand mb-1 uppercase tracking-wider font-bold">Premium Total Optimizations</p>
+            <p class="text-2xl font-bold text-white">~1500+</p>
+        </div>
+    </div>
 
 
-    <!-- Comparison Table (Using Divs for Responsiveness) -->
-    <div class="bg-surface rounded-3xl overflow-hidden border border-white/10 shadow-xl" data-aos="fade-up" data-aos-delay="700">
-        
-        <!-- Table Header -->
-        <div class="grid grid-cols-3 text-sm md:text-base font-bold text-white uppercase tracking-wider border-b border-white/10 bg-black/50 sticky top-0 z-10">
-            <div class="p-4 md:p-6 text-left">Feature Suite</div>
-            <div class="p-4 md:p-6 text-center text-green-400">Free</div>
-            <div class="p-4 md:p-6 text-center text-brand">Premium</div>
-        </div>
+        <div class="bg-surface rounded-3xl overflow-hidden border border-white/10 shadow-xl" data-aos="fade-up" data-aos-delay="700">
+        
+                <div class="grid grid-cols-3 text-sm md:text-base font-bold text-white uppercase tracking-wider border-b border-white/10 bg-black/50 sticky top-0 z-10">
+            <div class="p-4 md:p-6 text-left">Feature Suite</div>
+            <div class="p-4 md:p-6 text-center text-green-400">Free</div>
+            <div class="p-4 md:p-6 text-center text-brand">Premium</div>
+        </div>
 
-        <!-- Table Body -->
-        <div class="divide-y divide-white/5">
-            
-            <!-- SECTION: CORE OPTIMIZATION -->
-            <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
-                Core System Tuning (Registry & Kernel)
-            </div>
+                <div class="divide-y divide-white/5">
+            
+                        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+                Core System Tuning (Registry & Kernel)
+            </div>
 
-            <!-- Feature 1: Timer Resolution -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">System Timer Resolution Tuning (1.0ms)</div>
-                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand font-bold">0.5ms (Exclusive)</div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">System Timer Resolution Tuning (1.0ms)</div>
+                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand font-bold">0.5ms (Exclusive)</div>
+            </div>
 
-            <!-- Feature 2: Nagle's Algorithm -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Nagle's Algorithm (TCP/NoDelay) Bypass</div>
-                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
-            
-            <!-- Feature 3: Interrupt Affinity Steering -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Interrupt Affinity Steering Policy</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Nagle's Algorithm (TCP/NoDelay) Bypass</div>
+                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
+            
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Interrupt Affinity Steering Policy</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 4: DWM Thread Priority -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">DWM (Desktop Window Manager) Thread Priority</div>
-                <div class="flex justify-center text-gray-500"><i data-lucide="minus" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand font-bold">Real-time HAGS Priority</div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">DWM (Desktop Window Manager) Thread Priority</div>
+                <div class="flex justify-center text-gray-500"><i data-lucide="minus" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand font-bold">Real-time HAGS Priority</div>
+            </div>
 
-            <!-- Feature 5: CPU Core Parking -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">CPU Core Parking & Sleeping State Disable</div>
-                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
-            
-            <!-- SECTION: DEDICATED SUITES -->
-            <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
-                Dedicated Optimization Suites
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">CPU Core Parking & Sleeping State Disable</div>
+                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
+            
+                        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+                Dedicated Optimization Suites
+            </div>
 
-            <!-- Feature 6: QuO RAM Optimizer -->
-            <div class="grid grid-cols-3 p-4 bg-brand/5 border-l-4 border-brand">
-                <div class="text-white text-sm font-bold flex items-center gap-2"><i data-lucide="memory-stick" class="w-4 h-4 text-pink-400"></i> QuO RAM Optimizer Suite</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
-            
-            <!-- Feature 7: QuO EnergyPlan -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm flex items-center gap-2"><i data-lucide="battery-charging" class="w-4 h-4 text-yellow-400"></i> QuO EnergyPlan Manager (Custom Power)</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 bg-brand/5 border-l-4 border-brand">
+                <div class="text-white text-sm font-bold flex items-center gap-2"><i data-lucide="memory-stick" class="w-4 h-4 text-pink-400"></i> QuO RAM Optimizer Suite</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
+            
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm flex items-center gap-2"><i data-lucide="battery-charging" class="w-4 h-4 text-yellow-400"></i> QuO EnergyPlan Manager (Custom Power)</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 8: QuO GameMode -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm flex items-center gap-2"><i data-lucide="gamepad-2" class="w-4 h-4 text-blue-400"></i> QuO GameMode (Profile Switching)</div>
-                <div class="flex justify-center text-gray-500">Limited</div>
-                <div class="flex justify-center text-brand">Full Access (30+ profiles)</div>
-            </div>
-            
-            <!-- SECTION: RAM & MEMORY -->
-            <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
-                Memory Management
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm flex items-center gap-2"><i data-lucide="gamepad-2" class="w-4 h-4 text-blue-400"></i> QuO GameMode (Profile Switching)</div>
+                <div class="flex justify-center text-gray-500">Limited</div>
+                <div class="flex justify-center text-brand">Full Access (30+ profiles)</div>
+            </div>
+            
+                        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+                Memory Management
+            </div>
 
-            <!-- Feature 9: Standby List -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Aggressive Standby List Cleaner (ISLC)</div>
-                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand">Real-Time Kernel Trigger</div>
-            </div>
-            
-            <!-- Feature 10: Non-Paged Pool Reduction -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Non-Paged Pool Memory Reduction (Registry)</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Aggressive Standby List Cleaner (ISLC)</div>
+                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand">Real-Time Kernel Trigger</div>
+            </div>
+            
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Non-Paged Pool Memory Reduction (Registry)</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 11: Memory Defragmentation -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Automatic Memory Defragmentation during Play</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Automatic Memory Defragmentation during Play</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 4: DWM Thread Priority -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">DWM (Desktop Window Manager) Thread Priority</div>
-                <div class="flex justify-center text-gray-500"><i data-lucide="minus" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand font-bold">Real-time HAGS Priority</div>
-            </div>
-            
-            <!-- SECTION: NETWORK & INPUT -->
-            <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
-                Network & Input Latency
-            </div>
-            
-            <!-- Feature 12: Network Throttling -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Network Throttling Index Disablement</div>
-                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">DWM (Desktop Window Manager) Thread Priority</div>
+                <div class="flex justify-center text-gray-500"><i data-lucide="minus" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand font-bold">Real-time HAGS Priority</div>
+            </div>
+            
+                        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+                Network & Input Latency
+            </div>
+            
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Network Throttling Index Disablement</div>
+                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 13: TCPAckFrequency -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">TCPAckFrequency & MTU Optimization</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">TCPAckFrequency & MTU Optimization</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 14: Input Debounce -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Input Debounce Timer Reduction</div>
-                <div class="flex justify-center text-gray-500">Partial Fix</div>
-                <div class="flex justify-center text-brand">Hardware-level bypass</div>
-            </div>
-            
-            <!-- SECTION: INTERFACE & UTILITIES -->
-            <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
-                Interface & Safety
-            </div>
-            
-            <!-- Feature 15: Optimization Count -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Number of Modular Toggles</div>
-                <div class="flex justify-center text-gray-500">~20</div>
-                <div class="flex justify-center text-brand font-bold">~300+</div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Input Debounce Timer Reduction</div>
+                <div class="flex justify-center text-gray-500">Partial Fix</div>
+                <div class="flex justify-center text-brand">Hardware-level bypass</div>
+            </div>
+            
+                        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+                Interface & Safety
+            </div>
+            
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Number of Modular Toggles</div>
+                <div class="flex justify-center text-gray-500">~20</div>
+                <div class="flex justify-center text-brand font-bold">~300+</div>
+            </div>
 
-            <!-- Feature 16: Automated Profiles -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Automated Profiles (Streaming, FPS, Potato)</div>
-                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Automated Profiles (Streaming, FPS, Potato)</div>
+                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 17: Auto-Restore Points -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Auto-Restore Point Creation (Safety)</div>
-                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Auto-Restore Point Creation (Safety)</div>
+                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 18: Lifetime Updates -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Lifetime Updates & New Features</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Lifetime Updates & New Features</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- SECTION: CPU & SCHEDULING -->
-            <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
-                CPU Core Scheduling & Latency
-            </div>
+                        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+                CPU Core Scheduling & Latency
+            </div>
 
-            <!-- Feature 19: Context Switch Latency Reduction -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Context Switch Latency Reduction</div>
-                <div class="flex justify-center text-gray-500">Basic API Call</div>
-                <div class="flex justify-center text-brand font-bold">Kernel-Level Priority Adjustment</div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Context Switch Latency Reduction</div>
+                <div class="flex justify-center text-gray-500">Basic API Call</div>
+                <div class="flex justify-center text-brand font-bold">Kernel-Level Priority Adjustment</div>
+            </div>
 
-            <!-- Feature 20: Hyper-Threading/SMT Optimization -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Hyper-Threading/SMT Dynamic Toggle (AMD/Intel)</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Hyper-Threading/SMT Dynamic Toggle (AMD/Intel)</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 21: Core Isolation (P-Core/E-Core) -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">P-Core/E-Core Thread Assignment (Windows 11)</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">P-Core/E-Core Thread Assignment (Windows 11)</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 22: Windows Process Scheduler Tuning -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Aggressive Windows Scheduler Tuning</div>
-                <div class="flex justify-center text-gray-500">Standard</div>
-                <div class="flex justify-center text-brand font-bold">Aggressive (20% faster thread priority)</div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Aggressive Windows Scheduler Tuning</div>
+                <div class="flex justify-center text-gray-500">Standard</div>
+                <div class="flex justify-center text-brand font-bold">Aggressive (20% faster thread priority)</div>
+            </div>
 
-            <!-- Feature 23: CPU Throttling Bypass -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">CPU Power Limit Throttling Bypass (Advanced)</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
-            
-            <!-- SECTION: GPU & VIDEO SUB-SYSTEM -->
-            <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
-                GPU & Video Sub-System Tuning
-            </div>
-            
-            <!-- Feature 24: HAGS Tweaks -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Hardware-Accelerated GPU Scheduling (HAGS) Tweaks</div>
-                <div class="flex justify-center text-gray-500">Basic Enable/Disable</div>
-                <div class="flex justify-center text-brand font-bold">Driver-Level Parameter Tuning</div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">CPU Power Limit Throttling Bypass (Advanced)</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
+            
+                        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+                GPU & Video Sub-System Tuning
+            </div>
+            
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Hardware-Accelerated GPU Scheduling (HAGS) Tweaks</div>
+                <div class="flex justify-center text-gray-500">Basic Enable/Disable</div>
+                <div class="flex justify-center text-brand font-bold">Driver-Level Parameter Tuning</div>
+            </div>
 
-            <!-- Feature 25: VRAM Memory Prioritization Bypass -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">VRAM Memory Prioritization Bypass</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">VRAM Memory Prioritization Bypass</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 26: Shader Cache Cleanup -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">DirectX/Vulkan Shader Cache Automated Cleanup</div>
-                <div class="flex justify-center text-gray-500">Manual (User Prompt)</div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">DirectX/Vulkan Shader Cache Automated Cleanup</div>
+                <div class="flex justify-center text-gray-500">Manual (User Prompt)</div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 27: Fullscreen Optimizations Bypass -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Fullscreen Optimizations (FSO) Bypass</div>
-                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand font-bold">Driver-Level Injection Bypass</div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Fullscreen Optimizations (FSO) Bypass</div>
+                <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand font-bold">Driver-Level Injection Bypass</div>
+            </div>
 
-            <!-- Feature 28: Low Latency Mode -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Global Ultra-Low Latency Mode Enforcement</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Global Ultra-Low Latency Mode Enforcement</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- SECTION: STORAGE & DISK I/O -->
-            <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
-                Storage & Disk I/O Optimization
-            </div>
+                        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+                Storage & Disk I/O Optimization
+            </div>
 
-            <!-- Feature 29: Disk Write Cache Policy Tuning -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Disk Write Cache Policy Tuning (Latency vs. Safety)</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Disk Write Cache Policy Tuning (Latency vs. Safety)</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 30: High-Priority Disk I/O Queue Setup -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">High-Priority Disk I/O Queue Setup for Games</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">High-Priority Disk I/O Queue Setup for Games</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- SECTION: SYSTEM SERVICES & DEBLOAT -->
-            <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
-                System Services & Deep Debloat
-            </div>
+                        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+                System Services & Deep Debloat
+            </div>
 
-            <!-- Feature 31: Full Telemetry Debloat -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Windows Telemetry & Diagnostic Debloat (Total Services)</div>
-                <div class="flex justify-center text-gray-500">~20 Services</div>
-                <div class="flex justify-center text-brand font-bold">~80+ Services (Deep)</div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Windows Telemetry & Diagnostic Debloat (Total Services)</div>
+                <div class="flex justify-center text-gray-500">~20 Services</div>
+                <div class="flex justify-center text-brand font-bold">~80+ Services (Deep)</div>
+            </div>
 
-            <!-- Feature 32: Background Apps/Task Scheduler Cleanup -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Aggressive Background Apps/Task Scheduler Cleanup</div>
-                <div class="flex justify-center text-gray-500">Basic Apps</div>
-                <div class="flex justify-center text-brand font-bold">Aggressive (System, OS, Scheduled)</div>
-            </div>
-            
-            <!-- Feature 33: Cortana/Edge Kill Switch -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Cortana/Microsoft Edge Background Process Kill Switch</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Aggressive Background Apps/Task Scheduler Cleanup</div>
+                <div class="flex justify-center text-gray-500">Basic Apps</div>
+                <div class="flex justify-center text-brand font-bold">Aggressive (System, OS, Scheduled)</div>
+            </div>
+            
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Cortana/Microsoft Edge Background Process Kill Switch</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- SECTION: UTILITIES & SUPPORT -->
-            <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
-                Utilities & Support
-            </div>
+                        <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
+                Utilities & Support
+            </div>
 
-            <!-- Feature 34: Custom Desktop Cleanup -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Custom Desktop Cleanup Automation</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Custom Desktop Cleanup Automation</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 35: Full System Revert Snapshot Manager -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Full System Revert Snapshot Manager</div>
-                <div class="flex justify-center text-gray-500">Single Snapshot</div>
-                <div class="flex justify-center text-brand font-bold">Multi-slot History (5 Snapshots)</div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Full System Revert Snapshot Manager</div>
+                <div class="flex justify-center text-gray-500">Single Snapshot</div>
+                <div class="flex justify-center text-brand font-bold">Multi-slot History (5 Snapshots)</div>
+            </div>
 
-            <!-- Feature 36: Performance Monitoring Overlay -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">In-Game Performance Monitoring Overlay</div>
-                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
-                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
-            </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">In-Game Performance Monitoring Overlay</div>
+                <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
+                <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
+            </div>
 
-            <!-- Feature 37: Dedicated VIP Support Channel -->
-            <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
-                <div class="text-white text-sm">Dedicated VIP Support Channel (Discord/Email)</div>
-                <div class="flex justify-center text-gray-500">Standard Email Support</div>
-                <div class="flex justify-center text-brand font-bold">Priority Ticketing</div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- CTA Button Below Table -->
-    <div class="mt-12 text-center" data-aos="fade-up" data-aos-delay="800">
-        <a href="/pricing" class="btn-primary text-white px-12 py-4 rounded-xl font-bold text-lg md:text-xl flex items-center justify-center gap-3 w-full max-w-sm mx-auto shadow-2xl shadow-brand/50">
-            <i data-lucide="zap" class="w-6 h-6"></i> UPGRADE TO PREMIUM
-        </a>
-        <p class="text-gray-500 text-sm mt-4">*Unlock ~1500+ optimizations for peak performance.</p>
-    </div>
+                        <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
+                <div class="text-white text-sm">Dedicated VIP Support Channel (Discord/Email)</div>
+                <div class="flex justify-center text-gray-500">Standard Email Support</div>
+                <div class="flex justify-center text-brand font-bold">Priority Ticketing</div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="mt-12 text-center" data-aos="fade-up" data-aos-delay="800">
+        <a href="/pricing" class="btn-primary text-white px-12 py-4 rounded-xl font-bold text-lg md:text-xl flex items-center justify-center gap-3 w-full max-w-sm mx-auto shadow-2xl shadow-brand/50">
+            <i data-lucide="zap" class="w-6 h-6"></i> UPGRADE TO PREMIUM
+        </a>
+        <p class="text-gray-500 text-sm mt-4">*Unlock ~1500+ optimizations for peak performance.</p>
+    </div>
 
 </div>
 
-    </main>
+    </main>
 
-    <footer id="support" class="bg-[#050505] border-t border-white/10 pt-16 md:pt-20 pb-10">
-        <div class="max-w-7xl mx-auto px-6">
+    <footer id="support" class="bg-[#050505] border-t border-white/10 pt-16 md:pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-16 text-center md:text-left">
+                <div class="col-span-1 md:col-span-1 flex flex-col items-center md:items-start">
+                    <a href="/" class="flex items-center gap-2 mb-6">
+                        <img src="assets/logo.png" alt="QuO Logo" class="w-8 h-8 object-contain">
+                        <span class="text-xl font-bold text-white">QuO</span>
+                    </a>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                        The ultimate Windows optimization utility built for competitive gamers. Eliminate latency. Unlock FPS.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition"><i data-lucide="twitter" class="w-4"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-[#5865F2] hover:text-white transition"><i data-lucide="gamepad-2" class="w-4"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition"><i data-lucide="youtube" class="w-4"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 md:mb-6">Product</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="/#features" class="hover:text-brand transition">Features</a></li>
+                        <li><a href="/pricing" class="hover:text-brand transition">Pricing</a></li>
+                        <li><a href="/download" class="hover:text-brand transition">Changelog</a></li>
+                        <li><a href="/download" class="hover:text-brand transition">Download</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 md:mb-6">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-brand transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-brand transition">Optimization Guide</a></li>
+                        <li><a href="#" class="hover:text-brand transition">Community Server</a></li>
+                        <li><a href="#" class="hover:text-brand transition">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 md:mb-6">Legal</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="/privacy" class="hover:text-brand transition">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-brand transition">Terms of Service</a></li>
+                        <li><a href="/refund" class="hover:text-brand transition">No Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600">
+                <p>&copy; 2025 QuO Software Inc. All rights reserved.</p>
+                <div class="flex items-center gap-6">
+                    <span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-green-500"></div> Systems Operational</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+        <div id="payment-method-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-enter">
+        <div class="bg-surface border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white">Select Payment Method</h3>
+                <button onclick="closeModal('payment-method-modal')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            
+            <div class="space-y-4">
+                                <button onclick="selectMethod('card')" class="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-brand/50 hover:bg-white/10 transition group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                            <i data-lucide="credit-card" class="w-5 h-5"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="font-bold text-white">Credit/Debit Card</div>
+                            <div class="text-xs text-gray-500">Powered by Whop Secure</div>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600 group-hover:text-white"></i>
+                </button>
+
+                                <button onclick="selectMethod('paypal')" class="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#0070BA]/50 hover:bg-white/10 transition group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#0070BA]/20 flex items-center justify-center text-[#0070BA]">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7.076 21.337l.756-4.803h3.06a7.04 7.04 0 0 0 2.373-.24 4.542 4.542 0 0 0 3.125-3.085c.045-.19.083-.383.115-.58.12-.75.05-1.52-.224-2.227-.376-1.127-1.15-2.14-2.684A8.775 8.775 0 0 0 9.873 7H3.45a.695.695 0 0 0-.687.587l-2.75 17.5a.336.336 0 0 0 .332.388h4.588a.695.695 0 0 0 .687-.588l.608-3.876a.64.64 0 0 1 .632-.544h.216z"/></svg>
+                        </div>
+                        <div class="text-left">
+                            <div class="font-bold text-white">PayPal / Other</div>
+                            <div class="text-xs text-gray-500">Powered by Lemon Squeezy</div>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600 group-hover:text-white"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+        <div id="plan-conflict-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-enter">
+        <div class="bg-surface border border-brand/50 rounded-2xl p-8 max-w-md w-full shadow-2xl shadow-brand/20 transform transition-all">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-brand flex items-center gap-2"><i data-lucide="alert-triangle" class="w-6 h-6"></i> Plan Conflict</h3>
+                <button onclick="closeModal('plan-conflict-modal')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            
+            <p id="conflict-message" class="text-gray-300 mb-6">
+                You already have an active subscription (or a Lifetime plan) running. Please cancel your current plan first before switching.
+            </p>
+
+            <div class="flex justify-end gap-3">
+                <button onclick="closeModal('plan-conflict-modal')" class="px-5 py-3 rounded-xl text-sm font-bold text-white/50 hover:text-white transition">Keep Current</button>
+                <a href="/account" class="px-5 py-3 rounded-xl text-sm font-bold bg-brand text-black hover:bg-red-400 transition flex items-center gap-2">
+                    <i data-lucide="external-link" class="w-4 h-4"></i> Go to Account
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+        <div id="whop-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-all duration-300 modal-enter">
+        <div class="relative w-full max-w-4xl h-[90vh] bg-[#0F0F11] rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col">
+            
+            <div class="flex justify-between items-center p-4 border-b border-white/5 bg-white/5 shrink-0 z-20">
+                <h3 class="text-white font-bold flex items-center gap-2">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-brand"></i> Secure Checkout
+                </h3>
+                <button onclick="closeModal('whop-modal')" class="text-gray-400 hover:text-white transition">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <div id="whop-wrapper">
+                </div>
+        </div>
+    </div>
+
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // --- INICIO DE MODIFICACIONES NECESARIAS ---
+
+        // REEMPLAZA [tu-tienda] por la URL de tu tienda Lemon Squeezy (ej: https://quo-software.lemonsqueezy.com)
+        const LEMON_SQUEEZY_STORE_URL = 'https://[tu-tienda].lemonsqueezy.com'; 
+        
+        // --- 1. CONFIGURACIÓN DE IDS Y CREDENCIALES ---
+        const IDS = {
+            // IDS de Lemon Squeezy (LS) para PayPal/Otros (VERIFICADOS)
+            ls_monthly: '1116197',    
+            ls_yearly: '1116215',     
+            ls_lifetime: '1116219',
             
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-16 text-center md:text-left">
-                <div class="col-span-1 md:col-span-1 flex flex-col items-center md:items-start">
-                    <a href="/" class="flex items-center gap-2 mb-6">
-                        <img src="assets/logo.png" alt="QuO Logo" class="w-8 h-8 object-contain">
-                        <span class="text-xl font-bold text-white">QuO</span>
-                    </a>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
-                        The ultimate Windows optimization utility built for competitive gamers. Eliminate latency. Unlock FPS.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition"><i data-lucide="twitter" class="w-4"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-[#5865F2] hover:text-white transition"><i data-lucide="gamepad-2" class="w-4"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition"><i data-lucide="youtube" class="w-4"></i></a>
-                    </div>
-                </div>
+            // IDS de Whop (MANTENIDOS PARA TARJETA)
+            whop_monthly: 'plan_WJyjmf0udVC7q', 
+            whop_yearly: 'plan_1LTn29l3d2jSF', 
+            whop_lifetime: 'plan_ofXEr76XfpuAU'
+        };
 
-                <div>
-                    <h4 class="text-white font-bold mb-4 md:mb-6">Product</h4>
-                    <ul class="space-y-3 text-sm text-gray-500">
-                        <li><a href="/#features" class="hover:text-brand transition">Features</a></li>
-                        <li><a href="/pricing" class="hover:text-brand transition">Pricing</a></li>
-                        <li><a href="/download" class="hover:text-brand transition">Changelog</a></li>
-                        <li><a href="/download" class="hover:text-brand transition">Download</a></li>
-                    </ul>
-                </div>
+        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
 
-                <div>
-                    <h4 class="text-white font-bold mb-4 md:mb-6">Resources</h4>
-                    <ul class="space-y-3 text-sm text-gray-500">
-                        <li><a href="#" class="hover:text-brand transition">Documentation</a></li>
-                        <li><a href="#" class="hover:text-brand transition">Optimization Guide</a></li>
-                        <li><a href="#" class="hover:text-brand transition">Community Server</a></li>
-                        <li><a href="#" class="hover:text-brand transition">Help Center</a></li>
-                    </ul>
-                </div>
+        // State
+        let selectedPeriod = 'monthly'; 
+        let pendingPlanType = null;      
+        let currentUser = null;
+        let userPlanType = 'free'; 
 
-                <div>
-                    <h4 class="text-white font-bold mb-4 md:mb-6">Legal</h4>
-                    <ul class="space-y-3 text-sm text-gray-500">
-                        <li><a href="/privacy" class="hover:text-brand transition">Privacy Policy</a></li>
-                        <li><a href="/terms" class="hover:text-brand transition">Terms of Service</a></li>
-                        <li><a href="/refund" class="hover:text-brand transition">No Refund Policy</a></li>
-                    </ul>
-                </div>
-            </div>
+        // --- 2. AUTHENTICATION (MANTENIDO) ---
+        // ... (loginWithGoogle, logout, checkUser, renderAuth, checkPremiumStatus, renderPlanButtons se mantienen igual) ...
 
-            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600">
-                <p>&copy; 2025 QuO Software Inc. All rights reserved.</p>
-                <div class="flex items-center gap-6">
-                    <span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-green-500"></div> Systems Operational</span>
-                </div>
-            </div>
-        </div>
-    </footer>
+        async function loginWithGoogle() {
+            const { error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.href } 
+            });
+            if (error) console.error("Login Error:", error);
+        }
+        window.loginWithGoogle = loginWithGoogle;
 
-    <!-- MODAL 1: SELECT PAYMENT METHOD (EXISTING) -->
-    <div id="payment-method-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-enter">
-        <div class="bg-surface border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-white">Select Payment Method</h3>
-                <button onclick="closeModal('payment-method-modal')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
-            </div>
+        async function logout() {
+            await supabaseClient.auth.signOut();
+            window.location.reload();
+        }
+        window.logout = logout;
+
+        async function checkUser() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            currentUser = session ? session.user : null;
+            renderAuth(currentUser);
+        }
+
+        function renderAuth(user) {
+            const authSection = document.getElementById('auth-section');
+            if (!user) {
+                authSection.innerHTML = `
+                    <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
+                         <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
+                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+                             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+                         </svg>
+                         <span class="hidden sm:inline">Sign in</span>
+                         <span class="inline sm:hidden">Login</span>
+                     </a>`;
+            } else {
+                checkPremiumStatus(user.id);
+            }
+            if(window.lucide) lucide.createIcons();
+        }
+
+        async function checkPremiumStatus(userId) {
+            
+            // 1. Intentar buscar por ID (método principal)
+            let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
+            
+            // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
+            if (!profile && currentUser.email) {
+                console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
+                ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
+            }
+
+            // Log error, but ignore "No rows found" (PGRST116) which is expected for new/free users
+            if (error && error.code !== 'PGRST116') {
+                 console.error("Supabase Profile Query Error:", error);
+            }
+            
+            // CRITICAL FIX: Use !! to enforce a strict boolean check, ensuring 'is_premium' is always true or false.
+            const isPremium = !!profile?.is_premium; 
+            userPlanType = profile?.plan_type || 'free'; // Capture the actual plan type
+
+            // --- DEBUG LOG UPDATED ---
+            console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
+            console.log(`[AUTH DEBUG] User ID: ${userId}`);
+            console.log(`[AUTH DEBUG] is_premium raw value from DB: ${profile?.is_premium}`);
+            console.log(`[AUTH DEBUG] Current Plan Type (userPlanType): ${userPlanType}`); // New log
+            console.log(`[AUTH DEBUG] isPremium (calculated boolean): ${isPremium}`);
+            // -------------------------
+
+            const badgeText = isPremium ? 'PRO' : 'FREE';
+            const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
+            const avatarUrl = currentUser.user_metadata.avatar_url;
+
+            document.getElementById('auth-section').innerHTML = `
+                <div class="relative group cursor-pointer flex items-center gap-3">
+                    <div class="hidden md:flex flex-col text-right">
+                        <span class="text-[10px] text-gray-500 uppercase">Status</span>
+                        <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
+                        ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
+                    </div>
+                    <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="p-2 space-y-1">
+                            <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
+
+
+                            <a href="/account" class="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-white/10 rounded flex items-center gap-2">
+            <i data-lucide="settings" class="w-4"></i> Account Settings
+        </a>
+                            <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
+                                <i data-lucide="log-out" class="w-4"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+            if(window.lucide) lucide.createIcons();
+            
+            // Call the new rendering function after fetching the plan data
+            renderPlanButtons(); 
+        }
+
+        // --- NEW FUNCTION: Renders button state based on userPlanType ---
+        function renderPlanButtons() {
+            const starterBtn = document.getElementById('btn-starter');
+            const premiumSubBtn = document.getElementById('btn-premium-sub');
+            const lifetimeBtn = document.getElementById('btn-lifetime');
+            const cancelContainer = document.getElementById('cancel-sub-container');
+            
+            // Reset cancel container
+            cancelContainer.innerHTML = '';
+
+
+            // 1. STARTER/FREE Button Logic
+            if (userPlanType === 'free') {
+                starterBtn.innerText = "Current Plan";
+                starterBtn.classList.remove('bg-white/5', 'hover:bg-white/10');
+                starterBtn.classList.add('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
+                starterBtn.style.pointerEvents = 'none';
+            } else {
+                starterBtn.innerText = "Get Started Free";
+                starterBtn.classList.remove('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
+                starterBtn.classList.add('bg-white/5', 'hover:bg-white/10');
+                starterBtn.style.pointerEvents = 'auto';
+            }
+
+
+            // 2. PREMIUM SUBSCRIPTION Button Logic
+            if (userPlanType === 'monthly' || userPlanType === 'yearly') {
+                premiumSubBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
+                premiumSubBtn.classList.add('btn-disabled');
+                premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
+                premiumSubBtn.style.backgroundColor = '#FF003C'; // Ensures it uses brand color instead of gradient when current
+                
+                // Add Cancel Subscription Button
+                cancelContainer.innerHTML = `
+                    <a href="/account" class="w-full py-3 rounded-xl border border-white/20 text-center font-bold text-sm text-gray-400 hover:text-white hover:border-white/50 transition flex justify-center items-center gap-2">
+                        <i data-lucide="x-octagon" class="w-4"></i> Cancel Subscription
+                    </a>
+                `;
+
+            } else {
+                premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="zap" class="w-4"></i>';
+                premiumSubBtn.classList.remove('btn-disabled');
+                premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
+                premiumSubBtn.style.backgroundColor = ''; // Remove specific color to use gradient
+            }
+            
+            // 3. LIFETIME Button Logic
+            if (userPlanType === 'lifetime') {
+                lifetimeBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
+                lifetimeBtn.classList.add('btn-disabled');
+                lifetimeBtn.classList.remove('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
+                lifetimeBtn.classList.add('bg-green-700/50', 'text-white', 'border-green-500/50');
+            } else {
+                lifetimeBtn.innerHTML = 'Get Lifetime <i data-lucide="infinity" class="w-4"></i>';
+                lifetimeBtn.classList.remove('btn-disabled');
+                lifetimeBtn.classList.add('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
+                lifetimeBtn.classList.remove('bg-green-700/50', 'text-white', 'border-green-500/50');
+            }
+
+            // Ensure icons are rendered after changing innerHTML
+            if(window.lucide) lucide.createIcons();
+        }
+        window.renderPlanButtons = renderPlanButtons;
+
+        // --- 3. PRICING TOGGLE UI (MANTENIDO) ---
+        function setPeriod(type) {
+            selectedPeriod = type;
+            const btnMonthly = document.getElementById('btn-monthly');
+            const btnYearly = document.getElementById('btn-yearly');
+            
+            if (type === 'monthly') {
+                document.getElementById('price-display').innerText = "$9.99";
+                document.getElementById('period-display').innerText = "/mo";
+                
+                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
+                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
+                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
+            } else {
+                document.getElementById('price-display').innerText = "$59.99";
+                document.getElementById('period-display').innerText = "/yr";
+                
+                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
+                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
+                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
+            }
+        }
+
+
+        // --- 4. PURCHASE FLOW MODIFICADO PARA SOPORTE DE LS/WHOP ---
+
+        function startPurchaseFlow(targetPlan) {
+            // Check if button is disabled (Current Plan)
+            const buttonId = (targetPlan === 'lifetime') ? 'btn-lifetime' : 'btn-premium-sub';
+            const button = document.getElementById(buttonId);
+            if (button && button.classList.contains('btn-disabled')) {
+                console.log("Button is disabled because this is the current plan.");
+                return; 
+            }
+
+            if (!currentUser) {
+                console.error("Please Sign In with Google before upgrading."); 
+                loginWithGoogle();
+                return;
+            }
+            
+            const isSubscription = userPlanType === 'monthly' || userPlanType === 'yearly';
+            const isLifetime = userPlanType === 'lifetime';
+
+            // --- PLAN CONFLICT LOGIC (MANTENIDO) ---
+            let conflict = false;
+            let conflictMsg = "";
+            
+            if (isSubscription && targetPlan === 'lifetime') {
+                conflict = true;
+                conflictMsg = "To purchase the LIFETIME plan, you must first cancel your current monthly or annual subscription. Please go to your Account page to manage your existing plan.";
+            } else if (isLifetime && targetPlan === 'subscription') {
+                conflict = true;
+                conflictMsg = "To switch to a monthly/annual subscription, you must first contact support to remove your LIFETIME license. Please go to your Account page for support links.";
+            }
+
+            if (conflict) {
+                document.getElementById('conflict-message').innerText = conflictMsg;
+                openModal('plan-conflict-modal');
+                return;
+            }
+            // --- END PLAN CONFLICT LOGIC ---
             
-            <div class="space-y-4">
-                <button onclick="selectMethod('card')" class="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-brand/50 hover:bg-white/10 transition group">
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
-                            <i data-lucide="credit-card" class="w-5 h-5"></i>
-                        </div>
-                        <div class="text-left">
-                            <div class="font-bold text-white">Credit/Debit Card</div>
-                            <div class="text-xs text-gray-500">Powered by Whop Secure</div>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600 group-hover:text-white"></i>
-                </button>
+            // Asignar el plan pendiente (resuelve 'subscription' a 'monthly' o 'yearly')
+            pendingPlanType = (targetPlan === 'lifetime') ? 'lifetime' : 
+                              (targetPlan === 'subscription' ? selectedPeriod : null);
+            if (!pendingPlanType) return; // Seguridad
 
-                <button onclick="selectMethod('paypal')" class="w-full flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#0070BA]/50 hover:bg-white/10 transition group">
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-[#0070BA]/20 flex items-center justify-center text-[#0070BA]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7.076 21.337l.756-4.803h3.06a7.04 7.04 0 0 0 2.373-.24 4.542 4.542 0 0 0 3.125-3.085c.045-.19.083-.383.115-.58.12-.75.05-1.52-.224-2.227-.376-1.127-1.15-2.14-2.684A8.775 8.775 0 0 0 9.873 7H3.45a.695.695 0 0 0-.687.587l-2.75 17.5a.336.336 0 0 0 .332.388h4.588a.695.695 0 0 0 .687-.588l.608-3.876a.64.64 0 0 1 .632-.544h.216z"/></svg>
-                        </div>
-                        <div class="text-left">
-                            <div class="font-bold text-white">PayPal</div>
-                            <div class="text-xs text-gray-500">Pay fast and secure</div>
-                        </div>
-                    </div>
-                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600 group-hover:text-white"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+            openModal('payment-method-modal'); // Abre el modal de selección de método
+        }
+        window.startPurchaseFlow = startPurchaseFlow;
 
-    <!-- MODAL 2: PLAN CONFLICT WARNING (NEW) -->
-    <div id="plan-conflict-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-enter">
-        <div class="bg-surface border border-brand/50 rounded-2xl p-8 max-w-md w-full shadow-2xl shadow-brand/20 transform transition-all">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-brand flex items-center gap-2"><i data-lucide="alert-triangle" class="w-6 h-6"></i> Plan Conflict</h3>
-                <button onclick="closeModal('plan-conflict-modal')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
-            </div>
+        // --- FUNCIÓN MODIFICADA: Ahora dirige a Whop o LS ---
+        function selectMethod(method) {
+            closeModal('payment-method-modal');
+
+            const planType = pendingPlanType; 
+
+            if (method === 'card') {
+                // FLUJO DE WHOP (TARJETA)
+                // Usamos los IDS mapeados para Whop
+                const whopID = IDS[`whop_${planType}`]; 
+                initiateWhopCheckout(whopID, planType);
+            } else if (method === 'paypal') {
+                // FLUJO DE LEMON SQUEEZY (PAYPAL/OTROS)
+                initiateLemonSqueezyCheckout(planType);
+            }
+        }
+        window.selectMethod = selectMethod;
+        
+        // --- FUNCIÓN NUEVA: INICIAR CHECKOUT DE LEMON SQUEEZY ---
+        function initiateLemonSqueezyCheckout(planType) {
+            const variantId = IDS[`ls_${planType}`]; // ls_monthly, ls_yearly, ls_lifetime
             
-            <p id="conflict-message" class="text-gray-300 mb-6">
-                You already have an active subscription (or a Lifetime plan) running. Please cancel your current plan first before switching.
-            </p>
+            if (!variantId) {
+                 console.error(`LS Variant ID not found for plan: ${planType}`);
+                 alert("Payment error: Invalid plan configuration (LS).");
+                 return;
+            }
 
-            <div class="flex justify-end gap-3">
-                <button onclick="closeModal('plan-conflict-modal')" class="px-5 py-3 rounded-xl text-sm font-bold text-white/50 hover:text-white transition">Keep Current</button>
-                <a href="/account" class="px-5 py-3 rounded-xl text-sm font-bold bg-brand text-black hover:bg-red-400 transition flex items-center gap-2">
-                    <i data-lucide="external-link" class="w-4 h-4"></i> Go to Account
-                </a>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="whop-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-all duration-300 modal-enter">
-        <div class="relative w-full max-w-4xl h-[90vh] bg-[#0F0F11] rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col">
+            const customData = {
+                supabaseUserID: currentUser.id, // ID para el webhook
+                planType: planType              // Tipo de plan para actualizar en DB
+            };
             
-            <div class="flex justify-between items-center p-4 border-b border-white/5 bg-white/5 shrink-0 z-20">
-                <h3 class="text-white font-bold flex items-center gap-2">
-                    <i data-lucide="shield-check" class="w-5 h-5 text-brand"></i> Secure Checkout
-                </h3>
-                <button onclick="closeModal('whop-modal')" class="text-gray-400 hover:text-white transition">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-            </div>
-
-            <div id="whop-wrapper">
-                </div>
-        </div>
-    </div>
-
-    <!-- Script de AOS agregado -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script>
-        // --- 1. CONFIGURON ---
-        const IDS = {
-            monthly: 'plan_WJyjmf0udVC7q', 
-            yearly: 'plan_1LTn29l3d2jSF', 
-            lifetime: 'plan_ofXEr76XfpuAU' 
-        };
-
-        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
-
-        // State
-        let selectedPeriod = 'monthly'; 
-        let pendingPlanType = null;      
-        let currentUser = null;
-        let userPlanType = 'free'; // New state variable to hold the current plan (e.g., 'monthly', 'yearly', 'lifetime')
-
-        // --- 2. AUTHENTICATION (Supabase) ---
-        async function loginWithGoogle() {
-            const { error } = await supabaseClient.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: window.location.href } 
-            });
-            if (error) console.error("Login Error:", error);
-        }
-        window.loginWithGoogle = loginWithGoogle;
-
-        async function logout() {
-            await supabaseClient.auth.signOut();
-            window.location.reload();
-        }
-        window.logout = logout;
-
-        async function checkUser() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            currentUser = session ? session.user : null;
-            renderAuth(currentUser);
-        }
-
-        function renderAuth(user) {
-            const authSection = document.getElementById('auth-section');
-            if (!user) {
-                authSection.innerHTML = `
-                    <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
-                         <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
-                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
-                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
-                             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
-                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
-                         </svg>
-                         <span class="hidden sm:inline">Sign in</span>
-                         <span class="inline sm:hidden">Login</span>
-                     </a>`;
+            if (window.LemonSqueezy) {
+                // El checkout de LS se abre en un modal o nueva ventana
+                window.LemonSqueezy.Url.Open(
+                    `${LEMON_SQUEEZY_STORE_URL}/checkout/buy/${variantId}`, 
+                    {
+                        custom: customData, // Metadata para el webhook
+                        checkoutData: {
+                            email: currentUser.email,
+                        }
+                    }
+                );
+                console.log(`[LS Checkout] Opening for variant ${variantId}. Plan: ${planType}`);
             } else {
-                checkPremiumStatus(user.id);
-            }
-            if(window.lucide) lucide.createIcons();
-        }
-
-        async function checkPremiumStatus(userId) {
-            
-            // 1. Intentar buscar por ID (método principal)
-            let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
-            
-            // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
-            if (!profile && currentUser.email) {
-                console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
-                ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
-            }
-
-            // Log error, but ignore "No rows found" (PGRST116) which is expected for new/free users
-            if (error && error.code !== 'PGRST116') {
-                 console.error("Supabase Profile Query Error:", error);
-            }
-            
-            // CRITICAL FIX: Use !! to enforce a strict boolean check, ensuring 'is_premium' is always true or false.
-            const isPremium = !!profile?.is_premium; 
-            userPlanType = profile?.plan_type || 'free'; // Capture the actual plan type
-
-            // --- DEBUG LOG UPDATED ---
-            console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
-            console.log(`[AUTH DEBUG] User ID: ${userId}`);
-            console.log(`[AUTH DEBUG] is_premium raw value from DB: ${profile?.is_premium}`);
-            console.log(`[AUTH DEBUG] Current Plan Type (userPlanType): ${userPlanType}`); // New log
-            console.log(`[AUTH DEBUG] isPremium (calculated boolean): ${isPremium}`);
-            // -------------------------
-
-            const badgeText = isPremium ? 'PRO' : 'FREE';
-            const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
-            const avatarUrl = currentUser.user_metadata.avatar_url;
-
-            document.getElementById('auth-section').innerHTML = `
-                <div class="relative group cursor-pointer flex items-center gap-3">
-                    <div class="hidden md:flex flex-col text-right">
-                        <span class="text-[10px] text-gray-500 uppercase">Status</span>
-                        <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
-                    </div>
-                    <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
-                        ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
-                    </div>
-                    <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                        <div class="p-2 space-y-1">
-                            <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
-
-
-                            <a href="/account" class="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-white/10 rounded flex items-center gap-2">
-            <i data-lucide="settings" class="w-4"></i> Account Settings
-        </a>
-                            <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
-                                <i data-lucide="log-out" class="w-4"></i> Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>`;
-            if(window.lucide) lucide.createIcons();
-            
-            // Call the new rendering function after fetching the plan data
-            renderPlanButtons(); 
-        }
-
-        // --- NEW FUNCTION: Renders button state based on userPlanType ---
-        function renderPlanButtons() {
-            const starterBtn = document.getElementById('btn-starter');
-            const premiumSubBtn = document.getElementById('btn-premium-sub');
-            const lifetimeBtn = document.getElementById('btn-lifetime');
-            const cancelContainer = document.getElementById('cancel-sub-container');
-            
-            // Reset cancel container
-            cancelContainer.innerHTML = '';
-
-
-            // 1. STARTER/FREE Button Logic
-            if (userPlanType === 'free') {
-                starterBtn.innerText = "Current Plan";
-                starterBtn.classList.remove('bg-white/5', 'hover:bg-white/10');
-                starterBtn.classList.add('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
-                starterBtn.style.pointerEvents = 'none';
-            } else {
-                starterBtn.innerText = "Get Started Free";
-                starterBtn.classList.remove('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
-                starterBtn.classList.add('bg-white/5', 'hover:bg-white/10');
-                starterBtn.style.pointerEvents = 'auto';
-            }
-
-
-            // 2. PREMIUM SUBSCRIPTION Button Logic
-            if (userPlanType === 'monthly' || userPlanType === 'yearly') {
-                premiumSubBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
-                premiumSubBtn.classList.add('btn-disabled');
-                premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
-                premiumSubBtn.style.backgroundColor = '#FF003C'; // Ensures it uses brand color instead of gradient when current
-                
-                // Add Cancel Subscription Button
-                cancelContainer.innerHTML = `
-                    <a href="/account" class="w-full py-3 rounded-xl border border-white/20 text-center font-bold text-sm text-gray-400 hover:text-white hover:border-white/50 transition flex justify-center items-center gap-2">
-                        <i data-lucide="x-octagon" class="w-4"></i> Cancel Subscription
-                    </a>
-                `;
-
-            } else {
-                premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="zap" class="w-4"></i>';
-                premiumSubBtn.classList.remove('btn-disabled');
-                premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
-                premiumSubBtn.style.backgroundColor = ''; // Remove specific color to use gradient
-            }
-            
-            // 3. LIFETIME Button Logic
-            if (userPlanType === 'lifetime') {
-                lifetimeBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
-                lifetimeBtn.classList.add('btn-disabled');
-                lifetimeBtn.classList.remove('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
-                lifetimeBtn.classList.add('bg-green-700/50', 'text-white', 'border-green-500/50');
-            } else {
-                lifetimeBtn.innerHTML = 'Get Lifetime <i data-lucide="infinity" class="w-4"></i>';
-                lifetimeBtn.classList.remove('btn-disabled');
-                lifetimeBtn.classList.add('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
-                lifetimeBtn.classList.remove('bg-green-700/50', 'text-white', 'border-green-500/50');
-            }
-
-            // Ensure icons are rendered after changing innerHTML
-            if(window.lucide) lucide.createIcons();
-        }
-        window.renderPlanButtons = renderPlanButtons;
-
-        // --- 3. PRICING TOGGLE UI ---
-        function setPeriod(type) {
-            selectedPeriod = type;
-            const btnMonthly = document.getElementById('btn-monthly');
-            const btnYearly = document.getElementById('btn-yearly');
-            
-            if (type === 'monthly') {
-                document.getElementById('price-display').innerText = "$9.99";
-                document.getElementById('period-display').innerText = "/mo";
-                
-                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
-                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
-                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
-            } else {
-                document.getElementById('price-display').innerText = "$59.99";
-                document.getElementById('period-display').innerText = "/yr";
-                
-                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
-                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
-                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
+                // Fallback: Redirección directa si el script no carga
+                alert("Lemon Squeezy script not loaded. Redirecting to backup link.");
+                window.location.href = `${LEMON_SQUEEZY_STORE_URL}/checkout/buy/${variantId}?custom=${btoa(JSON.stringify(customData))}`;
             }
         }
+        window.initiateLemonSqueezyCheckout = initiateLemonSqueezyCheckout;
 
 
-        // --- 4. PURCHASE FLOW & WHOP CHECKOUT LOGIC ---
+        // A) FUNCIÓN CORREGIDA DE WHOP (MANTENIDA)
+        // Se asegura de enviar el planType correcto
+        function initiateWhopCheckout(whopID, planType) {
+            const wrapper = document.getElementById('whop-wrapper');
+            wrapper.innerHTML = ''; 
 
-        function startPurchaseFlow(targetPlan) {
-            // Check if button is disabled (Current Plan)
-            const buttonId = (targetPlan === 'lifetime') ? 'btn-lifetime' : 'btn-premium-sub';
-            const button = document.getElementById(buttonId);
-            if (button && button.classList.contains('btn-disabled')) {
-                console.log("Button is disabled because this is the current plan.");
-                return; 
-            }
+            const checkoutDiv = document.createElement('div');
+            checkoutDiv.setAttribute('data-whop-checkout-plan-id', whopID); // Usamos el ID de Whop
+            checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
+            checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
 
-            if (!currentUser) {
-                console.error("Please Sign In with Google before upgrading."); 
-                loginWithGoogle();
-                return;
-            }
-            
-            const isSubscription = userPlanType === 'monthly' || userPlanType === 'yearly';
-            const isLifetime = userPlanType === 'lifetime';
+            // Forzar visibilidad (MANTENIDO)
+            checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-features', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');
+            checkoutDiv.setAttribute('data-whop-checkout-hide-submit-button', 'false');
 
-            // --- PLAN CONFLICT LOGIC ---
-            let conflict = false;
-            let conflictMsg = "";
-            
-            if (isSubscription && targetPlan === 'lifetime') {
-                conflict = true;
-                conflictMsg = "To purchase the LIFETIME plan, you must first cancel your current monthly or annual subscription. Please go to your Account page to manage your existing plan.";
-            } else if (isLifetime && targetPlan === 'subscription') {
-                conflict = true;
-                conflictMsg = "To switch to a monthly/annual subscription, you must first contact support to remove your LIFETIME license. Please go to your Account page for support links.";
-            }
+            checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
 
-            if (conflict) {
-                document.getElementById('conflict-message').innerText = conflictMsg;
-                openModal('plan-conflict-modal');
-                return;
-            }
-            // --- END PLAN CONFLICT LOGIC ---
+            if(currentUser) {
+                checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
+                
+                // --- [CORRECCIÓN CRÍTICA DE METADATA PARA WHOP] ---
+                // Incluimos el planType para que el Webhook de Whop sepa qué plan activar
+                const metadataString = JSON.stringify({ supabaseUserID: currentUser.id, planType: planType });
+                checkoutDiv.setAttribute('data-whop-checkout-metadata', metadataString);
+            }
 
-            pendingPlanType = targetPlan; 
-            openModal('payment-method-modal');
-        }
-        window.startPurchaseFlow = startPurchaseFlow;
+            wrapper.appendChild(checkoutDiv);
+            
+            setTimeout(() => {
+                openModal('whop-modal');
+            }, 100);
+        }
 
-        function selectMethod(method) {
-            closeModal('payment-method-modal');
+        // B) FUNCIÓN DE CALLBACK CORREGIDA (MANTENIDA)
+        window.onWhopPurchaseComplete = async (planId, receiptId) => {
+            closeModal('whop-modal');
+            
+            // Creamos un modal temporal para informar sobre la activación
+            const activationModal = document.createElement('div');
+            activationModal.id = 'activation-modal';
+            activationModal.className = 'fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-active';
+            activationModal.innerHTML = `
+                <div class="bg-surface border border-green-500 rounded-2xl p-8 max-w-sm w-full shadow-2xl shadow-green-500/20 transform transition-all">
+                    <div class="text-center">
+                        <i data-lucide="check-circle" class="w-12 h-12 text-green-500 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">Payment Successful!</h3>
+                        <p class="text-gray-400">Activating your QuO Premium license securely. Refreshing page in a moment...</p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(activationModal);
+            if(window.lucide) lucide.createIcons();
 
-            if (method === 'paypal') {
-                // IMPORTANT: Use custom modal instead of alert()
-                openModal('paypal-soon-modal');
-                return;
-            }
+            // Esperamos 4 segundos para que el Webhook de Supabase termine.
+            setTimeout(() => {
+                window.location.reload();
+            }, 4000); 
+        };
 
-            if (method === 'card') {
-                let planIdToUse = '';
-                if (pendingPlanType === 'lifetime') {
-                    planIdToUse = IDS.lifetime;
-                } else {
-                    planIdToUse = (selectedPeriod === 'monthly') ? IDS.monthly : IDS.yearly;
-                }
-                initiateWhopCheckout(planIdToUse);
-            }
-        }
-        window.selectMethod = selectMethod;
+        // --- UTILS (MANTENIDO) ---
+        function openModal(id) {
+            const el = document.getElementById(id);
+            el.classList.remove('modal-enter');
+            el.classList.add('modal-active');
+            // Ensure icons are rendered in modals
+            if(window.lucide) lucide.createIcons();
+        }
+        window.openModal = openModal;
 
-        // A) FUNCIÓN CORREGIDA para enviar la metadata correctamente
-        function initiateWhopCheckout(planId) {
-            const wrapper = document.getElementById('whop-wrapper');
-            wrapper.innerHTML = ''; 
+        function closeModal(id) {
+            const el = document.getElementById(id);
+            el.classList.remove('modal-active');
+            el.classList.add('modal-enter');
+            
+            if (id === 'whop-modal') {
+                // Pequeño delay para vaciar el wrapper después de la animación de cierre
+                setTimeout(() => {
+                    document.getElementById('whop-wrapper').innerHTML = ''; 
+                }, 300);
+            }
+        }
+        window.closeModal = closeModal;
 
-            const checkoutDiv = document.createElement('div');
-            checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
-            checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
-            checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Inicialización de la librería AOS
+            try {
+                if(window.AOS) {
+                    AOS.init({
+                        duration: 800,
+                        once: true,
+                        offset: 50
+                    });
+                }
+            } catch(e) { console.error("AOS Init error", e); }
+            
+            checkUser();
+            setPeriod(selectedPeriod); // Asegura que el toggle se inicialice correctamente
+            if(window.lucide) lucide.createIcons();
+        });
 
-            // Forzar visibilidad
-            checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-features', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-submit-button', 'false');
-
-            checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
-
-            if(currentUser) {
-                checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
-                
-                // --- [CORRECCIÓN CRÍTICA DE METADATA] ---
-                const metadataString = JSON.stringify({ supabaseUserID: currentUser.id });
-                checkoutDiv.setAttribute('data-whop-checkout-metadata', metadataString);
-            }
-
-            wrapper.appendChild(checkoutDiv);
-            
-            setTimeout(() => {
-                openModal('whop-modal');
-            }, 100);
-        }
-
-        // B) FUNCIÓN DE CALLBACK CORREGIDA (Solo recarga, el backend hace la actualización)
-        window.onWhopPurchaseComplete = async (planId, receiptId) => {
-            closeModal('whop-modal');
-            
-            // Creamos un modal temporal para informar sobre la activación
-            const activationModal = document.createElement('div');
-            activationModal.id = 'activation-modal';
-            activationModal.className = 'fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-active';
-            activationModal.innerHTML = `
-                <div class="bg-surface border border-green-500 rounded-2xl p-8 max-w-sm w-full shadow-2xl shadow-green-500/20 transform transition-all">
-                    <div class="text-center">
-                        <i data-lucide="check-circle" class="w-12 h-12 text-green-500 mx-auto mb-4"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Payment Successful!</h3>
-                        <p class="text-gray-400">Activating your QuO Premium license securely. Refreshing page in a moment...</p>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(activationModal);
-            if(window.lucide) lucide.createIcons();
-
-            // Esperamos 4 segundos para que el Webhook de Supabase termine.
-            setTimeout(() => {
-                window.location.reload();
-            }, 4000); 
-        };
-
-        // --- UTILS ---
-        function openModal(id) {
-            const el = document.getElementById(id);
-            el.classList.remove('modal-enter');
-            el.classList.add('modal-active');
-            // Ensure icons are rendered in modals
-            if(window.lucide) lucide.createIcons();
-        }
-        window.openModal = openModal;
-
-        function closeModal(id) {
-            const el = document.getElementById(id);
-            el.classList.remove('modal-active');
-            el.classList.add('modal-enter');
-            
-            if (id === 'whop-modal') {
-                // Pequeño delay para vaciar el wrapper después de la animación de cierre
-                setTimeout(() => {
-                    document.getElementById('whop-wrapper').innerHTML = ''; 
-                }, 300);
-            }
-        }
-        window.closeModal = closeModal;
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Inicialización de la librería AOS
-            try {
-                if(window.AOS) {
-                    AOS.init({
-                        duration: 800,
-                        once: true,
-                        offset: 50
-                    });
-                }
-            } catch(e) { console.error("AOS Init error", e); }
-            
-            checkUser();
-            setPeriod(selectedPeriod); // Asegura que el toggle se inicialice correctamente
-            if(window.lucide) lucide.createIcons();
-        });
-
-    </script>
+    </script>
 </body>
 </html>
