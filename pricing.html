@@ -11,7 +11,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- AOS CSS agregado -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -47,7 +46,7 @@
         .bg-grid {
             background-size: 50px 50px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                             linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+                                     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
             -webkit-mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
             position: fixed; inset: 0; z-index: -1;
@@ -112,7 +111,6 @@
             box-shadow: none !important;
         }
     </style>
-    <!-- AOS CSS agregado aquí (si ya estaba en el head, se mantiene, si no, se agrega) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="min-h-screen flex flex-col">
@@ -127,7 +125,6 @@
                 <span class="font-bold text-lg md:text-xl tracking-tight text-white">QuO</span>
             </a>
             
-            <!-- ENLACES DE NAVEGACIÓN (items-center añadido para centrado vertical) -->
             <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400 items-center">
                 <a href="/" class="hover:text-white hover:text-glow transition">Home</a>
                 <a href="/download" class="hover:text-white hover:text-glow transition">Download</a>
@@ -136,33 +133,21 @@
             </div>
 
             <div id="auth-section">
-                <!-- Se rellena con Sign In o Avatar por JS -->
-            </div>
+                </div>
         </div>
     </nav>
 
     <main class="flex-grow flex flex-col items-center pt-32 pb-20 px-6 w-full">
         
-        <div class="text-center mb-12 md:mb-16 max-w-3xl" data-aos="fade-up">
+        <div class="text-center mb-16 max-w-3xl" data-aos="fade-up">
             <h1 class="text-4xl md:text-6xl font-black mb-4 leading-tight">
                 Unlock <span class="text-gradient text-glow">Competitive Power</span>
             </h1>
             <p class="text-gray-400 text-lg md:text-xl">Stop upgrading hardware. Start mastering your software.</p>
         </div>
 
-        <!-- Toggle mensual/anual -->
-        <div class="relative bg-white/5 p-1 rounded-full flex items-center mb-12 border border-white/5" data-aos="fade-up" data-aos-delay="100">
-            <button onclick="setPeriod('monthly')" id="btn-monthly" class="px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all">Monthly</button>
-            <!-- ID CORREGIDO de btn-yearly-inner a btn-yearly -->
-            <button onclick="setPeriod('yearly')" id="btn-yearly" class="px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all">
-                Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span> 
-            </button>
-        </div>
-
-        <!-- Tarjetas de Precio -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
             
-            <!-- TARJETA STARTER (FREE) -->
             <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
                 <div class="mb-6">
                     <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
@@ -174,46 +159,33 @@
                 </a>
             </div>
 
-            <!-- TARJETA PREMIUM (MONTHLY/YEARLY) -->
-            <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.1)] flex flex-col" data-aos="fade-up" data-aos-delay="300">
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand/40">ULTIMATE POWER</div>
+            <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.1)] flex flex-col transform md:scale-105 z-10 bg-black/20" data-aos="fade-up" data-aos-delay="300">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand/40">BEST VALUE</div>
                 
-                <div class="mb-6">
-                    <span class="text-brand font-bold tracking-widest text-xs uppercase">Premium</span>
+                <div class="mb-2">
+                    <span class="text-brand font-bold tracking-widest text-xs uppercase">Annual Pass</span>
                     <div class="flex items-end gap-1 mt-2">
-                        <span id="price-display" class="text-5xl font-extrabold text-white transition-all">$9.99</span>
-                        <span id="period-display" class="text-gray-500 mb-1 text-sm">/mo</span>
+                        <span class="text-6xl font-extrabold text-white">$2.50</span>
+                        <span class="text-gray-400 mb-2 font-bold">/mo</span>
                     </div>
+                    <p class="text-sm text-gray-500 mt-1 font-mono">Billed annually as <span class="text-white font-bold">$29.99/year</span></p>
                 </div>
                 
-                <p class="text-gray-300 mb-8">Full, kernel-level access to the entire suite of optimization tools for pro-level stability and input.</p>
+                <div class="my-6 h-px w-full bg-white/10"></div>
+
+                <p class="text-gray-300 mb-8">Full, kernel-level access to the entire suite of optimization tools. Save big with annual billing.</p>
 
                 <div class="mt-auto w-full space-y-3">
-                    <button onclick="startPurchaseFlow('subscription')" id="btn-premium-sub" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
+                    <button onclick="startPurchaseFlow('annual')" id="btn-premium-sub" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
                         Upgrade Now <i data-lucide="zap" class="w-4"></i>
                     </button>
-                    <!-- Contenedor para el botón de cancelación -->
                     <div id="cancel-sub-container"></div>
                 </div>
-            </div>
-
-            <!-- TARJETA LIFETIME -->
-            <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="400">
-                <div class="mb-6">
-                    <span class="text-green-400 font-bold tracking-widest text-xs uppercase">Lifetime</span>
-                    <h3 class="text-4xl font-extrabold mt-2 text-white">$149<span class="text-sm text-gray-500 font-normal"> / one-time</span></h3>
-                </div>
-                <p class="text-gray-400 mb-8">Never pay again. Includes all future updates and features for the lifetime of the product.</p>
-                
-                <button onclick="startPurchaseFlow('lifetime')" id="btn-lifetime" class="mt-auto w-full py-4 rounded-xl border border-green-400/30 text-center font-bold hover:bg-green-400/5 transition text-sm text-green-400 flex justify-center items-center gap-2 cursor-pointer">
-                    Get Lifetime <i data-lucide="infinity" class="w-4"></i>
-                </button>
             </div>
             
         </div>
         
 <div class="w-full max-w-7xl mx-auto mt-24 md:mt-32">
-    <!-- Comparison Header -->
     <div class="text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="500">
         <h2 class="text-3xl md:text-5xl font-black text-white mb-4">
             QuO <span class="text-gradient text-glow">Free vs Premium</span>
@@ -223,21 +195,17 @@
         </p>
     </div>
 
-    <!-- Pricing Boxes / CTA -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-mono text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="600">
-        <!-- Columna 1: FREE - Total Optimizations -->
         <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
             <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Free Total Optimizations</p>
             <p class="text-2xl font-bold text-green-400">~200</p>
         </div>
         
-        <!-- Columna 2: FREE - Optimization Buttons -->
         <div class="col-span-1 bg-surface rounded-xl p-4 border border-white/10">
             <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Free Features</p>
             <p class="text-2xl font-bold text-green-400">~250</p>
         </div>
         
-        <!-- Columna 3: PREMIUM - Total Optimizations (Destacada) -->
         <div class="col-span-1 sm:col-span-2 md:col-span-1 bg-surface rounded-xl p-4 border border-brand/50 bg-brand/5 shadow-lg shadow-brand/20">
             <p class="text-sm text-brand mb-1 uppercase tracking-wider font-bold">Premium Total Optimizations</p>
             <p class="text-2xl font-bold text-white">~1500+</p>
@@ -245,329 +213,278 @@
     </div>
 
 
-    <!-- Comparison Table (Using Divs for Responsiveness) -->
     <div class="bg-surface rounded-3xl overflow-hidden border border-white/10 shadow-xl" data-aos="fade-up" data-aos-delay="700">
         
-        <!-- Table Header -->
         <div class="grid grid-cols-3 text-sm md:text-base font-bold text-white uppercase tracking-wider border-b border-white/10 bg-black/50 sticky top-0 z-10">
             <div class="p-4 md:p-6 text-left">Feature Suite</div>
             <div class="p-4 md:p-6 text-center text-green-400">Free</div>
             <div class="p-4 md:p-6 text-center text-brand">Premium</div>
         </div>
 
-        <!-- Table Body -->
         <div class="divide-y divide-white/5">
             
-            <!-- SECTION: CORE OPTIMIZATION -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 Core System Tuning (Registry & Kernel)
             </div>
 
-            <!-- Feature 1: Timer Resolution -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">System Timer Resolution Tuning (1.0ms)</div>
                 <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand font-bold">0.5ms (Exclusive)</div>
             </div>
 
-            <!-- Feature 2: Nagle's Algorithm -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Nagle's Algorithm (TCP/NoDelay) Bypass</div>
                 <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
             
-            <!-- Feature 3: Interrupt Affinity Steering -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Interrupt Affinity Steering Policy</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 4: DWM Thread Priority -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">DWM (Desktop Window Manager) Thread Priority</div>
                 <div class="flex justify-center text-gray-500"><i data-lucide="minus" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand font-bold">Real-time HAGS Priority</div>
             </div>
 
-            <!-- Feature 5: CPU Core Parking -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">CPU Core Parking & Sleeping State Disable</div>
                 <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
             
-            <!-- SECTION: DEDICATED SUITES -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 Dedicated Optimization Suites
             </div>
 
-            <!-- Feature 6: QuO RAM Optimizer -->
             <div class="grid grid-cols-3 p-4 bg-brand/5 border-l-4 border-brand">
                 <div class="text-white text-sm font-bold flex items-center gap-2"><i data-lucide="memory-stick" class="w-4 h-4 text-pink-400"></i> QuO RAM Optimizer Suite</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
             
-            <!-- Feature 7: QuO EnergyPlan -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm flex items-center gap-2"><i data-lucide="battery-charging" class="w-4 h-4 text-yellow-400"></i> QuO EnergyPlan Manager (Custom Power)</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 8: QuO GameMode -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm flex items-center gap-2"><i data-lucide="gamepad-2" class="w-4 h-4 text-blue-400"></i> QuO GameMode (Profile Switching)</div>
                 <div class="flex justify-center text-gray-500">Limited</div>
                 <div class="flex justify-center text-brand">Full Access (30+ profiles)</div>
             </div>
             
-            <!-- SECTION: RAM & MEMORY -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 Memory Management
             </div>
 
-            <!-- Feature 9: Standby List -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Aggressive Standby List Cleaner (ISLC)</div>
                 <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand">Real-Time Kernel Trigger</div>
             </div>
             
-            <!-- Feature 10: Non-Paged Pool Reduction -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Non-Paged Pool Memory Reduction (Registry)</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 11: Memory Defragmentation -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Automatic Memory Defragmentation during Play</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 4: DWM Thread Priority -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">DWM (Desktop Window Manager) Thread Priority</div>
                 <div class="flex justify-center text-gray-500"><i data-lucide="minus" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand font-bold">Real-time HAGS Priority</div>
             </div>
             
-            <!-- SECTION: NETWORK & INPUT -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 Network & Input Latency
             </div>
             
-            <!-- Feature 12: Network Throttling -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Network Throttling Index Disablement</div>
                 <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 13: TCPAckFrequency -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">TCPAckFrequency & MTU Optimization</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 14: Input Debounce -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Input Debounce Timer Reduction</div>
                 <div class="flex justify-center text-gray-500">Partial Fix</div>
                 <div class="flex justify-center text-brand">Hardware-level bypass</div>
             </div>
             
-            <!-- SECTION: INTERFACE & UTILITIES -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 Interface & Safety
             </div>
             
-            <!-- Feature 15: Optimization Count -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Number of Modular Toggles</div>
                 <div class="flex justify-center text-gray-500">~20</div>
                 <div class="flex justify-center text-brand font-bold">~300+</div>
             </div>
 
-            <!-- Feature 16: Automated Profiles -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Automated Profiles (Streaming, FPS, Potato)</div>
                 <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 17: Auto-Restore Points -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Auto-Restore Point Creation (Safety)</div>
                 <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 18: Lifetime Updates -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Lifetime Updates & New Features</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- SECTION: CPU & SCHEDULING -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 CPU Core Scheduling & Latency
             </div>
 
-            <!-- Feature 19: Context Switch Latency Reduction -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Context Switch Latency Reduction</div>
                 <div class="flex justify-center text-gray-500">Basic API Call</div>
                 <div class="flex justify-center text-brand font-bold">Kernel-Level Priority Adjustment</div>
             </div>
 
-            <!-- Feature 20: Hyper-Threading/SMT Optimization -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Hyper-Threading/SMT Dynamic Toggle (AMD/Intel)</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 21: Core Isolation (P-Core/E-Core) -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">P-Core/E-Core Thread Assignment (Windows 11)</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 22: Windows Process Scheduler Tuning -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Aggressive Windows Scheduler Tuning</div>
                 <div class="flex justify-center text-gray-500">Standard</div>
                 <div class="flex justify-center text-brand font-bold">Aggressive (20% faster thread priority)</div>
             </div>
 
-            <!-- Feature 23: CPU Throttling Bypass -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">CPU Power Limit Throttling Bypass (Advanced)</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
             
-            <!-- SECTION: GPU & VIDEO SUB-SYSTEM -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 GPU & Video Sub-System Tuning
             </div>
             
-            <!-- Feature 24: HAGS Tweaks -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Hardware-Accelerated GPU Scheduling (HAGS) Tweaks</div>
                 <div class="flex justify-center text-gray-500">Basic Enable/Disable</div>
                 <div class="flex justify-center text-brand font-bold">Driver-Level Parameter Tuning</div>
             </div>
 
-            <!-- Feature 25: VRAM Memory Prioritization Bypass -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">VRAM Memory Prioritization Bypass</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 26: Shader Cache Cleanup -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">DirectX/Vulkan Shader Cache Automated Cleanup</div>
                 <div class="flex justify-center text-gray-500">Manual (User Prompt)</div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 27: Fullscreen Optimizations Bypass -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Fullscreen Optimizations (FSO) Bypass</div>
                 <div class="flex justify-center text-green-400"><i data-lucide="check" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand font-bold">Driver-Level Injection Bypass</div>
             </div>
 
-            <!-- Feature 28: Low Latency Mode -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Global Ultra-Low Latency Mode Enforcement</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- SECTION: STORAGE & DISK I/O -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 Storage & Disk I/O Optimization
             </div>
 
-            <!-- Feature 29: Disk Write Cache Policy Tuning -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Disk Write Cache Policy Tuning (Latency vs. Safety)</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 30: High-Priority Disk I/O Queue Setup -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">High-Priority Disk I/O Queue Setup for Games</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- SECTION: SYSTEM SERVICES & DEBLOAT -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 System Services & Deep Debloat
             </div>
 
-            <!-- Feature 31: Full Telemetry Debloat -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Windows Telemetry & Diagnostic Debloat (Total Services)</div>
                 <div class="flex justify-center text-gray-500">~20 Services</div>
                 <div class="flex justify-center text-brand font-bold">~80+ Services (Deep)</div>
             </div>
 
-            <!-- Feature 32: Background Apps/Task Scheduler Cleanup -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Aggressive Background Apps/Task Scheduler Cleanup</div>
                 <div class="flex justify-center text-gray-500">Basic Apps</div>
                 <div class="flex justify-center text-brand font-bold">Aggressive (System, OS, Scheduled)</div>
             </div>
             
-            <!-- Feature 33: Cortana/Edge Kill Switch -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Cortana/Microsoft Edge Background Process Kill Switch</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- SECTION: UTILITIES & SUPPORT -->
             <div class="col-span-3 bg-black/30 p-4 text-left font-mono text-xs uppercase tracking-widest text-gray-600">
                 Utilities & Support
             </div>
 
-            <!-- Feature 34: Custom Desktop Cleanup -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Custom Desktop Cleanup Automation</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 35: Full System Revert Snapshot Manager -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Full System Revert Snapshot Manager</div>
                 <div class="flex justify-center text-gray-500">Single Snapshot</div>
                 <div class="flex justify-center text-brand font-bold">Multi-slot History (5 Snapshots)</div>
             </div>
 
-            <!-- Feature 36: Performance Monitoring Overlay -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">In-Game Performance Monitoring Overlay</div>
                 <div class="flex justify-center text-red-500"><i data-lucide="x" class="w-5 h-5"></i></div>
                 <div class="flex justify-center text-brand"><i data-lucide="check" class="w-5 h-5"></i></div>
             </div>
 
-            <!-- Feature 37: Dedicated VIP Support Channel -->
             <div class="grid grid-cols-3 p-4 hover:bg-white/5 transition">
                 <div class="text-white text-sm">Dedicated VIP Support Channel (Discord/Email)</div>
                 <div class="flex justify-center text-gray-500">Standard Email Support</div>
@@ -576,11 +493,10 @@
         </div>
     </div>
     
-    <!-- CTA Button Below Table -->
     <div class="mt-12 text-center" data-aos="fade-up" data-aos-delay="800">
-        <a href="/pricing" class="btn-primary text-white px-12 py-4 rounded-xl font-bold text-lg md:text-xl flex items-center justify-center gap-3 w-full max-w-sm mx-auto shadow-2xl shadow-brand/50">
+        <button onclick="startPurchaseFlow('annual')" class="btn-primary text-white px-12 py-4 rounded-xl font-bold text-lg md:text-xl flex items-center justify-center gap-3 w-full max-w-sm mx-auto shadow-2xl shadow-brand/50">
             <i data-lucide="zap" class="w-6 h-6"></i> UPGRADE TO PREMIUM
-        </a>
+        </button>
         <p class="text-gray-500 text-sm mt-4">*Unlock ~1500+ optimizations for peak performance.</p>
     </div>
 
@@ -646,7 +562,6 @@
         </div>
     </footer>
 
-    <!-- MODAL 1: SELECT PAYMENT METHOD (EXISTING) -->
     <div id="payment-method-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-enter">
         <div class="bg-surface border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl transform transition-all">
             <div class="flex justify-between items-center mb-6">
@@ -684,7 +599,6 @@
         </div>
     </div>
 
-    <!-- MODAL 2: PLAN CONFLICT WARNING (NEW) -->
     <div id="plan-conflict-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-enter">
         <div class="bg-surface border border-brand/50 rounded-2xl p-8 max-w-md w-full shadow-2xl shadow-brand/20 transform transition-all">
             <div class="flex justify-between items-center mb-6">
@@ -693,7 +607,7 @@
             </div>
             
             <p id="conflict-message" class="text-gray-300 mb-6">
-                You already have an active subscription (or a Lifetime plan) running. Please cancel your current plan first before switching.
+                You already have an active subscription. Please cancel your current plan first before switching.
             </p>
 
             <div class="flex justify-end gap-3">
@@ -723,15 +637,12 @@
         </div>
     </div>
 
-    <!-- Script de AOS agrsegado -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        // --- 1. CONFIGURON ---
+        // --- 1. CONFIGURON ACTUALIZADA ---
         const IDS = {
-            monthly: 'plan_9g0dos5qP6jp9', 
-            yearly: 'plan_1LTn29l3d2jSF', 
-            lifetime: 'plan_ofXEr76XfpuAU' 
+            annual: 'plan_0RI0Pl7pweBRP' // Nuevo Plan Único
         };
 
         const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
@@ -739,10 +650,8 @@
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
 
         // State
-        let selectedPeriod = 'monthly'; 
-        let pendingPlanType = null;      
         let currentUser = null;
-        let userPlanType = 'free'; // New state variable to hold the current plan (e.g., 'monthly', 'yearly', 'lifetime')
+        let userPlanType = 'free'; 
 
         // --- 2. AUTHENTICATION (Supabase) ---
         async function loginWithGoogle() {
@@ -793,26 +702,15 @@
             
             // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
             if (!profile && currentUser.email) {
-                console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
                 ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
             }
 
-            // Log error, but ignore "No rows found" (PGRST116) which is expected for new/free users
             if (error && error.code !== 'PGRST116') {
                  console.error("Supabase Profile Query Error:", error);
             }
             
-            // CRITICAL FIX: Use !! to enforce a strict boolean check, ensuring 'is_premium' is always true or false.
             const isPremium = !!profile?.is_premium; 
-            userPlanType = profile?.plan_type || 'free'; // Capture the actual plan type
-
-            // --- DEBUG LOG UPDATED ---
-            console.log(`[AUTH DEBUG] Logged Email: ${currentUser.email}`); // Added for detailed debugging
-            console.log(`[AUTH DEBUG] User ID: ${userId}`);
-            console.log(`[AUTH DEBUG] is_premium raw value from DB: ${profile?.is_premium}`);
-            console.log(`[AUTH DEBUG] Current Plan Type (userPlanType): ${userPlanType}`); // New log
-            console.log(`[AUTH DEBUG] isPremium (calculated boolean): ${isPremium}`);
-            // -------------------------
+            userPlanType = profile?.plan_type || 'free'; 
 
             const badgeText = isPremium ? 'PRO' : 'FREE';
             const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
@@ -843,7 +741,6 @@
                 </div>`;
             if(window.lucide) lucide.createIcons();
             
-            // Call the new rendering function after fetching the plan data
             renderPlanButtons(); 
         }
 
@@ -851,7 +748,6 @@
         function renderPlanButtons() {
             const starterBtn = document.getElementById('btn-starter');
             const premiumSubBtn = document.getElementById('btn-premium-sub');
-            const lifetimeBtn = document.getElementById('btn-lifetime');
             const cancelContainer = document.getElementById('cancel-sub-container');
             
             // Reset cancel container
@@ -873,11 +769,11 @@
 
 
             // 2. PREMIUM SUBSCRIPTION Button Logic
-            if (userPlanType === 'monthly' || userPlanType === 'yearly') {
+            if (userPlanType !== 'free') {
                 premiumSubBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
                 premiumSubBtn.classList.add('btn-disabled');
                 premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
-                premiumSubBtn.style.backgroundColor = '#FF003C'; // Ensures it uses brand color instead of gradient when current
+                premiumSubBtn.style.backgroundColor = '#FF003C'; 
                 
                 // Add Cancel Subscription Button
                 cancelContainer.innerHTML = `
@@ -890,59 +786,20 @@
                 premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="zap" class="w-4"></i>';
                 premiumSubBtn.classList.remove('btn-disabled');
                 premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
-                premiumSubBtn.style.backgroundColor = ''; // Remove specific color to use gradient
-            }
-            
-            // 3. LIFETIME Button Logic
-            if (userPlanType === 'lifetime') {
-                lifetimeBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
-                lifetimeBtn.classList.add('btn-disabled');
-                lifetimeBtn.classList.remove('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
-                lifetimeBtn.classList.add('bg-green-700/50', 'text-white', 'border-green-500/50');
-            } else {
-                lifetimeBtn.innerHTML = 'Get Lifetime <i data-lucide="infinity" class="w-4"></i>';
-                lifetimeBtn.classList.remove('btn-disabled');
-                lifetimeBtn.classList.add('border-green-400/30', 'text-green-400', 'hover:bg-green-400/5');
-                lifetimeBtn.classList.remove('bg-green-700/50', 'text-white', 'border-green-500/50');
+                premiumSubBtn.style.backgroundColor = ''; 
             }
 
-            // Ensure icons are rendered after changing innerHTML
             if(window.lucide) lucide.createIcons();
         }
         window.renderPlanButtons = renderPlanButtons;
-
-        // --- 3. PRICING TOGGLE UI ---
-        function setPeriod(type) {
-            selectedPeriod = type;
-            const btnMonthly = document.getElementById('btn-monthly');
-            const btnYearly = document.getElementById('btn-yearly');
-            
-            if (type === 'monthly') {
-                document.getElementById('price-display').innerText = "$9.99";
-                document.getElementById('period-display').innerText = "/mo";
-                
-                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
-                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
-                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
-            } else {
-                document.getElementById('price-display').innerText = "$59.99";
-                document.getElementById('period-display').innerText = "/yr";
-                
-                btnYearly.className = "px-6 py-2 rounded-full text-sm font-bold bg-white/10 text-white shadow-lg transition-all";
-                btnYearly.innerHTML = `Annual <span class="text-green-400 text-[10px] ml-1 font-mono">SAVE 50%</span>`;
-                btnMonthly.className = "px-6 py-2 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all";
-            }
-        }
 
 
         // --- 4. PURCHASE FLOW & WHOP CHECKOUT LOGIC ---
 
         function startPurchaseFlow(targetPlan) {
             // Check if button is disabled (Current Plan)
-            const buttonId = (targetPlan === 'lifetime') ? 'btn-lifetime' : 'btn-premium-sub';
-            const button = document.getElementById(buttonId);
+            const button = document.getElementById('btn-premium-sub');
             if (button && button.classList.contains('btn-disabled')) {
-                console.log("Button is disabled because this is the current plan.");
                 return; 
             }
 
@@ -952,29 +809,13 @@
                 return;
             }
             
-            const isSubscription = userPlanType === 'monthly' || userPlanType === 'yearly';
-            const isLifetime = userPlanType === 'lifetime';
-
-            // --- PLAN CONFLICT LOGIC ---
-            let conflict = false;
-            let conflictMsg = "";
-            
-            if (isSubscription && targetPlan === 'lifetime') {
-                conflict = true;
-                conflictMsg = "To purchase the LIFETIME plan, you must first cancel your current monthly or annual subscription. Please go to your Account page to manage your existing plan.";
-            } else if (isLifetime && targetPlan === 'subscription') {
-                conflict = true;
-                conflictMsg = "To switch to a monthly/annual subscription, you must first contact support to remove your LIFETIME license. Please go to your Account page for support links.";
-            }
-
-            if (conflict) {
-                document.getElementById('conflict-message').innerText = conflictMsg;
+            // --- PLAN CONFLICT LOGIC (Simplified since only 1 plan now) ---
+            if (userPlanType !== 'free') {
+                document.getElementById('conflict-message').innerText = "You are already a Premium member. Manage your subscription in your account.";
                 openModal('plan-conflict-modal');
                 return;
             }
-            // --- END PLAN CONFLICT LOGIC ---
 
-            pendingPlanType = targetPlan; 
             openModal('payment-method-modal');
         }
         window.startPurchaseFlow = startPurchaseFlow;
@@ -983,24 +824,17 @@
             closeModal('payment-method-modal');
 
             if (method === 'paypal') {
-                // IMPORTANT: Use custom modal instead of alert()
-                openModal('paypal-soon-modal');
+                openModal('paypal-soon-modal'); // Assuming this modal exists elsewhere or fallback
                 return;
             }
 
             if (method === 'card') {
-                let planIdToUse = '';
-                if (pendingPlanType === 'lifetime') {
-                    planIdToUse = IDS.lifetime;
-                } else {
-                    planIdToUse = (selectedPeriod === 'monthly') ? IDS.monthly : IDS.yearly;
-                }
-                initiateWhopCheckout(planIdToUse);
+                // Siempre usa el plan anual único
+                initiateWhopCheckout(IDS.annual);
             }
         }
         window.selectMethod = selectMethod;
 
-        // A) FUNCIÓN CORREGIDA para enviar la metadata correctamente
         function initiateWhopCheckout(planId) {
             const wrapper = document.getElementById('whop-wrapper');
             wrapper.innerHTML = ''; 
@@ -1010,7 +844,6 @@
             checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
             checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
 
-            // Forzar visibilidad
             checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
             checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
             checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
@@ -1022,8 +855,6 @@
 
             if(currentUser) {
                 checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
-                
-                // --- [CORRECCIÓN CRÍTICA DE METADATA] ---
                 const metadataString = JSON.stringify({ supabaseUserID: currentUser.id });
                 checkoutDiv.setAttribute('data-whop-checkout-metadata', metadataString);
             }
@@ -1035,11 +866,9 @@
             }, 100);
         }
 
-        // B) FUNCIÓN DE CALLBACK CORREGIDA (Solo recarga, el backend hace la actualización)
         window.onWhopPurchaseComplete = async (planId, receiptId) => {
             closeModal('whop-modal');
             
-            // Creamos un modal temporal para informar sobre la activación
             const activationModal = document.createElement('div');
             activationModal.id = 'activation-modal';
             activationModal.className = 'fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-active';
@@ -1048,14 +877,13 @@
                     <div class="text-center">
                         <i data-lucide="check-circle" class="w-12 h-12 text-green-500 mx-auto mb-4"></i>
                         <h3 class="text-xl font-bold text-white mb-2">Payment Successful!</h3>
-                        <p class="text-gray-400">Activating your QuO Premium license securely. Refreshing page in a moment...</p>
+                        <p class="text-gray-400">Activating your QuO Annual Pass. Refreshing page...</p>
                     </div>
                 </div>
             `;
             document.body.appendChild(activationModal);
             if(window.lucide) lucide.createIcons();
 
-            // Esperamos 4 segundos para que el Webhook de Supabase termine.
             setTimeout(() => {
                 window.location.reload();
             }, 4000); 
@@ -1064,29 +892,30 @@
         // --- UTILS ---
         function openModal(id) {
             const el = document.getElementById(id);
-            el.classList.remove('modal-enter');
-            el.classList.add('modal-active');
-            // Ensure icons are rendered in modals
-            if(window.lucide) lucide.createIcons();
+            if(el) {
+                el.classList.remove('modal-enter');
+                el.classList.add('modal-active');
+                if(window.lucide) lucide.createIcons();
+            }
         }
         window.openModal = openModal;
 
         function closeModal(id) {
             const el = document.getElementById(id);
-            el.classList.remove('modal-active');
-            el.classList.add('modal-enter');
-            
-            if (id === 'whop-modal') {
-                // Pequeño delay para vaciar el wrapper después de la animación de cierre
-                setTimeout(() => {
-                    document.getElementById('whop-wrapper').innerHTML = ''; 
-                }, 300);
+            if(el) {
+                el.classList.remove('modal-active');
+                el.classList.add('modal-enter');
+                
+                if (id === 'whop-modal') {
+                    setTimeout(() => {
+                        document.getElementById('whop-wrapper').innerHTML = ''; 
+                    }, 300);
+                }
             }
         }
         window.closeModal = closeModal;
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Inicialización de la librería AOS
             try {
                 if(window.AOS) {
                     AOS.init({
@@ -1098,7 +927,6 @@
             } catch(e) { console.error("AOS Init error", e); }
             
             checkUser();
-            setPeriod(selectedPeriod); // Asegura que el toggle se inicialice correctamente
             if(window.lucide) lucide.createIcons();
         });
 
