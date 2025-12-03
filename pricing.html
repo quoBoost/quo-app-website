@@ -849,25 +849,36 @@
 
 
             // 2. PREMIUM SUBSCRIPTION Button Logic
-            if (userPlanType !== 'free') {
-                premiumSubBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
-                premiumSubBtn.classList.add('btn-disabled');
-                premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
-                premiumSubBtn.style.backgroundColor = '#FF003C'; 
-                
-                // Add Cancel Subscription Button
-                cancelContainer.innerHTML = `
-                    <a href="/account" class="w-full py-3 rounded-xl border border-white/20 text-center font-bold text-sm text-gray-400 hover:text-white hover:border-white/50 transition flex justify-center items-center gap-2">
-                        <i data-lucide="x-octagon" class="w-4"></i> Cancel Subscription
-                    </a>
-                `;
+            // 2. PREMIUM SUBSCRIPTION Button Logic
+if (userPlanType !== 'free') {
+    // CAMBIO CRÍTICO: Integrar el ícono de "check" y mejorar el estilo del botón activo.
+    premiumSubBtn.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i> Current Plan';
+    
+    // 1. Clases de estado: Deshabilitado y eliminamos efectos de compra
+    premiumSubBtn.classList.add('btn-disabled');
+    premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
+    
+    // 2. Aplicamos estilos de "plan activo" (Aseguramos color sólido y buen tamaño)
+    premiumSubBtn.style.backgroundColor = '#FF003C'; // Mantenemos el rojo de la marca
+    premiumSubBtn.classList.add('font-black', 'py-4', 'text-base', 'text-white', 'shadow-none'); // Mejoramos padding y fuente
+    
+    // Add Cancel Subscription Button (Ajustamos el estilo para que haga juego)
+    cancelContainer.innerHTML = `
+        <a href="/account" class="w-full py-4 rounded-xl border border-white/20 text-center font-bold text-base text-gray-400 hover:text-white hover:border-white/50 transition flex justify-center items-center gap-2">
+            <i data-lucide="x-octagon" class="w-5 h-5"></i> Cancel Subscription
+        </a>
+    `;
 
-            } else {
-                premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="zap" class="w-4"></i>';
-                premiumSubBtn.classList.remove('btn-disabled');
-                premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
-                premiumSubBtn.style.backgroundColor = ''; 
-            }
+} else {
+    // Lógica para cuando el plan NO está activo (Botón de compra/Upgrade)
+    // Usamos 'arrow-right' para que haga juego con el nuevo diseño
+    premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="arrow-right" class="w-4 h-4"></i>';
+    premiumSubBtn.classList.remove('btn-disabled', 'font-black', 'py-4', 'text-base', 'text-white', 'shadow-none');
+    
+    // Restauramos el estilo de compra con animación
+    premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
+    premiumSubBtn.style.backgroundColor = ''; // Usar CSS/gradiente
+}
 
             if(window.lucide) lucide.createIcons();
         }
