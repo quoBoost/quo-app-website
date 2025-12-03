@@ -146,136 +146,44 @@
             <p class="text-gray-400 text-lg md:text-xl">Stop upgrading hardware. Start mastering your software.</p>
         </div>
 
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
             
-<div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
-    <div class="mb-6">
-        <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
-        <h3 class="text-4xl font-extrabold mt-2 text-white">$0<span class="text-sm text-gray-500 font-normal"> / forever</span></h3>
-    </div>
-    
-    <ul class="space-y-3 text-sm text-gray-400 flex-grow mb-8">
-        <li class="flex items-start gap-3">
-            <i data-lucide="check" class="w-4 h-4 text-green-400 shrink-0 mt-1"></i>
-            <div>
-                <span class="font-bold text-white">Basic Temp File Cleanup</span>
-                <p class="text-xs text-gray-500">Remove standard Windows junk and cache files.</p>
+            <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                <div class="mb-6">
+                    <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
+                    <h3 class="text-4xl font-extrabold mt-2 text-white">$0<span class="text-sm text-gray-500 font-normal"> / forever</span></h3>
+                </div>
+                <p class="text-gray-400 mb-8">Essential tools to clean temporary files and manage standard Windows processes.</p>
+                <a href="/download" id="btn-starter" class="mt-auto w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition text-sm text-white flex justify-center items-center gap-2">
+                    <i data-lucide="download" class="w-4"></i> Get Started Free
+                </a>
             </div>
-        </li>
-        <li class="flex items-start gap-3">
-            <i data-lucide="check" class="w-4 h-4 text-green-400 shrink-0 mt-1"></i>
-            <div>
-                <span class="font-bold text-white">Standard Process Manager</span>
-                <p class="text-xs text-gray-500">View and manage non-critical background apps.</p>
-            </div>
-        </li>
-        <li class="flex items-start gap-3">
-            <i data-lucide="check" class="w-4 h-4 text-green-400 shrink-0 mt-1"></i>
-            <div>
-                <span class="font-bold text-white">Basic Input Polling Fix</span>
-                <p class="text-xs text-gray-500">Standard registry tweaks for smoother input.</p>
-            </div>
-        </li>
-    </ul>
 
-    <a href="/download" id="btn-starter" class="mt-auto w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition text-sm text-white flex justify-center items-center gap-2">
-        <i data-lucide="download" class="w-4"></i> Get Started Free
-    </a>
-</div>
+            <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.1)] flex flex-col transform md:scale-105 z-10 bg-black/20" data-aos="fade-up" data-aos-delay="300">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand/40">BEST VALUE</div>
+                
+                <div class="mb-2">
+                    <span class="text-brand font-bold tracking-widest text-xs uppercase">Annual Pass</span>
+                    <div class="flex items-end gap-1 mt-2">
+                        <span class="text-6xl font-extrabold text-white">$2.50</span>
+                        <span class="text-gray-400 mb-2 font-bold">/mo</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-1 font-mono">Billed annually as <span class="text-white font-bold">$29.99/year</span></p>
+                </div>
+                
+                <div class="my-6 h-px w-full bg-white/10"></div>
 
-<div class="relative flex flex-col pt-12 pb-8 px-8 rounded-3xl border border-brand bg-[#080808] shadow-[0_0_60px_rgba(255,0,60,0.15)] overflow-hidden transform md:scale-105 z-10 transition-all hover:shadow-[0_0_80px_rgba(255,0,60,0.25)]" data-aos="fade-up" data-aos-delay="300">
+                <p class="text-gray-300 mb-8">Full, kernel-level access to the entire suite of optimization tools. Save big with annual billing.</p>
 
-    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand to-transparent opacity-50"></div>
-    <div class="absolute top-0 inset-x-0 h-20 bg-gradient-to-b from-brand/10 to-transparent opacity-30"></div>
-
-    <div class="absolute top-0 left-1/2 -translate-x-1/2">
-        <div class="mt-[-1.5rem] bg-brand text-white px-3 py-1 text-xs font-black tracking-widest uppercase rounded-full shadow-[0_0_20px_rgba(255,0,60,0.4)] border border-white/10">
-            Most Popular
-        </div>
-    </div>
-
-    <div class="mt-0 mb-6 text-center">
-        <h3 class="text-gray-400 font-bold text-sm tracking-widest uppercase mb-4">QuO Premium Access</h3>
-        
-        <div class="flex items-center justify-center gap-2 text-white">
-            <span class="text-6xl md:text-7xl font-black tracking-tighter">$2.50</span>
-            <div class="flex flex-col items-start leading-none">
-                <span class="text-xl font-bold text-gray-400">/mo</span>
+                <div class="mt-auto w-full space-y-3">
+                    <button onclick="startPurchaseFlow('annual')" id="btn-premium-sub" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
+                        Upgrade Now <i data-lucide="zap" class="w-4"></i>
+                    </button>
+                    <div id="cancel-sub-container"></div>
+                </div>
             </div>
-        </div>
-        
-        <div class="mt-4 inline-block bg-white/5 rounded-lg px-4 py-2 border border-white/5">
-            <p class="text-xs text-gray-400 font-mono">
-                Billed <span class="text-white font-bold">$29.99</span> yearly
-                <span class="ml-2 text-green-400 font-bold">(Save 50%)</span>
-            </p>
-        </div>
-    </div>
-    
-    <div class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-6"></div>
-
-    <ul class="space-y-4 text-sm text-gray-300 flex-grow mb-8">
-        <li class="flex items-start gap-4">
-            <div class="mt-1 w-6 h-6 rounded-full bg-brand/10 flex items-center justify-center shrink-0 border border-brand/20">
-                <i data-lucide="zap" class="w-3.5 h-3.5 text-brand"></i>
-            </div>
-            <div>
-                <span class="font-bold text-white block text-base">Kernel-Level Stability</span>
-                <p class="text-xs text-gray-500 leading-relaxed">Achieve **<span class="text-brand font-bold">~80% lower</span>** DPC latency.</p>
-            </div>
-        </li>
-        
-        <li class="flex items-start gap-4">
-            <div class="mt-1 w-6 h-6 rounded-full bg-brand/10 flex items-center justify-center shrink-0 border border-brand/20">
-                <i data-lucide="wifi" class="w-3.5 h-3.5 text-brand"></i>
-            </div>
-            <div>
-                <span class="font-bold text-white block text-base">Network Priority</span>
-                <p class="text-xs text-gray-500 leading-relaxed">TCP NoDelay bypass cuts ping by **<span class="text-brand font-bold">500μs</span>**.</p>
-            </div>
-        </li>
-        <li class="flex items-start gap-4">
-            <div class="mt-1 w-6 h-6 rounded-full bg-brand/10 flex items-center justify-center shrink-0 border border-brand/20">
-                <i data-lucide="trash-2" class="w-3.5 h-3.5 text-brand"></i>
-            </div>
-            <div>
-                <span class="font-bold text-white block text-base">Aggressive Debloat</span>
-                <p class="text-xs text-gray-500 leading-relaxed">Kill **<span class="text-brand font-bold">80+ services</span>** & telemetry.</p>
-            </div>
-        </li>
-        <li class="flex items-start gap-4">
-            <div class="mt-1 w-6 h-6 rounded-full bg-brand/10 flex items-center justify-center shrink-0 border border-brand/20">
-                <i data-lucide="memory-stick" class="w-3.5 h-3.5 text-brand"></i>
-            </div>
-            <div>
-                <span class="font-bold text-white block text-base">Smart RAM Manager</span>
-                <p class="text-xs text-gray-500 leading-relaxed">Defrag memory for **<span class="text-brand font-bold">~60% less</span>** usage.</p>
-            </div>
-        </li>
-        <li class="flex items-start gap-4">
-            <div class="mt-1 w-6 h-6 rounded-full bg-brand/10 flex items-center justify-center shrink-0 border border-brand/20">
-                <i data-lucide="sliders" class="w-3.5 h-3.5 text-brand"></i>
-            </div>
-            <div>
-                <span class="font-bold text-white block text-base">Full Suite Access</span>
-                <p class="text-xs text-gray-500 leading-relaxed">Unlock **<span class="text-brand font-bold">1500+</span>** total optimizations.</p>
-            </div>
-        </li>
-    </ul>
-
-    <div class="mt-auto w-full space-y-3">
-        <button onclick="startPurchaseFlow('annual')" id="btn-premium-sub" class="relative group w-full py-4 rounded-xl bg-brand text-center font-bold text-white shadow-[0_0_30px_rgba(255,0,60,0.3)] hover:shadow-[0_0_50px_rgba(255,0,60,0.6)] hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-2 cursor-pointer overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             
-            <span class="relative flex items-center gap-2 text-lg uppercase tracking-wider font-black">
-                Upgrade Now <i data-lucide="arrow-right" class="w-5 h-5"></i>
-            </span>
-        </button>
-        <div id="cancel-sub-container"></div>
-    </div>
-</div>
-            
-</div>
+        </div>
         
 <div class="w-full max-w-7xl mx-auto mt-24 md:mt-32">
     <div class="text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="500">
@@ -861,36 +769,25 @@
 
 
             // 2. PREMIUM SUBSCRIPTION Button Logic
-            // 2. PREMIUM SUBSCRIPTION Button Logic
-if (userPlanType !== 'free') {
-    // CAMBIO CRÍTICO: Integrar el ícono de "check" y mejorar el estilo del botón activo.
-    premiumSubBtn.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i> Current Plan';
-    
-    // 1. Clases de estado: Deshabilitado y eliminamos efectos de compra
-    premiumSubBtn.classList.add('btn-disabled');
-    premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
-    
-    // 2. Aplicamos estilos de "plan activo" (Aseguramos color sólido y buen tamaño)
-    premiumSubBtn.style.backgroundColor = '#FF003C'; // Mantenemos el rojo de la marca
-    premiumSubBtn.classList.add('font-black', 'py-4', 'text-base', 'text-white', 'shadow-none'); // Mejoramos padding y fuente
-    
-    // Add Cancel Subscription Button (Ajustamos el estilo para que haga juego)
-    cancelContainer.innerHTML = `
-        <a href="/account" class="w-full py-4 rounded-xl border border-white/20 text-center font-bold text-base text-gray-400 hover:text-white hover:border-white/50 transition flex justify-center items-center gap-2">
-            <i data-lucide="x-octagon" class="w-5 h-5"></i> Cancel Subscription
-        </a>
-    `;
+            if (userPlanType !== 'free') {
+                premiumSubBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
+                premiumSubBtn.classList.add('btn-disabled');
+                premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
+                premiumSubBtn.style.backgroundColor = '#FF003C'; 
+                
+                // Add Cancel Subscription Button
+                cancelContainer.innerHTML = `
+                    <a href="/account" class="w-full py-3 rounded-xl border border-white/20 text-center font-bold text-sm text-gray-400 hover:text-white hover:border-white/50 transition flex justify-center items-center gap-2">
+                        <i data-lucide="x-octagon" class="w-4"></i> Cancel Subscription
+                    </a>
+                `;
 
-} else {
-    // Lógica para cuando el plan NO está activo (Botón de compra/Upgrade)
-    // Usamos 'arrow-right' para que haga juego con el nuevo diseño
-    premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="arrow-right" class="w-4 h-4"></i>';
-    premiumSubBtn.classList.remove('btn-disabled', 'font-black', 'py-4', 'text-base', 'text-white', 'shadow-none');
-    
-    // Restauramos el estilo de compra con animación
-    premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
-    premiumSubBtn.style.backgroundColor = ''; // Usar CSS/gradiente
-}
+            } else {
+                premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="zap" class="w-4"></i>';
+                premiumSubBtn.classList.remove('btn-disabled');
+                premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
+                premiumSubBtn.style.backgroundColor = ''; 
+            }
 
             if(window.lucide) lucide.createIcons();
         }
