@@ -146,44 +146,80 @@
             <p class="text-gray-400 text-lg md:text-xl">Stop upgrading hardware. Start mastering your software.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
             
-            <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
-                <div class="mb-6">
-                    <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
-                    <h3 class="text-4xl font-extrabold mt-2 text-white">$0<span class="text-sm text-gray-500 font-normal"> / forever</span></h3>
-                </div>
-                <p class="text-gray-400 mb-8">Essential tools to clean temporary files and manage standard Windows processes.</p>
-                <a href="/download" id="btn-starter" class="mt-auto w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition text-sm text-white flex justify-center items-center gap-2">
-                    <i data-lucide="download" class="w-4"></i> Get Started Free
-                </a>
-            </div>
-
-            <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.1)] flex flex-col transform md:scale-105 z-10 bg-black/20" data-aos="fade-up" data-aos-delay="300">
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand/40">BEST VALUE</div>
-                
-                <div class="mb-2">
-                    <span class="text-brand font-bold tracking-widest text-xs uppercase">QuO Premium Utility - Full Access</span>
-                    <div class="flex items-end gap-1 mt-2">
-                        <span class="text-6xl font-extrabold text-white">$2.50</span>
-                        <span class="text-gray-400 mb-2 font-bold">/mo</span>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-1 font-mono">Billed annually as <span class="text-white font-bold">$29.99/year</span></p>
-                </div>
-                
-                <div class="my-6 h-px w-full bg-white/10"></div>
-
-                <p class="text-gray-300 mb-8">Full, kernel-level access to the entire suite of optimization tools. Save big with annual billing.</p>
-
-                <div class="mt-auto w-full space-y-3">
-                    <button onclick="startPurchaseFlow('annual')" id="btn-premium-sub" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
-                        Upgrade Now <i data-lucide="zap" class="w-4"></i>
-                    </button>
-                    <div id="cancel-sub-container"></div>
-                </div>
-            </div>
-            
+    <div class="card-glass rounded-3xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+        <div class="mb-6">
+            <span class="text-gray-400 font-bold tracking-widest text-xs uppercase">Starter</span>
+            <h3 class="text-4xl font-extrabold mt-2 text-white">$0<span class="text-sm text-gray-500 font-normal"> / forever</span></h3>
         </div>
+        <p class="text-gray-400 mb-8">Essential tools to clean temporary files and manage standard Windows processes.</p>
+        <a href="/download" id="btn-starter" class="mt-auto w-full py-4 rounded-xl bg-white/5 border border-white/10 text-center font-bold hover:bg-white/10 transition text-sm text-white flex justify-center items-center gap-2">
+            <i data-lucide="download" class="w-4"></i> Get Started Free
+        </a>
+    </div>
+
+    <div class="card-glass rounded-3xl p-8 relative border-brand/70 shadow-[0_0_50px_rgba(255,0,60,0.2)] flex flex-col transform md:scale-105 z-10 bg-gradient-to-br from-black/30 to-black/10 transition-all duration-500" data-aos="fade-up" data-aos-delay="300">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-black px-4 py-1 rounded-full text-xs font-bold shadow-lg shadow-brand/40">BEST VALUE</div>
+        
+        <div class="mb-2">
+            <span class="text-brand font-bold tracking-widest text-xs uppercase">QuO Premium Utility - Full Access</span>
+            <div class="flex items-end gap-1 mt-2">
+                <span class="text-6xl font-extrabold text-white">$2.50</span>
+                <span class="text-gray-400 mb-2 font-bold">/mo</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1 font-mono">Billed annually as <span class="text-white font-bold">$29.99/year</span></p>
+        </div>
+        
+        <div class="my-6 h-px w-full bg-white/10"></div>
+
+        <ul class="space-y-3 text-sm text-gray-300 flex-grow mb-8">
+            <li class="flex items-start gap-3">
+                <i data-lucide="check-circle" class="w-5 h-5 text-brand shrink-0 mt-0.5"></i> 
+                <div>
+                    <span class="font-bold text-white">Kernel-Level Stability Access</span>
+                    <p class="text-xs text-gray-400">Achieve **<span class="text-brand">~80% lower</span>** DPC latency for zero stuttering.</p>
+                </div>
+            </li>
+            <li class="flex items-start gap-3">
+                <i data-lucide="check-circle" class="w-5 h-5 text-brand shrink-0 mt-0.5"></i>
+                <div>
+                    <span class="font-bold text-white">Input & Network Priority</span>
+                    <p class="text-xs text-gray-400">Reduce network packet delay by **<span class="text-brand">500μs</span>** with TCP NoDelay bypass.</p>
+                </div>
+            </li>
+            <li class="flex items-start gap-3">
+                <i data-lucide="check-circle" class="w-5 h-5 text-brand shrink-0 mt-0.5"></i>
+                <div>
+                    <span class="font-bold text-white">Aggressive System Debloat</span>
+                    <p class="text-xs text-gray-400">Disable **<span class="text-brand">80+ unnecessary</span>** Windows services and telemetry.</p>
+                </div>
+            </li>
+            <li class="flex items-start gap-3">
+                <i data-lucide="check-circle" class="w-5 h-5 text-brand shrink-0 mt-0.5"></i>
+                <div>
+                    <span class="font-bold text-white">Real-Time RAM Management</span>
+                    <p class="text-xs text-gray-400">Automatic memory defragmentation for **<span class="text-brand">~12% less</span>** RAM usage.</p>
+                </div>
+            </li>
+            <li class="flex items-start gap-3">
+                <i data-lucide="check-circle" class="w-5 h-5 text-brand shrink-0 mt-0.5"></i>
+                <div>
+                    <span class="font-bold text-white">300+ Advanced Toggles</span>
+                    <p class="text-xs text-gray-400">Unlock the full suite of **<span class="text-brand">1500+</span>** total system optimizations.</p>
+                </div>
+            </li>
+        </ul>
+
+        <div class="mt-auto w-full space-y-3">
+            <button onclick="startPurchaseFlow('annual')" id="btn-premium-sub" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-500 text-center font-bold text-white shadow-lg shadow-brand/30 hover:scale-[1.02] transition flex justify-center items-center gap-2 cursor-pointer">
+                Upgrade Now <i data-lucide="zap" class="w-4"></i>
+            </button>
+            <div id="cancel-sub-container"></div>
+        </div>
+    </div>
+            
+</div>
         
 <div class="w-full max-w-7xl mx-auto mt-24 md:mt-32">
     <div class="text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="500">
