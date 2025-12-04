@@ -131,6 +131,16 @@ body {
     transform: scale(1.02);
 }
 
+/* Estilo para cuando el botón está en cuenta regresiva */
+.btn-primary.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    pointer-events: none;
+    box-shadow: none;
+    transform: none;
+    filter: grayscale(0.5);
+}
+
 .download-card-wrapper {
     position: relative;
     padding: 1px; /* Para simular un borde animado */
@@ -225,13 +235,19 @@ body {
                                 <i data-lucide="cpu" class="w-8 h-8 text-brand animate-float" style="animation-delay: 0.5s;"></i>
                                 <span class="text-xl md:text-2xl font-bold text-white">QuO Optimizer v2.1</span>
                             </div>
-                            <p class="text-gray-500 text-sm font-mono">Size: 4.8MB | Release: 2025.10.15</p>
+                            <p class="text-gray-500 text-sm font-mono">Size: 131MB | Release: 2025.10.15</p>
                         </div>
 
                         <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-                            <a href="#" id="download-free-button" class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-3 w-full sm:w-auto transition-all duration-300">
-                                <i data-lucide="download" class="w-5 h-5"></i> FREE DOWNLOAD
+                            <!-- BOTÓN DE DESCARGA CON CONTADOR INTEGRADO -->
+                            <a href="#" 
+                               id="download-free-button" 
+                               onclick="startDownloadCountdown(event)"
+                               class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-3 w-full sm:w-auto transition-all duration-300">
+                                <i data-lucide="download" class="w-5 h-5"></i> 
+                                <span id="btn-text">FREE DOWNLOAD</span>
                             </a>
+                            
                             <a href="/pricing" class="bg-white/10 text-white px-8 py-4 rounded-xl font-bold text-base md:text-lg hover:bg-white/20 transition flex items-center justify-center gap-3 w-full sm:w-auto border border-white/10">
                                 <i data-lucide="zap" class="w-5 h-5 text-brand"></i> GET PREMIUM
                             </a>
@@ -401,7 +417,6 @@ body {
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ogl@0.0.35/dist/ogl.min.js"></script>
-    <!-- ELIMINADO app.js PARA EVITAR CONFLICTOS -->
     <script>
         // --- 1. CONFIGURACIÓN ---
         const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
@@ -412,7 +427,60 @@ body {
         let currentUser = null;
         let userPlanType = 'free';
 
-        // --- 2. AUTENTICACIÓN (Supabase) ---
+        // --- 2. LOGICA DEL CONTADOR (REVISADA) ---
+        const DOWNLOAD_URL = "https://github.com/quoBoost/QuO-Releases/releases/download/v1.0.5/QuO.App.Setup.exe";
+        let isDownloading = false;
+
+        function startDownloadCountdown(event) {
+            event.preventDefault(); // Prevenir navegación default
+            
+            if (isDownloading) return; // Evitar clicks dobles
+            
+            const btn = document.getElementById('download-free-button');
+            const btnText = document.getElementById('btn-text');
+            const originalText = "FREE DOWNLOAD";
+            
+            // Estado inicial de descarga
+            isDownloading = true;
+            btn.classList.add('disabled'); // Aplicar estilo deshabilitado
+            
+            let count = 3;
+            
+            // Función de actualización
+            const updateTimer = () => {
+                if(count > 0) {
+                    btnText.innerText = `DOWNLOADING IN ${count}...`;
+                    count--;
+                    setTimeout(updateTimer, 1000);
+                } else {
+                    // Finalizar cuenta regresiva
+                    btnText.innerText = "DOWNLOADING...";
+                    
+                    // Disparar descarga
+                    const link = document.createElement('a');
+                    link.href = DOWNLOAD_URL;
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Resetear botón después de 3 segundos
+                    setTimeout(() => {
+                        isDownloading = false;
+                        btn.classList.remove('disabled');
+                        btnText.innerText = originalText;
+                    }, 3000);
+                }
+            };
+            
+            // Iniciar ciclo
+            updateTimer();
+        }
+        // Exponer la función globalmente para que onclick funcione
+        window.startDownloadCountdown = startDownloadCountdown;
+
+
+        // --- 3. AUTENTICACIÓN (Supabase) ---
         async function loginWithGoogle() {
             const { error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
@@ -527,16 +595,6 @@ body {
             
             // Iniciar comprobación de usuario
             checkUser();
-
-            // Lógica de descarga simulada
-            const dlBtn = document.getElementById('download-free-button');
-            if(dlBtn) {
-                dlBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Download Initiated! (Simulation)');
-                    alert('Download Initiated! (This is a simulation)');
-                });
-            }
         });
     </script>
 </body>
