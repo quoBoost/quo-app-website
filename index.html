@@ -3,24 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuO | Windows Latency & FPS Optimizer</title>
-    <link rel="icon" type="image/png" href="/assets/logo16x16.png" sizes="16x16">
     
+    <!-- SEO TÉCNICO Y PALABRAS CLAVE -->
+    <title>QuO Boost | Optimizador de PC, Más FPS y Menos Latencia</title>
+    <meta name="description" content="Descarga QuO Boost gratis. El mejor software para optimizar PC, limpiar tu computadora y aumentar FPS en juegos. Reduce el input lag y acelera Windows 10/11 al máximo.">
+    <meta name="keywords" content="optimizacion de pc, limpiar computadora, mas fps juegos, quo boost, acelerar windows, input lag fix, fps booster, optimizador juegos">
+    <meta name="author" content="QuO Software Inc.">
+    
+    <!-- CANONICAL (IMPORTANTE: CAMBIA 'TU_DOMINIO.COM' POR TU URL REAL) -->
+    <link rel="canonical" href="https://quoboost.com/">
+
+    <!-- OPEN GRAPH (PARA REDES SOCIALES: WHATSAPP, DISCORD, FACEBOOK) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="QuO Boost | Aumenta tus FPS y Optimiza tu PC">
+    <meta property="og:description" content="¿PC lento? QuO Boost elimina el input lag y optimiza Windows para gaming competitivo. Descarga gratis ahora.">
+    <meta property="og:image" content="https://quoboost.com/assets/hardwarepage.png"> <!-- Asegúrate que esta ruta sea absoluta -->
+    <meta property="og:url" content="https://quoboost.com/">
+    <meta property="og:site_name" content="QuO Boost">
+
+    <!-- TWITTER CARDS -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="QuO Boost | Optimizador de FPS Definitivo">
+    <meta name="twitter:description" content="Reduce latencia y aumenta FPS en Valorant, CS2 y Warzone. Optimización de PC a nivel de Kernel.">
+    <meta name="twitter:image" content="https://quoboost.com/assets/hardwarepage.png">
+
+    <!-- FAVICONS -->
+    <link rel="icon" type="image/png" href="/assets/logo16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="/assets/logo32x32.png" sizes="32x32">
     
+    <!-- FUENTES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Librerías Externas -->
+    <!-- LIBRERÍAS EXTERNAS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- AOS CSS: Aunque AOS.js está abajo, el CSS es bueno tenerlo arriba -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ogl@0.0.35/dist/ogl.min.js"></script>
+
+    <!-- SCHEMA MARKUP: EL SECRETO PARA VERSE COMO APP PROFESIONAL EN GOOGLE -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "QuO Boost",
+      "operatingSystem": "Windows 10, Windows 11",
+      "applicationCategory": "UtilitiesApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "priceValidUntil": "2025-12-31",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "20000"
+      },
+      "description": "Software de optimización de PC avanzado para reducir latencia, limpiar el sistema y aumentar FPS en juegos competitivos.",
+      "softwareHelp": {
+        "@type": "CreativeWork",
+        "url": "https://quoboost.com/support"
+      }
+    }
+    </script>
 
     <script>
         tailwind.config = {
@@ -31,9 +82,9 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        brand: '#FF003C',     /* Rojo Neón Principal */
+                        brand: '#FF003C',      /* Rojo Neón Principal */
                         brandDark: '#990024',
-                        void: '#030005',      /* Fondo Casi Negro */
+                        void: '#030005',       /* Fondo Casi Negro */
                         surface: '#0F0F11',    /* Fondo de Tarjetas */
                     },
                     animation: {
@@ -57,78 +108,70 @@
     </script>
 
     <style>
+        /* 6. PRISM BACKGROUND EFFECT */
+        .prism-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
 
-        /* -- AGREGAR DENTRO DE TU ETIQUETA <style> EXISTENTE -- */
+        .fade-mask {
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
 
-/* 6. PRISM BACKGROUND EFFECT (ReactBits inspired) */
-.prism-bg {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: -1;
-}
+        .prism-bg::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 0, 60, 0.1) 0,
+                rgba(255, 0, 60, 0.1) 1px,
+                transparent 1px,
+                transparent 50px
+            ),
+            repeating-linear-gradient(
+                -45deg,
+                rgba(255, 0, 60, 0.1) 0,
+                rgba(255, 0, 60, 0.1) 1px,
+                transparent 1px,
+                transparent 50px
+            );
+            background-size: 50px 50px;
+            animation: prism-scroll 20s linear infinite;
+            transform: rotate(45deg);
+            opacity: 0.3;
+            pointer-events: none;
+        }
 
-        /* CSS Personalizado para la Máscara de Degradado */
-.fade-mask {
-    /* La máscara hace que el contenido se vuelva transparente en los bordes */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
+        @keyframes prism-scroll {
+            0% { background-position: 0 0; }
+            100% { background-position: -500px 500px; }
+        }
 
-.prism-bg::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(255, 0, 60, 0.1) 0,
-        rgba(255, 0, 60, 0.1) 1px,
-        transparent 1px,
-        transparent 50px
-    ),
-    repeating-linear-gradient(
-        -45deg,
-        rgba(255, 0, 60, 0.1) 0,
-        rgba(255, 0, 60, 0.1) 1px,
-        transparent 1px,
-        transparent 50px
-    );
-    background-size: 50px 50px;
-    animation: prism-scroll 20s linear infinite;
-    transform: rotate(45deg); /* Base rotation for prism effect */
-    opacity: 0.3; /* Subtle effect */
-    pointer-events: none;
-}
-
-@keyframes prism-scroll {
-    0% { background-position: 0 0; }
-    100% { background-position: -500px 500px; }
-}
-
-/* ---------------------------------------------------- */
         body {
             background-color: var(--void);
             color: white;
-            overflow-x: hidden; /* Evita scroll horizontal no deseado en móvil */
+            overflow-x: hidden;
         }
 
-        /* 1. FONDO ANIMADO "GRID" */
         .cyber-grid {
             position: fixed;
             inset: 0;
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px; /* Más pequeño en móvil para mejor escala */
+            background-size: 50px 50px;
             mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
             z-index: -2;
             pointer-events: none;
         }
 
-        /* 2. SPOTLIGHT EFFECT */
         .spotlight-group:hover .spotlight-card::after {
             opacity: 1;
         }
@@ -159,14 +202,12 @@
             z-index: 2;
         }
 
-        /* 3. UTILIDADES SCROLL */
         .marquee-container {
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* 4. ESTILOS DE TEXTO */
         .text-glow { text-shadow: 0 0 20px rgba(255, 0, 60, 0.6); }
         .text-gradient {
             background: linear-gradient(to right, #FF003C, #ff6b6b);
@@ -174,7 +215,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* 5. BOTONES */
         .btn-primary {
             background: #FF003C;
             box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
@@ -185,7 +225,6 @@
             transform: scale(1.02);
         }
         
-        /* Ajuste de Grid en Móvil */
         @media (max-width: 768px) {
             .cyber-grid { background-size: 30px 30px; }
         }
@@ -198,18 +237,17 @@
 
         <nav class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
         <div class="bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-4 md:px-6 py-3 flex justify-between items-center shadow-2xl">
-            <a href="/" class="flex items-center gap-2 md:gap-3 group">
-                <img src="assets/logo.png" alt="QuO Logo" class="w-8 h-8 md:w-9 md:h-9 object-contain rotate-3 group-hover:rotate-0 transition">
+            <a href="/" class="flex items-center gap-2 md:gap-3 group" aria-label="QuO Boost Home">
+                <img src="assets/logo.png" alt="QuO Boost PC Optimizer Logo" class="w-8 h-8 md:w-9 md:h-9 object-contain rotate-3 group-hover:rotate-0 transition">
                 <span class="font-bold text-lg md:text-xl tracking-tight text-white">QuO</span>
             </a>
             
-            <!-- ENLACES DE NAVEGACIÓN (items-center añadido para centrado vertical) -->
-                                             <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+            <!-- ENLACES DE NAVEGACIÓN -->
+            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
                 <a href="/" class="text-brand text-glow transition border-b-2 border-brand font-bold">Home</a>
-                <a href="/download" class="hover:text-white hover:text-glow transition">Download</a>
+                <a href="/download" class="hover:text-white hover:text-glow transition" title="Download QuO Boost for PC">Download</a>
                 <a href="/pricing" class="hover:text-white hover:text-glow transition">Pricing</a>
                 <a href="/about-us" class="hover:text-white hover:text-glow transition">About Us</a>
-
             </div>
 
             <div id="auth-section">
@@ -226,13 +264,14 @@
                 SYSTEM STATUS: OPTIMIZED
             </div>
             
+            <!-- H1 Optimizado pero manteniendo el estilo visual -->
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-[1] tracking-tighter text-white">
                 SHATTER <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-red-400 text-glow">YOUR LIMITS.</span>
             </h1>
             
             <p class="text-gray-400 text-base md:text-xl max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                QuO isn't just a cleaner. It's a kernel-level optimization engine that forces Windows to prioritize your game above everything else.
+                QuO is the ultimate <strong>PC optimizer</strong>. Our kernel-level engine cleans your computer and forces Windows to prioritize your game, giving you <strong>more FPS</strong> and lower latency.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="200">
@@ -263,8 +302,9 @@
             <div class="relative transform transition-transform duration-500 hover:scale-[1.02] hover:rotate-0 rotate-y-[-5deg] md:rotate-y-[-10deg] rotate-x-[5deg] shadow-2xl">
                 <div class="absolute -inset-1 bg-gradient-to-tr from-brand to-purple-600 rounded-3xl opacity-30 blur"></div>
                 
+                <!-- Añadido ALT Tag para SEO de Imágenes -->
                 <img src="assets/hardwarepage.png" 
-                     alt="QuO Interface Dashboard" 
+                     alt="QuO Boost Software Interface - PC Optimization Dashboard" 
                      class="relative rounded-2xl border border-white/10 w-full shadow-[0_0_50px_rgba(0,0,0,0.5)] animate-float"
                 >
                 
@@ -295,6 +335,7 @@
         </div>
     </main>
 
+    <!-- Marquee Section -->
     <div class="py-8 md:py-10 bg-black border-y border-white/5 marquee-container overflow-hidden" data-aos="fade-up" data-aos-delay="500">
         <p class="text-center text-gray-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6">Optimized for Competitive Titles</p>
         <div class="flex w-[300%] md:w-[200%] animate-scroll">
@@ -321,11 +362,12 @@
         </div>
     </div>
 
+    <!-- FEATURES -->
     <section id="features" class="py-20 md:py-32 max-w-7xl mx-auto px-6 spotlight-group" onmousemove="handleMouseMove(event)">
         <div class="text-center mb-16 md:mb-20" data-aos="fade-up">
             <h2 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6">Core <span class="text-brand">Architecture</span></h2>
             <p class="text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
-                We don't use magic. We use engineering. Here is how QuO restructures your Windows environment for maximum throughput.
+                We don't use magic. We use engineering. Here is how QuO restructures your Windows environment for maximum throughput and PC optimization.
             </p>
         </div>
 
@@ -371,7 +413,7 @@
                     </div>
                     <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Deep Debloat</h3>
                     <p class="text-gray-400 leading-relaxed mb-6 text-sm md:text-base">
-                        Strips away Telemetry, Cortana, Edge background services, and 50+ dormant processes that consume RAM silently.
+                        Strips away Telemetry, Cortana, Edge background services, and 50+ dormant processes that consume RAM silently. Best way to clean your computer.
                     </p>
                 </div>
                 <div class="spotlight-content pt-6 border-t border-white/5 mt-auto">
@@ -383,6 +425,7 @@
         </div>
     </section>
 
+<!-- TESTIMONIALS SECTION -->
 <section id="trusted-by-pros" class="py-20 md:py-32 bg-black/50 border-y border-white/5" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-6">
         
@@ -560,101 +603,6 @@
                                 <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
                             </div>
                             <p class="text-white text-lg font-medium leading-relaxed flex-grow">
-                                "The VRAM prioritization setting is genius. My shaders compile faster and the VRAM memory footprint of Windows is now negligible during play."
-                            </p>
-                            <div class="mt-6 pt-4 border-t border-white/5">
-                                <p class="font-bold text-sm text-brand">NVIDIA_FTW</p>
-                                <p class="text-xs text-gray-500">Hardware Tweaker</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="splide__slide">
-                        <div class="spotlight-card p-6 h-full flex flex-col justify-between">
-                            <div class="flex items-center gap-1 text-yellow-500 mb-4">
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                            </div>
-                            <p class="text-white text-lg font-medium leading-relaxed flex-grow">
-                                "Knowing I can revert all the changes with one click (Auto-Restore) made me trust the software completely. It works, no side effects."
-                            </p>
-                            <div class="mt-6 pt-4 border-t border-white/5">
-                                <p class="font-bold text-sm text-brand">SafetyFirst</p>
-                                <p class="text-xs text-gray-500">System Administrator</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="splide__slide">
-                        <div class="spotlight-card p-6 h-full flex flex-col justify-between">
-                            <div class="flex items-center gap-1 text-yellow-500 mb-4">
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 text-gray-700"></i>
-                            </div>
-                            <p class="text-white text-lg font-medium leading-relaxed flex-grow">
-                                "The biggest win for me was eliminating network jitter. My ping didn't necessarily drop, but the stability is leagues better. Makes competitive clutch moments easier."
-                            </p>
-                            <div class="mt-6 pt-4 border-t border-white/5">
-                                <p class="font-bold text-sm text-brand">SteadyHand</p>
-                                <p class="text-xs text-gray-500">CS 2 Veteran</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="splide__slide">
-                        <div class="spotlight-card p-6 h-full flex flex-col justify-between">
-                            <div class="flex items-center gap-1 text-yellow-500 mb-4">
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                            </div>
-                            <p class="text-white text-lg font-medium leading-relaxed flex-grow">
-                                "I love that I can toggle settings. I wanted to keep my print spooler for work, but kill everything else. Full modular control is fantastic."
-                            </p>
-                            <div class="mt-6 pt-4 border-t border-white/5">
-                                <p class="font-bold text-sm text-brand">ModularMike</p>
-                                <p class="text-xs text-gray-500">Pro Developer / Gamer</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="splide__slide">
-                        <div class="spotlight-card p-6 h-full flex flex-col justify-between">
-                            <div class="flex items-center gap-1 text-yellow-500 mb-4">
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 text-gray-700"></i>
-                            </div>
-                            <p class="text-white text-lg font-medium leading-relaxed flex-grow">
-                                "Built a new $3000 rig and still felt laggy. QuO tuned the OS to match the speed of my hardware. Now it feels like a genuine high-end machine."
-                            </p>
-                            <div class="mt-6 pt-4 border-t border-white/5">
-                                <p class="font-bold text-sm text-brand">NewRigGuy</p>
-                                <p class="text-xs text-gray-500">Recent Upgrader</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="splide__slide">
-                        <div class="spotlight-card p-6 h-full flex flex-col justify-between">
-                            <div class="flex items-center gap-1 text-yellow-500 mb-4">
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                            </div>
-                            <p class="text-white text-lg font-medium leading-relaxed flex-grow">
                                 "The investment is minimal compared to the headache of manually editing the registry. This is the ultimate lazy man's performance tool. 10/10."
                             </p>
                             <div class="mt-6 pt-4 border-t border-white/5">
@@ -671,7 +619,7 @@
                                 <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
                                 <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
                                 <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
-                                <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-gray-700"></i>
                             </div>
                             <p class="text-white text-lg font-medium leading-relaxed flex-grow">
                                 "Used to have issues with Ryzen's thread scheduler on Windows 11. QuO fixed the CPU priority problem immediately. Huge win for the AMD user base."
@@ -698,6 +646,7 @@
     </div>
 </section>
 
+<!-- UI SHOWCASE -->
    <section id="ui" class="py-20 md:py-32 max-w-7xl mx-auto px-6">
     <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto" data-aos="fade-up">
         <span class="text-brand font-mono text-xs tracking-[0.2em] uppercase mb-4 block">User Interface 2.0</span>
@@ -1200,9 +1149,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-
-
