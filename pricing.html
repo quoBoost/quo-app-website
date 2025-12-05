@@ -152,62 +152,38 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch"> 
         
-        <div class="group relative card-glass rounded-3xl p-8 flex flex-col border border-white/5 bg-[#0a0a0a] hover:border-white/10 transition-colors duration-300" data-aos="fade-up" data-aos-delay="100">
-            
+        <div class="group relative card-glass rounded-3xl p-8 flex flex-col border border-white/5 bg-[#0a0a0a] hover:border-white/10 transition-colors duration-300">
             <div class="mb-6">
-                <span class="inline-block py-1 px-3 rounded-lg bg-white/5 text-gray-400 font-bold tracking-wider text-[10px] uppercase border border-white/5">
-                    Starter
-                </span>
+                <span class="inline-block py-1 px-3 rounded-lg bg-white/5 text-gray-400 font-bold tracking-wider text-[10px] uppercase border border-white/5">Starter</span>
                 <h3 class="text-4xl font-extrabold mt-4 text-white">$0 <span class="text-sm text-gray-500 font-normal">/ forever</span></h3>
-                <p class="text-gray-400 text-sm mt-4 leading-relaxed">Perfect for casual users who want to clean basic junk files.</p>
+                <p class="text-gray-400 text-sm mt-4 leading-relaxed">Perfect for casual users.</p>
             </div>
 
             <ul class="space-y-4 mb-8 text-sm text-gray-400 flex-grow">
-                <li class="flex items-center gap-3">
-                    <div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div>
-                    Basic Cache Cleaner
-                </li>
-                <li class="flex items-center gap-3">
-                    <div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div>
-                    Standard Windows De-bloat
-                </li>
-                <li class="flex items-center gap-3 opacity-60">
-                    <div class="min-w-[16px]"><i data-lucide="x" class="w-4 h-4 text-red-500/70"></i></div>
-                    <span class="line-through decoration-red-500/30">QuO GameMode</span>
-                </li>
-                <li class="flex items-center gap-3 opacity-60">
-                    <div class="min-w-[16px]"><i data-lucide="x" class="w-4 h-4 text-red-500/70"></i></div>
-                    <span class="line-through decoration-red-500/30">Network/Ping Optimizer</span>
-                </li>
-                <li class="flex items-center gap-3 opacity-60">
-                    <div class="min-w-[16px]"><i data-lucide="x" class="w-4 h-4 text-red-500/70"></i></div>
-                    <span class="line-through decoration-red-500/30">24/7 Priority Support</span>
-                </li>
-            </ul>
+                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> Basic Cache Cleaner</li>
+                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> Standard Windows De-bloat</li>
+                </ul>
 
             <div class="mt-auto pt-6 border-t border-white/5">
-                <a href="/download" class="w-full py-4 rounded-xl border border-white/10 text-center font-bold text-gray-300 hover:bg-white/5 hover:text-white transition-all flex justify-center items-center gap-2 group-hover:border-white/20">
+                <a id="btn-starter" href="/download" class="w-full py-4 rounded-xl border border-white/10 text-center font-bold text-gray-300 hover:bg-white/5 hover:text-white transition-all flex justify-center items-center gap-2">
                     <i data-lucide="download" class="w-4 h-4"></i> Download Free
                 </a>
             </div>
         </div>
 
-        <div class="relative card-glass rounded-3xl p-1 bg-gradient-to-b from-brand to-purple-900/50 shadow-[0_0_60px_-15px_rgba(var(--brand-rgb),0.3)] transform md:scale-105 z-10" data-aos="fade-up" data-aos-delay="200">
+        <div class="relative card-glass rounded-3xl p-1 bg-gradient-to-b from-brand to-purple-900/50 shadow-[0_0_60px_-15px_rgba(var(--brand-rgb),0.3)] transform md:scale-105 z-10">
             
             <div id="badge-most-popular" class="absolute -top-7 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand to-red-500 text-white px-6 py-2 rounded-full text-xs font-bold shadow-lg shadow-brand/40 tracking-wide uppercase border border-white/20 flex items-center gap-2">
                 <i data-lucide="crown" class="w-3 h-3 fill-white"></i> Most Popular
             </div>
 
             <div class="bg-[#0f0f0f] rounded-[22px] p-8 h-full flex flex-col relative overflow-hidden">
-                
                 <div class="absolute top-0 right-0 w-32 h-32 bg-brand/10 blur-3xl rounded-full pointer-events-none"></div>
 
                 <div class="mb-6 relative">
                     <div class="flex justify-between items-start">
                         <div class="flex flex-col">
-                            <span class="inline-block text-brand font-bold tracking-widest text-xs uppercase mb-1">
-                                Annual Pass
-                            </span>
+                            <span class="inline-block text-brand font-bold tracking-widest text-xs uppercase mb-1">Annual Pass</span>
                             
                             <div id="badge-active-plan" class="hidden inline-flex items-center gap-1.5 px-2 py-0.5 rounded border border-green-500/30 bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-wider w-fit mb-1">
                                 <span class="relative flex h-2 w-2">
@@ -217,119 +193,54 @@
                                 Current Plan
                             </div>
                         </div>
-
-                        <span class="bg-green-500/10 text-green-400 border border-green-500/20 text-[10px] font-bold px-2 py-1 rounded animate-pulse">
-                            SAVE 58%
-                        </span>
+                        <span class="bg-green-500/10 text-green-400 border border-green-500/20 text-[10px] font-bold px-2 py-1 rounded animate-pulse">SAVE 58%</span>
                     </div>
 
                     <div class="flex items-end gap-2 mt-2">
                         <span class="text-6xl font-extrabold text-white tracking-tight">$2.50</span>
                         <span class="text-gray-400 mb-2 font-bold text-sm">/mo</span>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2 font-mono">Billed annually as <span class="text-gray-300">$29.99/year</span></p>
                 </div>
 
                 <div class="mb-6 relative z-20 group/btn-top">
-                    
-                    <button id="btn-top-buy" onclick="startPurchaseFlow('annual')" class="relative w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-600 text-center font-bold text-white shadow-lg shadow-brand/25 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-brand/40 cursor-pointer flex justify-center items-center gap-2">
+                    <button id="btn-premium-top" onclick="startPurchaseFlow('annual')" class="relative w-full py-4 rounded-xl bg-gradient-to-r from-brand to-red-600 text-center font-bold text-white shadow-lg shadow-brand/25 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-brand/40 cursor-pointer flex justify-center items-center gap-2">
                          <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 transition-all duration-700 group-hover/btn-top:left-[100%]"></div>
-                         Get Premium Access <i data-lucide="zap" class="w-4 h-4 fill-white"></i>
+                         <span id="btn-top-text">Get Premium Access</span> <i data-lucide="zap" class="w-4 h-4 fill-white"></i>
                     </button>
-
-                    <button id="btn-top-manage" onclick="openCustomerPortal()" class="hidden w-full py-4 rounded-xl border border-white/10 bg-white/5 text-center font-bold text-white hover:bg-white/10 transition-all duration-300 flex justify-center items-center gap-2">
-                         <i data-lucide="settings" class="w-4 h-4 text-gray-400"></i> Manage Subscription
-                    </button>
-                    
-                    <p id="text-top-info" class="text-[10px] text-center text-gray-500 mt-2 font-medium">Instant activation via Key</p>
+                    <p class="text-[10px] text-center text-gray-500 mt-2 font-medium">Instant activation via Key</p>
                 </div>
                 
                 <div class="mb-6 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
                 <div class="space-y-4 mb-4 flex-grow">
-                    <p class="text-sm text-gray-400 mb-4 font-medium uppercase tracking-wider text-[10px]">Everything in Starter, plus:</p>
-                    
-                    <ul class="space-y-3">
+                     <p class="text-sm text-gray-400 mb-4 font-medium uppercase tracking-wider text-[10px]">Everything in Starter, plus:</p>
+                     <ul class="space-y-3">
                         <li class="flex items-start gap-3 text-sm text-white font-medium">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50 shadow-[0_0_10px_rgba(var(--brand-rgb),0.3)]">
-                                <i data-lucide="check" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-                            </div>
-                            <span>QuO GameMode <span class="text-gray-500 font-normal text-xs ml-1">(CPU Isolation)</span></span>
+                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50"><i data-lucide="check" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i></div>
+                            <span>QuO GameMode</span>
                         </li>
-                        
                         <li class="flex items-start gap-3 text-sm text-white font-medium">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50">
-                                <i data-lucide="check" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-                            </div>
-                            <span>RamOptimizer <span class="text-gray-500 font-normal text-xs ml-1">(Zero Stutter)</span></span>
+                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50"><i data-lucide="check" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i></div>
+                            <span>RamOptimizer</span>
                         </li>
-
-                        <li class="flex items-start gap-3 text-sm text-white font-medium">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50">
-                                <i data-lucide="check" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-                            </div>
-                            <span>Ping Stabilizer <span class="text-gray-500 font-normal text-xs ml-1">(Network Logic)</span></span>
-                        </li>
-
-                        <li class="flex items-start gap-3 text-sm text-gray-300">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/10 flex items-center justify-center border border-brand/20">
-                                <i data-lucide="cpu" class="w-2.5 h-2.5 text-brand"></i>
-                            </div>
-                            <span><strong>Core Affinity:</strong> Isolate games to physical cores</span>
-                        </li>
-
-                        <li class="flex items-start gap-3 text-sm text-gray-300">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/10 flex items-center justify-center border border-brand/20">
-                                <i data-lucide="mouse-pointer-2" class="w-2.5 h-2.5 text-brand"></i>
-                            </div>
-                            <span>Reduce Input Lag (Interrupt Priority)</span>
-                        </li>
-
-                        <li class="flex items-start gap-3 text-sm text-gray-300">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                                <i data-lucide="check" class="w-2.5 h-2.5 text-gray-400"></i>
-                            </div>
-                            <span>Force MSI Mode for GPU (Lower Latency)</span>
-                        </li>
-                        
-                        <li class="flex items-start gap-3 text-sm text-gray-300">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                                <i data-lucide="cloud" class="w-2.5 h-2.5 text-gray-400"></i>
-                            </div>
-                            <span>Cloud Profile Sync</span>
-                        </li>
-
-                         <li class="flex items-start gap-3 text-sm text-gray-300">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                                <i data-lucide="message-circle" class="w-2.5 h-2.5 text-gray-400"></i>
-                            </div>
-                            <span>Priority 24/7 Discord Support</span>
-                        </li>
-                    </ul>
+                        </ul>
                 </div>
 
                 <div class="mt-auto pt-6 border-t border-white/5 space-y-3 relative"> 
                     
-                    <button id="btn-bottom-buy" onclick="startPurchaseFlow('annual')" class="w-full py-3 rounded-xl border border-white/10 bg-transparent text-center font-semibold text-gray-400 hover:bg-white/5 hover:text-white hover:border-white/20 transition-all duration-300 cursor-pointer flex justify-center items-center gap-2 group">
-                        Subscribe Now 
-                        <i data-lucide="arrow-right" class="w-4 h-4 text-gray-500 group-hover:text-white transition-colors"></i>
+                    <button id="btn-premium-bottom" onclick="startPurchaseFlow('annual')" class="w-full py-3 rounded-xl border border-white/10 bg-transparent text-center font-semibold text-gray-400 hover:bg-white/5 hover:text-white hover:border-white/20 transition-all duration-300 cursor-pointer flex justify-center items-center gap-2 group">
+                        Subscribe Now <i data-lucide="arrow-right" class="w-4 h-4 text-gray-500 group-hover:text-white transition-colors"></i>
                     </button>
                     
-                    <button id="btn-bottom-manage" onclick="openCustomerPortal()" class="hidden w-full py-3 rounded-xl border border-transparent text-center font-medium text-gray-500 hover:text-gray-300 transition-all duration-300 flex justify-center items-center gap-2">
-                        View Invoice / Upgrade
-                    </button>
-
                     <div id="cancel-sub-container" class="text-center"></div>
                     
                     <p class="text-[10px] text-center text-gray-500 font-medium flex items-center justify-center gap-1.5">
-                        <i data-lucide="shield-check" class="w-3 h-3 text-green-500"></i> 
-                        <span id="footer-text">Cancel anytime.</span>
+                        <i data-lucide="shield-check" class="w-3 h-3 text-green-500"></i> Cancel anytime.
                     </p>
                 </div>
 
             </div>
         </div>
-        
     </div>
 </div>
         
@@ -893,52 +804,93 @@
         }
 
         // --- NEW FUNCTION: Renders button state based on userPlanType ---
-        function renderPlanButtons() {
-            const starterBtn = document.getElementById('btn-starter');
-            const premiumSubBtn = document.getElementById('btn-premium-sub');
-            const cancelContainer = document.getElementById('cancel-sub-container');
-            
-            // Reset cancel container
-            cancelContainer.innerHTML = '';
+        // --- SUSTITUYE TU FUNCIÓN renderPlanButtons POR ESTA ---
 
+function renderPlanButtons() {
+    // 1. Elementos del Plan FREE
+    const starterBtn = document.getElementById('btn-starter');
+    
+    // 2. Elementos del Plan PREMIUM (Estrategia Sandwich)
+    const btnPremTop = document.getElementById('btn-premium-top');
+    const btnPremBottom = document.getElementById('btn-premium-bottom');
+    const badgeActive = document.getElementById('badge-active-plan');
+    const badgePopular = document.getElementById('badge-most-popular');
+    const cancelContainer = document.getElementById('cancel-sub-container');
+    
+    // Limpiar contenedor de cancelar
+    if(cancelContainer) cancelContainer.innerHTML = '';
 
-            // 1. STARTER/FREE Button Logic
-            if (userPlanType === 'free') {
-                starterBtn.innerText = "Current Plan";
-                starterBtn.classList.remove('bg-white/5', 'hover:bg-white/10');
-                starterBtn.classList.add('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
-                starterBtn.style.pointerEvents = 'none';
-            } else {
-                starterBtn.innerText = "Get Started Free";
-                starterBtn.classList.remove('bg-green-500/20', 'border-green-400/50', 'btn-disabled');
-                starterBtn.classList.add('bg-white/5', 'hover:bg-white/10');
-                starterBtn.style.pointerEvents = 'auto';
-            }
-
-
-            // 2. PREMIUM SUBSCRIPTION Button Logic
-            if (userPlanType !== 'free') {
-                premiumSubBtn.innerHTML = 'Current Plan <i data-lucide="check" class="w-4"></i>';
-                premiumSubBtn.classList.add('btn-disabled');
-                premiumSubBtn.classList.remove('bg-gradient-to-r', 'hover:scale-[1.02]');
-                premiumSubBtn.style.backgroundColor = '#FF003C'; 
-                
-                // Add Cancel Subscription Button
-                cancelContainer.innerHTML = `
-                    <a href="/account" class="w-full py-3 rounded-xl border border-white/20 text-center font-bold text-sm text-gray-400 hover:text-white hover:border-white/50 transition flex justify-center items-center gap-2">
-                        <i data-lucide="x-octagon" class="w-4"></i> Cancel Subscription
-                    </a>
-                `;
-
-            } else {
-                premiumSubBtn.innerHTML = 'Upgrade Now <i data-lucide="zap" class="w-4"></i>';
-                premiumSubBtn.classList.remove('btn-disabled');
-                premiumSubBtn.classList.add('bg-gradient-to-r', 'hover:scale-[1.02]');
-                premiumSubBtn.style.backgroundColor = ''; 
-            }
-
-            if(window.lucide) lucide.createIcons();
+    // --- LÓGICA PLAN FREE (STARTER) ---
+    if (starterBtn) {
+        if (userPlanType === 'free') {
+            starterBtn.innerText = "Current Plan";
+            starterBtn.classList.remove('bg-white/5', 'hover:bg-white/10');
+            starterBtn.classList.add('bg-green-500/20', 'border-green-400/50', 'text-green-400', 'cursor-default');
+            starterBtn.removeAttribute('href'); // Desactivar link
+        } else {
+            starterBtn.innerText = "Get Started Free";
+            starterBtn.classList.add('bg-white/5', 'hover:bg-white/10');
+            starterBtn.classList.remove('bg-green-500/20', 'border-green-400/50', 'text-green-400', 'cursor-default');
+            starterBtn.setAttribute('href', '/download');
         }
+    }
+
+    // --- LÓGICA PLAN PREMIUM (SANDWICH) ---
+    if (userPlanType !== 'free') {
+        // ==> EL USUARIO ES PREMIUM
+        
+        // 1. Mostrar Badge "Current Plan" y ocultar "Most Popular"
+        if(badgeActive) badgeActive.classList.remove('hidden');
+        if(badgePopular) badgePopular.classList.add('hidden');
+
+        // 2. Botón SUPERIOR: Se convierte en "Manage Subscription"
+        if(btnPremTop) {
+            btnPremTop.innerHTML = '<i data-lucide="settings" class="w-4 h-4"></i> Manage Subscription';
+            // Cambiamos el estilo a uno más neutro (gris/dark)
+            btnPremTop.classList.remove('bg-gradient-to-r', 'from-brand', 'to-red-600', 'shadow-brand/25');
+            btnPremTop.classList.add('bg-white/10', 'hover:bg-white/20', 'border', 'border-white/10');
+            // Cambiar acción a ir a la cuenta en lugar de comprar
+            btnPremTop.onclick = function() { window.location.href = '/account'; };
+        }
+
+        // 3. Botón INFERIOR: Se oculta o muestra "View Invoice"
+        if(btnPremBottom) {
+            btnPremBottom.style.display = 'none'; // Lo ocultamos para limpiar la vista
+        }
+
+        // 4. Enlace de Cancelar (Pequeño abajo)
+        if(cancelContainer) {
+            cancelContainer.innerHTML = `
+                <a href="/account" class="inline-block mt-2 text-xs text-red-400 hover:text-red-300 transition underline decoration-red-500/30">
+                    Cancel / Manage
+                </a>
+            `;
+        }
+
+    } else {
+        // ==> EL USUARIO ES GRATIS (Modo Venta)
+
+        // 1. Ocultar Badge "Current Plan", mostrar "Most Popular"
+        if(badgeActive) badgeActive.classList.add('hidden');
+        if(badgePopular) badgePopular.classList.remove('hidden');
+
+        // 2. Restaurar Botón SUPERIOR (Comprar)
+        if(btnPremTop) {
+            btnPremTop.innerHTML = `Get Premium Access <i data-lucide="zap" class="w-4 h-4 fill-white"></i>`;
+            btnPremTop.classList.add('bg-gradient-to-r', 'from-brand', 'to-red-600', 'shadow-brand/25');
+            btnPremTop.classList.remove('bg-white/10', 'hover:bg-white/20', 'border', 'border-white/10');
+            btnPremTop.onclick = function() { startPurchaseFlow('annual'); };
+        }
+
+        // 3. Restaurar Botón INFERIOR (Suscribirse)
+        if(btnPremBottom) {
+            btnPremBottom.style.display = 'flex'; // Volver a mostrar
+            btnPremBottom.innerHTML = `Subscribe Now <i data-lucide="arrow-right" class="w-4 h-4"></i>`;
+        }
+    }
+
+    if(window.lucide) lucide.createIcons();
+}
         window.renderPlanButtons = renderPlanButtons;
 
 
