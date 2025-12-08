@@ -9,7 +9,7 @@
     <!-- ================================================================================== -->
     <!-- 1. SEO HÍBRIDO & VISIBILIDAD MÁXIMA -->
     <!-- ================================================================================== -->
-    <title>QuO Boost | FPS Booster & Windows Optimizer</title>
+    <title>QuO Boost | FPS Booster & Windows Optimizer (Free Download)</title>
     
     <!-- Descripción Estratégica: Empieza en inglés (global) y remata en español (latam/es) -->
     <meta name="description" content="Download QuO Boost (Free). The #1 Windows Optimization Tool to increase FPS, reduce input lag, and clean RAM. El mejor optimizador de PC para acelerar juegos y bajar el ping. Works on Win 10/11.">
@@ -63,11 +63,11 @@
     <!-- ================================================================================== -->
     <!-- 4. ICONOS INTELIGENTES (USANDO SOLO 'iconoweb.png') -->
     <!-- ================================================================================== -->
-    <!-- El navegador redimensionará tu imagen de 144px automáticamente -->
+    <!-- Usando iconoweb.png para todos los tamaños y Apple Touch Icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/iconoweb.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/iconoweb.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/iconoweb.png">
-    <link rel="icon" type="image/png" sizes="144x144" href="/iconoweb.png"> <!-- Tu original -->
+    <link rel="icon" type="image/png" sizes="144x144" href="/iconoweb.png"> 
     <link rel="apple-touch-icon" sizes="180x180" href="/iconoweb.png">
     <link rel="shortcut icon" href="/iconoweb.png">
 
@@ -122,18 +122,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Librerías Externas (Con 'defer' para mejorar velocidad de carga) -->
+    <!-- LIBRERÍAS EXTERNAS (CARGA SÍNCRONA PARA COMPATIBILIDAD CON CÓDIGO INLINE) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
+    <!-- Tailwind CSS (Debe cargar primero) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/ogl@0.0.35/dist/ogl.min.js" defer></script>
+    
+    <!-- JS Frameworks y Librerías (Síncronas para que estén definidas al usarlas) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ogl@0.0.35/dist/ogl.min.js"></script>
 
-    <!-- Configuración Tailwind -->
+    <!-- Configuración Tailwind (Debe ir después de la librería de Tailwind) -->
     <script>
         tailwind.config = {
             theme: {
@@ -1421,6 +1424,7 @@
 </script>
 </body>
 </html>
+
 
 
 
