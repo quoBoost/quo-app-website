@@ -8,7 +8,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,18 +16,20 @@
     <style>
         /* --- CORE SYSTEM VARIABLES --- */
         :root {
-            --bg-color: #030304;
+            --bg-color: #020203;
             --primary: #00f3ff;
             --primary-dark: #00a8b3;
             --secondary: #bc13fe;
             --accent: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --card-hover: rgba(0, 243, 255, 0.08);
-            --neon-glow: 0 0 20px rgba(0, 243, 255, 0.4);
+            
+            /* Glassmorphism Advanced */
+            --glass-bg: rgba(10, 10, 12, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --glass-shine: rgba(255, 255, 255, 0.1);
+            
+            --neon-glow: 0 0 30px rgba(0, 243, 255, 0.2);
             --text-main: #ffffff;
             --text-muted: #8b9bb4;
-            --cursor-size: 20px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Hide default cursor */ }
@@ -60,24 +62,24 @@
             width: 8px;
             height: 8px;
             background-color: var(--primary);
-            box-shadow: 0 0 10px var(--primary);
+            box-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary);
         }
 
         .cursor-outline {
             width: 40px;
             height: 40px;
-            border: 1px solid var(--primary);
+            border: 1px solid rgba(0, 243, 255, 0.5);
             transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
 
         body:hover .cursor-outline { opacity: 1; }
         
-        /* Interactive Elements Hover State */
         body.hovering .cursor-outline {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(0, 243, 255, 0.1);
-            border-color: transparent;
+            width: 70px;
+            height: 70px;
+            background-color: rgba(0, 243, 255, 0.05);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
         }
 
         /* --- CANVAS BACKGROUND --- */
@@ -86,72 +88,92 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -1;
+            background: radial-gradient(circle at center, #050508 0%, #000000 100%);
         }
 
-        /* --- PRELOADER --- */
-        .preloader {
+        /* --- HUD ELEMENTS --- */
+        .hud-corner {
             position: fixed;
-            inset: 0;
-            background: #000;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            top: 20px;
+            right: 20px;
             font-family: 'Space Grotesk', monospace;
-            transition: opacity 0.8s ease-out, visibility 0.8s;
-        }
-        
-        .loader-bar-bg {
-            width: 200px;
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
-            margin-top: 20px;
-            overflow: hidden;
-        }
-        
-        .loader-bar {
-            width: 0%;
-            height: 100%;
-            background: var(--primary);
-            box-shadow: 0 0 15px var(--primary);
-            transition: width 0.1s;
-        }
-
-        .loader-text {
+            font-size: 0.7rem;
             color: var(--primary);
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            opacity: 0.7;
+            text-align: right;
+            z-index: 10;
+            pointer-events: none;
         }
+        .hud-line { display: block; margin-bottom: 4px; }
+        .blink { animation: blinker 2s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
 
         /* --- MAIN LAYOUT --- */
         .main-container {
             width: 100%;
-            max-width: 520px;
+            max-width: 550px;
             padding: 2rem;
-            opacity: 0; /* Hidden initially for animation */
-            transform: translateY(30px);
             perspective: 1000px;
+            z-index: 5;
+            animation: containerEntry 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes containerEntry {
+            from { opacity: 0; transform: translateY(40px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         /* --- PROFILE --- */
         .profile-section {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             position: relative;
         }
 
         .logo-wrapper {
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 1.5rem;
             position: relative;
             border-radius: 50%;
-            padding: 5px;
-            background: linear-gradient(180deg, rgba(0,243,255,0.5), rgba(188,19,254,0));
-            box-shadow: 0 0 50px rgba(0, 243, 255, 0.15);
+            padding: 4px;
+            background: conic-gradient(from 0deg, transparent 0%, var(--primary) 20%, transparent 40%, var(--secondary) 60%, transparent 80%, var(--primary) 100%);
+            animation: rotateBorder 4s linear infinite;
+            box-shadow: 0 0 60px rgba(0, 243, 255, 0.1);
+        }
+        
+        @keyframes rotateBorder { 100% { transform: rotate(360deg); } }
+
+        .logo-inner-wrapper {
+            width: 100%; height: 100%;
+            background: #000;
+            border-radius: 50%;
+            padding: 4px;
+            position: relative;
+            z-index: 2; /* Keep image upright */
+            animation: rotateBorderReverse 4s linear infinite; /* Counter-rotate to keep image steady if needed, or just apply wrapper */
+        }
+        
+        /* Fix: Apply counter rotation to inner container to keep image static while border spins? 
+           Easier approach: Rotate pseudo element or background only. 
+           Let's keep it simple: rotate the wrapper, but image inside needs to counter-rotate or be separate.
+           Better Logic: */
+        
+        .logo-wrapper {
+            animation: none; /* Reset */
+            background: none;
+            display: flex;
+            align-items: center; justify-content: center;
+        }
+        
+        .logo-glow-ring {
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: conic-gradient(from 180deg, transparent 0%, var(--primary) 40%, transparent 60%, var(--secondary) 80%, transparent 100%);
+            animation: spin 4s linear infinite;
+            filter: blur(8px);
+            opacity: 0.6;
         }
 
         .logo-img {
@@ -159,121 +181,83 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
-            border: 2px solid rgba(0,0,0,0.8);
-            background: #000;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: #050505;
             position: relative;
             z-index: 2;
-        }
-
-        .logo-ring {
-            position: absolute;
-            inset: -5px;
-            border-radius: 50%;
-            border: 2px dashed var(--primary);
-            opacity: 0.3;
-            animation: spin 10s linear infinite;
         }
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         /* Glitch Effect Title */
         .glitch-title {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 900;
             color: white;
             position: relative;
             display: inline-block;
             text-transform: uppercase;
-            letter-spacing: -1px;
+            letter-spacing: -2px;
             margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
         }
 
-        .glitch-title::before, .glitch-title::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--bg-color);
-        }
-
-        .glitch-title::before {
-            left: 2px;
-            text-shadow: -1px 0 var(--secondary);
-            clip: rect(24px, 550px, 90px, 0);
-            animation: glitch-anim-2 3s infinite linear alternate-reverse;
-        }
-
-        .glitch-title::after {
-            left: -2px;
-            text-shadow: -1px 0 var(--primary);
-            clip: rect(85px, 550px, 140px, 0);
-            animation: glitch-anim 2.5s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-anim {
-            0% { clip: rect(12px, 9999px, 86px, 0); }
-            100% { clip: rect(65px, 9999px, 19px, 0); }
-        }
-        @keyframes glitch-anim-2 {
-            0% { clip: rect(89px, 9999px, 12px, 0); }
-            100% { clip: rect(10px, 9999px, 145px, 0); }
-        }
-
-        .tagline {
+        /* Description Styling */
+        .hero-desc {
+            font-family: 'Space Grotesk', sans-serif;
             color: var(--text-muted);
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            font-size: 1.1rem;
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.5;
+            background: linear-gradient(90deg, #8b9bb4, #ffffff, #8b9bb4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shineText 5s linear infinite;
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #00ff88;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #00ff88;
-            animation: pulse 2s infinite;
-        }
+        @keyframes shineText { to { background-position: 200% center; } }
 
-        /* --- 3D CARD STYLES --- */
-        .tilt-card {
+        /* --- SPOTLIGHT CARD STYLES --- */
+        .spotlight-card {
             background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
             border-radius: 20px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: transform 0.1s ease, box-shadow 0.3s ease, border-color 0.3s;
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
             position: relative;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            /* Border handled by pseudo element for spotlight */
+            border: 1px solid rgba(255,255,255,0.05);
             overflow: hidden;
-            margin-bottom: 1.2rem;
+            transition: transform 0.2s, box-shadow 0.3s;
         }
-        
-        /* Shine effect on hover */
-        .tilt-card::after {
-            content: "";
+
+        /* The moving light border */
+        .spotlight-card::before {
+            content: '';
             position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: skewX(-20deg);
-            transition: 0.5s;
+            height: 100%; width: 100%;
+            top: 0; left: 0;
+            border-radius: inherit;
             pointer-events: none;
+            z-index: 2;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y), 
+                rgba(255, 255, 255, 0.15),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
         }
-        
-        .tilt-card:hover::after {
-            left: 150%;
-            transition: 0.7s ease-in-out;
-        }
+
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 
         /* Video Container */
         .video-container {
             padding: 0;
-            border: 1px solid rgba(0, 243, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 1px solid rgba(0, 243, 255, 0.1);
         }
         
         .video-wrapper {
@@ -281,150 +265,179 @@
             padding-bottom: 56.25%;
             height: 0;
             width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
         }
         
         .video-wrapper iframe {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            border-radius: 20px;
         }
 
         /* Link Buttons */
         .link-btn {
             display: flex;
             align-items: center;
-            padding: 1.2rem 1.5rem;
+            padding: 1.4rem 1.8rem;
             text-decoration: none;
             color: white;
             position: relative;
             z-index: 1;
+            overflow: hidden;
         }
 
-        .link-btn:hover {
-            border-color: var(--primary);
-            box-shadow: var(--neon-glow);
+        /* Button internal shine on hover */
+        .link-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
         }
+        
+        .link-btn:hover::after { transform: translateX(100%); }
 
         .icon-box {
-            width: 45px;
-            height: 45px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            margin-right: 1.2rem;
+            font-size: 1.4rem;
+            margin-right: 1.5rem;
             color: var(--text-muted);
             transition: 0.3s;
-            transform: translateZ(20px); /* 3D Depth */
+            box-shadow: 0 0 0 rgba(0,0,0,0);
         }
 
         .link-btn:hover .icon-box {
-            background: var(--primary);
-            color: #000;
-            transform: translateZ(30px) scale(1.1);
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            transform: scale(1.1) rotate(-5deg);
         }
 
         .link-info {
             display: flex;
             flex-direction: column;
-            transform: translateZ(10px);
+            flex: 1;
         }
 
         .link-title {
             font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 2px;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
         }
 
         .link-desc {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         .arrow-icon {
-            margin-left: auto;
-            opacity: 0;
-            transform: translateX(-10px) translateZ(10px);
-            transition: 0.3s;
-            color: var(--primary);
+            opacity: 0.3;
+            transform: translateX(0);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--text-muted);
         }
 
         .link-btn:hover .arrow-icon {
             opacity: 1;
-            transform: translateX(0) translateZ(10px);
+            transform: translateX(5px);
+            color: var(--primary);
         }
 
-        /* Highlight specific buttons */
-        .btn-discord:hover { --primary: #5865F2; --neon-glow: 0 0 20px rgba(88, 101, 242, 0.4); }
-        .btn-web:hover { --primary: #00f3ff; }
+        /* Specific Brand Colors */
+        .btn-discord:hover .icon-box { color: #5865F2; border-color: #5865F2; background: rgba(88, 101, 242, 0.1); box-shadow: 0 0 15px rgba(88, 101, 242, 0.3); }
 
         /* Social Row */
         .social-row {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .social-item {
-            width: 55px;
-            height: 55px;
-            border-radius: 16px;
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
             background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255,255,255,0.05);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
-            font-size: 1.4rem;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1.5rem;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 70%);
+            opacity: 0; transition: 0.3s;
         }
 
         .social-item:hover {
-            transform: translateY(-5px) scale(1.1);
+            transform: translateY(-8px);
             color: white;
-            border-color: white;
+            border-color: rgba(255,255,255,0.3);
         }
         
-        .social-item.yt:hover { background: #ff0000; border-color: #ff0000; box-shadow: 0 0 20px rgba(255,0,0,0.4); }
-        .social-item.ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: transparent; box-shadow: 0 0 20px rgba(220, 39, 67, 0.4); }
+        .social-item:hover::before { opacity: 1; }
+        
+        .social-item.yt:hover { box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3); color: #ff2a2a; }
+        .social-item.ig:hover { box-shadow: 0 10px 30px rgba(220, 39, 67, 0.3); color: #e1306c; }
 
         /* Footer */
         .footer {
-            margin-top: 3rem;
-            font-size: 0.8rem;
-            color: #444;
+            margin-top: 3.5rem;
+            font-size: 0.75rem;
+            color: #555;
             text-align: center;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-family: 'Space Grotesk', monospace;
+            text-transform: uppercase;
         }
+        
+        .footer span { color: var(--primary); }
 
         /* Mobile tweaks */
         @media (max-width: 600px) {
-            .cursor-dot, .cursor-outline { display: none; } /* No custom cursor on touch */
+            .cursor-dot, .cursor-outline { display: none; }
             * { cursor: auto; }
-            .glitch-title { font-size: 2rem; }
+            .glitch-title { font-size: 2.2rem; }
+            .hud-corner { display: none; }
+            .hero-desc { font-size: 0.95rem; padding: 0 1rem; }
         }
     </style>
 </head>
 <body>
 
     <!-- CUSTOM CURSOR -->
-    <div class="cursor-dot" data-cursor></div>
-    <div class="cursor-outline" data-cursor></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
 
     <!-- BACKGROUND CANVAS -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- BOOT SEQUENCE LOADER -->
-    <div class="preloader" id="preloader">
-        <div class="loader-text" id="loader-text">INITIALIZING SYSTEMS...</div>
-        <div class="loader-bar-bg">
-            <div class="loader-bar" id="loader-bar"></div>
-        </div>
-        <div style="margin-top: 10px; font-size: 0.8rem; color: #555;">OPTIMIZING ASSETS <span id="percent">0%</span></div>
+    <!-- HUD OVERLAY -->
+    <div class="hud-corner">
+        <span class="hud-line">SYS.OPT :: ACTIVE</span>
+        <span class="hud-line">FPS.TARGET :: UNLIMITED</span>
+        <span class="hud-line blink">CONNECTION :: SECURE</span>
     </div>
 
     <!-- MAIN CONTENT -->
@@ -433,21 +446,16 @@
         <!-- HEADER -->
         <header class="profile-section">
             <div class="logo-wrapper">
-                <div class="logo-ring"></div>
-                <!-- LOGO IMAGE AS REQUESTED -->
+                <div class="logo-glow-ring"></div>
                 <img src="assets/logo.png" alt="QuoBoost Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/150/000000/00f3ff?text=QB'">
             </div>
             
-            <h1 class="glitch-title" data-text="QUOBOOST">QUOBOOST</h1>
-            
-            <div class="tagline">
-                <div class="status-dot"></div>
-                <span>SYSTEM OPTIMIZED</span>
-            </div>
+            <h1 class="glitch-title">QUOBOOST</h1>
+            <p class="hero-desc">The #1 Optimization Tool. Boost FPS, Reduce Input Lag & Unleash Performance.</p>
         </header>
 
-        <!-- VIDEO CARD (TILT ENABLED) -->
-        <div class="tilt-card video-container js-tilt">
+        <!-- VIDEO CARD -->
+        <div class="spotlight-card video-container js-tilt" data-hover-trigger>
             <div class="video-wrapper">
                 <iframe 
                     src="https://www.youtube.com/embed/xYi2HdQdYMc?autoplay=1&mute=1&controls=0&loop=1&playlist=xYi2HdQdYMc&modestbranding=1" 
@@ -463,25 +471,25 @@
         <div class="links-stack">
             
             <!-- Website -->
-            <a href="https://quoboost.com" target="_blank" class="tilt-card link-btn btn-web js-tilt" data-hover-trigger>
+            <a href="https://quoboost.com" target="_blank" class="spotlight-card link-btn btn-web js-tilt" data-hover-trigger>
                 <div class="icon-box">
                     <i class="fa-solid fa-microchip"></i>
                 </div>
                 <div class="link-info">
                     <span class="link-title">Official Website</span>
-                    <span class="link-desc">Download the Ultimate Optimizer</span>
+                    <span class="link-desc">Download QuoBoost Free</span>
                 </div>
                 <i class="fa-solid fa-arrow-right arrow-icon"></i>
             </a>
 
             <!-- Discord -->
-            <a href="https://discord.com/invite/jdVuCrKfvy" target="_blank" class="tilt-card link-btn btn-discord js-tilt" data-hover-trigger>
+            <a href="https://discord.com/invite/jdVuCrKfvy" target="_blank" class="spotlight-card link-btn btn-discord js-tilt" data-hover-trigger>
                 <div class="icon-box">
                     <i class="fa-brands fa-discord"></i>
                 </div>
                 <div class="link-info">
-                    <span class="link-title">Join the Community</span>
-                    <span class="link-desc">24/7 Support & Giveaways</span>
+                    <span class="link-title">Discord Community</span>
+                    <span class="link-desc">Join 50k+ Members</span>
                 </div>
                 <i class="fa-solid fa-arrow-right arrow-icon"></i>
             </a>
@@ -499,42 +507,23 @@
         </div>
 
         <footer class="footer">
-            QUOBOOST © 2024<br>MAXIMUM FPS // MINIMUM LAG
+            Designed for <span>Speed</span>
         </footer>
 
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        /* --- 1. BOOT SEQUENCE (PRELOADER) --- */
-        document.addEventListener('DOMContentLoaded', () => {
-            const bar = document.getElementById('loader-bar');
-            const percent = document.getElementById('percent');
-            const preloader = document.getElementById('preloader');
-            const content = document.getElementById('main-content');
-            let width = 0;
-
-            const interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
-                    document.getElementById('loader-text').innerText = "ACCESS GRANTED";
-                    
-                    setTimeout(() => {
-                        preloader.style.opacity = '0';
-                        preloader.style.visibility = 'hidden';
-                        
-                        // Animate content entry
-                        content.style.opacity = '1';
-                        content.style.transform = 'translateY(0)';
-                        content.style.transition = 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
-                    }, 500);
-                } else {
-                    width += Math.random() * 10;
-                    if(width > 100) width = 100;
-                    bar.style.width = width + '%';
-                    percent.innerText = Math.floor(width) + '%';
-                }
-            }, 100);
+        /* --- 1. MOUSE SPOTLIGHT EFFECT --- */
+        document.addEventListener('mousemove', e => {
+            const cards = document.querySelectorAll('.spotlight-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
         });
 
         /* --- 2. CUSTOM CURSOR LOGIC --- */
@@ -553,7 +542,7 @@
             cursorOutline.animate({
                 left: `${posX}px`,
                 top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
+            }, { duration: 400, fill: "forwards" });
         });
 
         // Add hover effect to interactive elements
@@ -562,7 +551,7 @@
             el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
 
-        /* --- 3. 3D TILT EFFECT (VANILLA JS IMPLEMENTATION) --- */
+        /* --- 3. 3D TILT EFFECT --- */
         const tiltCards = document.querySelectorAll('.js-tilt');
 
         tiltCards.forEach(card => {
@@ -570,12 +559,10 @@
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
-                // Calculate rotation (max 15 degrees)
                 const xPct = x / rect.width;
                 const yPct = y / rect.height;
-                const xRot = (0.5 - yPct) * 15; // Vertical tilt
-                const yRot = (xPct - 0.5) * 15; // Horizontal tilt
+                const xRot = (0.5 - yPct) * 10;
+                const yRot = (xPct - 0.5) * 10;
 
                 card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale3d(1.02, 1.02, 1.02)`;
             });
@@ -585,110 +572,109 @@
             });
         });
 
-        /* --- 4. CANVAS PARTICLE NETWORK --- */
+        /* --- 4. ADVANCED PARTICLE WARP FIELD (BACKGROUND) --- */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         
-        let particlesArray;
+        let width, height;
+        let particles = [];
         
-        // Resize canvas
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Mouse state for interaction
+        const mouse = { x: 0, y: 0, active: false };
 
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x;
-                this.y = y;
-                this.directionX = directionX;
-                this.directionY = directionY;
-                this.size = size;
-                this.color = color;
-            }
-            // Draw individual particle
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-            // Update particle position
-            update() {
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-
-                // Mouse interaction (flee from mouse)
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx*dx + dy*dy);
-                if (distance < 100) {
-                    if (mouse.x < this.x && this.x < canvas.width - 10) this.x += 2;
-                    if (mouse.x > this.x && this.x > 10) this.x -= 2;
-                    if (mouse.y < this.y && this.y < canvas.height - 10) this.y += 2;
-                    if (mouse.y > this.y && this.y > 10) this.y -= 2;
-                }
-
-                this.x += this.directionX;
-                this.y += this.directionY;
-                this.draw();
-            }
-        }
-
-        const mouse = { x: null, y: null, radius: 100 };
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
+        window.addEventListener('mousemove', e => {
+            mouse.x = (e.clientX - width / 2) * 0.5; // Offset from center
+            mouse.y = (e.clientY - height / 2) * 0.5;
+            mouse.active = true;
         });
 
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 15000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 0.4) - 0.2;
-                let directionY = (Math.random() * 0.4) - 0.2;
-                let color = '#00f3ff';
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-            }
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
         }
+        
+        class Star {
+            constructor() {
+                this.init();
+            }
 
-        function connect() {
-            let opacityValue = 1;
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
-                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                    if (distance < (canvas.width/7) * (canvas.height/7)) {
-                        opacityValue = 1 - (distance/15000);
-                        ctx.strokeStyle = 'rgba(0, 243, 255,' + opacityValue * 0.15 + ')';
-                        ctx.lineWidth = 1;
+            init() {
+                this.x = (Math.random() - 0.5) * width * 2; // Spread wider than screen
+                this.y = (Math.random() - 0.5) * height * 2;
+                this.z = Math.random() * 2000 + 500; // Depth
+                this.size = Math.random();
+                this.color = Math.random() > 0.8 ? '#00f3ff' : (Math.random() > 0.5 ? '#bc13fe' : '#ffffff');
+            }
+
+            update() {
+                // Move towards viewer (decrease Z)
+                this.z -= 10; // Speed
+
+                // Interaction: Shift stars based on mouse pos to create parallax
+                if(mouse.active) {
+                    this.x += (mouse.x - this.x * 0.01) * 0.02;
+                    this.y += (mouse.y - this.y * 0.01) * 0.02;
+                }
+
+                // Reset if passes screen
+                if (this.z <= 0) this.init();
+            }
+
+            draw() {
+                // Perspective projection
+                let x2d = (this.x / this.z) * width + width / 2;
+                let y2d = (this.y / this.z) * height + height / 2;
+                
+                // Size grows as it gets closer
+                let s = (1 - this.z / 2500) * 3; 
+
+                if (x2d > 0 && x2d < width && y2d > 0 && y2d < height) {
+                    ctx.beginPath();
+                    ctx.fillStyle = this.color;
+                    ctx.arc(x2d, y2d, s, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Add trails for "Warp" effect
+                    if(s > 1.5) {
                         ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.strokeStyle = `rgba(${this.color === '#00f3ff' ? '0,243,255' : '188,19,254'}, 0.2)`;
+                        ctx.lineWidth = s;
+                        ctx.moveTo(x2d, y2d);
+                        // Trail goes towards center roughly
+                        ctx.lineTo((this.x / (this.z + 100)) * width + width / 2, (this.y / (this.z + 100)) * height + height / 2);
                         ctx.stroke();
                     }
                 }
             }
         }
 
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
+        function initStars() {
+            particles = [];
+            const count = (width * height) / 3000; // Density
+            for (let i = 0; i < count; i++) {
+                particles.push(new Star());
             }
-            connect();
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(2, 2, 3, 0.3)'; // Trail effect background
+            ctx.fillRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
         }
 
         window.addEventListener('resize', () => {
-            canvas.width = innerWidth;
-            canvas.height = innerHeight;
-            init();
+            resize();
+            initStars();
         });
 
-        // Start animations
-        init();
+        // Start
+        resize();
+        initStars();
         animate();
 
     </script>
