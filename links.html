@@ -2,515 +2,473 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuoBoost | Ultimate FPS Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QuoBoost | Next Gen Hub</title>
+    
+    <!-- Three.js for REAL 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@300;500;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CORE VARIABLES --- */
+        /* --- CORE SYSTEM --- */
         :root {
-            --bg-color: #030304;
+            --bg-deep: #050505;
             --primary: #00f3ff;
             --secondary: #bd00ff;
-            --glass-bg: rgba(20, 20, 25, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-surface: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
             --text-main: #ffffff;
-            --text-muted: #a0a0b0;
-            --neon-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            --text-muted: #9ca3af;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Custom cursor only */ user-select: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
             font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg-deep);
             color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- 3D CANVAS LAYER --- */
+        #canvas-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at center, #0a0a0f 0%, #000000 100%);
+        }
+
+        /* --- UI LAYOUT --- */
+        .viewport {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow-x: hidden;
+            padding: 2rem 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-stack {
+            width: 100%;
+            max-width: 480px;
+            perspective: 1000px; /* Essential for CSS 3D elements */
+        }
+
+        /* --- PROFILE HEADER (CLEAN & MODERN) --- */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
             position: relative;
         }
 
-        /* --- BACKGROUND CANVAS --- */
-        #bg-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: radial-gradient(circle at center, #0a0a10 0%, #000000 100%);
-        }
-
-        /* --- CUSTOM CURSOR --- */
-        .cursor-dot {
-            position: fixed; width: 8px; height: 8px; background: var(--primary);
-            border-radius: 50%; pointer-events: none; z-index: 9999;
-            box-shadow: 0 0 10px var(--primary);
-        }
-        .cursor-outline {
-            position: fixed; width: 40px; height: 40px;
-            border: 1px solid rgba(0, 243, 255, 0.5); border-radius: 50%;
-            pointer-events: none; z-index: 9998;
-            transition: width 0.1s, height 0.1s, background 0.1s;
-        }
-        
-        body.hovering .cursor-outline {
-            width: 70px; height: 70px;
-            background: rgba(0, 243, 255, 0.05);
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
-        }
-
-        /* --- MAIN LAYOUT --- */
-        .main-container {
-            width: 100%; max-width: 500px; padding: 2rem;
-            z-index: 5; perspective: 1000px;
-        }
-
-        /* --- PROFILE --- */
-        .profile-section { text-align: center; margin-bottom: 2rem; }
-        
-        .logo-wrapper {
-            width: 130px; height: 130px; margin: 0 auto 1.5rem;
-            position: relative; display: flex; align-items: center; justify-content: center;
-        }
-        
-        .logo-ring {
-            position: absolute; inset: 0; border-radius: 50%;
-            border: 2px dashed var(--primary); opacity: 0.5;
-            animation: spin 10s linear infinite;
-        }
-        .logo-ring:nth-child(2) {
-            inset: -8px; border: 2px solid var(--secondary); opacity: 0.3;
-            animation: spinReverse 15s linear infinite; border-style: dotted;
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            position: relative;
+            /* Absolutely NO BORDER/FRAME as requested */
         }
 
         .logo-img {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-            position: relative; z-index: 2; border: 2px solid rgba(255,255,255,0.1);
-            background: #000;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+            /* Floating animation */
+            animation: floatLogo 6s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
 
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes spinReverse { 100% { transform: rotate(-360deg); } }
+        /* Pure Light Glow behind logo - No solid shapes */
+        .logo-glow {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140%; height: 140%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.4) 0%, transparent 70%);
+            filter: blur(20px);
+            z-index: 1;
+            animation: pulseGlow 4s infinite alternate;
+        }
 
-        /* Glitch Title */
-        .glitch-wrapper { position: relative; display: inline-block; margin-bottom: 0.5rem; }
-        .glitch-title {
-            font-size: 3rem; font-weight: 900; color: white;
-            text-transform: uppercase; letter-spacing: -1px;
-            text-shadow: 2px 2px 0px var(--secondary);
-            position: relative;
+        @keyframes floatLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes pulseGlow { 0% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.9); } 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); } }
+
+        .brand-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #fff;
+            margin-bottom: 0.2rem;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.75rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
         }
         
-        .glitch-title::before, .glitch-title::after {
-            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
-        }
-        .glitch-title::before {
-            color: var(--primary); z-index: -1; animation: glitch-anim-1 2s infinite linear alternate-reverse;
-        }
-        .glitch-title::after {
-            color: var(--secondary); z-index: -2; animation: glitch-anim-2 3s infinite linear alternate-reverse;
-        }
+        .live-dot { width: 6px; height: 6px; background: #00ff88; border-radius: 50%; box-shadow: 0 0 8px #00ff88; animation: blink 2s infinite; }
+        @keyframes blink { 50% { opacity: 0.4; } }
 
-        @keyframes glitch-anim-1 {
-            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-            100% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
-        }
-        @keyframes glitch-anim-2 {
-            0% { clip-path: inset(10% 0 50% 0); transform: translate(2px, -1px); }
-            100% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 1px); }
-        }
-
-        .hero-desc {
-            font-family: 'Space Grotesk', monospace; color: var(--text-muted);
-            font-size: 0.95rem; letter-spacing: 1px; min-height: 1.2em;
-        }
-        .hero-desc span { color: var(--primary); }
-        .cursor-blink { display: inline-block; width: 8px; height: 15px; background: var(--primary); animation: blink 1s infinite; vertical-align: middle; margin-left: 5px;}
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* --- 3D CARDS (TILT) --- */
-        .tilt-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+        /* --- ULTRA MODERN CARDS --- */
+        .glass-card {
+            background: var(--glass-surface);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
+            border-radius: 24px; /* Smooth heavy rounding */
+            padding: 5px; /* Inner padding for "framed" look */
             margin-bottom: 1.2rem;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
             position: relative;
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            transition: transform 0.1s; /* Quick response for tilt */
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transform-style: preserve-3d;
         }
 
-        /* Hover Glow Effect */
-        .tilt-card::before {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(0, 243, 255, 0.1), transparent 40%);
-            opacity: 0; transition: opacity 0.5s; z-index: 1; pointer-events: none;
+        .glass-card-inner {
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s;
         }
-        .tilt-card:hover::before { opacity: 1; }
-        .tilt-card:hover { border-color: rgba(0, 243, 255, 0.3); box-shadow: 0 0 30px rgba(0, 243, 255, 0.15); }
 
-        /* Video */
-        .video-container { padding: 0; z-index: 2; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 16px; overflow: hidden; }
+        /* Hover Interaction */
+        .glass-card:active { transform: scale(0.98); }
+        
+        @media (hover: hover) {
+            .glass-card:hover {
+                transform: translateY(-5px) scale(1.01);
+                border-color: rgba(255,255,255,0.2);
+                box-shadow: 0 15px 30px -10px rgba(0, 243, 255, 0.15);
+            }
+            .glass-card:hover .glass-card-inner { background: rgba(0, 243, 255, 0.05); }
+            .glass-card:hover .action-icon { transform: translateX(5px); color: var(--primary); }
+            .glass-card:hover .icon-frame { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
+        }
+
+        /* Video Specific */
+        .video-card { padding: 0; border-radius: 24px; overflow: hidden; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        /* Link Buttons */
-        .link-btn {
-            display: flex; align-items: center; padding: 1.2rem 1.5rem;
-            text-decoration: none; color: white; z-index: 2;
-        }
-
-        .icon-box {
-            width: 45px; height: 45px; background: rgba(255,255,255,0.05);
-            border-radius: 12px; display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; color: var(--text-muted); margin-right: 1.2rem;
-            transition: 0.3s; transform: translateZ(20px);
-        }
-        .tilt-card:hover .icon-box {
-            background: var(--primary); color: #000; transform: translateZ(30px) scale(1.1);
-            box-shadow: 0 0 20px var(--primary);
-        }
-
-        .link-info { display: flex; flex-direction: column; transform: translateZ(10px); }
-        .link-title { font-weight: 700; font-size: 1.1rem; color: #fff; text-transform: uppercase; }
-        .link-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
-
-        .arrow-icon {
-            margin-left: auto; color: var(--primary); opacity: 0;
-            transform: translateX(-10px) translateZ(10px); transition: 0.3s;
-        }
-        .tilt-card:hover .arrow-icon { opacity: 1; transform: translateX(0) translateZ(10px); }
-
-        /* Socials */
-        .social-row { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
-        .social-item {
-            width: 55px; height: 55px; border-radius: 14px;
-            background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-muted); font-size: 1.4rem; text-decoration: none;
-            transition: 0.3s; position: relative; overflow: hidden;
-        }
-        .social-item:hover { transform: translateY(-5px); color: white; border-color: white; }
+        /* Link Elements */
+        .link-link { text-decoration: none; color: white; display: block; }
         
-        .social-item.yt:hover { background: linear-gradient(45deg, #ff0000, #a80000); box-shadow: 0 0 20px rgba(255,0,0,0.4); }
-        .social-item.ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 0 20px rgba(220, 39, 67, 0.4); }
+        .icon-frame {
+            width: 48px; height: 48px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; color: var(--text-muted);
+            margin-right: 1rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            flex-shrink: 0;
+        }
+
+        .meta-data { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .card-title { font-weight: 700; font-size: 1.1rem; line-height: 1.2; }
+        .card-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
+
+        .action-icon {
+            color: var(--glass-highlight);
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        /* Socials - Floating Pills */
+        .social-dock {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 100px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-pill {
+            width: 50px; height: 50px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            text-decoration: none;
+            transition: 0.3s;
+            background: transparent;
+        }
+        
+        .social-pill:hover { background: rgba(255,255,255,0.1); color: #fff; transform: translateY(-3px); }
+        .social-pill.yt:hover { color: #ff0000; }
+        .social-pill.ig:hover { color: #e1306c; }
 
         /* Footer */
-        footer { margin-top: 3rem; text-align: center; font-size: 0.75rem; color: #555; letter-spacing: 2px; text-transform: uppercase; }
-        
-        /* HUD Corner */
-        .hud {
-            position: fixed; top: 20px; right: 20px; text-align: right;
-            font-family: 'Space Grotesk', monospace; font-size: 0.7rem; color: var(--primary);
-            pointer-events: none; opacity: 0.7;
+        .system-footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.7rem;
+            color: #444;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .cursor-dot, .cursor-outline { display: none; } * { cursor: auto; }
-            .glitch-title { font-size: 2.2rem; }
+        /* Custom Cursor (Desktop Only) */
+        @media (pointer: fine) {
+            .cursor-outer {
+                position: fixed; top: 0; left: 0; width: 40px; height: 40px;
+                border: 1px solid rgba(0, 243, 255, 0.4); border-radius: 50%;
+                pointer-events: none; z-index: 9999; transition: 0.1s ease-out;
+            }
+            .cursor-inner {
+                position: fixed; top: 0; left: 0; width: 6px; height: 6px;
+                background: var(--primary); border-radius: 50%;
+                pointer-events: none; z-index: 9999;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- INTERACTIVE BACKGROUND -->
-    <canvas id="bg-canvas"></canvas>
+    <!-- 3D SCENE CONTAINER -->
+    <div id="canvas-container"></div>
 
     <!-- CUSTOM CURSOR -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+    <div class="cursor-outer"></div>
+    <div class="cursor-inner"></div>
 
-    <!-- HUD -->
-    <div class="hud">
-        SYSTEM :: OPTIMIZED<br>
-        FPS :: UNLOCKED
+    <div class="viewport">
+        <div class="content-stack">
+            
+            <!-- PROFILE -->
+            <header class="profile-header">
+                <div class="logo-container">
+                    <div class="logo-glow"></div>
+                    <img src="assets/logo.png" alt="QuoBoost" class="logo-img" onerror="this.src='https://via.placeholder.com/150/000000/00f3ff?text=QB'">
+                </div>
+                <h1 class="brand-name">QUOBOOST</h1>
+                <div class="brand-badge">
+                    <div class="live-dot"></div>
+                    <span>System Optimized</span>
+                </div>
+            </header>
+
+            <!-- VIDEO -->
+            <div class="glass-card video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/xYi2HdQdYMc?autoplay=1&mute=1&controls=0&loop=1&playlist=xYi2HdQdYMc" title="Preview" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- LINKS -->
+            
+            <!-- Website -->
+            <div class="glass-card">
+                <a href="https://quoboost.com" target="_blank" class="link-link">
+                    <div class="glass-card-inner">
+                        <div class="icon-frame"><i class="fa-solid fa-microchip"></i></div>
+                        <div class="meta-data">
+                            <span class="card-title">Official Website</span>
+                            <span class="card-desc">Download QuoBoost 3.0</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-right action-icon"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Discord -->
+            <div class="glass-card">
+                <a href="https://discord.com/invite/jdVuCrKfvy" target="_blank" class="link-link">
+                    <div class="glass-card-inner">
+                        <div class="icon-frame"><i class="fa-brands fa-discord"></i></div>
+                        <div class="meta-data">
+                            <span class="card-title">Discord Server</span>
+                            <span class="card-desc">Support & Community</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-right action-icon"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- SOCIALS -->
+            <div class="social-dock">
+                <a href="https://www.youtube.com/@quoboost" target="_blank" class="social-pill yt"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.instagram.com/quo.boost/" target="_blank" class="social-pill ig"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+
+            <footer class="system-footer">
+                QuoBoost © 2024<br>Designed for Speed
+            </footer>
+
+        </div>
     </div>
 
-    <div class="main-container">
-        
-        <header class="profile-section">
-            <div class="logo-wrapper">
-                <div class="logo-ring"></div>
-                <div class="logo-ring"></div>
-                <img src="assets/logo.png" alt="QuoBoost" class="logo-img" onerror="this.src='https://via.placeholder.com/150/000000/00f3ff?text=QB'">
-            </div>
-            
-            <div class="glitch-wrapper">
-                <h1 class="glitch-title" data-text="QUOBOOST">QUOBOOST</h1>
-            </div>
-            
-            <div class="hero-desc">
-                <span id="typewriter"></span><div class="cursor-blink"></div>
-            </div>
-        </header>
-
-        <!-- VIDEO CARD (3D TILT) -->
-        <div class="tilt-card video-container js-tilt" data-hover>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/xYi2HdQdYMc?autoplay=1&mute=1&controls=0&loop=1&playlist=xYi2HdQdYMc" title="Preview" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <!-- LINKS STACK -->
-        <div class="links-stack">
-            
-            <a href="https://quoboost.com" target="_blank" class="tilt-card link-btn js-tilt" data-hover>
-                <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
-                <div class="link-info">
-                    <span class="link-title">Official Website</span>
-                    <span class="link-desc">Download the Ultimate Optimizer</span>
-                </div>
-                <i class="fa-solid fa-arrow-right arrow-icon"></i>
-            </a>
-
-            <a href="https://discord.com/invite/jdVuCrKfvy" target="_blank" class="tilt-card link-btn js-tilt" data-hover>
-                <div class="icon-box"><i class="fa-brands fa-discord"></i></div>
-                <div class="link-info">
-                    <span class="link-title">Discord Server</span>
-                    <span class="link-desc">Join 50k+ Members</span>
-                </div>
-                <i class="fa-solid fa-arrow-right arrow-icon"></i>
-            </a>
-
-        </div>
-
-        <!-- SOCIALS -->
-        <div class="social-row">
-            <a href="https://www.youtube.com/@quoboost" target="_blank" class="social-item yt" data-hover>
-                <i class="fa-brands fa-youtube"></i>
-            </a>
-            <a href="https://www.instagram.com/quo.boost/" target="_blank" class="social-item ig" data-hover>
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-        </div>
-
-        <footer>
-            QuoBoost © 2024 <br> Designed for Speed
-        </footer>
-
-    </div>
-
+    <!-- 3D ENGINE & LOGIC -->
     <script>
-        /* --- 1. TYPEWRITER EFFECT (DESCRIPTION) --- */
-        const textToType = "MAXIMIZE PERFORMANCE // ZERO INPUT LAG";
-        const typeContainer = document.getElementById('typewriter');
-        let typeIndex = 0;
+        // --- 1. REAL 3D SETUP (THREE.JS) ---
+        const init3D = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            
+            // Fog for depth
+            scene.fog = new THREE.FogExp2(0x000000, 0.0015);
 
-        function typeWriter() {
-            if (typeIndex < textToType.length) {
-                typeContainer.innerHTML += textToType.charAt(typeIndex);
-                typeIndex++;
-                setTimeout(typeWriter, 50);
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 50;
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Optimize for mobile
+            container.appendChild(renderer.domElement);
+
+            // Objects: Floating Tech Crystals (Icosahedrons)
+            const particlesGeometry = new THREE.IcosahedronGeometry(1, 0);
+            const count = window.innerWidth < 600 ? 40 : 80; // Fewer objects on mobile
+            
+            const group = new THREE.Group();
+            scene.add(group);
+
+            const shapes = [];
+
+            for(let i = 0; i < count; i++) {
+                // Wireframe material
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: Math.random() > 0.5 ? 0x00f3ff : 0xbd00ff,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: Math.random() * 0.4 + 0.1
+                });
+                
+                const mesh = new THREE.Mesh(particlesGeometry, material);
+                
+                // Random positioning
+                mesh.position.x = (Math.random() - 0.5) * 100;
+                mesh.position.y = (Math.random() - 0.5) * 100;
+                mesh.position.z = (Math.random() - 0.5) * 50;
+                
+                // Random scale
+                const s = Math.random() * 2;
+                mesh.scale.set(s, s, s);
+                
+                // Random rotation speed
+                mesh.userData = {
+                    rotX: (Math.random() - 0.5) * 0.02,
+                    rotY: (Math.random() - 0.5) * 0.02,
+                    velY: (Math.random() * 0.05) + 0.02, // Float up speed
+                    initialY: mesh.position.y
+                };
+                
+                group.add(mesh);
+                shapes.push(mesh);
             }
-        }
-        setTimeout(typeWriter, 500);
 
-        /* --- 2. INTERACTIVE PARTICLES (NEURAL MESH) --- */
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-        
-        // Mouse interaction
-        let mouse = { x: null, y: null, radius: 150 };
-        
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-            
-            // Cursor movement
-            const dot = document.querySelector('.cursor-dot');
-            const outline = document.querySelector('.cursor-outline');
-            dot.style.left = `${e.clientX - 4}px`;
-            dot.style.top = `${e.clientY - 4}px`;
-            
-            // Simple follow for outline
-            outline.animate({
-                left: `${e.clientX - 20}px`, top: `${e.clientY - 20}px`
-            }, { duration: 500, fill: "forwards" });
-            
-            // Spotlight effect for cards
-            document.querySelectorAll('.js-tilt').forEach(card => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            // Mouse Interaction Logic
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX - windowHalfX) * 0.05;
+                mouseY = (event.clientY - windowHalfY) * 0.05;
             });
-        });
+            
+            // Mobile Gyro (Optional simple parallax)
+            window.addEventListener('deviceorientation', (event) => {
+                mouseX = event.gamma * 0.5;
+                mouseY = event.beta * 0.5;
+            });
 
-        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
-        
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 1;
-                this.vy = (Math.random() - 0.5) * 1;
-                this.size = Math.random() * 2;
-                this.baseColor = 'rgba(0, 243, 255, '; // Cyan base
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                
-                // Bounce
-                if(this.x < 0 || this.x > width) this.vx *= -1;
-                if(this.y < 0 || this.y > height) this.vy *= -1;
-                
-                // Mouse Interaction
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx*dx + dy*dy);
-                
-                if (distance < mouse.radius) {
-                    // Slight attraction/connection logic? 
-                    // No, let's make them light up
-                    this.active = true;
-                } else {
-                    this.active = false;
-                }
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.active ? '#bc13fe' : '#00f3ff'; // Purple if close, Cyan if far
-                ctx.fill();
-            }
-        }
-        
-        function initParticles() {
-            particles = [];
-            let count = (width * height) / 9000;
-            for(let i=0; i<count; i++) particles.push(new Particle());
-        }
-        
-        function animate() {
-            ctx.clearRect(0,0,width,height);
-            for(let i=0; i<particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                
-                // Connect particles
-                for(let j=i; j<particles.length; j++) {
-                    let dx = particles[i].x - particles[j].x;
-                    let dy = particles[i].y - particles[j].y;
-                    let dist = Math.sqrt(dx*dx + dy*dy);
+            // Animation Loop
+            const animate = () => {
+                requestAnimationFrame(animate);
+
+                targetX = mouseX * 0.1;
+                targetY = mouseY * 0.1;
+
+                // Smooth camera movement
+                group.rotation.y += 0.05 * (targetX - group.rotation.y);
+                group.rotation.x += 0.05 * (targetY - group.rotation.x);
+
+                // Animate individual shapes
+                shapes.forEach(mesh => {
+                    mesh.rotation.x += mesh.userData.rotX;
+                    mesh.rotation.y += mesh.userData.rotY;
                     
-                    if(dist < 100) {
-                        ctx.beginPath();
-                        let opacity = 1 - (dist/100);
-                        // Connect to mouse specially
-                        let mouseDist = Math.sqrt(Math.pow(particles[i].x - mouse.x, 2) + Math.pow(particles[i].y - mouse.y, 2));
+                    // Floating effect
+                    mesh.position.y += mesh.userData.velY;
+                    if(mesh.position.y > 50) mesh.position.y = -50;
+                });
 
-                        if(mouseDist < 150) {
-                             ctx.strokeStyle = `rgba(188, 19, 254, ${opacity})`; // Purple connections near mouse
-                             ctx.lineWidth = 1;
-                        } else {
-                             ctx.strokeStyle = `rgba(0, 243, 255, ${opacity * 0.2})`; // Dim cyan elsewhere
-                             ctx.lineWidth = 0.5;
-                        }
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-                
-                // Connect to Mouse
-                let dx_m = particles[i].x - mouse.x;
-                let dy_m = particles[i].y - mouse.y;
-                let dist_m = Math.sqrt(dx_m*dx_m + dy_m*dy_m);
-                if(dist_m < 150) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist_m/150})`;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
-                }
-            }
-            requestAnimationFrame(animate);
+                renderer.render(scene, camera);
+            };
+
+            animate();
+
+            // Resize Handler
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        };
+
+        // Initialize 3D
+        init3D();
+
+        // --- 2. CUSTOM CURSOR LOGIC ---
+        const cursorOuter = document.querySelector('.cursor-outer');
+        const cursorInner = document.querySelector('.cursor-inner');
+        
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', e => {
+                cursorInner.style.transform = `translate(${e.clientX - 3}px, ${e.clientY - 3}px)`;
+                cursorOuter.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
+            });
+            
+            // Hover states
+            document.querySelectorAll('a, iframe').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOuter.style.transform += ` scale(1.5)`;
+                    cursorOuter.style.borderColor = '#ffffff';
+                    cursorInner.style.backgroundColor = 'transparent';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOuter.style.borderColor = 'rgba(0, 243, 255, 0.4)';
+                    cursorInner.style.backgroundColor = 'var(--primary)';
+                });
+            });
         }
-        
-        window.addEventListener('resize', () => { resize(); initParticles(); });
-        resize(); initParticles(); animate();
-
-        /* --- 3. 3D TILT EFFECT FOR CARDS --- */
-        const tiltCards = document.querySelectorAll('.js-tilt');
-        
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
-                const rotateY = ((x - centerX) / centerX) * 10;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                
-                playHoverSound(); // Trigger sound (debounced in function)
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-            });
-        });
-
-        /* --- 4. SOUND ENGINE (Refined) --- */
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        let audioActive = false;
-        let lastSoundTime = 0;
-
-        document.body.addEventListener('click', () => { 
-            if(!audioActive) { audioCtx.resume(); audioActive = true; }
-        }, {once:true});
-
-        function playHoverSound() {
-            if(!audioActive) return;
-            const now = Date.now();
-            if(now - lastSoundTime < 100) return; // Debounce
-            lastSoundTime = now;
-
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            
-            osc.type = 'triangle'; // Sharper, techier sound
-            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
-            
-            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.1);
-            
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.1);
-        }
-        
-        // Add hover triggers for sound
-        document.querySelectorAll('[data-hover]').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                document.body.classList.add('hovering');
-                playHoverSound();
-            });
-            el.addEventListener('mouseleave', () => {
-                document.body.classList.remove('hovering');
-            });
-        });
-
     </script>
 </body>
 </html>
