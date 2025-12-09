@@ -3,37 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuoBoost | Ultimate Performance Hub</title>
+    <title>QuoBoost | Ultimate FPS Hub</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@300;500;800;900&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CORE SYSTEM VARIABLES --- */
+        /* --- CORE VARIABLES --- */
         :root {
-            --bg-color: #020203;
+            --bg-color: #030304;
             --primary: #00f3ff;
-            --primary-dark: #00a8b3;
-            --secondary: #bc13fe;
-            --accent: #ffffff;
-            
-            /* Glassmorphism Advanced */
-            --glass-bg: rgba(10, 10, 12, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --glass-shine: rgba(255, 255, 255, 0.1);
-            
-            --neon-glow: 0 0 30px rgba(0, 243, 255, 0.2);
+            --secondary: #bd00ff;
+            --glass-bg: rgba(20, 20, 25, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
             --text-main: #ffffff;
-            --text-muted: #8b9bb4;
+            --text-muted: #a0a0b0;
+            --neon-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Hide default cursor */ }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Custom cursor only */ user-select: none; }
+        
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-color);
@@ -47,448 +41,244 @@
             position: relative;
         }
 
+        /* --- BACKGROUND CANVAS --- */
+        #bg-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at center, #0a0a10 0%, #000000 100%);
+        }
+
         /* --- CUSTOM CURSOR --- */
-        .cursor-dot,
-        .cursor-outline {
-            position: fixed;
-            top: 0; left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-        }
-
         .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary);
+            position: fixed; width: 8px; height: 8px; background: var(--primary);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            box-shadow: 0 0 10px var(--primary);
         }
-
         .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(0, 243, 255, 0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            position: fixed; width: 40px; height: 40px;
+            border: 1px solid rgba(0, 243, 255, 0.5); border-radius: 50%;
+            pointer-events: none; z-index: 9998;
+            transition: width 0.1s, height 0.1s, background 0.1s;
         }
-
-        body:hover .cursor-outline { opacity: 1; }
         
         body.hovering .cursor-outline {
-            width: 70px;
-            height: 70px;
-            background-color: rgba(0, 243, 255, 0.05);
+            width: 70px; height: 70px;
+            background: rgba(0, 243, 255, 0.05);
             border-color: var(--primary);
             box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
         }
 
-        /* --- CANVAS BACKGROUND --- */
-        #bg-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #050508 0%, #000000 100%);
-        }
-
-        /* --- HUD ELEMENTS --- */
-        .hud-corner {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-family: 'Space Grotesk', monospace;
-            font-size: 0.7rem;
-            color: var(--primary);
-            opacity: 0.7;
-            text-align: right;
-            z-index: 10;
-            pointer-events: none;
-        }
-        .hud-line { display: block; margin-bottom: 4px; }
-        .blink { animation: blinker 2s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
-
         /* --- MAIN LAYOUT --- */
         .main-container {
-            width: 100%;
-            max-width: 550px;
-            padding: 2rem;
-            perspective: 1000px;
-            z-index: 5;
-            animation: containerEntry 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        @keyframes containerEntry {
-            from { opacity: 0; transform: translateY(40px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            width: 100%; max-width: 500px; padding: 2rem;
+            z-index: 5; perspective: 1000px;
         }
 
         /* --- PROFILE --- */
-        .profile-section {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            position: relative;
-        }
-
-        .logo-wrapper {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 1.5rem;
-            position: relative;
-            border-radius: 50%;
-            padding: 4px;
-            background: conic-gradient(from 0deg, transparent 0%, var(--primary) 20%, transparent 40%, var(--secondary) 60%, transparent 80%, var(--primary) 100%);
-            animation: rotateBorder 4s linear infinite;
-            box-shadow: 0 0 60px rgba(0, 243, 255, 0.1);
-        }
-        
-        @keyframes rotateBorder { 100% { transform: rotate(360deg); } }
-
-        .logo-inner-wrapper {
-            width: 100%; height: 100%;
-            background: #000;
-            border-radius: 50%;
-            padding: 4px;
-            position: relative;
-            z-index: 2; /* Keep image upright */
-            animation: rotateBorderReverse 4s linear infinite; /* Counter-rotate to keep image steady if needed, or just apply wrapper */
-        }
-        
-        /* Fix: Apply counter rotation to inner container to keep image static while border spins? 
-           Easier approach: Rotate pseudo element or background only. 
-           Let's keep it simple: rotate the wrapper, but image inside needs to counter-rotate or be separate.
-           Better Logic: */
+        .profile-section { text-align: center; margin-bottom: 2rem; }
         
         .logo-wrapper {
-            animation: none; /* Reset */
-            background: none;
-            display: flex;
-            align-items: center; justify-content: center;
+            width: 130px; height: 130px; margin: 0 auto 1.5rem;
+            position: relative; display: flex; align-items: center; justify-content: center;
         }
         
-        .logo-glow-ring {
-            position: absolute;
-            inset: -5px;
-            border-radius: 50%;
-            background: conic-gradient(from 180deg, transparent 0%, var(--primary) 40%, transparent 60%, var(--secondary) 80%, transparent 100%);
-            animation: spin 4s linear infinite;
-            filter: blur(8px);
-            opacity: 0.6;
+        .logo-ring {
+            position: absolute; inset: 0; border-radius: 50%;
+            border: 2px dashed var(--primary); opacity: 0.5;
+            animation: spin 10s linear infinite;
+        }
+        .logo-ring:nth-child(2) {
+            inset: -8px; border: 2px solid var(--secondary); opacity: 0.3;
+            animation: spinReverse 15s linear infinite; border-style: dotted;
         }
 
         .logo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.1);
-            background: #050505;
-            position: relative;
-            z-index: 2;
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            position: relative; z-index: 2; border: 2px solid rgba(255,255,255,0.1);
+            background: #000;
         }
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spinReverse { 100% { transform: rotate(-360deg); } }
 
-        /* Glitch Effect Title */
+        /* Glitch Title */
+        .glitch-wrapper { position: relative; display: inline-block; margin-bottom: 0.5rem; }
         .glitch-title {
-            font-size: 3rem;
-            font-weight: 900;
-            color: white;
+            font-size: 3rem; font-weight: 900; color: white;
+            text-transform: uppercase; letter-spacing: -1px;
+            text-shadow: 2px 2px 0px var(--secondary);
             position: relative;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+        
+        .glitch-title::before, .glitch-title::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
+        }
+        .glitch-title::before {
+            color: var(--primary); z-index: -1; animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        .glitch-title::after {
+            color: var(--secondary); z-index: -2; animation: glitch-anim-2 3s infinite linear alternate-reverse;
         }
 
-        /* Description Styling */
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+            100% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 50% 0); transform: translate(2px, -1px); }
+            100% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 1px); }
+        }
+
         .hero-desc {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 400px;
-            margin: 0 auto;
-            line-height: 1.5;
-            background: linear-gradient(90deg, #8b9bb4, #ffffff, #8b9bb4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: shineText 5s linear infinite;
+            font-family: 'Space Grotesk', monospace; color: var(--text-muted);
+            font-size: 0.95rem; letter-spacing: 1px; min-height: 1.2em;
         }
+        .hero-desc span { color: var(--primary); }
+        .cursor-blink { display: inline-block; width: 8px; height: 15px; background: var(--primary); animation: blink 1s infinite; vertical-align: middle; margin-left: 5px;}
+        @keyframes blink { 50% { opacity: 0; } }
 
-        @keyframes shineText { to { background-position: 200% center; } }
-
-        /* --- SPOTLIGHT CARD STYLES --- */
-        .spotlight-card {
-            background: var(--glass-bg);
-            border-radius: 20px;
+        /* --- 3D CARDS (TILT) --- */
+        .tilt-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 1.2rem;
             position: relative;
-            margin-bottom: 1.5rem;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            /* Border handled by pseudo element for spotlight */
-            border: 1px solid rgba(255,255,255,0.05);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.1s; /* Quick response for tilt */
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* The moving light border */
-        .spotlight-card::before {
-            content: '';
-            position: absolute;
-            height: 100%; width: 100%;
-            top: 0; left: 0;
-            border-radius: inherit;
-            pointer-events: none;
-            z-index: 2;
-            background: radial-gradient(
-                800px circle at var(--mouse-x) var(--mouse-y), 
-                rgba(255, 255, 255, 0.15),
-                transparent 40%
-            );
-            opacity: 0;
-            transition: opacity 0.5s;
+        /* Hover Glow Effect */
+        .tilt-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(0, 243, 255, 0.1), transparent 40%);
+            opacity: 0; transition: opacity 0.5s; z-index: 1; pointer-events: none;
         }
+        .tilt-card:hover::before { opacity: 1; }
+        .tilt-card:hover { border-color: rgba(0, 243, 255, 0.3); box-shadow: 0 0 30px rgba(0, 243, 255, 0.15); }
 
-        .spotlight-card:hover::before { opacity: 1; }
-        .spotlight-card:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-
-        /* Video Container */
-        .video-container {
-            padding: 0;
-            border: 1px solid rgba(0, 243, 255, 0.1);
-        }
-        
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            width: 100%;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-        
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-        }
+        /* Video */
+        .video-container { padding: 0; z-index: 2; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 16px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         /* Link Buttons */
         .link-btn {
-            display: flex;
-            align-items: center;
-            padding: 1.4rem 1.8rem;
-            text-decoration: none;
-            color: white;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
+            display: flex; align-items: center; padding: 1.2rem 1.5rem;
+            text-decoration: none; color: white; z-index: 2;
         }
-
-        /* Button internal shine on hover */
-        .link-btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
-            transform: translateX(-100%);
-            transition: 0.5s;
-        }
-        
-        .link-btn:hover::after { transform: translateX(100%); }
 
         .icon-box {
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            margin-right: 1.5rem;
-            color: var(--text-muted);
-            transition: 0.3s;
-            box-shadow: 0 0 0 rgba(0,0,0,0);
+            width: 45px; height: 45px; background: rgba(255,255,255,0.05);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; color: var(--text-muted); margin-right: 1.2rem;
+            transition: 0.3s; transform: translateZ(20px);
+        }
+        .tilt-card:hover .icon-box {
+            background: var(--primary); color: #000; transform: translateZ(30px) scale(1.1);
+            box-shadow: 0 0 20px var(--primary);
         }
 
-        .link-btn:hover .icon-box {
-            background: rgba(0, 243, 255, 0.1);
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-            transform: scale(1.1) rotate(-5deg);
-        }
-
-        .link-info {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .link-title {
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 4px;
-            letter-spacing: 0.5px;
-        }
-
-        .link-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-family: 'Space Grotesk', sans-serif;
-        }
+        .link-info { display: flex; flex-direction: column; transform: translateZ(10px); }
+        .link-title { font-weight: 700; font-size: 1.1rem; color: #fff; text-transform: uppercase; }
+        .link-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
 
         .arrow-icon {
-            opacity: 0.3;
-            transform: translateX(0);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            color: var(--text-muted);
+            margin-left: auto; color: var(--primary); opacity: 0;
+            transform: translateX(-10px) translateZ(10px); transition: 0.3s;
         }
+        .tilt-card:hover .arrow-icon { opacity: 1; transform: translateX(0) translateZ(10px); }
 
-        .link-btn:hover .arrow-icon {
-            opacity: 1;
-            transform: translateX(5px);
-            color: var(--primary);
-        }
-
-        /* Specific Brand Colors */
-        .btn-discord:hover .icon-box { color: #5865F2; border-color: #5865F2; background: rgba(88, 101, 242, 0.1); box-shadow: 0 0 15px rgba(88, 101, 242, 0.3); }
-
-        /* Social Row */
-        .social-row {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
+        /* Socials */
+        .social-row { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
         .social-item {
-            width: 60px;
-            height: 60px;
-            border-radius: 20px;
-            background: var(--glass-bg);
-            border: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
+            width: 55px; height: 55px; border-radius: 14px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); font-size: 1.4rem; text-decoration: none;
+            transition: 0.3s; position: relative; overflow: hidden;
         }
-
-        .social-item::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 70%);
-            opacity: 0; transition: 0.3s;
-        }
-
-        .social-item:hover {
-            transform: translateY(-8px);
-            color: white;
-            border-color: rgba(255,255,255,0.3);
-        }
+        .social-item:hover { transform: translateY(-5px); color: white; border-color: white; }
         
-        .social-item:hover::before { opacity: 1; }
-        
-        .social-item.yt:hover { box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3); color: #ff2a2a; }
-        .social-item.ig:hover { box-shadow: 0 10px 30px rgba(220, 39, 67, 0.3); color: #e1306c; }
+        .social-item.yt:hover { background: linear-gradient(45deg, #ff0000, #a80000); box-shadow: 0 0 20px rgba(255,0,0,0.4); }
+        .social-item.ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 0 20px rgba(220, 39, 67, 0.4); }
 
         /* Footer */
-        .footer {
-            margin-top: 3.5rem;
-            font-size: 0.75rem;
-            color: #555;
-            text-align: center;
-            letter-spacing: 2px;
-            font-family: 'Space Grotesk', monospace;
-            text-transform: uppercase;
-        }
+        footer { margin-top: 3rem; text-align: center; font-size: 0.75rem; color: #555; letter-spacing: 2px; text-transform: uppercase; }
         
-        .footer span { color: var(--primary); }
+        /* HUD Corner */
+        .hud {
+            position: fixed; top: 20px; right: 20px; text-align: right;
+            font-family: 'Space Grotesk', monospace; font-size: 0.7rem; color: var(--primary);
+            pointer-events: none; opacity: 0.7;
+        }
 
-        /* Mobile tweaks */
+        /* Responsive */
         @media (max-width: 600px) {
-            .cursor-dot, .cursor-outline { display: none; }
-            * { cursor: auto; }
+            .cursor-dot, .cursor-outline { display: none; } * { cursor: auto; }
             .glitch-title { font-size: 2.2rem; }
-            .hud-corner { display: none; }
-            .hero-desc { font-size: 0.95rem; padding: 0 1rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- INTERACTIVE BACKGROUND -->
+    <canvas id="bg-canvas"></canvas>
+
     <!-- CUSTOM CURSOR -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- BACKGROUND CANVAS -->
-    <canvas id="bg-canvas"></canvas>
-
-    <!-- HUD OVERLAY -->
-    <div class="hud-corner">
-        <span class="hud-line">SYS.OPT :: ACTIVE</span>
-        <span class="hud-line">FPS.TARGET :: UNLIMITED</span>
-        <span class="hud-line blink">CONNECTION :: SECURE</span>
+    <!-- HUD -->
+    <div class="hud">
+        SYSTEM :: OPTIMIZED<br>
+        FPS :: UNLOCKED
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-container" id="main-content">
+    <div class="main-container">
         
-        <!-- HEADER -->
         <header class="profile-section">
             <div class="logo-wrapper">
-                <div class="logo-glow-ring"></div>
-                <img src="assets/logo.png" alt="QuoBoost Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/150/000000/00f3ff?text=QB'">
+                <div class="logo-ring"></div>
+                <div class="logo-ring"></div>
+                <img src="assets/logo.png" alt="QuoBoost" class="logo-img" onerror="this.src='https://via.placeholder.com/150/000000/00f3ff?text=QB'">
             </div>
             
-            <h1 class="glitch-title">QUOBOOST</h1>
-            <p class="hero-desc">The #1 Optimization Tool. Boost FPS, Reduce Input Lag & Unleash Performance.</p>
+            <div class="glitch-wrapper">
+                <h1 class="glitch-title" data-text="QUOBOOST">QUOBOOST</h1>
+            </div>
+            
+            <div class="hero-desc">
+                <span id="typewriter"></span><div class="cursor-blink"></div>
+            </div>
         </header>
 
-        <!-- VIDEO CARD -->
-        <div class="spotlight-card video-container js-tilt" data-hover-trigger>
+        <!-- VIDEO CARD (3D TILT) -->
+        <div class="tilt-card video-container js-tilt" data-hover>
             <div class="video-wrapper">
-                <iframe 
-                    src="https://www.youtube.com/embed/xYi2HdQdYMc?autoplay=1&mute=1&controls=0&loop=1&playlist=xYi2HdQdYMc&modestbranding=1" 
-                    title="QuoBoost Preview" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
+                <iframe src="https://www.youtube.com/embed/xYi2HdQdYMc?autoplay=1&mute=1&controls=0&loop=1&playlist=xYi2HdQdYMc" title="Preview" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
 
-        <!-- LINKS -->
+        <!-- LINKS STACK -->
         <div class="links-stack">
             
-            <!-- Website -->
-            <a href="https://quoboost.com" target="_blank" class="spotlight-card link-btn btn-web js-tilt" data-hover-trigger>
-                <div class="icon-box">
-                    <i class="fa-solid fa-microchip"></i>
-                </div>
+            <a href="https://quoboost.com" target="_blank" class="tilt-card link-btn js-tilt" data-hover>
+                <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
                 <div class="link-info">
                     <span class="link-title">Official Website</span>
-                    <span class="link-desc">Download QuoBoost Free</span>
+                    <span class="link-desc">Download the Ultimate Optimizer</span>
                 </div>
                 <i class="fa-solid fa-arrow-right arrow-icon"></i>
             </a>
 
-            <!-- Discord -->
-            <a href="https://discord.com/invite/jdVuCrKfvy" target="_blank" class="spotlight-card link-btn btn-discord js-tilt" data-hover-trigger>
-                <div class="icon-box">
-                    <i class="fa-brands fa-discord"></i>
-                </div>
+            <a href="https://discord.com/invite/jdVuCrKfvy" target="_blank" class="tilt-card link-btn js-tilt" data-hover>
+                <div class="icon-box"><i class="fa-brands fa-discord"></i></div>
                 <div class="link-info">
-                    <span class="link-title">Discord Community</span>
+                    <span class="link-title">Discord Server</span>
                     <span class="link-desc">Join 50k+ Members</span>
                 </div>
                 <i class="fa-solid fa-arrow-right arrow-icon"></i>
@@ -498,184 +288,228 @@
 
         <!-- SOCIALS -->
         <div class="social-row">
-            <a href="https://www.youtube.com/@quoboost" target="_blank" class="social-item yt" data-hover-trigger>
+            <a href="https://www.youtube.com/@quoboost" target="_blank" class="social-item yt" data-hover>
                 <i class="fa-brands fa-youtube"></i>
             </a>
-            <a href="https://www.instagram.com/quo.boost/" target="_blank" class="social-item ig" data-hover-trigger>
+            <a href="https://www.instagram.com/quo.boost/" target="_blank" class="social-item ig" data-hover>
                 <i class="fa-brands fa-instagram"></i>
             </a>
         </div>
 
-        <footer class="footer">
-            Designed for <span>Speed</span>
+        <footer>
+            QuoBoost © 2024 <br> Designed for Speed
         </footer>
 
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        /* --- 1. MOUSE SPOTLIGHT EFFECT --- */
-        document.addEventListener('mousemove', e => {
-            const cards = document.querySelectorAll('.spotlight-card');
-            cards.forEach(card => {
+        /* --- 1. TYPEWRITER EFFECT (DESCRIPTION) --- */
+        const textToType = "MAXIMIZE PERFORMANCE // ZERO INPUT LAG";
+        const typeContainer = document.getElementById('typewriter');
+        let typeIndex = 0;
+
+        function typeWriter() {
+            if (typeIndex < textToType.length) {
+                typeContainer.innerHTML += textToType.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        setTimeout(typeWriter, 500);
+
+        /* --- 2. INTERACTIVE PARTICLES (NEURAL MESH) --- */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        
+        // Mouse interaction
+        let mouse = { x: null, y: null, radius: 150 };
+        
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+            
+            // Cursor movement
+            const dot = document.querySelector('.cursor-dot');
+            const outline = document.querySelector('.cursor-outline');
+            dot.style.left = `${e.clientX - 4}px`;
+            dot.style.top = `${e.clientY - 4}px`;
+            
+            // Simple follow for outline
+            outline.animate({
+                left: `${e.clientX - 20}px`, top: `${e.clientY - 20}px`
+            }, { duration: 500, fill: "forwards" });
+            
+            // Spotlight effect for cards
+            document.querySelectorAll('.js-tilt').forEach(card => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
             });
         });
 
-        /* --- 2. CUSTOM CURSOR LOGIC --- */
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
         
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1;
+                this.vy = (Math.random() - 0.5) * 1;
+                this.size = Math.random() * 2;
+                this.baseColor = 'rgba(0, 243, 255, '; // Cyan base
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Bounce
+                if(this.x < 0 || this.x > width) this.vx *= -1;
+                if(this.y < 0 || this.y > height) this.vy *= -1;
+                
+                // Mouse Interaction
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                
+                if (distance < mouse.radius) {
+                    // Slight attraction/connection logic? 
+                    // No, let's make them light up
+                    this.active = true;
+                } else {
+                    this.active = false;
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.active ? '#bc13fe' : '#00f3ff'; // Purple if close, Cyan if far
+                ctx.fill();
+            }
+        }
+        
+        function initParticles() {
+            particles = [];
+            let count = (width * height) / 9000;
+            for(let i=0; i<count; i++) particles.push(new Particle());
+        }
+        
+        function animate() {
+            ctx.clearRect(0,0,width,height);
+            for(let i=0; i<particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                // Connect particles
+                for(let j=i; j<particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    
+                    if(dist < 100) {
+                        ctx.beginPath();
+                        let opacity = 1 - (dist/100);
+                        // Connect to mouse specially
+                        let mouseDist = Math.sqrt(Math.pow(particles[i].x - mouse.x, 2) + Math.pow(particles[i].y - mouse.y, 2));
 
-            // Dot follows instantly
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
+                        if(mouseDist < 150) {
+                             ctx.strokeStyle = `rgba(188, 19, 254, ${opacity})`; // Purple connections near mouse
+                             ctx.lineWidth = 1;
+                        } else {
+                             ctx.strokeStyle = `rgba(0, 243, 255, ${opacity * 0.2})`; // Dim cyan elsewhere
+                             ctx.lineWidth = 0.5;
+                        }
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+                
+                // Connect to Mouse
+                let dx_m = particles[i].x - mouse.x;
+                let dy_m = particles[i].y - mouse.y;
+                let dist_m = Math.sqrt(dx_m*dx_m + dy_m*dy_m);
+                if(dist_m < 150) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist_m/150})`;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        
+        window.addEventListener('resize', () => { resize(); initParticles(); });
+        resize(); initParticles(); animate();
 
-            // Outline follows with slight delay
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 400, fill: "forwards" });
-        });
-
-        // Add hover effect to interactive elements
-        document.querySelectorAll('a, .js-tilt, [data-hover-trigger]').forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-        });
-
-        /* --- 3. 3D TILT EFFECT --- */
+        /* --- 3. 3D TILT EFFECT FOR CARDS --- */
         const tiltCards = document.querySelectorAll('.js-tilt');
-
+        
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                const xPct = x / rect.width;
-                const yPct = y / rect.height;
-                const xRot = (0.5 - yPct) * 10;
-                const yRot = (xPct - 0.5) * 10;
-
-                card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-            });
-        });
-
-        /* --- 4. ADVANCED PARTICLE WARP FIELD (BACKGROUND) --- */
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        let width, height;
-        let particles = [];
-        
-        // Mouse state for interaction
-        const mouse = { x: 0, y: 0, active: false };
-
-        window.addEventListener('mousemove', e => {
-            mouse.x = (e.clientX - width / 2) * 0.5; // Offset from center
-            mouse.y = (e.clientY - height / 2) * 0.5;
-            mouse.active = true;
-        });
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        
-        class Star {
-            constructor() {
-                this.init();
-            }
-
-            init() {
-                this.x = (Math.random() - 0.5) * width * 2; // Spread wider than screen
-                this.y = (Math.random() - 0.5) * height * 2;
-                this.z = Math.random() * 2000 + 500; // Depth
-                this.size = Math.random();
-                this.color = Math.random() > 0.8 ? '#00f3ff' : (Math.random() > 0.5 ? '#bc13fe' : '#ffffff');
-            }
-
-            update() {
-                // Move towards viewer (decrease Z)
-                this.z -= 10; // Speed
-
-                // Interaction: Shift stars based on mouse pos to create parallax
-                if(mouse.active) {
-                    this.x += (mouse.x - this.x * 0.01) * 0.02;
-                    this.y += (mouse.y - this.y * 0.01) * 0.02;
-                }
-
-                // Reset if passes screen
-                if (this.z <= 0) this.init();
-            }
-
-            draw() {
-                // Perspective projection
-                let x2d = (this.x / this.z) * width + width / 2;
-                let y2d = (this.y / this.z) * height + height / 2;
                 
-                // Size grows as it gets closer
-                let s = (1 - this.z / 2500) * 3; 
-
-                if (x2d > 0 && x2d < width && y2d > 0 && y2d < height) {
-                    ctx.beginPath();
-                    ctx.fillStyle = this.color;
-                    ctx.arc(x2d, y2d, s, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Add trails for "Warp" effect
-                    if(s > 1.5) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(${this.color === '#00f3ff' ? '0,243,255' : '188,19,254'}, 0.2)`;
-                        ctx.lineWidth = s;
-                        ctx.moveTo(x2d, y2d);
-                        // Trail goes towards center roughly
-                        ctx.lineTo((this.x / (this.z + 100)) * width + width / 2, (this.y / (this.z + 100)) * height + height / 2);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function initStars() {
-            particles = [];
-            const count = (width * height) / 3000; // Density
-            for (let i = 0; i < count; i++) {
-                particles.push(new Star());
-            }
-        }
-
-        function animate() {
-            ctx.fillStyle = 'rgba(2, 2, 3, 0.3)'; // Trail effect background
-            ctx.fillRect(0, 0, width, height);
-            
-            particles.forEach(p => {
-                p.update();
-                p.draw();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                
+                playHoverSound(); // Trigger sound (debounced in function)
             });
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('resize', () => {
-            resize();
-            initStars();
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
         });
 
-        // Start
-        resize();
-        initStars();
-        animate();
+        /* --- 4. SOUND ENGINE (Refined) --- */
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let audioActive = false;
+        let lastSoundTime = 0;
+
+        document.body.addEventListener('click', () => { 
+            if(!audioActive) { audioCtx.resume(); audioActive = true; }
+        }, {once:true});
+
+        function playHoverSound() {
+            if(!audioActive) return;
+            const now = Date.now();
+            if(now - lastSoundTime < 100) return; // Debounce
+            lastSoundTime = now;
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'triangle'; // Sharper, techier sound
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+            
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.1);
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+        
+        // Add hover triggers for sound
+        document.querySelectorAll('[data-hover]').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                document.body.classList.add('hovering');
+                playHoverSound();
+            });
+            el.addEventListener('mouseleave', () => {
+                document.body.classList.remove('hovering');
+            });
+        });
 
     </script>
 </body>
