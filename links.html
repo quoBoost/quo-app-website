@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>QUO APP | LINK IN BIO</title>
 
-        <link rel="icon" type="image/png" href="/assets/logo16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/assets/logo16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="/assets/logo32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="/assets/logo96x96.png" sizes="96x96">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo180x180.png">
@@ -172,6 +172,7 @@
             /* Subtle blur for the edges/glow only, since bg is solid */
             box-shadow: 0 20px 50px -10px rgba(0,0,0,0.9);
             z-index: 10; /* Visually in the middle stack */
+            transition: transform 0.1s, box-shadow 0.2s, border-color 0.2s; /* Smooth active state */
         }
         
         /* Interactive Glare */
@@ -188,8 +189,70 @@
             mix-blend-mode: overlay;
         }
         
-        .tilt-card:hover::before { opacity: 1; }
-        .tilt-card:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 30px 60px -10px rgba(0, 243, 255, 0.1); }
+        /* Hover for PC */
+        @media (hover: hover) {
+            .tilt-card:hover::before { opacity: 1; }
+            .tilt-card:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 30px 60px -10px rgba(0, 243, 255, 0.1); }
+            
+            .tilt-card:hover .icon-box {
+                background: var(--primary); color: #000;
+                box-shadow: 0 0 20px var(--primary);
+                transform: translateZ(30px) scale(1.1);
+            }
+            .tilt-card:hover .arrow { opacity: 1; transform: translateX(0) translateZ(20px); }
+            .social-btn:hover { background: #fff; color: #000; transform: translateY(-5px) scale(1.1); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        }
+
+        /* --- MOBILE OPTIMIZATIONS (TOUCH UX) --- */
+        @media (max-width: 768px) {
+            .viewport {
+                padding: 1.5rem 1rem; /* Mas espacio en bordes */
+            }
+
+            .logo-container {
+                width: 100px;
+                height: 100px; /* Logo mas proporcionado */
+            }
+
+            .brand-name {
+                font-size: 2.2rem; /* Titulo que no se rompe */
+            }
+
+            .tilt-card {
+                margin-bottom: 1rem;
+            }
+
+            .tilt-inner {
+                padding: 1rem; /* Compact card */
+            }
+
+            .icon-box {
+                width: 45px; height: 45px; /* Icono ajustado */
+                font-size: 1.1rem;
+                margin-right: 1rem;
+            }
+
+            .title {
+                font-size: 1rem;
+            }
+
+            .desc {
+                font-size: 0.75rem;
+            }
+
+            /* TOUCH FEEDBACK (ACTIVE STATE) */
+            .tilt-card:active {
+                transform: scale(0.98); /* Efecto de presion fisico */
+                border-color: var(--primary);
+                box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            }
+
+            .social-btn:active {
+                transform: scale(0.9);
+                background: #fff;
+                color: #000;
+            }
+        }
 
         .tilt-inner {
             padding: 1.2rem;
@@ -219,12 +282,6 @@
             transform: translateZ(10px);
         }
 
-        .tilt-card:hover .icon-box {
-            background: var(--primary); color: #000;
-            box-shadow: 0 0 20px var(--primary);
-            transform: translateZ(30px) scale(1.1);
-        }
-
         .meta { flex: 1; display: flex; flex-direction: column; transform: translateZ(15px); }
         .title { font-weight: 700; font-size: 1.15rem; color: #fff; margin-bottom: 2px; }
         .desc { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; }
@@ -233,8 +290,7 @@
             color: var(--primary); font-size: 1rem; opacity: 0;
             transform: translateX(-10px) translateZ(10px); transition: 0.3s;
         }
-        .tilt-card:hover .arrow { opacity: 1; transform: translateX(0) translateZ(20px); }
-
+        
         /* Socials */
         .social-row {
             display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem;
@@ -247,7 +303,7 @@
             transition: 0.3s; transform: translateZ(0);
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
-        .social-btn:hover { background: #fff; color: #000; transform: translateY(-5px) scale(1.1); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        
         .social-btn.yt:hover { color: #ff0000; }
         .social-btn.ig:hover { color: #e1306c; }
 
@@ -462,6 +518,14 @@
         document.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX - windowHalfX) * 0.001; 
             mouseY = (e.clientY - windowHalfY) * 0.001;
+        });
+
+        // Add touch support for mobile parallax
+        document.addEventListener('touchmove', (e) => {
+            if(e.touches.length > 0) {
+                mouseX = (e.touches[0].clientX - windowHalfX) * 0.001;
+                mouseY = (e.touches[0].clientY - windowHalfY) * 0.001;
+            }
         });
 
         const animate = () => {
