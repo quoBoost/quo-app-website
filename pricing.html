@@ -1147,33 +1147,32 @@
     window.startPurchaseFlow = startPurchaseFlow;
 
     function initiateWhopCheckout(planId) {
-        const wrapper = document.getElementById('whop-wrapper');
-        wrapper.innerHTML = ''; 
-
-        const checkoutDiv = document.createElement('div');
-        checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
-        checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
-        checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
+        // 1. URL Base del Checkout de Whop
+        const baseUrl = `https://whop.com/checkout/${planId}`;
         
-        checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
-        checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false'); 
-        checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
-        
-        checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
+        // 2. Preparamos los parámetros (Email y Metadata para Supabase)
+        const params = new URLSearchParams();
 
-        if(currentUser) {
-            checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
-            const metadataString = JSON.stringify({ supabaseUserID: currentUser.id });
-            checkoutDiv.setAttribute('data-whop-checkout-metadata', metadataString);
+        if (currentUser) {
+            // Pre-llenar el email
+            params.append('email', currentUser.email);
+            
+            // IMPORTANTE: Pasar el ID de Supabase en la metadata
+            // Esto es crucial para que tu Webhook sepa a quién darle el premium
+            const metadataObject = { supabaseUserID: currentUser.id };
+            params.append('metadata', JSON.stringify(metadataObject));
         }
 
-        wrapper.appendChild(checkoutDiv);
-        
-        // Pequeño delay para asegurar que el DOM cargue antes de abrir
-        setTimeout(() => {
-            openModal('whop-modal');
-        }, 100);
+        // 3. (Opcional) Redirección de éxito
+        // Puedes configurar esto en el panel de Whop o forzarlo aquí si Whop lo permite en URL
+        // params.append('success_url', window.location.origin + '/success'); 
+
+        // 4. Redirigir al usuario a la página completa de Whop
+        window.location.href = `${baseUrl}?${params.toString()}`;
     }
+
+    // Nota: Ya no necesitamos la función 'onWhopPurchaseComplete' ni el modal 'whop-modal'
+    // porque el usuario se va de tu página a la de Whop.
 
     window.onWhopPurchaseComplete = async (planId, receiptId) => {
         closeModal('whop-modal');
