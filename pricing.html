@@ -251,122 +251,151 @@
             <p class="text-gray-400 text-lg md:text-xl">Stop upgrading hardware. Start mastering your software.</p>
         </div>
 
-<div class="relative w-full max-w-7xl mx-auto px-4">
+<div class="relative w-full max-w-7xl mx-auto px-4 font-sans">
     
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-5xl bg-brand/10 blur-[100px] rounded-full -z-10 pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-5xl bg-indigo-900/10 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch"> 
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start"> 
         
-        <div class="group relative card-glass rounded-3xl p-6 flex flex-col border border-white/5 bg-[#0a0a0a] hover:border-white/10 transition-all duration-300 hover:-translate-y-1">
-            <div class="mb-4">
-                <span class="inline-block py-1 px-3 rounded-lg bg-white/5 text-gray-400 font-bold tracking-wider text-[10px] uppercase border border-white/5">Flexible</span>
-                <h3 class="text-2xl font-bold mt-4 text-white">Monthly</h3>
-                <div class="flex items-end gap-1 mt-2">
-                    <span class="text-4xl font-extrabold text-white tracking-tight">$8.99</span>
-                    <span class="text-gray-500 mb-1 text-sm font-medium">/mo</span>
+        <div class="group relative rounded-[30px] p-8 flex flex-col bg-[#050505] border border-white/5 hover:border-white/10 transition-all duration-300">
+            <div class="mb-6">
+                <h3 class="text-lg font-medium text-gray-300 mb-2">Monthly</h3>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-5xl font-bold text-white tracking-tight">€7.99</span>
+                    <span class="text-gray-500 text-sm">/month</span>
                 </div>
-                <p class="text-gray-400 text-xs mt-3 leading-relaxed">Perfect for short-term boosting and testing performance.</p>
+                <p class="text-gray-500 text-sm mt-2">Billed monthly</p>
             </div>
 
-            <ul class="space-y-3 mb-8 text-sm text-gray-400 flex-grow">
-                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="zap" class="w-4 h-4 text-brand"></i></div> QuO GameMode (FPS)</li>
-                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> Zero Stutter Logic</li>
-                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> Input Lag Reduction</li>
-                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> All 1500+ Tweaks</li>
+            <div class="w-full border-t border-dashed border-white/10 mb-8"></div>
+
+            <ul class="space-y-4 mb-8 text-[15px] text-gray-300 flex-grow">
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> 1500+ Optimizations
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> QuO GameMode
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> QuO RamOptimizer
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> QuO AlwaysOn
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> Access to entire optimization Suite
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> Kernel Level Optimizations
+                </li>
             </ul>
 
-            <div class="mt-auto pt-6 border-t border-white/5">
-                <button id="btn-monthly" onclick="startPurchaseFlow('monthly')" class="w-full py-3 rounded-xl border border-white/10 text-center font-bold text-gray-300 hover:bg-white/5 hover:text-white transition-all flex justify-center items-center gap-2">
-                    Select Monthly
+            <div class="mt-auto flex flex-col items-center gap-4">
+                <a href="#details-section" class="text-xs text-gray-500 hover:text-white underline decoration-gray-700 underline-offset-4 transition-colors">
+                    See More details
+                </a>
+                <button onclick="startPurchaseFlow('monthly')" class="w-full py-3.5 rounded-2xl border border-purple-500/30 bg-purple-500/5 hover:bg-purple-500/20 text-white font-semibold transition-all shadow-[0_0_20px_-10px_rgba(168,85,247,0.3)] flex justify-center items-center gap-2 group">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-purple-400 group-hover:text-white transition-colors"></i> Get premium
                 </button>
             </div>
         </div>
 
-        <div class="relative card-glass rounded-3xl p-0.5 bg-gradient-to-b from-brand via-brand/50 to-purple-900/50 shadow-[0_0_40px_-10px_rgba(var(--brand-rgb),0.4)] transform md:scale-105 z-10">
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand to-purple-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
-                Most Popular
+        <div class="group relative rounded-[30px] p-8 flex flex-col bg-[#080808] border border-indigo-500/20 shadow-2xl shadow-indigo-900/10 md:-translate-y-4 transition-all duration-300">
+            <div class="mb-6 relative">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-lg font-medium text-gray-300 mb-2">Yearly</h3>
+                    <span class="bg-[#5865F2] text-white text-[10px] font-bold px-2.5 py-1 rounded-full">Save 38%</span>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-5xl font-bold text-white tracking-tight">€4.99</span>
+                    <span class="text-gray-500 text-sm line-through">€7.99</span>
+                    <span class="text-gray-500 text-sm">/month</span>
+                </div>
+                <p class="text-gray-500 text-sm mt-2">Billed yearly</p>
             </div>
 
-            <div class="bg-[#0f0f0f] rounded-[22px] p-6 h-full flex flex-col relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-brand/10 blur-3xl rounded-full pointer-events-none"></div>
+            <div class="w-full border-t border-dashed border-white/10 mb-8"></div>
 
-                <div class="mb-4">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-block text-brand font-bold tracking-widest text-xs uppercase mb-1">Annual Pass</span>
-                        <span class="bg-green-500/10 text-green-400 border border-green-500/20 text-[10px] font-bold px-2 py-0.5 rounded">SAVE 50%</span>
-                    </div>
+            <ul class="space-y-4 mb-8 text-[15px] text-gray-300 flex-grow">
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> 1500+ Optimizations
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> QuO GameMode
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> QuO RamOptimizer
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> QuO AlwaysOn
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> Access to entire optimization Suite
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> Kernel Level Optimizations
+                </li>
+            </ul>
 
-                    <div class="flex items-end gap-2 mt-2">
-                        <span class="text-5xl font-extrabold text-white tracking-tight">$4.50</span>
-                        <span class="text-gray-400 mb-1 font-bold text-sm">/mo</span>
-                    </div>
-                    <p class="text-[11px] text-gray-500 mt-1 font-semibold">Billed annually as $54.00</p>
-                </div>
-
-                <div class="mb-6">
-                    <button id="btn-annual" onclick="startPurchaseFlow('annual')" class="relative w-full py-3.5 rounded-xl bg-gradient-to-r from-brand to-red-600 text-center font-bold text-white shadow-lg shadow-brand/25 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer flex justify-center items-center gap-2 group">
-                         <span>Get Annual Access</span> <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
-                    </button>
-                    <p class="text-[10px] text-center text-gray-500 mt-2">Instant activation via Key</p>
-                </div>
-                
-                <div class="h-px w-full bg-white/10 mb-5"></div>
-
-                <ul class="space-y-3 mb-4 flex-grow">
-                    <li class="flex items-start gap-3 text-sm text-white font-medium">
-                        <i data-lucide="zap" class="w-4 h-4 text-brand mt-0.5"></i> <span>QuO GameMode (Priority CPU)</span>
-                    </li>
-                    <li class="flex items-start gap-3 text-sm text-white font-medium">
-                        <i data-lucide="wifi" class="w-4 h-4 text-brand mt-0.5"></i> <span>Ping Stabilizer Logic</span>
-                    </li>
-                    <li class="flex items-start gap-3 text-sm text-white font-medium">
-                        <i data-lucide="shield" class="w-4 h-4 text-brand mt-0.5"></i> <span>Remove Spyware & Telemetry</span>
-                    </li>
-                    <li class="flex items-start gap-3 text-sm text-gray-400">
-                        <i data-lucide="message-circle" class="w-4 h-4 text-gray-500 mt-0.5"></i> <span>Priority Discord Support</span>
-                    </li>
-                     <li class="flex items-start gap-3 text-sm text-gray-400">
-                        <i data-lucide="refresh-cw" class="w-4 h-4 text-gray-500 mt-0.5"></i> <span>Auto-Updates Included</span>
-                    </li>
-                </ul>
+            <div class="mt-auto flex flex-col items-center gap-4">
+                <a href="#details-section" class="text-xs text-gray-500 hover:text-white underline decoration-gray-700 underline-offset-4 transition-colors">
+                    See More details
+                </a>
+                <button onclick="startPurchaseFlow('yearly')" class="w-full py-3.5 rounded-2xl border border-purple-500/50 bg-gradient-to-r from-purple-900/20 to-indigo-900/20 hover:bg-purple-500/20 text-white font-semibold transition-all shadow-[0_0_25px_-5px_rgba(168,85,247,0.4)] flex justify-center items-center gap-2 group">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-purple-300 group-hover:text-white transition-colors"></i> Get premium
+                </button>
             </div>
         </div>
 
-        <div class="group relative card-glass rounded-3xl p-6 flex flex-col border border-white/5 bg-[#0a0a0a] hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1">
-            <div class="mb-4">
-                <span class="inline-block py-1 px-3 rounded-lg bg-purple-500/10 text-purple-400 font-bold tracking-wider text-[10px] uppercase border border-purple-500/20">Best Value</span>
-                <h3 class="text-2xl font-bold mt-4 text-white">Lifetime</h3>
-                <div class="flex items-end gap-1 mt-2">
-                    <span class="text-4xl font-extrabold text-white tracking-tight">$119.99</span>
+        <div class="group relative rounded-[30px] p-8 flex flex-col bg-[#050505] border border-white/5 hover:border-white/10 transition-all duration-300">
+            <div class="mb-6">
+                <h3 class="text-lg font-medium text-gray-300 mb-2">Lifetime</h3>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-5xl font-bold text-white tracking-tight">€119.99</span>
+                    <span class="text-gray-500 text-sm">one-time</span>
                 </div>
-                <p class="text-gray-400 text-xs mt-3 leading-relaxed">One-time payment. Own it forever with no recurring fees.</p>
+                <p class="text-gray-500 text-sm mt-2">Billed one-time</p>
             </div>
 
-            <ul class="space-y-3 mb-8 text-sm text-gray-400 flex-grow">
-                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="infinity" class="w-4 h-4 text-purple-400"></i></div> <strong>Lifetime Access</strong></li>
-                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> No Monthly Fees</li>
-                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="star" class="w-4 h-4 text-yellow-500"></i></div> VIP Support Badge</li>
-                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> All Future Major Updates</li>
+            <div class="w-full border-t border-dashed border-white/10 mb-8"></div>
+
+            <ul class="space-y-4 mb-8 text-[15px] text-gray-300 flex-grow">
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> 1500+ Optimizations
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> QuO GameMode
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> QuO RamOptimizer
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> QuO AlwaysOn
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> Access to entire optimization Suite
+                </li>
+                <li class="flex items-center gap-3">
+                    <i data-lucide="check" class="w-4 h-4 text-indigo-500 shrink-0"></i> Kernel Level Optimizations
+                </li>
             </ul>
 
-            <div class="mt-auto pt-6 border-t border-white/5">
-                <button id="btn-lifetime" onclick="startPurchaseFlow('lifetime')" class="w-full py-3 rounded-xl border border-white/10 text-center font-bold text-purple-300 bg-purple-500/5 hover:bg-purple-500/20 hover:text-white hover:border-purple-500/30 transition-all flex justify-center items-center gap-2">
-                    Get Lifetime
+            <div class="mt-auto flex flex-col items-center gap-4">
+                <a href="#details-section" class="text-xs text-gray-500 hover:text-white underline decoration-gray-700 underline-offset-4 transition-colors">
+                    See More details
+                </a>
+                <button onclick="startPurchaseFlow('lifetime')" class="w-full py-3.5 rounded-2xl border border-purple-500/30 bg-purple-500/5 hover:bg-purple-500/20 text-white font-semibold transition-all shadow-[0_0_20px_-10px_rgba(168,85,247,0.3)] flex justify-center items-center gap-2 group">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-purple-400 group-hover:text-white transition-colors"></i> Get premium
                 </button>
             </div>
         </div>
 
     </div>
-    
-    <div class="mt-12 text-center">
-        <p class="text-gray-500 text-sm">Not ready to upgrade? <a href="/download" class="text-gray-300 hover:text-white underline decoration-gray-500 font-medium">Download the Free Starter Version</a></p>
-    </div>
-
 </div>
 
 
         
-<div class="w-full max-w-7xl mx-auto mt-24 md:mt-32">
+<div id="details-section" class="w-full max-w-7xl mx-auto mt-24 md:mt-32">
     <div class="text-center mb-12 md:mb-16" data-aos="fade-up" data-aos-delay="500">
         <h2 class="text-3xl md:text-5xl font-black text-white mb-4">
             QuO <span class="text-gradient text-glow">Free vs Premium</span>
