@@ -1146,29 +1146,41 @@
     }
     window.startPurchaseFlow = startPurchaseFlow;
 
-    function initiateWhopCheckout(planId) {
-        // 1. URL Base del Checkout de Whop
-        const baseUrl = `https://whop.com/checkout/${planId}`;
+    // Hacemos la función ASYNC para obtener los datos frescos de Supabase
+    async function initiateWhopCheckout(planId) {
         
-        // 2. Preparamos los parámetros (Email y Metadata para Supabase)
-        const params = new URLSearchParams();
+        // 1. Obtener la sesión actual fresca directamente de Supabase
+        // Esto evita errores si la variable global 'currentUser' no se actualizó
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        const activeUser = session ? session.user : null;
 
-        if (currentUser) {
-            // Pre-llenar el email
-            params.append('email', currentUser.email);
-            
-            // IMPORTANTE: Pasar el ID de Supabase en la metadata
-            // Esto es crucial para que tu Webhook sepa a quién darle el premium
-            const metadataObject = { supabaseUserID: currentUser.id };
-            params.append('metadata', JSON.stringify(metadataObject));
+        if (!activeUser) {
+            console.error("Usuario no detectado. Iniciando login...");
+            loginWithGoogle();
+            return;
         }
 
-        // 3. (Opcional) Redirección de éxito
-        // Puedes configurar esto en el panel de Whop o forzarlo aquí si Whop lo permite en URL
-        // params.append('success_url', window.location.origin + '/success'); 
+        console.log("Iniciando Checkout para:", activeUser.email); // Para depurar en consola
 
-        // 4. Redirigir al usuario a la página completa de Whop
-        window.location.href = `${baseUrl}?${params.toString()}`;
+        // 2. URL Base
+        const baseUrl = `https://whop.com/checkout/${planId}`;
+        const params = new URLSearchParams();
+
+        // 3. Forzar el email del usuario logueado
+        params.append('email', activeUser.email);
+
+        // 4. Metadata vital para el Webhook
+        const metadataObject = { supabaseUserID: activeUser.id };
+        params.append('metadata', JSON.stringify(metadataObject));
+
+        // 5. Construir URL final
+        const finalUrl = `${baseUrl}?${params.toString()}`;
+        
+        // Debug: Verás en la consola la URL exacta que se genera
+        console.log("Redirigiendo a:", finalUrl);
+
+        // 6. Redirigir
+        window.location.href = finalUrl;
     }
 
     // Nota: Ya no necesitamos la función 'onWhopPurchaseComplete' ni el modal 'whop-modal'
