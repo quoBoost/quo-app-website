@@ -251,296 +251,117 @@
             <p class="text-gray-400 text-lg md:text-xl">Stop upgrading hardware. Start mastering your software.</p>
         </div>
 
-<div class="relative w-full max-w-5xl mx-auto px-4">
+<div class="relative w-full max-w-7xl mx-auto px-4">
     
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-3xl bg-brand/10 blur-[100px] rounded-full -z-10 pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-5xl bg-brand/10 blur-[100px] rounded-full -z-10 pointer-events-none"></div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch"> 
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch"> 
         
-        <div class="group relative card-glass rounded-3xl p-8 flex flex-col border border-white/5 bg-[#0a0a0a] hover:border-white/10 transition-colors duration-300">
-            <div class="mb-6">
-                <span class="inline-block py-1 px-3 rounded-lg bg-white/5 text-gray-400 font-bold tracking-wider text-[10px] uppercase border border-white/5">Starter</span>
-                <h3 class="text-4xl font-extrabold mt-4 text-white">$0 <span class="text-sm text-gray-500 font-normal">/ forever</span></h3>
-                <p class="text-gray-400 text-sm mt-4 leading-relaxed">Perfect for casual users who want to clean basic junk files.</p>
+        <div class="group relative card-glass rounded-3xl p-6 flex flex-col border border-white/5 bg-[#0a0a0a] hover:border-white/10 transition-all duration-300 hover:-translate-y-1">
+            <div class="mb-4">
+                <span class="inline-block py-1 px-3 rounded-lg bg-white/5 text-gray-400 font-bold tracking-wider text-[10px] uppercase border border-white/5">Flexible</span>
+                <h3 class="text-2xl font-bold mt-4 text-white">Monthly</h3>
+                <div class="flex items-end gap-1 mt-2">
+                    <span class="text-4xl font-extrabold text-white tracking-tight">$8.99</span>
+                    <span class="text-gray-500 mb-1 text-sm font-medium">/mo</span>
+                </div>
+                <p class="text-gray-400 text-xs mt-3 leading-relaxed">Perfect for short-term boosting and testing performance.</p>
             </div>
 
             <ul class="space-y-3 mb-8 text-sm text-gray-400 flex-grow">
-                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> Basic Cache Cleaner</li>
-                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> Standard Windows De-bloat</li>
-
-                <li class="flex items-center gap-3 opacity-60">
-                    <div class="min-w-[16px]"><i data-lucide="x" class="w-4 h-4 text-red-500/70"></i></div>
-                    <span class="line-through decoration-red-500/30">Priority CPU Isolation (GameMode)</span>
-                </li>
-                <li class="flex items-center gap-3 opacity-60">
-                    <div class="min-w-[16px]"><i data-lucide="x" class="w-4 h-4 text-red-500/70"></i></div>
-                    <span class="line-through decoration-red-500/30">Zero Stutter Memory Management</span>
-                </li>
-                <li class="flex items-center gap-3 opacity-60">
-                    <div class="min-w-[16px]"><i data-lucide="x" class="w-4 h-4 text-red-500/70"></i></div>
-                    <span class="line-through decoration-red-500/30">Reduce Input Lag</span>
-                </li>
-                <li class="flex items-center gap-3 opacity-60">
-                    <div class="min-w-[16px]"><i data-lucide="x" class="w-4 h-4 text-red-500/70"></i></div>
-                    <span class="line-through decoration-red-500/30">Ping Stabilizer Network Logic</span>
-                </li>
-                
+                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="zap" class="w-4 h-4 text-brand"></i></div> QuO GameMode (FPS)</li>
+                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> Zero Stutter Logic</li>
+                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> Input Lag Reduction</li>
+                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> All 1500+ Tweaks</li>
             </ul>
 
             <div class="mt-auto pt-6 border-t border-white/5">
-                <a id="btn-starter" href="/download" class="w-full py-4 rounded-xl border border-white/10 text-center font-bold text-gray-300 hover:bg-white/5 hover:text-white transition-all flex justify-center items-center gap-2">
-                    <i data-lucide="download" class="w-4 h-4"></i> Download Free
-                </a>
+                <button id="btn-monthly" onclick="startPurchaseFlow('monthly')" class="w-full py-3 rounded-xl border border-white/10 text-center font-bold text-gray-300 hover:bg-white/5 hover:text-white transition-all flex justify-center items-center gap-2">
+                    Select Monthly
+                </button>
             </div>
         </div>
 
-        <div class="relative card-glass rounded-3xl p-1 bg-gradient-to-b from-brand to-purple-900/50 shadow-[0_0_60px_-15px_rgba(var(--brand-rgb),0.3)]">
-            
-
+        <div class="relative card-glass rounded-3xl p-0.5 bg-gradient-to-b from-brand via-brand/50 to-purple-900/50 shadow-[0_0_40px_-10px_rgba(var(--brand-rgb),0.4)] transform md:scale-105 z-10">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand to-purple-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
+                Most Popular
+            </div>
 
             <div class="bg-[#0f0f0f] rounded-[22px] p-6 h-full flex flex-col relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-brand/10 blur-3xl rounded-full pointer-events-none"></div>
 
-                <div class="mb-4 relative">
+                <div class="mb-4">
                     <div class="flex justify-between items-start">
-                        <div class="flex flex-col">
-                            <span class="inline-block text-brand font-bold tracking-widest text-xs uppercase mb-1">Annual Pass</span>
-                            
-                            <div id="badge-active-plan" class="hidden inline-flex items-center gap-1.5 px-2 py-0.5 rounded border border-green-500/30 bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-wider w-fit mb-1">
-                                <span class="relative flex h-2 w-2">
-                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                                </span>
-                                Current Plan
-                            </div>
-                        </div>
-                        <span class="bg-green-500/10 text-green-400 border border-green-500/20 text-[10px] font-bold px-2 py-1 rounded animate-pulse">SAVE 58%</span>
+                        <span class="inline-block text-brand font-bold tracking-widest text-xs uppercase mb-1">Annual Pass</span>
+                        <span class="bg-green-500/10 text-green-400 border border-green-500/20 text-[10px] font-bold px-2 py-0.5 rounded">SAVE 50%</span>
                     </div>
 
                     <div class="flex items-end gap-2 mt-2">
-                        <span class="text-6xl font-extrabold text-white tracking-tight">$2.50</span>
-                        <span class="text-gray-400 mb-2 font-bold text-sm">/mo</span>
+                        <span class="text-5xl font-extrabold text-white tracking-tight">$4.50</span>
+                        <span class="text-gray-400 mb-1 font-bold text-sm">/mo</span>
                     </div>
-                    <p class="text-xs text-gray-500 mt-1 mb-2 font-semibold">Billed annually as $29.99</p>
-
+                    <p class="text-[11px] text-gray-500 mt-1 font-semibold">Billed annually as $54.00</p>
                 </div>
 
-                <div class="mb-4 relative z-20 group/btn-top">
-                    <button id="btn-premium-top" onclick="startPurchaseFlow('annual')" class="relative w-full py-3 rounded-xl bg-gradient-to-r from-brand to-red-600 text-center font-bold text-white shadow-lg shadow-brand/25 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-brand/40 cursor-pointer flex justify-center items-center gap-2">
-                         <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 transition-all duration-700 group-hover/btn-top:left-[100%]"></div>
-                         <span id="btn-top-text">Get Premium Access</span> <i data-lucide="zap" class="w-4 h-4 fill-white"></i>
+                <div class="mb-6">
+                    <button id="btn-annual" onclick="startPurchaseFlow('annual')" class="relative w-full py-3.5 rounded-xl bg-gradient-to-r from-brand to-red-600 text-center font-bold text-white shadow-lg shadow-brand/25 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer flex justify-center items-center gap-2 group">
+                         <span>Get Annual Access</span> <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
                     </button>
-                    <p class="text-[10px] text-center text-gray-500 mt-2 font-medium">Instant activation via Key</p>
+                    <p class="text-[10px] text-center text-gray-500 mt-2">Instant activation via Key</p>
                 </div>
                 
-                <div class="mb-4 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                <div class="h-px w-full bg-white/10 mb-5"></div>
 
-                <div class="space-y-3 mb-4 flex-grow">
-                     <p class="text-sm text-gray-400 mb-3 font-medium uppercase tracking-wider text-[10px]">Everything in Starter, plus:</p>
-                     <ul class="space-y-2.5">
-                        
-                        <li class="flex items-start gap-3 text-sm text-white font-medium">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50 shadow-[0_0_10px_rgba(var(--brand-rgb),0.2)]">
-                                <i data-lucide="zap" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-                            </div>
-                            <span>QuO GameMode: Priority CPU Isolation for Maximum FPS</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-white font-medium">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50">
-                                <i data-lucide="check" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-                            </div>
-                            <span>RamOptimizer: Zero Stutter Memory Management</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-white font-medium">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50">
-                                <i data-lucide="wifi" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-                            </div>
-                            <span>Ping Stabilizer: Advanced Network Logic</span>
-                        </li>
-                         <li class="flex items-start gap-3 text-sm text-white font-medium">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50 shadow-[0_0_10px_rgba(var(--brand-rgb),0.2)]">
-            <i data-lucide="zap" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-        </div>
-        <span>QuO GameMode: Priority CPU Isolation for Maximum FPS</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-white font-medium">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50">
-            <i data-lucide="activity" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-        </div>
-        <span>RamOptimizer: Zero Stutter Memory Management</span>
-    </li>
-
-    <li class="flex items-start gap-3 text-sm text-white font-medium">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50">
-            <i data-lucide="cpu" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-        </div>
-        <span>Core Affinity: Isolate Games to Exclusive Physical Cores</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-white font-medium">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50">
-            <i data-lucide="wifi" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-        </div>
-        <span>Ping Stabilizer: Advanced Network Logic</span>
-    </li>
-
-    <li class="flex items-start gap-3 text-sm text-white font-medium">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50">
-            <i data-lucide="message-circle" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-        </div>
-        <span>Priority 24/7 Discord & Email Support</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="mouse-pointer-2" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Reduce Input Lag (Interrupt Priority Optimization)</span>
-    </li>
-
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="check" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Stabilize 1% Low FPS Drops</span>
-    </li>
-
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="check" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Enforce 0.5ms Timer Resolution (Lower Latency)</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="check" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Force MSI Mode for GPU & Devices</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="zap" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Unlock QuO Ultimate Power Plan</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="trash-2" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Deep Bloatware Removal & Registry Optimization (50+ Tweaks)</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="shield" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Block Windows Telemetry and Spyware</span>
-    </li>
-
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="check" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Disable Nagle’s Algorithm (TCP No-Delay)</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="check" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Remove Windows Network Throttling</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="check" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Advanced QoS Configuration</span>
-    </li>
-
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="download-cloud" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Immediate Access to Auto-Updates & New Versions</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="cloud" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Cloud Profile Sync across Multiple PCs</span>
-    </li>
-    
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="play-circle" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Auto-Detect Game Launch & Profile Load</span>
-    </li>
-
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="activity" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Pro-Tier System Diagnostics & Bottleneck Analysis</span>
-    </li>
-
-    <li class="flex items-start gap-3 text-sm text-gray-300">
-        <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <i data-lucide="check-circle" class="w-2.5 h-2.5 text-gray-400"></i>
-        </div>
-        <span>Smart Energy Plan Automation</span>
-    </li>
-                        <li class="flex items-start gap-3 text-sm text-white font-medium">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-brand/20 flex items-center justify-center border border-brand/50">
-                                <i data-lucide="message-circle" class="w-2.5 h-2.5 text-brand stroke-[3px]"></i>
-                            </div>
-                            <span>Priority 24/7 Discord & Email Support</span>
-                        </li>
-                        
-                        <li class="flex items-start gap-3 text-sm text-gray-300">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                                <i data-lucide="mouse-pointer-2" class="w-2.5 h-2.5 text-gray-400"></i>
-                            </div>
-                            <span>Reduce Input Lag (Interrupt Priority Optimization)</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-gray-300">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                                <i data-lucide="check" class="w-2.5 h-2.5 text-gray-400"></i>
-                            </div>
-                            <span>Stabilize 1% Low FPS Drops</span>
-                        </li>
-
-                        <li class="flex items-start gap-3 text-sm text-gray-300 mt-4 pt-4 border-t border-white/5">
-                            <div class="mt-0.5 min-w-[18px] h-[18px] rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                                <i data-lucide="more-horizontal" class="w-2.5 h-2.5 text-gray-400"></i>
-                            </div>
-                            <span>Access to all 1500+ System Tweaks and Optimizations</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="mt-auto pt-4 border-t border-white/5 space-y-3 relative"> 
-                    
-                    <button id="btn-premium-bottom" onclick="startPurchaseFlow('annual')" class="w-full py-3 rounded-xl border border-white/10 bg-transparent text-center font-semibold text-gray-400 hover:bg-white/5 hover:text-white hover:border-white/20 transition-all duration-300 cursor-pointer flex justify-center items-center gap-2 group">
-                        Subscribe Now <i data-lucide="arrow-right" class="w-4 h-4 text-gray-500 group-hover:text-white transition-colors"></i>
-                    </button>
-                    
-                    <div id="cancel-sub-container" class="text-center"></div>
-                    
-                    <p class="text-[10px] text-center text-gray-500 font-medium flex items-center justify-center gap-1.5">
-                        <i data-lucide="shield-check" class="w-3 h-3 text-green-500"></i> Cancel anytime.
-                    </p>
-                </div>
-
+                <ul class="space-y-3 mb-4 flex-grow">
+                    <li class="flex items-start gap-3 text-sm text-white font-medium">
+                        <i data-lucide="zap" class="w-4 h-4 text-brand mt-0.5"></i> <span>QuO GameMode (Priority CPU)</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-white font-medium">
+                        <i data-lucide="wifi" class="w-4 h-4 text-brand mt-0.5"></i> <span>Ping Stabilizer Logic</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-white font-medium">
+                        <i data-lucide="shield" class="w-4 h-4 text-brand mt-0.5"></i> <span>Remove Spyware & Telemetry</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-gray-400">
+                        <i data-lucide="message-circle" class="w-4 h-4 text-gray-500 mt-0.5"></i> <span>Priority Discord Support</span>
+                    </li>
+                     <li class="flex items-start gap-3 text-sm text-gray-400">
+                        <i data-lucide="refresh-cw" class="w-4 h-4 text-gray-500 mt-0.5"></i> <span>Auto-Updates Included</span>
+                    </li>
+                </ul>
             </div>
         </div>
+
+        <div class="group relative card-glass rounded-3xl p-6 flex flex-col border border-white/5 bg-[#0a0a0a] hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1">
+            <div class="mb-4">
+                <span class="inline-block py-1 px-3 rounded-lg bg-purple-500/10 text-purple-400 font-bold tracking-wider text-[10px] uppercase border border-purple-500/20">Best Value</span>
+                <h3 class="text-2xl font-bold mt-4 text-white">Lifetime</h3>
+                <div class="flex items-end gap-1 mt-2">
+                    <span class="text-4xl font-extrabold text-white tracking-tight">$119.99</span>
+                </div>
+                <p class="text-gray-400 text-xs mt-3 leading-relaxed">One-time payment. Own it forever with no recurring fees.</p>
+            </div>
+
+            <ul class="space-y-3 mb-8 text-sm text-gray-400 flex-grow">
+                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="infinity" class="w-4 h-4 text-purple-400"></i></div> <strong>Lifetime Access</strong></li>
+                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> No Monthly Fees</li>
+                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="star" class="w-4 h-4 text-yellow-500"></i></div> VIP Support Badge</li>
+                <li class="flex items-center gap-3"><div class="min-w-[16px]"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i></div> All Future Major Updates</li>
+            </ul>
+
+            <div class="mt-auto pt-6 border-t border-white/5">
+                <button id="btn-lifetime" onclick="startPurchaseFlow('lifetime')" class="w-full py-3 rounded-xl border border-white/10 text-center font-bold text-purple-300 bg-purple-500/5 hover:bg-purple-500/20 hover:text-white hover:border-purple-500/30 transition-all flex justify-center items-center gap-2">
+                    Get Lifetime
+                </button>
+            </div>
+        </div>
+
     </div>
+    
+    <div class="mt-12 text-center">
+        <p class="text-gray-500 text-sm">Not ready to upgrade? <a href="/download" class="text-gray-300 hover:text-white underline decoration-gray-500 font-medium">Download the Free Starter Version</a></p>
+    </div>
+
 </div>
 
 
@@ -1186,338 +1007,285 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <script>
-        // --- 1. CONFIGURON ACTUALIZADA ---
-        const IDS = {
-            annual: 'plan_0RI0Pl7pweBRP' // Nuevo Plan Único
-        };
+<script>
+    // --- 1. CONFIGURACIÓN ACTUALIZADA CON TUS NUEVAS KEYS ---
+    const IDS = {
+        monthly: 'plan_btHn70upXFKBH', // $8.99
+        annual: 'plan_ymBEMrDGa1VmU',  // $54.00 ($4.50/mo)
+        lifetime: 'plan_Os8d6JjoBiOzJ' // $119.99
+    };
 
-        const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
+    const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
 
-        // State
-        let currentUser = null;
-        let userPlanType = 'free'; 
+    // State
+    let currentUser = null;
+    let userPlanType = 'free'; 
 
-        // --- 2. AUTHENTICATION (Supabase) ---
-        async function loginWithGoogle() {
-            const { error } = await supabaseClient.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: window.location.href } 
-            });
-            if (error) console.error("Login Error:", error);
-        }
-        window.loginWithGoogle = loginWithGoogle;
+    // --- 2. AUTHENTICATION (Supabase) ---
+    async function loginWithGoogle() {
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'google',
+            options: { redirectTo: window.location.href } 
+        });
+        if (error) console.error("Login Error:", error);
+    }
+    window.loginWithGoogle = loginWithGoogle;
 
-        async function logout() {
-            await supabaseClient.auth.signOut();
-            window.location.reload();
-        }
-        window.logout = logout;
+    async function logout() {
+        await supabaseClient.auth.signOut();
+        window.location.reload();
+    }
+    window.logout = logout;
 
-        async function checkUser() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            currentUser = session ? session.user : null;
-            renderAuth(currentUser);
-        }
+    async function checkUser() {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        currentUser = session ? session.user : null;
+        renderAuth(currentUser);
+    }
 
-        function renderAuth(user) {
-            const authSection = document.getElementById('auth-section');
-            if (!user) {
-                authSection.innerHTML = `
-                    <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
-                         <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
-                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
-                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
-                             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
-                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
-                         </svg>
-                         <span class="hidden sm:inline">Sign in</span>
-                         <span class="inline sm:hidden">Login</span>
-                     </a>`;
-            } else {
-                checkPremiumStatus(user.id);
-            }
-            if(window.lucide) lucide.createIcons();
-        }
-
-        async function checkPremiumStatus(userId) {
-            
-            // 1. Intentar buscar por ID (método principal)
-            let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
-            
-            // 2. Si la búsqueda por ID falla, intentamos buscar por email como respaldo.
-            if (!profile && currentUser.email) {
-                ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
-            }
-
-            if (error && error.code !== 'PGRST116') {
-                 console.error("Supabase Profile Query Error:", error);
-            }
-            
-            const isPremium = !!profile?.is_premium; 
-            userPlanType = profile?.plan_type || 'free'; 
-
-            const badgeText = isPremium ? 'PRO' : 'FREE';
-            const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
-            const avatarUrl = currentUser.user_metadata.avatar_url;
-
-            document.getElementById('auth-section').innerHTML = `
-                <div class="relative group cursor-pointer flex items-center gap-3">
-                    <div class="hidden md:flex flex-col text-right">
-                        <span class="text-[10px] text-gray-500 uppercase">Status</span>
-                        <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
-                    </div>
-                    <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
-                        ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
-                    </div>
-                    <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                        <div class="p-2 space-y-1">
-                            <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
-
-
-                            <a href="/account" class="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-white/10 rounded flex items-center gap-2">
-            <i data-lucide="settings" class="w-4"></i> Account Settings
-        </a>
-                            <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
-                                <i data-lucide="log-out" class="w-4"></i> Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>`;
-            if(window.lucide) lucide.createIcons();
-            
-            renderPlanButtons(); 
-        }
-
-        // --- NEW FUNCTION: Renders button state based on userPlanType ---
-        // --- SUSTITUYE TU FUNCIÓN renderPlanButtons POR ESTA ---
-
-function renderPlanButtons() {
-    // 1. Elementos del Plan FREE
-    const starterBtn = document.getElementById('btn-starter');
-    
-    // 2. Elementos del Plan PREMIUM (Estrategia Sandwich)
-    const btnPremTop = document.getElementById('btn-premium-top');
-    const btnPremBottom = document.getElementById('btn-premium-bottom');
-    const badgeActive = document.getElementById('badge-active-plan');
-    const badgePopular = document.getElementById('badge-most-popular');
-    const cancelContainer = document.getElementById('cancel-sub-container');
-    
-    // Limpiar contenedor de cancelar
-    if(cancelContainer) cancelContainer.innerHTML = '';
-
-    // --- LÓGICA PLAN FREE (STARTER) ---
-    if (starterBtn) {
-        if (userPlanType === 'free') {
-            starterBtn.innerText = "Current Plan";
-            starterBtn.classList.remove('bg-white/5', 'hover:bg-white/10');
-            starterBtn.classList.add('bg-green-500/20', 'border-green-400/50', 'text-green-400', 'cursor-default');
-            starterBtn.removeAttribute('href'); // Desactivar link
+    function renderAuth(user) {
+        const authSection = document.getElementById('auth-section');
+        if (!user) {
+            authSection.innerHTML = `
+                <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
+                     <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
+                         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+                         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+                         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+                         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+                     </svg>
+                     <span class="hidden sm:inline">Sign in</span>
+                     <span class="inline sm:hidden">Login</span>
+                 </a>`;
         } else {
-            starterBtn.innerText = "Get Started Free";
-            starterBtn.classList.add('bg-white/5', 'hover:bg-white/10');
-            starterBtn.classList.remove('bg-green-500/20', 'border-green-400/50', 'text-green-400', 'cursor-default');
-            starterBtn.setAttribute('href', '/download');
+            checkPremiumStatus(user.id);
         }
+        if(window.lucide) lucide.createIcons();
     }
 
-    // --- LÓGICA PLAN PREMIUM (SANDWICH) ---
-    if (userPlanType !== 'free') {
-        // ==> EL USUARIO ES PREMIUM
+    async function checkPremiumStatus(userId) {
+        // 1. Intentar buscar por ID
+        let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
         
-        // 1. Mostrar Badge "Current Plan" y ocultar "Most Popular"
-        if(badgeActive) badgeActive.classList.remove('hidden');
-        if(badgePopular) badgePopular.classList.add('hidden');
-
-        // 2. Botón SUPERIOR: Se convierte en "Manage Subscription"
-        if(btnPremTop) {
-            btnPremTop.innerHTML = '<i data-lucide="settings" class="w-4 h-4"></i> Manage Subscription';
-            // Cambiamos el estilo a uno más neutro (gris/dark)
-            btnPremTop.classList.remove('bg-gradient-to-r', 'from-brand', 'to-red-600', 'shadow-brand/25');
-            btnPremTop.classList.add('bg-white/10', 'hover:bg-white/20', 'border', 'border-white/10');
-            // Cambiar acción a ir a la cuenta en lugar de comprar
-            btnPremTop.onclick = function() { window.location.href = '/account'; };
+        // 2. Respaldo por email
+        if (!profile && currentUser.email) {
+            ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
         }
 
-        // 3. Botón INFERIOR: Se oculta o muestra "View Invoice"
-        if(btnPremBottom) {
-            btnPremBottom.style.display = 'none'; // Lo ocultamos para limpiar la vista
+        if (error && error.code !== 'PGRST116') {
+             console.error("Supabase Profile Query Error:", error);
         }
+        
+        const isPremium = !!profile?.is_premium; 
+        userPlanType = profile?.plan_type || 'free'; 
 
-        // 4. Enlace de Cancelar (Pequeño abajo)
-        if(cancelContainer) {
-            cancelContainer.innerHTML = `
-                <a href="/account" class="inline-block mt-2 text-xs text-red-400 hover:text-red-300 transition underline decoration-red-500/30">
-                    Cancel / Manage
-                </a>
-            `;
-        }
+        const badgeText = isPremium ? 'PRO' : 'FREE';
+        const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
+        const avatarUrl = currentUser.user_metadata.avatar_url;
 
-    } else {
-        // ==> EL USUARIO ES GRATIS (Modo Venta)
-
-        // 1. Ocultar Badge "Current Plan", mostrar "Most Popular"
-        if(badgeActive) badgeActive.classList.add('hidden');
-        if(badgePopular) badgePopular.classList.remove('hidden');
-
-        // 2. Restaurar Botón SUPERIOR (Comprar)
-        if(btnPremTop) {
-            btnPremTop.innerHTML = `Get Premium Access <i data-lucide="zap" class="w-4 h-4 fill-white"></i>`;
-            btnPremTop.classList.add('bg-gradient-to-r', 'from-brand', 'to-red-600', 'shadow-brand/25');
-            btnPremTop.classList.remove('bg-white/10', 'hover:bg-white/20', 'border', 'border-white/10');
-            btnPremTop.onclick = function() { startPurchaseFlow('annual'); };
-        }
-
-        // 3. Restaurar Botón INFERIOR (Suscribirse)
-        if(btnPremBottom) {
-            btnPremBottom.style.display = 'flex'; // Volver a mostrar
-            btnPremBottom.innerHTML = `Subscribe Now <i data-lucide="arrow-right" class="w-4 h-4"></i>`;
-        }
-    }
-
-    if(window.lucide) lucide.createIcons();
-}
-        window.renderPlanButtons = renderPlanButtons;
-
-
-        // --- 4. PURCHASE FLOW & WHOP CHECKOUT LOGIC ---
-
-        function startPurchaseFlow(targetPlan) {
-            // Check if button is disabled (Current Plan)
-            const button = document.getElementById('btn-premium-sub');
-            if (button && button.classList.contains('btn-disabled')) {
-                return; 
-            }
-
-            if (!currentUser) {
-                console.error("Please Sign In with Google before upgrading."); 
-                loginWithGoogle();
-                return;
-            }
-            
-            // --- PLAN CONFLICT LOGIC (Simplified since only 1 plan now) ---
-            if (userPlanType !== 'free') {
-                document.getElementById('conflict-message').innerText = "You are already a Premium member. Manage your subscription in your account.";
-                openModal('plan-conflict-modal');
-                return;
-            }
-
-            openModal('payment-method-modal');
-        }
-        window.startPurchaseFlow = startPurchaseFlow;
-
-        function selectMethod(method) {
-            closeModal('payment-method-modal');
-
-            if (method === 'paypal') {
-                openModal('paypal-soon-modal'); // Assuming this modal exists elsewhere or fallback
-                return;
-            }
-
-            if (method === 'card') {
-                // Siempre usa el plan anual único
-                initiateWhopCheckout(IDS.annual);
-            }
-        }
-        window.selectMethod = selectMethod;
-
-        function initiateWhopCheckout(planId) {
-            const wrapper = document.getElementById('whop-wrapper');
-            wrapper.innerHTML = ''; 
-
-            const checkoutDiv = document.createElement('div');
-            checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
-            checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
-            checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
-
-            checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-features', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-tos', 'false');
-            checkoutDiv.setAttribute('data-whop-checkout-hide-submit-button', 'false');
-
-            checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
-
-            if(currentUser) {
-                checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
-                const metadataString = JSON.stringify({ supabaseUserID: currentUser.id });
-                checkoutDiv.setAttribute('data-whop-checkout-metadata', metadataString);
-            }
-
-            wrapper.appendChild(checkoutDiv);
-            
-            setTimeout(() => {
-                openModal('whop-modal');
-            }, 100);
-        }
-
-        window.onWhopPurchaseComplete = async (planId, receiptId) => {
-            closeModal('whop-modal');
-            
-            const activationModal = document.createElement('div');
-            activationModal.id = 'activation-modal';
-            activationModal.className = 'fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-active';
-            activationModal.innerHTML = `
-                <div class="bg-surface border border-green-500 rounded-2xl p-8 max-w-sm w-full shadow-2xl shadow-green-500/20 transform transition-all">
-                    <div class="text-center">
-                        <i data-lucide="check-circle" class="w-12 h-12 text-green-500 mx-auto mb-4"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Payment Successful!</h3>
-                        <p class="text-gray-400">Activating your QuO Annual Pass. Refreshing page...</p>
+        document.getElementById('auth-section').innerHTML = `
+            <div class="relative group cursor-pointer flex items-center gap-3">
+                <div class="hidden md:flex flex-col text-right">
+                    <span class="text-[10px] text-gray-500 uppercase">Status</span>
+                    <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
+                </div>
+                <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
+                    ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
+                </div>
+                <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="p-2 space-y-1">
+                        <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
+                        <a href="/account" class="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-white/10 rounded flex items-center gap-2">
+                            <i data-lucide="settings" class="w-4"></i> Account Settings
+                        </a>
+                        <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
+                            <i data-lucide="log-out" class="w-4"></i> Logout
+                        </button>
                     </div>
                 </div>
-            `;
-            document.body.appendChild(activationModal);
-            if(window.lucide) lucide.createIcons();
+            </div>`;
+        if(window.lucide) lucide.createIcons();
+        
+        renderPlanButtons(); 
+    }
 
-            setTimeout(() => {
-                window.location.reload();
-            }, 4000); 
-        };
+    // --- NUEVA FUNCIÓN PARA LOS 3 BOTONES ---
+    function renderPlanButtons() {
+        const btnMonthly = document.getElementById('btn-monthly');
+        const btnAnnual = document.getElementById('btn-annual');
+        const btnLifetime = document.getElementById('btn-lifetime');
 
-        // --- UTILS ---
-        function openModal(id) {
-            const el = document.getElementById(id);
-            if(el) {
-                el.classList.remove('modal-enter');
-                el.classList.add('modal-active');
-                if(window.lucide) lucide.createIcons();
-            }
-        }
-        window.openModal = openModal;
+        const buttons = [btnMonthly, btnAnnual, btnLifetime];
 
-        function closeModal(id) {
-            const el = document.getElementById(id);
-            if(el) {
-                el.classList.remove('modal-active');
-                el.classList.add('modal-enter');
-                
-                if (id === 'whop-modal') {
-                    setTimeout(() => {
-                        document.getElementById('whop-wrapper').innerHTML = ''; 
-                    }, 300);
-                }
-            }
-        }
-        window.closeModal = closeModal;
-
-        document.addEventListener('DOMContentLoaded', function () {
-            try {
-                if(window.AOS) {
-                    AOS.init({
-                        duration: 800,
-                        once: true,
-                        offset: 50
-                    });
-                }
-            } catch(e) { console.error("AOS Init error", e); }
+        if (userPlanType !== 'free') {
+            // ==> USUARIO PREMIUM (Desactivar botones de compra y mostrar Manage)
             
-            checkUser();
-            if(window.lucide) lucide.createIcons();
-        });
+            buttons.forEach(btn => {
+                if(btn) {
+                    btn.innerHTML = '<i data-lucide="settings" class="w-4 h-4"></i> Manage Subscription';
+                    btn.onclick = function() { window.location.href = '/account'; };
+                    // Estilos neutros
+                    btn.className = "w-full py-3 rounded-xl border border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 transition cursor-pointer flex justify-center items-center gap-2";
+                }
+            });
 
-    </script>
+        } else {
+            // ==> USUARIO FREE (Modo Venta)
+            // Asegurarse de que los onClicks originales estén puestos
+            if(btnMonthly) {
+                btnMonthly.innerHTML = 'Select Monthly';
+                btnMonthly.onclick = function() { startPurchaseFlow('monthly'); };
+            }
+            if(btnAnnual) {
+                btnAnnual.innerHTML = 'Get Annual Access <i data-lucide="arrow-right" class="w-4 h-4"></i>';
+                btnAnnual.onclick = function() { startPurchaseFlow('annual'); };
+            }
+            if(btnLifetime) {
+                btnLifetime.innerHTML = 'Get Lifetime';
+                btnLifetime.onclick = function() { startPurchaseFlow('lifetime'); };
+            }
+        }
+
+        if(window.lucide) lucide.createIcons();
+    }
+    window.renderPlanButtons = renderPlanButtons;
+
+
+    // --- 4. PURCHASE FLOW & WHOP CHECKOUT LOGIC ---
+    let selectedPlanForCheckout = 'annual'; // default
+
+    function startPurchaseFlow(targetPlan) {
+        if (!currentUser) {
+            console.error("Please Sign In with Google before upgrading."); 
+            loginWithGoogle();
+            return;
+        }
+        
+        if (userPlanType !== 'free') {
+            document.getElementById('conflict-message').innerText = "You are already a Premium member. Manage your subscription in your account.";
+            openModal('plan-conflict-modal'); // Asumiendo que tienes este modal
+            return;
+        }
+
+        selectedPlanForCheckout = targetPlan;
+        openModal('payment-method-modal');
+    }
+    window.startPurchaseFlow = startPurchaseFlow;
+
+    function selectMethod(method) {
+        closeModal('payment-method-modal');
+
+        if (method === 'paypal') {
+            openModal('paypal-soon-modal'); 
+            return;
+        }
+
+        if (method === 'card') {
+            // Usamos el plan seleccionado almacenado en la variable
+            const planId = IDS[selectedPlanForCheckout];
+            if(planId) {
+                initiateWhopCheckout(planId);
+            } else {
+                console.error("Invalid plan selected");
+            }
+        }
+    }
+    window.selectMethod = selectMethod;
+
+    function initiateWhopCheckout(planId) {
+        const wrapper = document.getElementById('whop-wrapper');
+        wrapper.innerHTML = ''; 
+
+        const checkoutDiv = document.createElement('div');
+        checkoutDiv.setAttribute('data-whop-checkout-plan-id', planId);
+        checkoutDiv.setAttribute('data-whop-checkout-theme', 'dark');
+        checkoutDiv.setAttribute('data-whop-checkout-theme-accent-color', '#FF003C');
+        // Mostrar precios y totales para que el usuario vea qué compra
+        checkoutDiv.setAttribute('data-whop-checkout-hide-price', 'false');
+        checkoutDiv.setAttribute('data-whop-checkout-hide-plan-info', 'false'); 
+        checkoutDiv.setAttribute('data-whop-checkout-hide-total', 'false');
+        
+        checkoutDiv.setAttribute('data-whop-checkout-on-complete', 'onWhopPurchaseComplete');
+
+        if(currentUser) {
+            checkoutDiv.setAttribute('data-whop-checkout-prefill-email', currentUser.email);
+            const metadataString = JSON.stringify({ supabaseUserID: currentUser.id });
+            checkoutDiv.setAttribute('data-whop-checkout-metadata', metadataString);
+        }
+
+        wrapper.appendChild(checkoutDiv);
+        
+        setTimeout(() => {
+            openModal('whop-modal');
+        }, 100);
+    }
+
+    window.onWhopPurchaseComplete = async (planId, receiptId) => {
+        closeModal('whop-modal');
+        
+        const activationModal = document.createElement('div');
+        activationModal.id = 'activation-modal';
+        activationModal.className = 'fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-all duration-300 modal-active';
+        activationModal.innerHTML = `
+            <div class="bg-surface border border-green-500 rounded-2xl p-8 max-w-sm w-full shadow-2xl shadow-green-500/20 transform transition-all">
+                <div class="text-center">
+                    <i data-lucide="check-circle" class="w-12 h-12 text-green-500 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">Payment Successful!</h3>
+                    <p class="text-gray-400">Activating your QuO Plan. Refreshing page...</p>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(activationModal);
+        if(window.lucide) lucide.createIcons();
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 4000); 
+    };
+
+    // --- UTILS ---
+    function openModal(id) {
+        const el = document.getElementById(id);
+        if(el) {
+            el.classList.remove('modal-enter');
+            el.classList.add('modal-active');
+            if(window.lucide) lucide.createIcons();
+        }
+    }
+    window.openModal = openModal;
+
+    function closeModal(id) {
+        const el = document.getElementById(id);
+        if(el) {
+            el.classList.remove('modal-active');
+            el.classList.add('modal-enter');
+            
+            if (id === 'whop-modal') {
+                setTimeout(() => {
+                    document.getElementById('whop-wrapper').innerHTML = ''; 
+                }, 300);
+            }
+        }
+    }
+    window.closeModal = closeModal;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        try {
+            if(window.AOS) {
+                AOS.init({
+                    duration: 800,
+                    once: true,
+                    offset: 50
+                });
+            }
+        } catch(e) { console.error("AOS Init error", e); }
+        
+        checkUser();
+        if(window.lucide) lucide.createIcons();
+    });
+
+</script>
 </body>
 </html>
