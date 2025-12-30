@@ -1173,10 +1173,7 @@
         setTimeout(() => {
             openModal('whop-modal');
         }, 100);
-    }}
-
-    // Nota: Ya no necesitamos la función 'onWhopPurchaseComplete' ni el modal 'whop-modal'
-    // porque el usuario se va de tu página a la de Whop.
+    }
 
     window.onWhopPurchaseComplete = async (planId, receiptId) => {
         closeModal('whop-modal');
