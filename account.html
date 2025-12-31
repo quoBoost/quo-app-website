@@ -541,11 +541,32 @@
         }
         window.openModal = openModal;
 
-        function closeModal(id) {
-            const el = document.getElementById(id);
-            el.classList.remove('modal-active');
-            el.classList.add('modal-enter');
-        }
+function toggleCancelVideo(show) {
+    const options = document.getElementById('manage-options-container');
+    const videoCont = document.getElementById('cancel-video-container');
+    const videoPlayer = document.getElementById('cancel-tutorial-video');
+
+    if (show) {
+        options.classList.add('hidden');
+        videoCont.classList.remove('hidden');
+        videoPlayer.play();
+    } else {
+        options.classList.remove('hidden');
+        videoCont.classList.add('hidden');
+        videoPlayer.pause();
+        videoPlayer.currentTime = 0;
+    }
+}
+
+// Modifica tu función closeModal existente para asegurar que el video se detenga
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('hidden');
+        // Resetear vista del video si se cierra el modal
+        toggleCancelVideo(false);
+    }
+}
         window.closeModal = closeModal;
 
 
