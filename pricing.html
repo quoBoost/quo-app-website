@@ -211,26 +211,6 @@
 }
 </style>
 
-<script>
-const openBtn = document.getElementById('open-menu');
-const sheet = document.getElementById('mobile-sheet');
-const panel = document.getElementById('mobile-sheet-panel');
-
-function openSheet() {
-    sheet.classList.remove('opacity-0','invisible');
-    panel.classList.remove('translate-y-full');
-}
-
-function closeSheet() {
-    sheet.classList.add('opacity-0','invisible');
-    panel.classList.add('translate-y-full');
-}
-
-openBtn?.addEventListener('click', openSheet);
-sheet?.addEventListener('click', e => {
-    if (e.target === sheet) closeSheet();
-});
-</script>
 
 
     <!-- Estilos Personalizados (Cleaned up and kept) -->
@@ -370,6 +350,7 @@ sheet?.addEventListener('click', e => {
         </div>
     </div>
 </div>
+
 
 
 
@@ -1476,5 +1457,26 @@ sheet?.addEventListener('click', e => {
         if(window.lucide) lucide.createIcons();
     });
 </script>
+    <script>
+const openBtn = document.getElementById('open-menu');
+const sheet = document.getElementById('mobile-sheet');
+const panel = document.getElementById('mobile-sheet-panel');
+
+function openSheet() {
+    sheet.classList.remove('opacity-0','invisible');
+    panel.classList.remove('translate-y-full');
+}
+
+function closeSheet() {
+    sheet.classList.add('opacity-0','invisible');
+    panel.classList.add('translate-y-full');
+}
+
+openBtn?.addEventListener('click', openSheet);
+sheet?.addEventListener('click', e => {
+    if (e.target === sheet) closeSheet();
+});
+</script>
+
 </body>
 </html>
