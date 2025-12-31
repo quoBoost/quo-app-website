@@ -1200,10 +1200,14 @@
     }
 
     // --- MANEJO DE BOTONES (PREMIUM VS FREE) ---
-    function renderPlanButtons() {
+        function renderPlanButtons() {
         const btnMonthly = document.getElementById('btn-monthly');
         const btnAnnual = document.getElementById('btn-annual');
         const btnLifetime = document.getElementById('btn-lifetime');
+
+        // Normalizamos el plan (yearly -> annual)
+        const normalizedPlan =
+            userPlanType === 'yearly' ? 'annual' : userPlanType;
 
         const map = {
             monthly: btnMonthly,
@@ -1211,13 +1215,13 @@
             lifetime: btnLifetime
         };
 
-        // Si sigue siendo FREE, no tocamos nada
-        if (userPlanType === 'free') return;
+        // Si es FREE, no tocamos nada
+        if (normalizedPlan === 'free') return;
 
         Object.entries(map).forEach(([plan, btn]) => {
             if (!btn) return;
 
-            if (plan === userPlanType) {
+            if (plan === normalizedPlan) {
                 // === PLAN ACTUAL ===
                 btn.innerHTML = `
                     <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i>
