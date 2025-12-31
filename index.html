@@ -397,18 +397,13 @@
     <div class="cyber-grid"></div>
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] md:w-[800px] h-[500px] bg-brand/10 rounded-full blur-[100px] md:blur-[150px] -z-10 animate-pulse-slow"></div>
 
-<nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-7xl z-50">
-    <div class="relative flex items-center justify-between px-5 py-3 rounded-2xl
-                bg-black/70 backdrop-blur-2xl border border-white/10 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)]">
-
-        <!-- LOGO -->
-        <a href="/" class="relative z-10 flex items-center">
-            <img src="assets/logo.png"
-                 class="w-9 h-9 object-contain transition-transform duration-300 hover:scale-110"
-                 alt="Logo">
+<nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-7xl z-50 flex flex-col gap-3">
+    <div class="relative flex items-center justify-between px-6 py-3 rounded-2xl bg-black/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7)]">
+        <a href="/" class="flex items-center group">
+     
+            <img src="assets/logo.png" class="w-8 h-8 object-contain relative z-10 transition-transform hover:scale-110" alt="Logo">
         </a>
 
-        <!-- DESKTOP LINKS -->
         <div class="hidden md:flex items-center gap-2 bg-white/5 p-1 rounded-full border border-white/10">
             <a href="/" data-nav
                class="nav-link active">Home</a>
@@ -420,23 +415,94 @@
                class="nav-link">About</a>
         </div>
 
-        <!-- RIGHT -->
-        <div class="flex items-center gap-3">
-            <div id="auth-section"></div>
+        <div id="auth-section" class="flex items-center gap-3">
+            </div>
+    </div>
 
-            <!-- MOBILE BUTTON -->
-            <button id="open-menu"
-                class="md:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10
-                       flex items-center justify-center hover:bg-white/10 transition">
-                <div class="flex flex-col gap-1.5">
-                    <span class="w-5 h-[2px] bg-white"></span>
-                    <span class="w-5 h-[2px] bg-white"></span>
-                    <span class="w-5 h-[2px] bg-white"></span>
+    <div id="banner-promo" class="hidden w-full bg-[#0a0a0a] rounded-xl border border-[#ccff00]/30 overflow-hidden relative shadow-[0_10px_30px_rgba(0,0,0,0.5)] group animate-fade-in">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#ccff00]/5 via-transparent to-[#ccff00]/5 pointer-events-none"></div>
+        
+        <div class="flex items-center h-10 relative">
+            <div class="flex-1 overflow-hidden pointer-events-none">
+                <div class="flex animate-marquee-infinite items-center gap-16 whitespace-nowrap px-4">
+                    <div class="flex items-center gap-16">
+                        <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-[#ccff00]">
+                            <i data-lucide="zap" class="w-3.5 h-3.5 fill-[#ccff00]"></i> Get Premium 50% Off
+                        </span>
+                        <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-white/90">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#ccff00]"></i> Elevate Performance
+                        </span>
+                        <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-[#ccff00]">
+                            <i data-lucide="timer" class="w-3.5 h-3.5 fill-[#ccff00]"></i> Limited Time Offer
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-16">
+                        <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-[#ccff00]">
+                            <i data-lucide="zap" class="w-3.5 h-3.5 fill-[#ccff00]"></i> Get Premium 50% Off
+                        </span>
+                        <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-white/90">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#ccff00]"></i> Elevate Performance
+                        </span>
+                        <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-[#ccff00]">
+                            <i data-lucide="timer" class="w-3.5 h-3.5 fill-[#ccff00]"></i> Limited Time Offer
+                        </span>
+                    </div>
                 </div>
-            </button>
+            </div>
+
+            <div class="flex items-center gap-4 px-5 h-full bg-[#0a0a0a] shadow-[-25px_0_20px_#0a0a0a] z-20">
+                <a href="/pricing" class="bg-[#ccff00] text-black text-[9px] font-black px-4 py-1.5 rounded-lg uppercase tracking-tighter hover:scale-105 transition-all shadow-[0_0_15px_rgba(204,255,0,0.2)]">
+                    Claim Discount
+                </a>
+                <button onclick="closePromoBanner()" class="text-white/20 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
         </div>
     </div>
 </nav>
+
+<style>
+    /* Marquee Infinito Fluido */
+    @keyframes marquee-scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    .animate-marquee-infinite {
+        animation: marquee-scroll 30s linear infinite;
+    }
+
+    /* Mejora de la Nav-Link */
+    .nav-link {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Animación de entrada */
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<script>
+    // Inicializar iconos de Lucide
+    if (window.lucide) lucide.createIcons();
+
+    function closePromoBanner() {
+        const banner = document.getElementById('banner-promo');
+        banner.style.opacity = '0';
+        banner.style.transform = 'translateY(-10px)';
+        setTimeout(() => banner.classList.add('hidden'), 300);
+    }
+    
+    // Simulación: isPremium = false
+    document.getElementById('banner-promo').classList.remove('hidden');
+</script>
 
     <div id="mobile-sheet"
      class="fixed inset-0 z-[60] bg-black/70 backdrop-blur-xl opacity-0 invisible transition-all">
@@ -1595,9 +1661,3 @@ sheet?.addEventListener('click', e => {
 
 </body>
 </html>
-
-
-
-
-
-
