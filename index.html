@@ -399,8 +399,9 @@
 
 <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-7xl z-50 flex flex-col gap-3">
     <div class="relative flex items-center justify-between px-6 py-3 rounded-2xl bg-black/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7)]">
+        
         <a href="/" class="flex items-center group">
-     
+            
             <img src="assets/logo.png" class="w-8 h-8 object-contain relative z-10 transition-transform hover:scale-110" alt="Logo">
         </a>
 
@@ -419,7 +420,7 @@
             </div>
     </div>
 
-    <div id="banner-promo" class="hidden w-full bg-[#0a0a0a] rounded-xl border border-[#ccff00]/30 overflow-hidden relative shadow-[0_10px_30px_rgba(0,0,0,0.5)] group animate-fade-in">
+    <div id="banner-promo" class="hidden w-full bg-[#0a0a0a] rounded-xl border border-[#ccff00]/30 overflow-hidden relative shadow-[0_10px_30px_rgba(0,0,0,0.5)] group">
         <div class="absolute inset-0 bg-gradient-to-r from-[#ccff00]/5 via-transparent to-[#ccff00]/5 pointer-events-none"></div>
         
         <div class="flex items-center h-10 relative">
@@ -451,7 +452,7 @@
             </div>
 
             <div class="flex items-center gap-4 px-5 h-full bg-[#0a0a0a] shadow-[-25px_0_20px_#0a0a0a] z-20">
-                <a href="/pricing" class="bg-[#ccff00] text-black text-[9px] font-black px-4 py-1.5 rounded-lg uppercase tracking-tighter hover:scale-105 transition-all shadow-[0_0_15px_rgba(204,255,0,0.2)]">
+                <a href="/pricing" class="bg-[#ccff00] text-black text-[9px] font-black px-4 py-1.5 rounded-lg uppercase tracking-tighter hover:scale-105 transition-all">
                     Claim Discount
                 </a>
                 <button onclick="closePromoBanner()" class="text-white/20 hover:text-white transition-colors">
@@ -463,31 +464,23 @@
 </nav>
 
 <style>
-    /* Marquee Infinito Fluido */
-    @keyframes marquee-scroll {
+    /* Animación del Banner */
+    @keyframes marquee-infinite {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
     }
-
     .animate-marquee-infinite {
-        animation: marquee-scroll 30s linear infinite;
+        animation: marquee-infinite 25s linear infinite;
     }
-
-    /* Mejora de la Nav-Link */
-    .nav-link {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Animación de entrada */
-    .animate-fade-in {
-        animation: fadeIn 0.5s ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+    
+    /* Estilo para los Nav Links */
+.nav-link.active {
+    color: white;
+    background: linear-gradient(135deg, rgba(220,38,38,.25), rgba(220,38,38,.1));
+    box-shadow: inset 0 0 0 1px rgba(220,38,38,.4);
+}
 </style>
+
 
 <script>
     // Inicializar iconos de Lucide
@@ -1441,15 +1434,14 @@
     </footer>
 
 <script>
-    // --- 1. CONFIGURACIÓN DE SUPABASE (CLAVES PÚBLICAS) ---
-    // NOTA DE SEGURIDAD: Esta clave 'anon' es de bajo riesgo, pero la práctica recomendada es usar un API Proxy.
+    // --- 1. CONFIGURACIÓN DE SUPABASE ---
     const SUPABASE_URL = 'https://rljvnsqnzxqwogmppqzi.supabase.co';  
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsanZuc3Fuenhxd29nbXBwcXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwOTY3NzcsImV4cCI6MjA3OTY3Mjc3N30.Kv5_9Ny3u1TwfgHeCEvE5w3JbBuMMHcpw-L1FGT8O1A';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
 
     // Estado global
     let currentUser = null;
-    let userPlanType = 'free'; // 'free', 'monthly', 'yearly', 'lifetime'
+    let userPlanType = 'free'; 
 
     // --- 2. FUNCIONES DE AUTENTICACIÓN ---
 
@@ -1468,174 +1460,145 @@
     }
     window.logout = logout;
 
-    // --- 3. COMPROBACIÓN DE ESTADO PREMIUM (LÓGICA CRÍTICA) ---
+    // --- 3. LÓGICA DE BANNERS ---
+
+    function closePromoBanner() {
+        const banner = document.getElementById('banner-promo');
+        if (banner) {
+            banner.classList.add('hidden');
+            sessionStorage.setItem('hidePromoBanner', 'true');
+        }
+    }
+    window.closePromoBanner = closePromoBanner;
+
+    function handleBannerVisibility(isPremium) {
+        const banner = document.getElementById('banner-promo');
+        if (!banner) return;
+
+        // Si es premium O si ya lo cerró manualmente esta sesión, lo ocultamos
+        if (isPremium || sessionStorage.getItem('hidePromoBanner') === 'true') {
+            banner.classList.add('hidden');
+        } else {
+            banner.classList.remove('hidden');
+        }
+    }
+
+    // --- 4. COMPROBACIÓN DE ESTADO PREMIUM ---
 
     async function checkUser() {
-        // Obtiene la sesión actual
         const { data: { session } } = await supabaseClient.auth.getSession();
         currentUser = session ? session.user : null;
         renderAuth(currentUser);
     }
 
     async function checkPremiumStatus(userId) {
+        let { data: profile, error } = await supabaseClient
+            .from('profiles')
+            .select('is_premium, email, plan_type')
+            .eq('id', userId)
+            .single();
         
-        // 1. Consulta el perfil en Supabase
-        let { data: profile, error } = await supabaseClient.from('profiles').select('is_premium, email, plan_type').eq('id', userId).single();
-        
-        // 2. Fallback por email si falla la búsqueda por ID (para evitar errores en la migración de datos)
+        // Fallback por email
         if (!profile && currentUser.email) {
-            console.log("[AUTH DEBUG] ID lookup failed. Attempting fallback query by email...");
-            ({ data: profile, error } = await supabaseClient.from('profiles').select('is_premium, plan_type').eq('email', currentUser.email).single());
+            ({ data: profile, error } = await supabaseClient
+                .from('profiles')
+                .select('is_premium, plan_type')
+                .eq('email', currentUser.email)
+                .single());
         }
 
-        if (error && error.code !== 'PGRST116') { // Ignora el error de "no se encontraron filas"
-             console.error("Supabase Profile Query Error:", error);
-        }
-        
-        // 3. Determina el estado
         const isPremium = !!profile?.is_premium; 
         userPlanType = profile?.plan_type || 'free'; 
 
-        // 4. RENDERIZADO FINAL DEL AVATAR/ESTADO
+        // Actualizar visibilidad del banner basada en el estado real
+        handleBannerVisibility(isPremium);
+
+        // Renderizado del Avatar con color VERDE VOLT para PRO
         const badgeText = isPremium ? 'PRO' : 'FREE';
-        const badgeColor = isPremium ? 'bg-brand' : 'bg-gray-700';
+        const badgeColor = isPremium ? 'bg-[#ccff00] text-black' : 'bg-gray-700 text-white';
+        const statusTextColor = isPremium ? 'text-[#ccff00]' : 'text-gray-400';
         const avatarUrl = currentUser.user_metadata.avatar_url;
 
         document.getElementById('auth-section').innerHTML = `
             <div class="relative group cursor-pointer flex items-center gap-3">
                 <div class="hidden md:flex flex-col text-right">
-                    <span class="text-[10px] text-gray-500 uppercase">Status</span>
-                    <span class="text-sm font-bold ${isPremium ? 'text-brand' : 'text-gray-400'}">${badgeText}</span>
+                    <span class="text-[10px] text-gray-500 uppercase font-black tracking-tighter">Status</span>
+                    <span class="text-sm font-black tracking-tighter ${statusTextColor}">${badgeText}</span>
                 </div>
-                <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center text-white font-bold border-2 border-white/10 overflow-hidden">
+                <div class="w-10 h-10 rounded-full ${badgeColor} flex items-center justify-center font-black border-2 border-white/10 overflow-hidden shadow-[0_0_15px_rgba(204,255,0,0.1)] transition-transform group-hover:scale-105">
                     ${avatarUrl ? `<img src="${avatarUrl}" class="w-full h-full object-cover">` : 'U'}
                 </div>
+                
                 <div class="absolute right-0 mt-2 top-full w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-    <div class="p-2 space-y-1">
-        <div class="px-3 py-2 text-xs text-gray-500 border-b border-white/10 mb-1 truncate">${currentUser.email}</div>
-        
-        <!-- Botón de Account Settings agregado -->
-        <a href="/account" class="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-white/10 rounded flex items-center gap-2">
-            <i data-lucide="settings" class="w-4"></i> Account Settings
-        </a>
-        
-        <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-white/10 rounded flex items-center gap-2">
-            <i data-lucide="log-out" class="w-4"></i> Logout
-        </button>
-    </div>
-</div>
+                    <div class="p-2 space-y-1">
+                        <div class="px-3 py-2 text-[10px] text-gray-500 border-b border-white/10 mb-1 truncate font-mono">${currentUser.email}</div>
+                        <a href="/account" class="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-white/10 rounded flex items-center gap-2 transition-colors">
+                            <i data-lucide="settings" class="w-4 h-4"></i> Account
+                        </a>
+                        <button onclick="logout()" class="w-full text-left px-3 py-2 text-sm text-red-500 hover:bg-red-500/10 rounded flex items-center gap-2 transition-colors font-bold">
+                            <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                        </button>
+                    </div>
+                </div>
             </div>`;
+        
         if(window.lucide) lucide.createIcons();
     }
-
-    // --- 4. FUNCIÓN DE RENDERIZADO DEL NAV (Sign In o Avatar) ---
 
     function renderAuth(user) {
         const authSection = document.getElementById('auth-section');
         if (!user) {
-            // Usuario no logueado: Muestra el botón de Sign In
+            // No logueado: Ocultar banner promo (opcional, o mostrarlo siempre)
+            handleBannerVisibility(false);
+            
             authSection.innerHTML = `
-                <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-4 py-2 md:px-5 md:py-2.5 rounded-full font-bold text-xs md:text-sm hover:bg-gray-200 transition shadow-lg group">
-                    <svg class="w-4 h-4 transition group-hover:rotate-12" viewBox="0 0 24 24" fill="currentColor">
+                <a href="#" onclick="loginWithGoogle()" class="flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full font-black text-sm hover:bg-[#ccff00] transition-all shadow-lg group">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
                         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
                         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
                         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
                     </svg>
-                    <span class="hidden sm:inline">Sign in</span>
-                    <span class="inline sm:hidden">Login</span>
+                    <span>Sign in</span>
                 </a>`;
         } else {
-            // Usuario logueado: Obtiene el estado Premium
             checkPremiumStatus(user.id);
         }
         if(window.lucide) lucide.createIcons();
     }
     
-    // --- 5. INICIALIZACIONES DE LIBRERÍAS Y EVENTOS ---
+    // --- 5. INICIALIZACIONES ---
 
     document.addEventListener('DOMContentLoaded', function () {
-        checkUser(); // Inicia el flujo de autenticación y comprobación de estado
+        checkUser(); 
         
-        // Inicialización de la librería AOS
-        try {
-            if(window.AOS) {
-                AOS.init({
-                    duration: 800,
-                    once: true,
-                    offset: 50
-                });
-            }
-        } catch(e) { console.error("AOS Init error", e); }
+        // AOS Init
+        if(window.AOS) {
+            AOS.init({ duration: 800, once: true, offset: 50 });
+        }
         
-        // Inicialización de Splide (Carruseles)
+        // Splide Testimonials
         const testimonialSplide = document.getElementById('testimonial-carousel');
         if (testimonialSplide) {
             new Splide(testimonialSplide, {
-                type: 'loop',
-                perPage: 3,
-                gap: '1.5rem',
-                autoplay: true,
-                interval: 4000,
-                pauseOnHover: true,
-                focus: 'center',
-                breakpoints: {
-                    1024: {
-                        perPage: 2,
-                    },
-                    640: {
-                        perPage: 1,
-                    },
-                },
-                classes: {
-                    arrows: 'splide__arrows flex justify-center mt-10 space-x-4',
-                    arrow : 'splide__arrow bg-white/10 text-white rounded-full p-3 hover:bg-brand transition disabled:opacity-50',
-                    prev  : 'splide__arrow--prev',
-                    next  : 'splide__arrow--next',
-                },
-            }).mount();
-        }
-        
-        const uiSplide = document.getElementById('ui-carousel');
-        if (uiSplide) {
-            new Splide(uiSplide, {
-                type: 'loop',
-                perPage: 4,
-                gap: '1.5rem',
-                focus: 'center',
-                pagination: true,
-                arrows: false,
-                breakpoints: {
-                    1024: {
-                        perPage: 3,
-                    },
-                    768: {
-                        perPage: 2,
-                    },
-                    640: {
-                        perPage: 1,
-                    },
-                },
+                type: 'loop', perPage: 3, gap: '1.5rem', autoplay: true, interval: 4000,
+                pauseOnHover: true, focus: 'center',
+                breakpoints: { 1024: { perPage: 2 }, 640: { perPage: 1 } }
             }).mount();
         }
 
-        // Inicialización de la librería de íconos
+        // Spotlight Effect
+        window.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.spotlight-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            });
+        });
+
         if(window.lucide) lucide.createIcons();
     });
-
-    // Función para el efecto de spotlight (basada en el HTML proporcionado)
-    function handleMouseMove(e) {
-        const cards = document.querySelectorAll('.spotlight-card');
-        cards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
-    }
-    window.handleMouseMove = handleMouseMove;
-
 </script>
 
     <script>
@@ -1661,3 +1624,9 @@ sheet?.addEventListener('click', e => {
 
 </body>
 </html>
+
+
+
+
+
+
