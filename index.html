@@ -647,68 +647,140 @@
     </div>
 </div>
 
-    <!-- FEATURES -->
-    <section id="features" class="py-20 md:py-32 max-w-7xl mx-auto px-6 spotlight-group" onmousemove="handleMouseMove(event)">
-        <div class="text-center mb-16 md:mb-20" data-aos="fade-up">
-            <h2 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6">Core <span class="text-brand">Architecture</span></h2>
-            <p class="text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
-                We don't use magic. We use engineering. Here is how QuO restructures your Windows environment for maximum throughput and PC optimization.
+
+
+    <!-- UI SHOWCASE -->
+<section id="showcase" class="relative py-12 md:py-24 overflow-hidden bg-[#050505]">
+    
+    <!-- Background FX -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 bg-grid-pattern [mask-image:linear-gradient(to_bottom,transparent,black,transparent)]"></div>
+        <div class="absolute inset-0 bg-noise opacity-30 mix-blend-overlay"></div>
+        
+        <!-- Ambient Light Orbs -->
+        <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[128px] animate-blob"></div>
+        <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[128px] animate-blob" style="animation-delay: 2s;"></div>
+    </div>
+
+    <div class="relative max-w-[1400px] mx-auto px-4 md:px-6 z-10">
+        
+        <!-- Header -->
+        <div class="text-center mb-16 md:mb-24 max-w-4xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md shadow-lg shadow-white/5 hover:bg-white/10 transition-colors cursor-default">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_#22c55e]"></span>
+                <span class="text-xs font-mono text-gray-300 tracking-[0.2em] uppercase font-bold">QuO App Showcase</span>
+            </div>
+            
+            <h2 class="text-4xl md:text-7xl font-black text-white mb-8 tracking-tight leading-[1.1]">
+                Complex Engineering. <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-white to-purple-400 drop-shadow-[0_0_30px_rgba(255,255,255,0.15)]">Absolute Control.</span>
+            </h2>
+            
+            <p class="text-gray-400 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto font-light">
+                The most complete application on the market. We have condensed over <strong class="text-white font-medium">1,500 registry edits</strong> into an interface of <strong class="text-white font-medium">~300 smart buttons</strong>. You decide, we optimize.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="spotlight-card p-8 md:p-10 h-full flex flex-col" data-aos="fade-up" data-aos-delay="100">
-                <div class="spotlight-content flex-grow">
-                    <div class="w-12 h-12 md:w-14 md:h-14 bg-brand/10 rounded-2xl flex items-center justify-center text-brand mb-6 border border-brand/20">
-                        <i data-lucide="cpu" class="w-6 h-6 md:w-7 md:h-7"></i>
+        <!-- Bento Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+
+            <!-- Card 1: Massive Optimization (Col-7, 16:9 Image) -->
+            <div class="group relative col-span-1 md:col-span-2 lg:col-span-7 h-[550px] overflow-hidden rounded-[2rem] bg-[#0A0A0A] border border-white/5 hover:border-indigo-500/50 transition-all duration-500 shadow-2xl hover:shadow-indigo-500/10">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/100 z-10"></div>
+                <div class="absolute inset-0 bg-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <div class="absolute bottom-0 left-0 p-8 md:p-10 z-20 w-full pointer-events-none">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-indigo-400 font-mono text-[10px] md:text-xs font-bold tracking-widest uppercase bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-lg shadow-[0_0_15px_rgba(99,102,241,0.2)]">Core Engine</span>
+                        <div class="p-2 rounded-full bg-white/5 border border-white/10 group-hover:bg-indigo-500/20 group-hover:border-indigo-500/30 transition-colors">
+                            <i data-lucide="sliders-horizontal" class="text-gray-300 w-5 h-5 group-hover:text-indigo-300"></i>
+                        </div>
                     </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Processor Affinity</h3>
-                    <p class="text-gray-400 leading-relaxed mb-6 text-sm md:text-base">
-                        Windows spreads tasks across all cores. QuO isolates your game to your strongest physical cores and pushes background tasks to E-Cores.
+                    <h3 class="text-3xl md:text-4xl font-bold text-white mb-3 group-hover:text-indigo-200 transition-colors">Massive Optimization</h3>
+                    <p class="text-gray-400 text-sm md:text-base max-w-xl leading-relaxed">
+                        Access the world's largest tweak library. Over 300 individual toggles control 1500 system parameters. From network latency to CPU thread management.
                     </p>
                 </div>
-                <div class="spotlight-content pt-6 border-t border-white/5 mt-auto">
-                    <span class="text-xs font-mono text-brand flex items-center gap-2">
-                        <i data-lucide="check-circle" class="w-3"></i> INTELLIGENT THREADING
-                    </span>
+
+                <!-- IMAGE: Buttons.png (16:9) - Full Width Bottom -->
+<div class="absolute inset-0 flex items-start justify-start pt-16 px-8 group-hover:scale-[1.02] transition-transform duration-700 ease-out z-0">
+    <div class="w-full h-full relative rounded-t-2xl overflow-hidden border-t border-x border-white/10 shadow-2xl bg-[#111]">
+        <img src="assets/buttons.png" 
+             alt="Optimization Tweaks Interface" 
+             class="w-full h-full object-cover object-left-top opacity-90 group-hover:opacity-100 transition-opacity">
+    </div>
+</div>
+            </div>
+
+            <!-- Card 2: Custom Energy Plan (Col-5, Vertical Image) -->
+            <div class="group relative col-span-1 md:col-span-1 lg:col-span-5 h-[550px] overflow-hidden rounded-[2rem] bg-[#0A0A0A] border border-white/5 hover:border-blue-500/50 transition-all duration-500 shadow-2xl hover:shadow-blue-500/10">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-10"></div>
+                
+                <div class="absolute bottom-0 left-0 p-8 z-20 pointer-events-none">
+                   <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-blue-200 transition-colors">Custom Energy Plan</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
+                        Prevent CPU sleep states. Ensure stable frequencies and consistent high performance.
+                    </p>
+                </div>
+
+                <!-- IMAGE: EnergyPlan.png (Vertical) -->
+<div class="absolute inset-0 flex items-start justify-start pt-24 px-4 group-hover:scale-[1.02] transition-transform duration-700 ease-out z-0">
+    <div class="w-full h-full relative rounded-t-2xl overflow-hidden border-t border-x border-white/10 shadow-2xl bg-[#111]">
+        <img src="assets/EnergyPlan.png" 
+             alt="Energy Plan Interface" 
+             class="w-full h-full object-cover object-left-top opacity-90 group-hover:opacity-100 transition-opacity">
+    </div>
+</div>
+            </div>
+
+            <!-- Card 3: Game Optimizer (Col-5, 16:9 Image) -->
+            <!-- Changed Height to 550px and Layout to "Hero" style to make image BIG -->
+            <div class="group relative col-span-1 md:col-span-1 lg:col-span-5 h-[550px] overflow-hidden rounded-[2rem] bg-[#0A0A0A] border border-white/5 hover:border-purple-500/50 transition-all duration-500 shadow-2xl hover:shadow-purple-500/10">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
+                
+                <div class="absolute bottom-0 left-0 p-8 z-20 pointer-events-none">
+                    <span class="text-purple-400 font-mono text-[10px] md:text-xs font-bold tracking-widest uppercase bg-purple-500/10 border border-purple-500/20 px-3 py-1.5 rounded-lg mb-3 inline-block shadow-[0_0_15px_rgba(168,85,247,0.2)]">AI Detection</span>
+                    <h3 class="text-2xl font-bold text-white mb-1 group-hover:text-purple-200">Game Optimizer</h3>
+                    <p class="text-gray-400 text-sm">Real-time resource prioritization.</p>
+                </div>
+
+                <!-- IMAGE: GameOptimizer.png (16:9) -->
+                <!-- Layout modified: Pushed down and filling width like Card 1 -->
+                <div class="absolute inset-0 flex items-start justify-center pt-24 px-4 group-hover:scale-[1.02] transition-transform duration-700 ease-out z-0">
+                    <div class="w-full h-full relative rounded-t-2xl overflow-hidden border-t border-x border-white/10 shadow-2xl bg-[#111]">
+                        <img src="assets/GameOptimizer.png" alt="Game Booster AI" class="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity">
+                    </div>
                 </div>
             </div>
 
-            <div class="spotlight-card p-8 md:p-10 h-full flex flex-col" data-aos="fade-up" data-aos-delay="200">
-                <div class="spotlight-content flex-grow">
-                    <div class="w-12 h-12 md:w-14 md:h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-6 border border-blue-500/20">
-                        <i data-lucide="network" class="w-6 h-6 md:w-7 md:h-7"></i>
-                    </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Network Stabilization</h3>
-                    <p class="text-gray-400 leading-relaxed mb-6 text-sm md:text-base">
-                        Disables "Nagle's Algorithm" and optimizes MTU packet size to force Windows to send data immediately, reducing "hit-reg" issues.
+            <!-- Card 4: Deep Cleaner (Col-7, 16:9 Image) -->
+            <!-- Changed Height to 550px and Layout to "Hero" style (Text Top/Image Bottom) -->
+            <div class="group relative col-span-1 md:col-span-2 lg:col-span-7 h-[550px] overflow-hidden rounded-[2rem] bg-[#0A0A0A] border border-white/5 hover:border-emerald-500/50 transition-all duration-500 shadow-2xl hover:shadow-emerald-500/10">
+                <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-600/5 rounded-full blur-[100px] pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/100 z-10"></div>
+
+                <div class="absolute bottom-0 left-0 p-8 md:p-10 z-20 w-full pointer-events-none">
+                    <h3 class="text-3xl md:text-4xl font-bold text-white mb-3 group-hover:text-emerald-200 transition-colors">Deep System Cleaner</h3>
+                    <p class="text-gray-400 text-sm md:text-base max-w-xl leading-relaxed">
+                        Remove junk files Windows ignores. Reclaim space and reduce disk load without deleting your important personal files.
                     </p>
                 </div>
-                <div class="spotlight-content pt-6 border-t border-white/5 mt-auto">
-                    <span class="text-xs font-mono text-blue-500 flex items-center gap-2">
-                        <i data-lucide="check-circle" class="w-3"></i> ZERO JITTER
-                    </span>
-                </div>
+
+                <!-- IMAGE: SystemCleaner.png (16:9) -->
+                <!-- Layout modified: Full Width at Bottom, exactly like Card 1 -->
+<div class="absolute inset-0 flex justify-start pt-16 px-8 group-hover:scale-[1.02] transition-transform duration-700 ease-out z-0">
+    <div class="w-full h-full relative rounded-t-2xl overflow-hidden border-t border-x border-white/10 shadow-2xl bg-[#111]">
+        <img src="assets/SystemCleaner.png" 
+             alt="System Cleaner Interface" 
+             class="w-full h-full object-cover object-left-top opacity-90 group-hover:opacity-100 transition-opacity">
+    </div>
+</div>
             </div>
 
-            <div class="spotlight-card p-8 md:p-10 h-full flex flex-col" data-aos="fade-up" data-aos-delay="300">
-                <div class="spotlight-content flex-grow">
-                    <div class="w-12 h-12 md:w-14 md:h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-500 mb-6 border border-purple-500/20">
-                        <i data-lucide="trash-2" class="w-6 h-6 md:w-7 md:h-7"></i>
-                    </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Deep Debloat</h3>
-                    <p class="text-gray-400 leading-relaxed mb-6 text-sm md:text-base">
-                        Strips away Telemetry, Cortana, Edge background services, and 50+ dormant processes that consume RAM silently. Best way to clean your computer.
-                    </p>
-                </div>
-                <div class="spotlight-content pt-6 border-t border-white/5 mt-auto">
-                    <span class="text-xs font-mono text-purple-500 flex items-center gap-2">
-                        <i data-lucide="check-circle" class="w-3"></i> RECLAIM RAM
-                    </span>
-                </div>
-            </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <style>
     /* Custom animations for the new section */
@@ -1141,105 +1213,69 @@
     </div>
 </section>
 
-<!-- UI SHOWCASE -->
-<section id="showcase" class="relative py-24 overflow-hidden bg-[#050505]">
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand/20 rounded-full blur-[128px] pointer-events-none"></div>
-    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[128px] pointer-events-none"></div>
-
-    <div class="relative max-w-7xl mx-auto px-6 z-10">
-        
-        <div class="text-center mb-20 max-w-4xl mx-auto" data-aos="fade-up">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-sm">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span class="text-xs font-mono text-gray-300 tracking-wider uppercase">System Showcase v2.0</span>
-            </div>
-            
-            <h2 class="text-4xl md:text-7xl font-black text-white mb-6 tracking-tight leading-tight">
-                Ingeniería compleja. <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand via-purple-500 to-blue-500">Control Absoluto.</span>
-            </h2>
-            
-            <p class="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
-                La aplicación más completa del mercado. Hemos condensado más de <strong class="text-white">1,500 ediciones de registro complejas</strong> en una interfaz de <strong class="text-white">~300 botones inteligentes</strong>. Tú decides, nosotros optimizamos.
+    <!-- FEATURES -->
+    <section id="features" class="py-20 md:py-32 max-w-7xl mx-auto px-6 spotlight-group" onmousemove="handleMouseMove(event)">
+        <div class="text-center mb-16 md:mb-20" data-aos="fade-up">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6">Core <span class="text-brand">Architecture</span></h2>
+            <p class="text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
+                We don't use magic. We use engineering. Here is how QuO restructures your Windows environment for maximum throughput and PC optimization.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
-
-            <div class="group relative col-span-1 md:col-span-2 lg:col-span-7 h-[500px] overflow-hidden rounded-3xl bg-gray-900/50 border border-white/10 hover:border-brand/50 transition-all duration-500 shadow-2xl" data-aos="fade-up" data-aos-delay="100">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90 z-10"></div>
-                
-                <div class="absolute bottom-0 left-0 p-8 z-20 w-full">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-brand font-mono text-xs font-bold tracking-widest uppercase bg-brand/10 px-2 py-1 rounded">Core Engine</span>
-                        <i data-lucide="sliders-horizontal" class="text-gray-400 w-5 h-5"></i>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="spotlight-card p-8 md:p-10 h-full flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                <div class="spotlight-content flex-grow">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-brand/10 rounded-2xl flex items-center justify-center text-brand mb-6 border border-brand/20">
+                        <i data-lucide="cpu" class="w-6 h-6 md:w-7 md:h-7"></i>
                     </div>
-                    <h3 class="text-3xl font-bold text-white mb-2 group-hover:text-brand transition-colors">Optimización Masiva</h3>
-                    <p class="text-gray-400 text-sm md:text-base max-w-lg">
-                        Accede a la biblioteca más grande de tweaks del mundo. Más de 300 interruptores individuales que controlan 1500 parámetros del sistema. Desde latencia de red hasta gestión de hilos de CPU.
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Processor Affinity</h3>
+                    <p class="text-gray-400 leading-relaxed mb-6 text-sm md:text-base">
+                        Windows spreads tasks across all cores. QuO isolates your game to your strongest physical cores and pushes background tasks to E-Cores.
                     </p>
                 </div>
-
-                <div class="absolute inset-0 flex items-center justify-center p-8 pt-12 group-hover:scale-[1.02] transition-transform duration-700 ease-out">
-                    <img src="assets/buttons.png" alt="Optimization Tweaks Interface" class="w-full h-auto object-cover object-top rounded-xl shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/5 opacity-90 hover:opacity-100 transition-opacity">
+                <div class="spotlight-content pt-6 border-t border-white/5 mt-auto">
+                    <span class="text-xs font-mono text-brand flex items-center gap-2">
+                        <i data-lucide="check-circle" class="w-3"></i> INTELLIGENT THREADING
+                    </span>
                 </div>
             </div>
 
-            <div class="group relative col-span-1 md:col-span-1 lg:col-span-5 h-[500px] overflow-hidden rounded-3xl bg-gray-900/50 border border-white/10 hover:border-blue-500/50 transition-all duration-500 shadow-2xl" data-aos="fade-up" data-aos-delay="200">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90 z-10"></div>
-                
-                <div class="absolute bottom-0 left-0 p-8 z-20">
-                    <div class="flex items-center gap-2 mb-2">
-                         <span class="text-blue-400 font-mono text-xs font-bold tracking-widest uppercase bg-blue-500/10 px-2 py-1 rounded">Power Mgmt</span>
+            <div class="spotlight-card p-8 md:p-10 h-full flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                <div class="spotlight-content flex-grow">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-6 border border-blue-500/20">
+                        <i data-lucide="network" class="w-6 h-6 md:w-7 md:h-7"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">Plan de Energía Custom</h3>
-                    <p class="text-gray-400 text-sm">
-                        Desbloquea frecuencias estables. Nuestro plan de energía personalizado evita que tu CPU duerma mientras juegas.
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Network Stabilization</h3>
+                    <p class="text-gray-400 leading-relaxed mb-6 text-sm md:text-base">
+                        Disables "Nagle's Algorithm" and optimizes MTU packet size to force Windows to send data immediately, reducing "hit-reg" issues.
                     </p>
                 </div>
-
-                <div class="absolute inset-0 flex items-center justify-center p-6 group-hover:scale-[1.02] transition-transform duration-700">
-                    <img src="assets/energyplan.png" alt="Custom Energy Plan" class="w-full h-auto rounded-xl shadow-2xl border border-white/5 opacity-80 group-hover:opacity-100">
+                <div class="spotlight-content pt-6 border-t border-white/5 mt-auto">
+                    <span class="text-xs font-mono text-blue-500 flex items-center gap-2">
+                        <i data-lucide="check-circle" class="w-3"></i> ZERO JITTER
+                    </span>
                 </div>
             </div>
 
-            <div class="group relative col-span-1 md:col-span-1 lg:col-span-5 h-[400px] overflow-hidden rounded-3xl bg-gray-900/50 border border-white/10 hover:border-purple-500/50 transition-all duration-500 shadow-2xl" data-aos="fade-up" data-aos-delay="300">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
-                
-                <div class="absolute bottom-0 left-0 p-8 z-20">
-                    <span class="text-purple-400 font-mono text-xs font-bold tracking-widest uppercase bg-purple-500/10 px-2 py-1 rounded mb-2 inline-block">AI Detection</span>
-                    <h3 class="text-2xl font-bold text-white mb-1">Game Optimizer</h3>
-                    <p class="text-gray-400 text-sm">Detección automática de juegos para priorizar recursos en tiempo real.</p>
-                </div>
-
-                <div class="absolute top-0 right-0 w-full h-full p-4 flex justify-center items-center group-hover:scale-[1.03] transition-transform duration-700">
-                     <img src="assets/GameOptimizer.png" alt="Game Booster AI" class="w-auto h-3/4 rounded-lg shadow-[0_0_30px_rgba(168,85,247,0.2)] border border-purple-500/20">
-                </div>
-            </div>
-
-            <div class="group relative col-span-1 md:col-span-2 lg:col-span-7 h-[400px] overflow-hidden rounded-3xl bg-gray-900/50 border border-white/10 hover:border-red-500/50 transition-all duration-500 shadow-2xl" data-aos="fade-up" data-aos-delay="400">
-                <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/5 rounded-full blur-[80px] pointer-events-none"></div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 h-full relative z-10">
-                    <div class="p-8 flex flex-col justify-end md:justify-center">
-                        <span class="text-red-400 font-mono text-xs font-bold tracking-widest uppercase bg-red-500/10 px-2 py-1 rounded mb-3 w-fit">Maintenance</span>
-                        <h3 class="text-3xl font-bold text-white mb-3">Limpieza Profunda</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                            Elimina archivos basura que Windows ignora. Libera espacio y reduce la carga del disco sin borrar tus archivos personales importantes.
-                        </p>
-                        <button class="flex items-center gap-2 text-white font-semibold text-sm hover:text-red-400 transition">
-                            Ver características de limpieza <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
+            <div class="spotlight-card p-8 md:p-10 h-full flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                <div class="spotlight-content flex-grow">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-500 mb-6 border border-purple-500/20">
+                        <i data-lucide="trash-2" class="w-6 h-6 md:w-7 md:h-7"></i>
                     </div>
-                    <div class="relative h-full overflow-hidden flex items-center justify-center md:justify-end p-4 md:p-8">
-                        <img src="assets/SystemCleaner.png" alt="System Cleaner Interface" class="relative z-10 w-full max-w-sm rounded-xl shadow-2xl border border-white/10 group-hover:-translate-y-2 transition-transform duration-500">
-                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Deep Debloat</h3>
+                    <p class="text-gray-400 leading-relaxed mb-6 text-sm md:text-base">
+                        Strips away Telemetry, Cortana, Edge background services, and 50+ dormant processes that consume RAM silently. Best way to clean your computer.
+                    </p>
+                </div>
+                <div class="spotlight-content pt-6 border-t border-white/5 mt-auto">
+                    <span class="text-xs font-mono text-purple-500 flex items-center gap-2">
+                        <i data-lucide="check-circle" class="w-3"></i> RECLAIM RAM
+                    </span>
                 </div>
             </div>
-
         </div>
-    </div>
-</section>
+    </section>
+
 
     <section class="py-20 bg-black/40 border-y border-white/5">
         <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -1599,11 +1635,3 @@ sheet?.addEventListener('click', e => {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
