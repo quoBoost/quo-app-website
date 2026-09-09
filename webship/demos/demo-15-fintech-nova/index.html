@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVA | Plataforma Global de Riqueza &amp; Neo-Banca Privada</title>
+  <meta name="description" content="Gestiona tu liquidez, invierte en bonos del tesoro y obtén rendimientos del 8.4% APY con tarjeta de titanio multidivisa sin comisiones cambiarias." />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            fintech: {
+              bg: '#040711',
+              card: '#0a0f24',
+              emerald: '#10B981',
+              violet: '#8B5CF6',
+              border: '#1a2247',
+              text: '#e2e8f0'
+            }
+          },
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    body {
+      background-color: #040711;
+      color: #94a3b8;
+      font-family: 'Outfit', sans-serif;
+    }
+    .fintech-mesh {
+      background-image: 
+        radial-gradient(circle at 20% 10%, rgba(139, 92, 246, 0.15), transparent 40%),
+        radial-gradient(circle at 80% 60%, rgba(16, 185, 129, 0.12), transparent 45%);
+    }
+    .holo-card {
+      background: linear-gradient(135deg, #1e1b4b 0%, #090d1f 50%, #064e3b 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+      transition: transform 0.2s ease-out;
+      transform-style: preserve-3d;
+    }
+  </style>
+</head>
+<body class="bg-[#040711] text-slate-300 fintech-mesh selection:bg-emerald-500/20 selection:text-emerald-300">
+
+  <!-- LIVE TICKER BAR -->
+  <div class="border-b border-slate-800/80 bg-slate-950/90 text-xs font-mono py-2 px-6 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 overflow-x-auto text-[11px]">
+      <div class="flex items-center gap-6 shrink-0">
+        <span class="text-emerald-400 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> NOVA VAULT APY: <strong>8.42%</strong></span>
+        <span class="text-slate-400">USD/EUR: <span class="text-emerald-400">1.084 +0.12%</span></span>
+        <span class="text-slate-400">US 10Y TREASURY: <span class="text-slate-200">4.28%</span></span>
+        <span class="text-slate-400">S&amp;P 500 YIELD: <span class="text-emerald-400">+1.45%</span></span>
+      </div>
+      <div class="shrink-0 text-slate-400 hidden sm:block">Custodia Asegurada SIPC $500,000</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: HEADER & NAVIGATION -->
+  <header class="border-b border-slate-800/60 bg-[#040711]/80 backdrop-blur-xl sticky top-8 z-40">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-emerald-400 flex items-center justify-center text-white font-bold shadow-lg shadow-emerald-500/10">
+          <i data-lucide="zap" class="w-5 h-5 text-white fill-white"></i>
+        </div>
+        <span class="text-2xl font-extrabold tracking-tight text-white">NOVA<span class="text-emerald-400 font-mono">.</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#simulador" class="text-slate-300 hover:text-emerald-400 transition-colors">Simulador</a>
+        <a href="#vaults" class="text-slate-300 hover:text-emerald-400 transition-colors">Bóvedas de Rendimiento</a>
+        <a href="#tarjeta" class="text-slate-300 hover:text-emerald-400 transition-colors">Tarjeta Black Titanio</a>
+        <a href="#seguridad" class="text-slate-300 hover:text-emerald-400 transition-colors">Seguridad Institucional</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <a href="#onboarding" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-95 shadow-lg shadow-emerald-500/20 transition-all">
+          Abrir Cuenta en 90s
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 2: HERO WEALTH OPERATING SYSTEM -->
+    <section class="py-20 lg:py-28 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/30 text-emerald-400 text-xs font-mono">
+              <i data-lucide="shield" class="w-3.5 h-3.5"></i> GESTIÓN DE PATRIMONIO GLOBAL MULTIDIVISA
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.1]">
+              El sistema operativo financiero para tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-violet-400">patrimonio internacional.</span>
+            </h1>
+
+            <p class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl font-light">
+              Liquidez remunerada al 8.4% APY en dólares y euros, conversión de divisas interbancaria al costo real y acceso directo a bonos del tesoro de EE.UU. Todo con una tarjeta de titanio.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-4">
+              <a href="#onboarding" class="px-8 py-4 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold text-sm tracking-wide shadow-xl shadow-emerald-400/25 flex items-center gap-2 transition-all">
+                Crear Bóveda de Liquidez <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <a href="#simulador" class="px-6 py-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-sm hover:border-slate-700 transition-all">
+                Proyectar Rendimiento
+              </a>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800/80 flex items-center gap-8 text-xs font-mono text-slate-400">
+              <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> Cero comisiones de custodia</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> Retiros inmediatos 24/7</span>
+            </div>
+          </div>
+
+          <!-- Hero 3D Holographic Card Interactive -->
+          <div class="lg:col-span-5 relative flex justify-center">
+            <div id="card-wrap" class="relative w-full max-w-md h-72 rounded-3xl holo-card p-8 flex flex-col justify-between text-white select-none cursor-pointer">
+              <div class="flex justify-between items-start">
+                <div>
+                  <span class="text-xs font-mono tracking-widest text-emerald-300 uppercase">NOVA BLACK TITANIUM</span>
+                  <div class="text-2xl font-bold font-mono tracking-tight mt-1">PRIVATE WEALTH</div>
+                </div>
+                <i data-lucide="wifi" class="w-6 h-6 text-slate-300 rotate-90"></i>
+              </div>
+
+              <div class="space-y-4">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-9 rounded-lg bg-amber-400/80 border border-amber-300 flex items-center justify-center">
+                    <div class="w-8 h-6 border border-amber-700/60 rounded"></div>
+                  </div>
+                  <span class="font-mono text-xs text-slate-300">IBAN MULTIDIVISA ACTIVO</span>
+                </div>
+
+                <div class="flex justify-between items-end">
+                  <div>
+                    <span class="text-[10px] font-mono text-slate-400 block uppercase">Titular</span>
+                    <span class="font-mono text-sm tracking-wider">MATTEO F. VALERIO</span>
+                  </div>
+                  <div class="font-mono text-xs text-emerald-300">8.4% APY</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE COMPOUND INTEREST & WEALTH CALCULATOR -->
+    <section id="simulador" class="py-24 border-y border-slate-800/80 bg-slate-950">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="font-mono text-xs text-emerald-400 uppercase tracking-widest">Simulador Interactivo</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-2">Calculadora de Interés Compuesto</h2>
+          <p class="text-slate-400 text-sm mt-3 font-light">
+            Observa el poder de la capitalización diaria garantizada en bonos y bóvedas con liquidez instantánea.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-8 p-8 sm:p-12 rounded-3xl bg-fintech-card border border-fintech-border shadow-2xl">
+          <!-- Controls -->
+          <div class="md:col-span-6 space-y-6">
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-2">
+                <span class="text-slate-400">DEPÓSITO INICIAL</span>
+                <span class="text-white font-bold" id="lbl-initial">$10,000 USD</span>
+              </div>
+              <input type="range" id="rng-initial" min="1000" max="100000" step="1000" value="10000" class="w-full accent-emerald-400 cursor-pointer" />
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-2">
+                <span class="text-slate-400">APORTE MENSUAL RECURRENTE</span>
+                <span class="text-white font-bold" id="lbl-monthly">$500 USD</span>
+              </div>
+              <input type="range" id="rng-monthly" min="0" max="10000" step="100" value="500" class="w-full accent-emerald-400 cursor-pointer" />
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-2">
+                <span class="text-slate-400">HORIZONTE TEMPORAL</span>
+                <span class="text-white font-bold" id="lbl-years">5 Años</span>
+              </div>
+              <input type="range" id="rng-years" min="1" max="20" step="1" value="5" class="w-full accent-emerald-400 cursor-pointer" />
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-xs font-mono text-slate-400 flex items-center justify-between">
+              <span>TASA RENDIMIENTO ANUAL (APY):</span>
+              <span class="text-emerald-400 font-bold text-sm">8.4% FIJO</span>
+            </div>
+          </div>
+
+          <!-- Live Result Projection -->
+          <div class="md:col-span-6 flex flex-col justify-between p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-indigo-950/60 border border-indigo-500/20">
+            <div>
+              <span class="text-xs font-mono uppercase text-emerald-400">PATRIMONIO TOTAL PROYECTADO</span>
+              <div class="text-4xl sm:text-5xl font-extrabold text-white mt-2 tracking-tight" id="res-total">$51,840</div>
+              <div class="mt-4 space-y-2 text-xs font-mono">
+                <div class="flex justify-between py-1 border-b border-slate-800">
+                  <span class="text-slate-400">Capital propio aportado:</span>
+                  <span class="text-slate-200" id="res-principal">$40,000</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800">
+                  <span class="text-slate-400">Ganancias puras por interés:</span>
+                  <span class="text-emerald-400 font-bold" id="res-interest">+$11,840</span>
+                </div>
+              </div>
+            </div>
+
+            <a href="#onboarding" class="mt-8 py-3.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold text-center text-xs uppercase tracking-wider transition-all">
+              Comenzar a Acumular Rendimientos
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: GLOBAL VAULTS & YIELD ENGINE -->
+    <section id="vaults" class="py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="font-mono text-xs text-emerald-400 uppercase tracking-widest">Portafolio Automatizado</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-2">Bóvedas Diseñadas para Crecer</h2>
+          <p class="text-slate-400 text-sm mt-3 font-light">Diversificación institucional al alcance de tu móvil.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-8">
+          <div class="p-8 rounded-3xl bg-fintech-card border border-fintech-border hover:border-emerald-500/40 transition-all">
+            <span class="text-xs font-mono text-emerald-400">BÓVEDA 01 // LIQUIDEZ</span>
+            <h3 class="text-2xl font-bold text-white mt-2 mb-1">Treasury Cash 8.4%</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mt-3">
+              Respaldada al 100% por Letras del Tesoro de EE.UU. de corto plazo (T-Bills). Interés acreditado diariamente sin bloqueos forzosos.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-fintech-card border border-fintech-border hover:border-violet-500/40 transition-all">
+            <span class="text-xs font-mono text-violet-400">BÓVEDA 02 // MULTIDIVISA</span>
+            <h3 class="text-2xl font-bold text-white mt-2 mb-1">Global IBAN Vault</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mt-3">
+              Cuentas nominativas en USD, EUR y CHF con códigos SWIFT/SEPA dedicados para recibir pagos internacionales sin cargos intermediarios.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-fintech-card border border-fintech-border hover:border-emerald-500/40 transition-all">
+            <span class="text-xs font-mono text-emerald-400">BÓVEDA 03 // INDEXADO</span>
+            <h3 class="text-2xl font-bold text-white mt-2 mb-1">Automated S&amp;P Core</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mt-3">
+              Inversión fraccionaria automatizada en las 500 empresas más valiosas del mundo con balanceo algorítmico y reinversión de dividendos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: NOVA BLACK METAL CARD -->
+    <section id="tarjeta" class="py-24 bg-slate-950 border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="font-mono text-xs text-violet-400 uppercase tracking-widest">Hardware Físico</span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-2">La Tarjeta de Titanio Negro de 18 Gramos</h2>
+            <p class="text-slate-400 text-sm sm:text-base leading-relaxed mt-4 font-light">
+              Fabricada a partir de un solo lingote de titanio aeroespacial. Diseñada para operar sin límites diarios de gasto en más de 190 países.
+            </p>
+
+            <div class="space-y-4 mt-8">
+              <div class="flex items-start gap-4">
+                <i data-lucide="globe" class="w-5 h-5 text-emerald-400 shrink-0 mt-1"></i>
+                <div>
+                  <h4 class="text-white font-semibold text-sm">0% Spread Cambiario en Compras Internacionales</h4>
+                  <p class="text-slate-400 text-xs">Paga en Tokio, Londres o Nueva York a tipo de cambio interbancario real de Visa.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <i data-lucide="plane" class="w-5 h-5 text-emerald-400 shrink-0 mt-1"></i>
+                <div>
+                  <h4 class="text-white font-semibold text-sm">Acceso Ilimitado a Salas VIP LoungeKey</h4>
+                  <p class="text-slate-400 text-xs">Más de 1,300 aeropuertos en todo el mundo con acompañante incluido.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&auto=format&fit=crop&q=80" alt="Titanium Card" class="rounded-3xl border border-slate-800 shadow-2xl max-w-md w-full object-cover grayscale contrast-125" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: INSTITUTIONAL SECURITY -->
+    <section id="seguridad" class="py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="font-mono text-xs text-emerald-400 uppercase tracking-widest">Protección Criptográfica</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Seguridad Grado Institucional</h2>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-8 text-center font-mono">
+          <div class="p-8 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <i data-lucide="lock" class="w-8 h-8 text-emerald-400 mx-auto mb-4"></i>
+            <h4 class="text-white font-bold text-sm">Passkeys Cero Contraseñas</h4>
+            <p class="text-slate-400 text-xs mt-2 font-sans">Autenticación biométrica por FaceID con enclaves de seguridad física en tu dispositivo.</p>
+          </div>
+
+          <div class="p-8 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <i data-lucide="shield-alert" class="w-8 h-8 text-violet-400 mx-auto mb-4"></i>
+            <h4 class="text-white font-bold text-sm">Aseguramiento FDIC / SIPC</h4>
+            <p class="text-slate-400 text-xs mt-2 font-sans">Fondos custodiados en bancos aliados regulados por la Reserva Federal estadounidense.</p>
+          </div>
+
+          <div class="p-8 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <i data-lucide="cpu" class="w-8 h-8 text-emerald-400 mx-auto mb-4"></i>
+            <h4 class="text-white font-bold text-sm">Auditoría SOC2 Tipo II</h4>
+            <p class="text-slate-400 text-xs mt-2 font-sans">Encriptación de extremo a extremo AES-256 en reposo y en tránsito permanente.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: INSTANT ONBOARDING KYC -->
+    <section id="onboarding" class="py-24 bg-slate-950 border-t border-slate-800/80">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <span class="font-mono text-xs text-emerald-400 uppercase tracking-widest">Acceso Inmediato</span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-2">Abre tu Cuenta en 90 Segundos</h2>
+        <p class="text-slate-400 text-xs sm:text-sm mt-3 font-light">Sin papeleo físico. Verificación biométrica por pasaporte o documento nacional.</p>
+
+        <form class="mt-10 p-8 sm:p-12 rounded-3xl bg-fintech-card border border-emerald-500/30 text-left space-y-6 shadow-2xl" onsubmit="event.preventDefault(); alert('Verificación iniciada. Recibirás un enlace seguro vía SMS para completar el escaneo biométrico.');">
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-mono text-xs text-slate-300 mb-2">NOMBRE LEGAL COMPLETO *</label>
+              <input type="text" required placeholder="Carlos Méndez Castro" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-emerald-400 font-sans" />
+            </div>
+            <div>
+              <label class="block font-mono text-xs text-slate-300 mb-2">EMAIL PRINCIPAL *</label>
+              <input type="email" required placeholder="carlos@empresa.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-emerald-400 font-sans" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs text-slate-300 mb-2">BÓVEDA DE INTERÉS</label>
+            <select class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-slate-300 focus:outline-none focus:border-emerald-400 font-sans">
+              <option>Bóveda Treasury 8.4% APY (Dólares)</option>
+              <option>Cuentas Multidivisa USD/EUR/CHF</option>
+              <option>Portafolio Indexado S&amp;P 500</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 hover:opacity-95 text-slate-950 font-bold text-sm uppercase tracking-wider transition-all shadow-xl shadow-emerald-500/20">
+            Iniciar Apertura Digital Express
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 bg-[#040711] py-12 text-slate-500 font-mono text-xs">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-2">
+        <span class="text-white font-bold text-base">NOVA PRIVATE WEALTH</span>
+        <span>— © 2026</span>
+      </div>
+      <div>Nova Wealth Ltd. Regulado por autoridades de valores internacionales.</div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // 3D Card Tilt Effect
+    const card = document.getElementById('card-wrap');
+    if (card) {
+      window.addEventListener('mousemove', (e) => {
+        const x = (window.innerWidth / 2 - e.pageX) / 25;
+        const y = (window.innerHeight / 2 - e.pageY) / 25;
+        card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+      });
+    }
+
+    // Compound Interest Simulator
+    const rInitial = document.getElementById('rng-initial');
+    const rMonthly = document.getElementById('rng-monthly');
+    const rYears = document.getElementById('rng-years');
+
+    const lInitial = document.getElementById('lbl-initial');
+    const lMonthly = document.getElementById('lbl-monthly');
+    const lYears = document.getElementById('lbl-years');
+
+    const resTotal = document.getElementById('res-total');
+    const resPrincipal = document.getElementById('res-principal');
+    const resInterest = document.getElementById('res-interest');
+
+    function calculate() {
+      const P = parseFloat(rInitial.value);
+      const PMT = parseFloat(rMonthly.value);
+      const t = parseFloat(rYears.value);
+      const r = 0.084; // 8.4% APY
+      const n = 12; // monthly compounding
+
+      lInitial.textContent = '$' + P.toLocaleString('en-US') + ' USD';
+      lMonthly.textContent = '$' + PMT.toLocaleString('en-US') + ' USD';
+      lYears.textContent = t + (t === 1 ? ' Año' : ' Años');
+
+      // Formula: P*(1 + r/n)^(n*t) + PMT * [ ((1 + r/n)^(n*t) - 1) / (r/n) ]
+      const ratePerPeriod = r / n;
+      const totalPeriods = n * t;
+      const compoundGrowth = Math.pow(1 + ratePerPeriod, totalPeriods);
+
+      const fvInitial = P * compoundGrowth;
+      const fvAnnuity = PMT > 0 ? PMT * ((compoundGrowth - 1) / ratePerPeriod) : 0;
+      const totalFV = fvInitial + fvAnnuity;
+
+      const totalPrincipal = P + (PMT * 12 * t);
+      const totalInterest = Math.max(0, totalFV - totalPrincipal);
+
+      resTotal.textContent = '$' + Math.round(totalFV).toLocaleString('en-US');
+      resPrincipal.textContent = '$' + Math.round(totalPrincipal).toLocaleString('en-US');
+      resInterest.textContent = '+$' + Math.round(totalInterest).toLocaleString('en-US');
+    }
+
+    [rInitial, rMonthly, rYears].forEach(el => el.addEventListener('input', calculate));
+    calculate();
+  </script>
+</body>
+</html>

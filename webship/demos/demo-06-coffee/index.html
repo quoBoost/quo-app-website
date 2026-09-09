@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA RESERVE &mdash; Luxury Coffee Roastery &amp; Lounge</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Playfair Display + Plus Jakarta Sans + Cormorant Garamond -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            reserve: {
+              green:     '#1E3932', // Iconic Starbucks Reserve Deep Emerald Green
+              greenDark: '#132520', // Darkest Forest
+              greenLight:'#2D534A',
+              gold:      '#CBA258', // Warm Champagne Gold & Brass
+              goldLight: '#E5D1A4',
+              goldDark:  '#9E7B3B',
+              cream:     '#F7F4EE', // Warm Alabaster Milk Cream
+              warmBg:    '#FAF8F5',
+              surface:   '#F2EFEB',
+              border:    '#E5DFC5',
+              charcoal:  '#212121', // Soft Espresso Text
+              muted:     '#6B665F',
+            }
+          },
+          fontFamily: {
+            serif:   ['"Playfair Display"', 'Georgia', 'serif'],
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans:    ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Luxury Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #FAF8F5; }
+    ::-webkit-scrollbar-thumb { background: #CBA258; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9E7B3B; }
+
+    /* Warm Gold Glow */
+    .glow-gold {
+      background: radial-gradient(circle, rgba(203, 162, 88, 0.22) 0%, rgba(30, 57, 50, 0) 70%);
+    }
+
+    /* Floating Animation */
+    @keyframes float-luxe {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%      { transform: translateY(-12px) rotate(0.8deg); }
+    }
+    .animate-float-luxe {
+      animation: float-luxe 6s ease-in-out infinite;
+    }
+
+    /* Shimmer Gold Badge */
+    @keyframes shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .badge-gold {
+      background: linear-gradient(90deg, #9E7B3B 0%, #E5D1A4 50%, #9E7B3B 100%);
+      background-size: 200% auto;
+      animation: shimmer 4s linear infinite;
+    }
+
+    /* Smooth Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 3D Card Hover */
+    .luxe-card {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .luxe-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 40px -15px rgba(30, 57, 50, 0.15);
+    }
+  </style>
+</head>
+<body class="bg-reserve-warmBg text-reserve-charcoal font-sans antialiased overflow-x-hidden selection:bg-reserve-gold/30 selection:text-reserve-greenDark">
+
+  <!-- ============================================================
+       TOP LUXURY CONCIERGE STRIP
+       ============================================================ -->
+  <div class="bg-reserve-greenDark text-reserve-goldLight text-[11.5px] font-sans py-2.5 px-6 border-b border-reserve-gold/20">
+    <div class="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-4">
+      <div class="flex items-center gap-4">
+        <span class="flex items-center gap-2 font-medium tracking-wider">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-reserve-gold"></i>
+          <span>AURA RESERVE ROASTERY &bull; COSECHA PRIVADA 2026 DISPONIBLE</span>
+        </span>
+        <span class="hidden md:inline text-reserve-greenLight">|</span>
+        <span class="hidden md:inline text-white/80">Avenida Escaz&uacute;, San Jos&eacute;</span>
+      </div>
+
+      <div class="flex items-center gap-6 text-white/90 font-medium">
+        <span class="hidden sm:inline">Tueste en Sala: <strong>100% Ar&aacute;bica de Altura</strong></span>
+        <a href="#customizer" class="text-reserve-gold hover:underline flex items-center gap-1 font-semibold">
+          <span>Personalizar Bebida</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       RESERVE EMERALD & GOLD NAVBAR
+       ============================================================ -->
+  <header class="sticky top-0 z-40 bg-reserve-green/95 backdrop-blur-md border-b border-reserve-gold/30 text-white shadow-lg">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo (Starbucks Reserve Style Star & Emblem) -->
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="w-10 h-10 rounded-full bg-reserve-greenDark border border-reserve-gold flex items-center justify-center text-reserve-gold shadow-md group-hover:scale-105 transition-transform">
+          <i data-lucide="star" class="w-5 h-5 fill-reserve-gold"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-serif font-bold text-2xl tracking-wider leading-none text-white flex items-center gap-1">
+            AURA <span class="text-reserve-gold text-sm font-sans font-extrabold tracking-widest uppercase">RESERVE</span>
+          </span>
+          <span class="text-[9px] uppercase tracking-[0.25em] text-reserve-goldLight/80 font-medium mt-1">Roastery &bull; Coffee Atelier</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-9 text-xs uppercase tracking-widest font-semibold text-white/80">
+        <a href="#origen" class="hover:text-reserve-gold transition-colors">Origen &amp; Tueste</a>
+        <a href="#menu" class="hover:text-reserve-gold transition-colors">Bebidas Reserve</a>
+        <a href="#customizer" class="hover:text-reserve-gold transition-colors text-reserve-gold flex items-center gap-1.5">
+          <i data-lucide="sliders" class="w-3.5 h-3.5"></i> Barista Studio
+        </a>
+        <a href="#patisserie" class="hover:text-reserve-gold transition-colors">Pasteler&iacute;a Fina</a>
+        <a href="#tasting" class="hover:text-reserve-gold transition-colors">Catas &amp; Lounge</a>
+      </nav>
+
+      <!-- Action Items -->
+      <div class="flex items-center gap-4">
+        <a href="#tasting" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-reserve-goldDark via-reserve-gold to-reserve-goldLight text-reserve-greenDark font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all">
+          <span>Reservar Mesa</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mob-btn" class="lg:hidden p-2 text-white">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mob-menu" class="hidden lg:hidden border-t border-white/10 bg-reserve-greenDark px-6 py-6 space-y-4 text-xs uppercase tracking-widest font-semibold">
+      <a href="#origen" class="block py-2 text-white/80 hover:text-reserve-gold border-b border-white/10">Origen &amp; Tueste</a>
+      <a href="#menu" class="block py-2 text-white/80 hover:text-reserve-gold border-b border-white/10">Bebidas Reserve</a>
+      <a href="#customizer" class="block py-2 text-reserve-gold border-b border-white/10">Barista Studio (Personalizador)</a>
+      <a href="#patisserie" class="block py-2 text-white/80 hover:text-reserve-gold border-b border-white/10">Pasteler&iacute;a Fina</a>
+      <a href="#tasting" class="block py-2 text-white/80 hover:text-reserve-gold border-b border-white/10">Catas Privadas</a>
+      <a href="#tasting" class="block py-3 text-center bg-reserve-gold text-reserve-greenDark font-bold rounded-full mt-2">Reservar Mesa</a>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       SECTION 1: HERO SECTION (Grand Reserve Elegance)
+       ============================================================ -->
+  <section class="relative min-h-[90vh] flex items-center bg-reserve-green text-white overflow-hidden pt-12 pb-20 border-b border-reserve-gold/30">
+    
+    <!-- Warm Ambient Gold Glow Background -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] md:w-[1000px] h-[700px] glow-gold pointer-events-none -z-0"></div>
+
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10 w-full relative z-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Editorial Content (6 cols) -->
+        <div class="lg:col-span-6 reveal">
+          
+          <!-- Eyebrow Pill -->
+          <div class="inline-flex items-center gap-2.5 bg-reserve-greenDark/80 border border-reserve-gold/40 px-4 py-1.5 rounded-full mb-8 backdrop-blur-sm">
+            <i data-lucide="star" class="w-3.5 h-3.5 text-reserve-gold fill-reserve-gold"></i>
+            <span class="text-[11px] uppercase tracking-widest text-reserve-goldLight font-bold">
+              Edici&oacute;n Especial &bull; Tarraz&uacute; Geisha 1.950m
+            </span>
+          </div>
+
+          <!-- Main Serif Headline -->
+          <h1 class="font-serif text-5xl sm:text-6xl lg:text-[4.75rem] leading-[1.08] tracking-tight mb-8">
+            El arte del caf&eacute; <br>
+            <span class="italic font-display font-normal text-reserve-gold">en su m&aacute;xima expresi&oacute;n.</span>
+          </h1>
+
+          <p class="text-white/80 text-base sm:text-lg font-normal leading-relaxed mb-10 max-w-xl">
+            Descubre nuestra colecci&oacute;n de micro-lotes raros tostados meticulosamente a la vista. Caf&eacute; de especialidad, bebidas de autor con espumas sedosas e ingredientes de origen sublime.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-14">
+            <a href="#menu" class="inline-flex items-center justify-center gap-2 bg-reserve-gold hover:bg-reserve-goldLight text-reserve-greenDark font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-full shadow-xl hover:scale-105 transition-all">
+              <span>Explorar la Carta</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="#customizer" class="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/10 border border-reserve-gold/60 text-white font-semibold text-xs uppercase tracking-wider px-8 py-4 rounded-full transition-colors">
+              <i data-lucide="coffee" class="w-4 h-4 text-reserve-gold"></i>
+              <span>Personalizar en 3D</span>
+            </a>
+          </div>
+
+          <!-- Reserve Trust Badges -->
+          <div class="grid grid-cols-3 gap-6 pt-8 border-t border-white/15 text-left">
+            <div>
+              <p class="font-serif font-bold text-3xl text-reserve-gold">SCA 94+</p>
+              <p class="text-[10px] uppercase tracking-wider text-white/70 font-semibold mt-1">Calificaci&oacute;n de Taza</p>
+            </div>
+            <div>
+              <p class="font-serif font-bold text-3xl text-white">100%</p>
+              <p class="text-[10px] uppercase tracking-wider text-white/70 font-semibold mt-1">Comercio Directo</p>
+            </div>
+            <div>
+              <p class="font-serif font-bold text-3xl text-reserve-gold">Lote #08</p>
+              <p class="text-[10px] uppercase tracking-wider text-white/70 font-semibold mt-1">Tueste Semanal</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Visual Showcase (6 cols) -->
+        <div class="lg:col-span-6 relative reveal reveal-delay-1">
+          <div class="relative max-w-lg mx-auto group">
+            
+            <!-- Hero Cup Photo Frame -->
+            <div class="relative h-[480px] sm:h-[560px] rounded-[2.5rem] overflow-hidden border-2 border-reserve-gold/40 shadow-2xl bg-reserve-greenDark">
+              <img 
+                id="hero-coffee-img"
+                src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80" 
+                alt="Aura Reserve Signature Cup" 
+                class="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-reserve-greenDark/90 via-transparent to-transparent"></div>
+              
+              <!-- Bottom Pill Inside Photo -->
+              <div class="absolute bottom-6 left-6 right-6 bg-reserve-greenDark/95 backdrop-blur-md p-5 rounded-2xl border border-reserve-gold/30 flex items-center justify-between shadow-xl">
+                <div>
+                  <span class="text-[10px] uppercase tracking-widest text-reserve-gold font-bold">RESERVE SIGNATURE</span>
+                  <p class="font-serif font-bold text-white text-lg mt-0.5">Spanish Latte de Pistacho Tostado</p>
+                  <p class="text-xs text-white/70 mt-0.5">Espresso doble, leche infusionada con cardamomo y crema sedosa</p>
+                </div>
+                <span class="text-reserve-gold font-serif font-bold text-xl">&cent;4.200</span>
+              </div>
+            </div>
+
+            <!-- Floating Top Right Badge -->
+            <div class="absolute -top-5 -right-4 sm:-right-8 bg-reserve-greenDark border border-reserve-gold p-4 rounded-2xl shadow-xl hidden sm:flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-reserve-gold text-reserve-greenDark flex items-center justify-center font-bold">
+                <i data-lucide="award" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="font-bold text-white text-xs">Master Baristas</p>
+                <p class="text-[10px] text-reserve-gold">Certificados Q-Grader</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: ROASTERY HERITAGE & CRAFT PILLARS
+       ============================================================ -->
+  <section id="origen" class="py-28 bg-reserve-warmBg border-b border-reserve-border">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+        <span class="text-xs font-bold uppercase tracking-widest text-reserve-goldDark mb-3 block">
+          Nuestra Filosof&iacute;a de Excelencia
+        </span>
+        <h2 class="font-serif text-4xl sm:text-5xl text-reserve-charcoal mb-6">
+          Del cafetal sagrado a tu taza de oro.
+        </h2>
+        <div class="w-16 h-0.5 bg-reserve-gold mx-auto mb-6"></div>
+        <p class="text-reserve-muted text-base leading-relaxed">
+          Seleccionamos solo el 1% superior de las cosechas de caf&eacute; de alta monta&ntilde;a. Tostamos cada varietal en peque&ntilde;os lotes para preservar sus notas arom&aacute;ticas de origen.
+        </p>
+      </div>
+
+      <!-- 3 Pillars Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Pillar 1 -->
+        <div class="luxe-card bg-white border border-reserve-border p-8 rounded-3xl reveal">
+          <div class="w-14 h-14 rounded-2xl bg-reserve-green text-reserve-gold flex items-center justify-center mb-6 shadow-md">
+            <i data-lucide="flame" class="w-7 h-7"></i>
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-reserve-charcoal mb-3">Tueste en Sala Lote a Lote</h3>
+          <p class="text-reserve-muted text-sm leading-relaxed mb-6">
+            Nuestra tostadora artesanal en el centro del sal&oacute;n permite graduar perfiles t&eacute;rmicos personalizados que exaltan la dulzura natural sin quemar los aceites esenciales.
+          </p>
+          <span class="text-xs font-bold text-reserve-goldDark uppercase tracking-wider">Perfiles de Tueste Medio &rarr;</span>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="luxe-card bg-white border border-reserve-border p-8 rounded-3xl reveal reveal-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-reserve-green text-reserve-gold flex items-center justify-center mb-6 shadow-md">
+            <i data-lucide="handshake" class="w-7 h-7"></i>
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-reserve-charcoal mb-3">Comercio &Eacute;tico Directo</h3>
+          <p class="text-reserve-muted text-sm leading-relaxed mb-6">
+            Trabajamos mano a mano con familias caficultoras de Tarraz&uacute;, Naranjo y Po&aacute;s, pagando precios hasta 3 veces superiores al mercado de bolsa para garantizar sustentabilidad.
+          </p>
+          <span class="text-xs font-bold text-reserve-goldDark uppercase tracking-wider">100% Trazabilidad &rarr;</span>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="luxe-card bg-white border border-reserve-border p-8 rounded-3xl reveal reveal-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-reserve-green text-reserve-gold flex items-center justify-center mb-6 shadow-md">
+            <i data-lucide="droplets" class="w-7 h-7"></i>
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-reserve-charcoal mb-3">Extracci&oacute;n Magistral</h3>
+          <p class="text-reserve-muted text-sm leading-relaxed mb-6">
+            M&aacute;quinas espresso Slayer con control de flujo milim&eacute;trico y torres japonesas de Cold Brew que gotean lentamente durante 24 horas continuas sobre hielo.
+          </p>
+          <span class="text-xs font-bold text-reserve-goldDark uppercase tracking-wider">Agua Mineralizada Volc&aacute;nica &rarr;</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: RESERVE MENU LINEUP (Interactive Categories)
+       ============================================================ -->
+  <section id="menu" class="py-28 bg-white border-b border-reserve-border">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+      
+      <!-- Menu Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6 reveal">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-reserve-goldDark mb-2 block">
+            Colecci&oacute;n Exclusiva
+          </span>
+          <h2 class="font-serif text-4xl sm:text-5xl text-reserve-charcoal">
+            Bebidas de Autor.
+          </h2>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wider">
+          <button onclick="filterMenu('all')" class="menu-tab px-5 py-2.5 rounded-full bg-reserve-green text-white transition-all" data-cat="all">
+            Todo el Men&uacute;
+          </button>
+          <button onclick="filterMenu('signature')" class="menu-tab px-5 py-2.5 rounded-full bg-reserve-surface text-reserve-muted hover:bg-reserve-green hover:text-white transition-all" data-cat="signature">
+            Signature Reserve
+          </button>
+          <button onclick="filterMenu('cold')" class="menu-tab px-5 py-2.5 rounded-full bg-reserve-surface text-reserve-muted hover:bg-reserve-green hover:text-white transition-all" data-cat="cold">
+            Nitro &amp; Cold Brew
+          </button>
+          <button onclick="filterMenu('tea')" class="menu-tab px-5 py-2.5 rounded-full bg-reserve-surface text-reserve-muted hover:bg-reserve-green hover:text-white transition-all" data-cat="tea">
+            T&eacute; &amp; Infusiones
+          </button>
+        </div>
+      </div>
+
+      <!-- Beverage Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-grid">
+        
+        <!-- Item 1: Spanish Latte Pistachio -->
+        <div class="menu-card luxe-card bg-reserve-warmBg border border-reserve-border rounded-3xl overflow-hidden flex flex-col" data-category="signature">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80" alt="Spanish Latte" class="w-full h-full object-cover">
+            <span class="absolute top-4 left-4 bg-reserve-green text-reserve-gold text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+              M&Aacute;S POPULAR
+            </span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-serif font-bold text-2xl text-reserve-charcoal">Spanish Latte Pistacho</h3>
+                <span class="font-serif font-bold text-xl text-reserve-goldDark">&cent;4.200</span>
+              </div>
+              <p class="text-reserve-muted text-xs sm:text-sm leading-relaxed mb-6">
+                Espresso doble de micro-lote Geisha, leche condensada artesanal, pasta pura de pistacho de Sicilia y leche evaporada sedosa.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-reserve-border flex items-center justify-between text-xs font-bold">
+              <span class="text-reserve-muted">Caliente o Fr&iacute;o &bull; 12 oz</span>
+              <button onclick="quickOrder('Spanish Latte Pistacho', '4.200')" class="text-reserve-green hover:text-reserve-goldDark flex items-center gap-1">
+                Pedir al Barista <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2: Nitro Cold Brew Gold Cloud -->
+        <div class="menu-card luxe-card bg-reserve-warmBg border border-reserve-border rounded-3xl overflow-hidden flex flex-col" data-category="cold">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1509785307050-d4066910ec1e?auto=format&fit=crop&w=800&q=80" alt="Nitro Cold Brew" class="w-full h-full object-cover">
+            <span class="absolute top-4 left-4 bg-reserve-green text-reserve-gold text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+              EXTRACCI&Oacute;N 24H
+            </span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-serif font-bold text-2xl text-reserve-charcoal">Nitro Cold Brew Cloud</h3>
+                <span class="font-serif font-bold text-xl text-reserve-goldDark">&cent;3.900</span>
+              </div>
+              <p class="text-reserve-muted text-xs sm:text-sm leading-relaxed mb-6">
+                Caf&eacute; infusionado con nitr&oacute;geno puro con textura aterciopelada similar a una cerveza stout, coronado con crema fr&iacute;a de caramelo salado.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-reserve-border flex items-center justify-between text-xs font-bold">
+              <span class="text-reserve-muted">Fr&iacute;o de Grifo &bull; 16 oz</span>
+              <button onclick="quickOrder('Nitro Cold Brew Cloud', '3.900')" class="text-reserve-green hover:text-reserve-goldDark flex items-center gap-1">
+                Pedir al Barista <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3: Smoked Caramel Macchiato -->
+        <div class="menu-card luxe-card bg-reserve-warmBg border border-reserve-border rounded-3xl overflow-hidden flex flex-col" data-category="signature">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80" alt="Macchiato Reserve" class="w-full h-full object-cover">
+            <span class="absolute top-4 left-4 bg-reserve-green text-reserve-gold text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+              SIGNATURE
+            </span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-serif font-bold text-2xl text-reserve-charcoal">Smoked Macchiato</h3>
+                <span class="font-serif font-bold text-xl text-reserve-goldDark">&cent;3.800</span>
+              </div>
+              <p class="text-reserve-muted text-xs sm:text-sm leading-relaxed mb-6">
+                Leche vaporizada con vainilla de Madagascar, marcado con espresso doble y ba&ntilde;ado con caramelo ahumado con sal volc&aacute;nica de mar.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-reserve-border flex items-center justify-between text-xs font-bold">
+              <span class="text-reserve-muted">Caliente &bull; 12 oz</span>
+              <button onclick="quickOrder('Smoked Macchiato', '3.800')" class="text-reserve-green hover:text-reserve-goldDark flex items-center gap-1">
+                Pedir al Barista <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4: Ceremonial Matcha Cloud -->
+        <div class="menu-card luxe-card bg-reserve-warmBg border border-reserve-border rounded-3xl overflow-hidden flex flex-col" data-category="tea">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" alt="Matcha Latte" class="w-full h-full object-cover">
+            <span class="absolute top-4 left-4 bg-reserve-green text-reserve-gold text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+              UJI, JAP&Oacute;N
+            </span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-serif font-bold text-2xl text-reserve-charcoal">Matcha Ceremonial Uji</h3>
+                <span class="font-serif font-bold text-xl text-reserve-goldDark">&cent;4.500</span>
+              </div>
+              <p class="text-reserve-muted text-xs sm:text-sm leading-relaxed mb-6">
+                T&eacute; verde matcha grado ceremonial importado de Kioto batido al batidor de bamb&uacute; tradicional con leche de avena sedosa y toque de miel de lavanda.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-reserve-border flex items-center justify-between text-xs font-bold">
+              <span class="text-reserve-muted">Iced o Caliente &bull; 16 oz</span>
+              <button onclick="quickOrder('Matcha Ceremonial Uji', '4.500')" class="text-reserve-green hover:text-reserve-goldDark flex items-center gap-1">
+                Pedir al Barista <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5: Pour-Over Geisha Flight -->
+        <div class="menu-card luxe-card bg-reserve-warmBg border border-reserve-border rounded-3xl overflow-hidden flex flex-col" data-category="signature">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=800&q=80" alt="Pour Over Geisha" class="w-full h-full object-cover">
+            <span class="absolute top-4 left-4 bg-reserve-green text-reserve-gold text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+              M&Eacute;TODO MANUAL
+            </span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-serif font-bold text-2xl text-reserve-charcoal">Pour-Over Chemex Geisha</h3>
+                <span class="font-serif font-bold text-xl text-reserve-goldDark">&cent;5.500</span>
+              </div>
+              <p class="text-reserve-muted text-xs sm:text-sm leading-relaxed mb-6">
+                Filtrado manual en Chemex de cristal sirviendo 2 copas arom&aacute;ticas. Notas n&iacute;tidas a jazm&iacute;n, melocot&oacute;n y flor de azahar.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-reserve-border flex items-center justify-between text-xs font-bold">
+              <span class="text-reserve-muted">Para 2 personas &bull; 500 ml</span>
+              <button onclick="quickOrder('Pour-Over Chemex Geisha', '5.500')" class="text-reserve-green hover:text-reserve-goldDark flex items-center gap-1">
+                Pedir al Barista <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6: Cascara Sparkling Fizz -->
+        <div class="menu-card luxe-card bg-reserve-warmBg border border-reserve-border rounded-3xl overflow-hidden flex flex-col" data-category="cold">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Cascara Fizz" class="w-full h-full object-cover">
+            <span class="absolute top-4 left-4 bg-reserve-green text-reserve-gold text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+              REFRESCANTE
+            </span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-serif font-bold text-2xl text-reserve-charcoal">Cascara &amp; Citrus Tonic</h3>
+                <span class="font-serif font-bold text-xl text-reserve-goldDark">&cent;3.500</span>
+              </div>
+              <p class="text-reserve-muted text-xs sm:text-sm leading-relaxed mb-6">
+                Infusi&oacute;n efervescente de c&aacute;scara de cereza de caf&eacute; maduro, t&oacute;nica artesanal, romero fresco y rodaja de toronja deshidratada.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-reserve-border flex items-center justify-between text-xs font-bold">
+              <span class="text-reserve-muted">Bajo en calor&iacute;as &bull; 16 oz</span>
+              <button onclick="quickOrder('Cascara & Citrus Tonic', '3.500')" class="text-reserve-green hover:text-reserve-goldDark flex items-center gap-1">
+                Pedir al Barista <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: INTERACTIVE "BARISTA STUDIO" (Drink Customizer)
+       ============================================================ -->
+  <section id="customizer" class="py-24 bg-reserve-green text-white border-b border-reserve-gold/30">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <div class="inline-flex items-center gap-2 bg-reserve-greenDark border border-reserve-gold/40 px-4 py-1.5 rounded-full mb-4">
+          <i data-lucide="sliders" class="w-3.5 h-3.5 text-reserve-gold"></i>
+          <span class="text-[11px] uppercase tracking-widest text-reserve-gold font-bold">Barista Studio 3D</span>
+        </div>
+        <h2 class="font-serif text-4xl sm:text-5xl text-white mb-4">
+          Crea tu Bebida a Medida.
+        </h2>
+        <p class="text-white/80 text-sm leading-relaxed">
+          Selecciona cada detalle como en una barra Reserve. Preparamos tu receta con precisi&oacute;n milim&eacute;trica.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Controls (7 cols) -->
+        <div class="lg:col-span-7 space-y-6 reveal">
+          
+          <!-- Step 1: Base -->
+          <div class="bg-reserve-greenDark border border-reserve-gold/30 p-6 rounded-2xl">
+            <label class="block text-xs uppercase tracking-widest text-reserve-gold font-bold mb-3">1. Selecciona la Base de Café:</label>
+            <div class="grid grid-cols-3 gap-3 text-xs font-bold">
+              <button onclick="setBase('espresso', 2500, 'Doble Espresso Geisha')" class="base-btn p-3 rounded-xl border border-reserve-gold bg-reserve-gold text-reserve-greenDark text-center">
+                Doble Espresso
+              </button>
+              <button onclick="setBase('latte', 3000, 'Latte Reserve')" class="base-btn p-3 rounded-xl border border-white/20 bg-reserve-green text-white/80 hover:border-reserve-gold text-center">
+                Latte Cremoso
+              </button>
+              <button onclick="setBase('coldbrew', 3200, 'Nitro Cold Brew')" class="base-btn p-3 rounded-xl border border-white/20 bg-reserve-green text-white/80 hover:border-reserve-gold text-center">
+                Nitro Cold Brew
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Milk Option -->
+          <div class="bg-reserve-greenDark border border-reserve-gold/30 p-6 rounded-2xl">
+            <label class="block text-xs uppercase tracking-widest text-reserve-gold font-bold mb-3">2. Tipo de Leche o Bebida Vegetal:</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-medium">
+              <button onclick="setMilk('avena', 500, 'Leche de Avena Barista')" class="milk-btn p-3 rounded-xl border border-reserve-gold bg-reserve-gold text-reserve-greenDark font-bold text-center">
+                Avena Barista (+&cent;500)
+              </button>
+              <button onclick="setMilk('almendra', 500, 'Leche de Almendra')" class="milk-btn p-3 rounded-xl border border-white/20 bg-reserve-green text-white/80 hover:border-reserve-gold text-center">
+                Almendra (+&cent;500)
+              </button>
+              <button onclick="setMilk('entera', 0, 'Leche Entera Orgánica')" class="milk-btn p-3 rounded-xl border border-white/20 bg-reserve-green text-white/80 hover:border-reserve-gold text-center">
+                Entera Org&aacute;nica
+              </button>
+              <button onclick="setMilk('deslactosada', 0, 'Deslactosada')" class="milk-btn p-3 rounded-xl border border-white/20 bg-reserve-green text-white/80 hover:border-reserve-gold text-center">
+                Deslactosada
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Flavors & Toppings Multi-Check -->
+          <div class="bg-reserve-greenDark border border-reserve-gold/30 p-6 rounded-2xl">
+            <label class="block text-xs uppercase tracking-widest text-reserve-gold font-bold mb-3">3. Jarabes de Autor &amp; Espuma Fría:</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <label class="flex items-center gap-2 p-3 rounded-xl bg-reserve-green border border-white/20 cursor-pointer hover:border-reserve-gold">
+                <input type="checkbox" onchange="toggleSyrup('pistacho', 600, 'Crema de Pistacho')" class="accent-reserve-gold" checked>
+                <span>Pistacho (+&cent;600)</span>
+              </label>
+              <label class="flex items-center gap-2 p-3 rounded-xl bg-reserve-green border border-white/20 cursor-pointer hover:border-reserve-gold">
+                <input type="checkbox" onchange="toggleSyrup('caramelo', 500, 'Caramelo Ahumado')" class="accent-reserve-gold">
+                <span>Caramelo (+&cent;500)</span>
+              </label>
+              <label class="flex items-center gap-2 p-3 rounded-xl bg-reserve-green border border-white/20 cursor-pointer hover:border-reserve-gold">
+                <input type="checkbox" onchange="toggleSyrup('coldfoam', 700, 'Cold Foam de Vainilla')" class="accent-reserve-gold" checked>
+                <span>Cold Foam (+&cent;700)</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Realtime Recipe Card Output (5 cols) -->
+        <div class="lg:col-span-5 reveal reveal-delay-1">
+          <div class="bg-reserve-greenDark border-2 border-reserve-gold p-8 sm:p-10 rounded-3xl shadow-2xl relative">
+            
+            <div class="flex justify-between items-center border-b border-reserve-gold/30 pb-4 mb-6">
+              <span class="text-xs font-bold uppercase tracking-widest text-reserve-goldLight">TU RECETA AURA</span>
+              <span class="bg-reserve-gold text-reserve-greenDark text-[10px] font-extrabold px-3 py-1 rounded-full uppercase">CUSTOM ORDER</span>
+            </div>
+
+            <!-- Recipe Summary Lines -->
+            <div class="space-y-3 text-xs mb-8">
+              <div class="flex justify-between border-b border-white/10 pb-2">
+                <span class="text-white/70">Base de Café:</span>
+                <span class="font-bold text-white" id="out-base">Doble Espresso Geisha</span>
+              </div>
+              <div class="flex justify-between border-b border-white/10 pb-2">
+                <span class="text-white/70">Leche seleccionada:</span>
+                <span class="font-bold text-white" id="out-milk">Leche de Avena Barista</span>
+              </div>
+              <div class="flex justify-between border-b border-white/10 pb-2">
+                <span class="text-white/70">Toppings &amp; Jarabes:</span>
+                <span class="font-bold text-reserve-gold" id="out-syrups">Pistacho + Cold Foam</span>
+              </div>
+              <div class="flex justify-between border-b border-white/10 pb-2">
+                <span class="text-white/70">Temperatura:</span>
+                <span class="font-bold text-emerald-400">Frío con Hielo de Café</span>
+              </div>
+            </div>
+
+            <!-- Price & Button -->
+            <div class="border-t-2 border-reserve-gold/40 pt-6 flex justify-between items-end mb-6">
+              <div>
+                <p class="text-[10px] text-white/60 uppercase tracking-wider">PRECIO FINAL BEBIDA</p>
+                <p class="font-serif font-bold text-4xl text-reserve-gold" id="out-price">&cent;4.300</p>
+              </div>
+              <span class="text-[11px] text-white/60 font-medium">16 oz Grande</span>
+            </div>
+
+            <button onclick="orderCustomCoffee()" class="w-full bg-gradient-to-r from-reserve-goldDark via-reserve-gold to-reserve-goldLight text-reserve-greenDark font-bold text-xs uppercase tracking-wider py-4 rounded-full shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>Enviar Pedido al Barista</span>
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: HAUTE PÂTISSERIE & SWEET PAIRINGS
+       ============================================================ -->
+  <section id="patisserie" class="py-28 bg-reserve-warmBg border-b border-reserve-border">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <span class="text-xs font-bold uppercase tracking-widest text-reserve-goldDark mb-2 block">
+          Panader&iacute;a &amp; Reposter&iacute;a Fina
+        </span>
+        <h2 class="font-serif text-4xl sm:text-5xl text-reserve-charcoal mb-4">
+          El maridaje dulce perfecto.
+        </h2>
+        <p class="text-reserve-muted text-sm leading-relaxed">
+          Masa hojaldrada con mantequilla francesa, chocolates suizos y frutos secos seleccionados para complementar el perfil de tu café.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="luxe-card bg-white border border-reserve-border rounded-3xl overflow-hidden p-6 group">
+          <div class="relative h-60 rounded-2xl overflow-hidden mb-6">
+            <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80" alt="Pastry" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute bottom-3 right-3 bg-reserve-green text-reserve-gold font-serif font-bold text-sm px-3 py-1 rounded-full">
+              &cent;3.600
+            </span>
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-reserve-charcoal mb-2">Croissant de Pistacho &amp; Frambuesa</h3>
+          <p class="text-reserve-muted text-xs sm:text-sm leading-relaxed mb-4">
+            Hojaldre de 72 horas con crema pastelera de pistacho tostado y coulis de frambuesas frescas.
+          </p>
+          <span class="text-xs font-bold text-reserve-goldDark">Maridaje: Spanish Latte</span>
+        </div>
+
+        <div class="luxe-card bg-white border border-reserve-border rounded-3xl overflow-hidden p-6 group">
+          <div class="relative h-60 rounded-2xl overflow-hidden mb-6">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" alt="Avocado Brioche" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute bottom-3 right-3 bg-reserve-green text-reserve-gold font-serif font-bold text-sm px-3 py-1 rounded-full">
+              &cent;5.800
+            </span>
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-reserve-charcoal mb-2">Brioche Trufado con Aguacate</h3>
+          <p class="text-reserve-muted text-xs sm:text-sm leading-relaxed mb-4">
+            Pan brioche artesanal dorado, aguacate hass laminado, huevos de pastoreo a 63°C y aceite de trufa blanca.
+          </p>
+          <span class="text-xs font-bold text-reserve-goldDark">Maridaje: Nitro Cold Brew</span>
+        </div>
+
+        <div class="luxe-card bg-white border border-reserve-border rounded-3xl overflow-hidden p-6 group">
+          <div class="relative h-60 rounded-2xl overflow-hidden mb-6">
+            <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Cheesecake" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute bottom-3 right-3 bg-reserve-green text-reserve-gold font-serif font-bold text-sm px-3 py-1 rounded-full">
+              &cent;4.400
+            </span>
+          </div>
+          <h3 class="font-serif font-bold text-2xl text-reserve-charcoal mb-2">Tarta Vasca Quemada de Caramelo</h3>
+          <p class="text-reserve-muted text-xs sm:text-sm leading-relaxed mb-4">
+            Interior cremoso y fundente con queso maduro, superficie caramelizada y reducción de café Geisha.
+          </p>
+          <span class="text-xs font-bold text-reserve-goldDark">Maridaje: Pour-Over Chemex</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6: RESERVE TASTING LOUNGE & SENSORY FLIGHTS
+       ============================================================ -->
+  <section id="tasting" class="py-28 bg-reserve-green text-white border-b border-reserve-gold/30">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20 reveal">
+        
+        <div class="lg:col-span-5">
+          <span class="text-xs font-bold uppercase tracking-widest text-reserve-gold mb-3 block">
+            Experiencias Sensoriales
+          </span>
+          <h2 class="font-serif text-4xl sm:text-5xl text-white mb-6">
+            La Mesa de Cata Reserve.
+          </h2>
+          <p class="text-white/80 text-sm sm:text-base leading-relaxed mb-8">
+            Siéntate en nuestra barra privada con un Master Q-Grader. Aprenderás a identificar notas florales, niveles de acidez y métodos de procesamiento a través de 3 micro-lotes exclusivos.
+          </p>
+          
+          <div class="space-y-3 text-xs font-medium text-white/90">
+            <div class="flex items-center gap-3">
+              <i data-lucide="check" class="w-4 h-4 text-reserve-gold"></i>
+              <span>Duración: 50 minutos con maridaje de pastelería</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="check" class="w-4 h-4 text-reserve-gold"></i>
+              <span>Muestra de 100g de café en grano tostado para llevar a casa</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reservation Booking Form (7 cols) -->
+        <div class="lg:col-span-7 bg-reserve-greenDark border border-reserve-gold/40 p-8 sm:p-10 rounded-3xl shadow-2xl">
+          <h3 class="font-serif font-bold text-2xl text-white mb-2">Reservar Sesión de Cata</h3>
+          <p class="text-xs text-reserve-gold mb-6 font-medium">Capacidad máxima: 6 personas por horario</p>
+
+          <form onsubmit="handleReserveBooking(event)" class="space-y-4 text-xs font-medium">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-white/80 mb-1.5">Tipo de Experiencia</label>
+                <select class="w-full bg-reserve-green border border-reserve-gold/30 p-3 rounded-xl text-white focus:outline-none focus:border-reserve-gold">
+                  <option>Tasting Flight Geisha (3 Micro-Lotes)</option>
+                  <option>Taller de Métodos Filtrados Manuales</option>
+                  <option>Mesa VIP Reserve Lounge</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-white/80 mb-1.5">Número de Personas</label>
+                <select class="w-full bg-reserve-green border border-reserve-gold/30 p-3 rounded-xl text-white focus:outline-none focus:border-reserve-gold">
+                  <option>2 Personas (&cent;22.000 total)</option>
+                  <option>4 Personas (&cent;40.000 total)</option>
+                  <option>6 Personas - Sesión Privada (&cent;55.000)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-white/80 mb-1.5">Nombre Completo *</label>
+                <input type="text" required placeholder="Tu nombre" class="w-full bg-reserve-green border border-reserve-gold/30 p-3 rounded-xl text-white focus:outline-none focus:border-reserve-gold">
+              </div>
+              <div>
+                <label class="block text-white/80 mb-1.5">WhatsApp de Contacto *</label>
+                <input type="tel" required placeholder="+506 8888-0000" class="w-full bg-reserve-green border border-reserve-gold/30 p-3 rounded-xl text-white focus:outline-none focus:border-reserve-gold">
+              </div>
+            </div>
+
+            <button type="submit" class="w-full bg-reserve-gold hover:bg-reserve-goldLight text-reserve-greenDark font-bold text-xs uppercase tracking-wider py-4 rounded-full shadow-lg transition-all mt-2">
+              Confirmar Reserva de Cata
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 7: ROASTERY LOCATION & LUXURY FOOTER
+       ============================================================ -->
+  <section class="py-24 bg-reserve-warmBg relative">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        
+        <div class="bg-white p-8 rounded-3xl border border-reserve-border">
+          <i data-lucide="map-pin" class="w-6 h-6 text-reserve-goldDark mb-4"></i>
+          <h4 class="font-serif font-bold text-xl text-reserve-charcoal mb-2">Aura Roastery Escazú</h4>
+          <p class="text-reserve-muted text-xs leading-relaxed">
+            Avenida Escazú, Edificio 3, Planta Baja &bull; San José, Costa Rica. Valet parking gratuito disponible.
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-reserve-border">
+          <i data-lucide="clock" class="w-6 h-6 text-reserve-goldDark mb-4"></i>
+          <h4 class="font-serif font-bold text-xl text-reserve-charcoal mb-2">Horarios del Salón</h4>
+          <p class="text-reserve-muted text-xs leading-relaxed">
+            Lunes a Sábado: 7:00 AM &ndash; 9:00 PM<br>
+            Domingos: 8:00 AM &ndash; 8:00 PM (Brunch &amp; Jazz)
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-reserve-border">
+          <i data-lucide="award" class="w-6 h-6 text-reserve-goldDark mb-4"></i>
+          <h4 class="font-serif font-bold text-xl text-reserve-charcoal mb-2">Club Reserve Rewards</h4>
+          <p class="text-reserve-muted text-xs leading-relaxed">
+            Acumula estrellas en cada visita y canjea paquetes de café Geisha tostado en grano.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- MEGA LUXURY FOOTER -->
+      <footer class="border-t border-reserve-border pt-16">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+          
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-reserve-green flex items-center justify-center text-reserve-gold">
+              <i data-lucide="star" class="w-4 h-4 fill-reserve-gold"></i>
+            </div>
+            <span class="font-serif font-bold text-2xl text-reserve-charcoal tracking-wide">
+              AURA <span class="text-reserve-goldDark text-xs font-sans font-bold uppercase tracking-widest">RESERVE</span>
+            </span>
+          </div>
+
+          <div class="flex flex-wrap gap-8 text-xs font-bold uppercase tracking-widest text-reserve-muted">
+            <a href="#origen" class="hover:text-reserve-green">Origen</a>
+            <a href="#menu" class="hover:text-reserve-green">Bebidas</a>
+            <a href="#customizer" class="hover:text-reserve-green">Barista Studio</a>
+            <a href="#patisserie" class="hover:text-reserve-green">Pastelería</a>
+            <a href="#tasting" class="hover:text-reserve-green">Catas</a>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-200/80 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-reserve-muted gap-4">
+          <p>&copy; 2026 AURA RESERVE COFFEE ROASTERS. TODOS LOS DERECHOS RESERVADOS.</p>
+          <div class="flex gap-6">
+            <a href="#" class="hover:text-reserve-charcoal">Términos de Servicio</a>
+            <a href="#" class="hover:text-reserve-charcoal">Privacidad</a>
+            <a href="#" class="hover:text-reserve-charcoal">Certificaciones SCA</a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCRIPTS FOR INTERACTIVE MENU & CUSTOMIZER
+       ============================================================ -->
+  <script>
+    // 1. Init Lucide Icons
+    lucide.createIcons();
+
+    // 2. Mobile Menu Toggle
+    const mobBtn = document.getElementById('mob-btn');
+    const mobMenu = document.getElementById('mob-menu');
+    if (mobBtn && mobMenu) {
+      mobBtn.addEventListener('click', () => mobMenu.classList.toggle('hidden'));
+      mobMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobMenu.classList.add('hidden')));
+    }
+
+    // 3. Menu Category Filter
+    function filterMenu(cat) {
+      const cards = document.querySelectorAll('.menu-card');
+      const tabs = document.querySelectorAll('.menu-tab');
+
+      tabs.forEach(t => {
+        if (t.getAttribute('data-cat') === cat) {
+          t.className = "menu-tab px-5 py-2.5 rounded-full bg-reserve-green text-white transition-all";
+        } else {
+          t.className = "menu-tab px-5 py-2.5 rounded-full bg-reserve-surface text-reserve-muted hover:bg-reserve-green hover:text-white transition-all";
+        }
+      });
+
+      cards.forEach(c => {
+        if (cat === 'all' || c.getAttribute('data-category') === cat) {
+          c.style.display = 'flex';
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    }
+
+    // 4. Interactive Drink Customizer Logic
+    let currentBasePrice = 2500;
+    let currentBaseName = 'Doble Espresso Geisha';
+    let currentMilkPrice = 500;
+    let currentMilkName = 'Leche de Avena Barista';
+    let activeSyrups = {
+      pistacho: { price: 600, name: 'Pistacho' },
+      coldfoam: { price: 700, name: 'Cold Foam' }
+    };
+
+    function setBase(type, price, name) {
+      currentBasePrice = price;
+      currentBaseName = name;
+      document.querySelectorAll('.base-btn').forEach(b => {
+        b.className = "base-btn p-3 rounded-xl border border-white/20 bg-reserve-green text-white/80 hover:border-reserve-gold text-center";
+      });
+      event.target.className = "base-btn p-3 rounded-xl border border-reserve-gold bg-reserve-gold text-reserve-greenDark text-center font-bold";
+      updateDrinkOutput();
+    }
+
+    function setMilk(type, price, name) {
+      currentMilkPrice = price;
+      currentMilkName = name;
+      document.querySelectorAll('.milk-btn').forEach(b => {
+        b.className = "milk-btn p-3 rounded-xl border border-white/20 bg-reserve-green text-white/80 hover:border-reserve-gold text-center font-medium";
+      });
+      event.target.className = "milk-btn p-3 rounded-xl border border-reserve-gold bg-reserve-gold text-reserve-greenDark font-bold text-center";
+      updateDrinkOutput();
+    }
+
+    function toggleSyrup(key, price, name) {
+      if (activeSyrups[key]) {
+        delete activeSyrups[key];
+      } else {
+        activeSyrups[key] = { price, name };
+      }
+      updateDrinkOutput();
+    }
+
+    function updateDrinkOutput() {
+      let total = currentBasePrice + currentMilkPrice;
+      let syrupList = [];
+      for (let s in activeSyrups) {
+        total += activeSyrups[s].price;
+        syrupList.push(activeSyrups[s].name);
+      }
+
+      document.getElementById('out-base').textContent = currentBaseName;
+      document.getElementById('out-milk').textContent = currentMilkName;
+      document.getElementById('out-syrups').textContent = syrupList.length > 0 ? syrupList.join(' + ') : 'Sin jarabes extra';
+      document.getElementById('out-price').textContent = `¢${total.toLocaleString('es-CR')}`;
+    }
+
+    function orderCustomCoffee() {
+      const price = document.getElementById('out-price').textContent;
+      const text = `Hola Aura Reserve! Quiero pedir mi café personalizado: ${currentBaseName} con ${currentMilkName} (${document.getElementById('out-syrups').textContent}) por ${price}.`;
+      window.open(`https://wa.me/50600000000?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function quickOrder(item, price) {
+      const text = `Hola Aura Reserve! Quiero pedir: ${item} (${price}).`;
+      window.open(`https://wa.me/50600000000?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function handleReserveBooking(e) {
+      e.preventDefault();
+      alert('¡Reserva de cata registrada! Nuestro Sommelier de Café te enviará la confirmación vía WhatsApp.');
+    }
+
+    // 5. Scroll Reveal Observer
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

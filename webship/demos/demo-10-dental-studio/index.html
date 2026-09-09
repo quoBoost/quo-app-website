@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORA &mdash; Atelier Dental Biomimético &amp; Arquitectura Facial</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Fraunces (Editorial Display Serif) + Plus Jakarta Sans + Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ora: {
+              travertine: '#FAF7F2', // Travertino cálido / Alabastro
+              sand:       '#F2ECE1', // Arena fina
+              surface:    '#FFFFFF',
+              border:     '#E5DDD0',
+              borderDark: '#2F3632',
+              sage:       '#2B4438', // Verde cerámico salvia profundo
+              sageLight:  '#E4ECE7', // Brisa menta / biocompatible
+              sageAccent: '#4D7563',
+              terracotta: '#9E6D52', // Tono arcilla cálida
+              clay:       '#BA886E',
+              earth:      '#1B211E', // Carbón orgánico profundo
+              muted:      '#6E685F',
+            }
+          },
+          fontFamily: {
+            editorial: ['"Fraunces"', 'Georgia', 'serif'],
+            sans:      ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono:      ['"Space Grotesk"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Atelier Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #FAF7F2; }
+    ::-webkit-scrollbar-thumb { background: #2B4438; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #4D7563; }
+
+    /* Fine Architectural Lines */
+    .border-subtle {
+      border-color: #E5DDD0;
+    }
+
+    /* Comparison Drag Slider Container */
+    .ba-slider {
+      position: relative;
+      overflow: hidden;
+    }
+    .ba-slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ba-slider .resize {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 50%;
+      overflow: hidden;
+    }
+
+    /* Range slider custom styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      height: 3px;
+      background: #E5DDD0;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #2B4438;
+      cursor: pointer;
+      box-shadow: 0 0 0 4px #FAF7F2;
+      transition: transform 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body class="bg-ora-travertine text-ora-earth font-sans antialiased selection:bg-ora-sage selection:text-white">
+
+  <!-- =========================================================================
+       BOTÓN FLOTANTE WHATSAPP CLÍNICO & ASISTENCIA EN VIVO
+       ========================================================================= -->
+  <aside aria-label="Contacto Rápido" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <!-- Live Clinic Open Badge -->
+    <div class="hidden sm:flex items-center gap-2.5 bg-white text-ora-earth px-4 py-2 rounded-xl border border-ora-border shadow-xl text-xs font-mono">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="text-ora-sage font-bold">GABINETE ACTIVO:</span>
+      <span class="text-ora-muted">Escazú &bull; Cita Hoy Disponible</span>
+    </div>
+
+    <a href="https://wa.me/50600000000?text=Hola%2C%20quisiera%20agendar%20una%20primera%20valoraci%C3%B3n%20en%20ORA%20Atelier%20Dental" 
+       target="_blank" 
+       rel="noopener"
+       aria-label="Contactar a ORA Atelier por WhatsApp" 
+       class="group flex items-center gap-3 bg-ora-sage hover:bg-ora-earth text-white px-5 py-3.5 rounded-xl shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-ora-sageLight/20">
+      <div class="w-2 h-2 rounded-full bg-ora-sageLight"></div>
+      <div class="text-left leading-tight">
+        <p class="text-[10px] uppercase font-mono tracking-widest text-ora-sageLight">Concierge Clínico</p>
+        <p class="text-xs font-bold font-sans tracking-tight">Atención Inmediata WhatsApp</p>
+      </div>
+      <i data-lucide="arrow-up-right" class="w-4 h-4 text-ora-sageLight group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+    </a>
+  </aside>
+
+  <!-- =========================================================================
+       SECCIÓN 1: DUAL-TIER ARCHITECTURAL HEADER & ASYMMETRICAL 3-PANEL HERO
+       ========================================================================= -->
+  
+  <!-- Top Ticker Running Strip -->
+  <div class="bg-ora-earth text-white py-2 px-4 sm:px-8 text-[11px] font-mono border-b border-ora-borderDark/40 flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      <span class="flex items-center gap-1.5 text-ora-sageLight">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> SEDE CENTRAL &middot; ESCAZÚ VILLAGE
+      </span>
+      <span class="hidden md:inline text-neutral-400">&bull;</span>
+      <span class="hidden md:inline text-neutral-300">LABORATORIO CAD/CAM IN-HOUSE &middot; FRESADO 3D EN 24 HORAS</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <span class="hidden sm:inline text-ora-sand">URGENCIAS SIN DOLOR 24/7</span>
+      <a href="tel:+50622000000" class="text-ora-sageLight hover:text-white font-bold transition-colors">TEL. +506 2200-0000</a>
+    </div>
+  </div>
+
+  <!-- Main Architectural Masthead Navigation -->
+  <header class="sticky top-0 z-40 bg-ora-travertine/95 backdrop-blur-md border-b border-ora-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex items-center justify-between">
+      
+      <!-- Brand Logo / Monogram -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-ora-sage text-white rounded-lg flex items-center justify-center font-editorial font-bold text-xl tracking-tighter shadow-sm group-hover:bg-ora-terracotta transition-colors">
+          O
+        </div>
+        <div class="flex flex-col">
+          <span class="font-editorial text-2xl font-bold tracking-tight text-ora-earth leading-none">ORA</span>
+          <span class="text-[9px] uppercase tracking-[0.25em] text-ora-muted font-mono font-medium mt-0.5">Biomimetic Dental Studio</span>
+        </div>
+      </a>
+
+      <!-- Desktop Indexed Navigation (01-05) -->
+      <nav class="hidden lg:flex items-center gap-8 text-xs font-mono text-ora-muted font-medium">
+        <a href="#biomimetica" class="hover:text-ora-sage transition-colors"><span class="text-ora-terracotta mr-1">[01]</span> Biomimética</a>
+        <a href="#color-lab" class="hover:text-ora-sage transition-colors"><span class="text-ora-terracotta mr-1">[02]</span> Guía VITA 3D</a>
+        <a href="#sensorial" class="hover:text-ora-sage transition-colors"><span class="text-ora-terracotta mr-1">[03]</span> Protocolo Zero-Miedo</a>
+        <a href="#casos" class="hover:text-ora-sage transition-colors"><span class="text-ora-terracotta mr-1">[04]</span> Casos Clínicos</a>
+        <a href="#calculadora" class="hover:text-ora-sage transition-colors"><span class="text-ora-terracotta mr-1">[05]</span> Financiación</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <a href="#reserva" class="hidden sm:inline-flex items-center gap-2 bg-ora-sage hover:bg-ora-earth text-white font-sans text-xs font-bold uppercase tracking-wider px-5 py-3 rounded-lg transition-all shadow-sm">
+          <span>Agendar Valoración 3D</span>
+          <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+        </a>
+
+        <button id="mobile-nav-toggle" class="lg:hidden p-2 text-ora-earth hover:text-ora-sage" aria-label="Abrir Menú">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Flyout -->
+    <div id="mobile-nav" class="hidden lg:hidden bg-ora-sand border-t border-ora-border px-6 py-5 text-sm font-mono space-y-3">
+      <a href="#biomimetica" class="block py-1 text-ora-earth hover:text-ora-sage" onclick="toggleMobileNav()">[01] Filosofía Biomimética</a>
+      <a href="#color-lab" class="block py-1 text-ora-earth hover:text-ora-sage" onclick="toggleMobileNav()">[02] Laboratorio de Color VITA 3D</a>
+      <a href="#sensorial" class="block py-1 text-ora-earth hover:text-ora-sage" onclick="toggleMobileNav()">[03] Protocolo Sensorial Sin Dolor</a>
+      <a href="#casos" class="block py-1 text-ora-earth hover:text-ora-sage" onclick="toggleMobileNav()">[04] Galería de Casos Antes / Después</a>
+      <a href="#calculadora" class="block py-1 text-ora-earth hover:text-ora-sage" onclick="toggleMobileNav()">[05] Simulador de Financiación</a>
+      <a href="#reserva" class="block py-2 text-ora-sage font-bold" onclick="toggleMobileNav()">Agendar Valoración &rarr;</a>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO: ASYMMETRICAL 3-PANEL GRID WITH INTERACTIVE VITA SHADE SELECTOR
+       ========================================================================= -->
+  <section class="border-b border-ora-border bg-ora-travertine overflow-hidden">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
+      
+      <!-- Panel 1: Left Editorial Narrative (5 cols) -->
+      <div class="lg:col-span-5 p-8 sm:p-12 lg:p-16 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-ora-border">
+        <div>
+          <div class="inline-flex items-center gap-2 bg-ora-sageLight text-ora-sage px-3.5 py-1 rounded-md text-xs font-mono font-semibold uppercase tracking-wider mb-6">
+            <span class="w-2 h-2 rounded-full bg-ora-sage"></span>
+            Preservación del 95% del Esmalte Natural
+          </div>
+
+          <h1 class="font-editorial text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.08] text-ora-earth tracking-tight mb-6">
+            Dientes vivos.<br>
+            <span class="italic font-light text-ora-sage">Odontología sin dolor</span> ni mutilación.
+          </h1>
+
+          <p class="font-sans text-ora-muted text-sm sm:text-base leading-relaxed mb-8 max-w-md">
+            Tratamientos guiados por microscopio clínico, carillas ultrafinas de 0.2mm de disilicato de litio y sedación consciente monitorizada para quienes temen visitar al dentista.
+          </p>
+        </div>
+
+        <div class="space-y-4 pt-6 border-t border-ora-border/70">
+          <div class="flex items-center gap-6">
+            <div>
+              <p class="font-editorial text-3xl font-bold text-ora-earth">0.2<span class="text-ora-terracotta text-xl">mm</span></p>
+              <p class="text-[11px] font-mono text-ora-muted uppercase">Grosor Mínimo Carillas</p>
+            </div>
+            <div class="w-px h-10 bg-ora-border"></div>
+            <div>
+              <p class="font-editorial text-3xl font-bold text-ora-earth">100<span class="text-ora-sage text-xl">%</span></p>
+              <p class="text-[11px] font-mono text-ora-muted uppercase">Libre de Metales Pesados</p>
+            </div>
+            <div class="w-px h-10 bg-ora-border"></div>
+            <div>
+              <p class="font-editorial text-3xl font-bold text-ora-earth">0<span class="text-ora-terracotta text-xl">min</span></p>
+              <p class="text-[11px] font-mono text-ora-muted uppercase">De Dolor Quirúrgico</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Center Architectural Portrait (4 cols) -->
+      <div class="lg:col-span-4 relative min-h-[380px] lg:min-h-full border-b lg:border-b-0 lg:border-r border-ora-border overflow-hidden bg-ora-sand">
+        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&q=80&auto=format&fit=crop" 
+             alt="Gabinete Arquitectónico ORA Atelier" 
+             class="w-full h-full object-cover object-center filter contrast-[1.05]">
+        
+        <!-- Floating Reassurance Badge -->
+        <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-xl border border-ora-border shadow-lg text-xs">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-ora-sageLight flex items-center justify-center text-ora-sage shrink-0">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="font-bold text-ora-earth">Gabinete Sensorial Privado</p>
+              <p class="text-ora-muted text-[11px]">Luz circadiana, aromaterapia de lavanda y gafas 4K insonorizadas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Right Interactive VITA Master 3D Shade Lab (3 cols) -->
+      <div id="color-lab" class="lg:col-span-3 p-6 sm:p-8 bg-ora-sand flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-ora-border mb-4">
+            <span class="text-[10px] uppercase font-mono tracking-widest font-bold text-ora-sage">VITA Shade Lab 3D</span>
+            <span class="text-[10px] font-mono text-ora-muted">Interactivo</span>
+          </div>
+
+          <h3 class="font-editorial text-lg font-bold text-ora-earth mb-2">Simulador de Tonalidad de Porcelana</h3>
+          <p class="text-xs text-ora-muted mb-6 leading-relaxed">
+            Selecciona un tono para visualizar la luminosidad, translucidez natural y match de piel sugerido:
+          </p>
+
+          <!-- Shade Selector Pills -->
+          <div class="grid grid-cols-2 gap-2 mb-6">
+            <button onclick="changeVitaShade('BL1', '#FFFFFF', '98%', '0.2 mm', 'Blanco Hollywood Espectacular', 'Pieles de tono frío o porcelana')" class="shade-btn active p-3 rounded-lg border-2 border-ora-sage bg-white text-left transition-all" data-shade="BL1">
+              <div class="w-4 h-4 rounded-full bg-white border border-gray-300 mb-1.5 shadow-inner"></div>
+              <strong class="font-mono text-xs block text-ora-earth">BL1 &middot; Bleach</strong>
+              <span class="text-[10px] text-ora-muted">Ultra Luminoso</span>
+            </button>
+
+            <button onclick="changeVitaShade('B1', '#FBF9F2', '86%', '0.3 mm', 'Blanco Nórdico Elegante', 'Pieles claras y neutras')" class="shade-btn p-3 rounded-lg border border-ora-border bg-white/60 hover:bg-white text-left transition-all" data-shade="B1">
+              <div class="w-4 h-4 rounded-full bg-[#FAF7EE] border border-gray-300 mb-1.5 shadow-inner"></div>
+              <strong class="font-mono text-xs block text-ora-earth">B1 &middot; Pure White</strong>
+              <span class="text-[10px] text-ora-muted">Natural Brillante</span>
+            </button>
+
+            <button onclick="changeVitaShade('A1', '#F7F3E7', '74%', '0.3 mm', 'Perla Marfil Luminoso', 'La más solicitada en estética')" class="shade-btn p-3 rounded-lg border border-ora-border bg-white/60 hover:bg-white text-left transition-all" data-shade="A1">
+              <div class="w-4 h-4 rounded-full bg-[#F5EFE0] border border-gray-300 mb-1.5 shadow-inner"></div>
+              <strong class="font-mono text-xs block text-ora-earth">A1 &middot; Natural Pearl</strong>
+              <span class="text-[10px] text-ora-muted">Equilibrio Perfecto</span>
+            </button>
+
+            <button onclick="changeVitaShade('A2', '#F1E9D7', '65%', '0.4 mm', 'Tono Cálido Orgánico', 'Pieles bronceadas o cálidas')" class="shade-btn p-3 rounded-lg border border-ora-border bg-white/60 hover:bg-white text-left transition-all" data-shade="A2">
+              <div class="w-4 h-4 rounded-full bg-[#EDE1CB] border border-gray-300 mb-1.5 shadow-inner"></div>
+              <strong class="font-mono text-xs block text-ora-earth">A2 &middot; Warm Ivory</strong>
+              <span class="text-[10px] text-ora-muted">Indetectable</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Output Card -->
+          <div class="bg-white p-4 rounded-xl border border-ora-border space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-ora-muted">Translucidez de Esmalte:</span>
+              <strong id="shade-trans" class="font-mono text-ora-sage font-bold">98%</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-ora-muted">Grosor de Micro-Lámina:</span>
+              <strong id="shade-thick" class="font-mono text-ora-earth font-bold">0.2 mm</strong>
+            </div>
+            <div class="pt-2 border-t border-ora-border/60">
+              <span class="text-[10px] uppercase font-mono text-ora-muted block">Efecto Visual:</span>
+              <p id="shade-desc" class="font-semibold text-ora-earth mt-0.5">Blanco Hollywood Espectacular</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-ora-border">
+          <a href="#reserva" class="w-full bg-ora-sage text-white hover:bg-ora-earth text-xs font-mono font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-colors">
+            <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+            <span>Ver mi Tono en Clínica</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 2: LA FILOSOFÍA BIOMIMÉTICA VS. ODONTOLOGÍA TRADICIONAL
+       ========================================================================= -->
+  <section id="biomimetica" class="py-24 px-4 sm:px-8 bg-white border-b border-ora-border">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="max-w-3xl mb-16">
+        <div class="inline-flex items-center gap-2 text-ora-terracotta font-mono text-xs uppercase tracking-widest font-bold mb-3">
+          <i data-lucide="microscope" class="w-3.5 h-3.5"></i>
+          <span>Revolución en la Conservación Dental</span>
+        </div>
+        <h2 class="font-editorial text-3xl sm:text-5xl font-bold text-ora-earth tracking-tight">
+          Por qué la Odontología Biomimética <span class="italic font-light text-ora-sage">salva tus dientes</span> de la amputación.
+        </h2>
+        <p class="font-sans text-ora-muted text-base mt-4 leading-relaxed">
+          La odontología comercial tradicional solía limar hasta el 60% del diente sano para colocar coronas pesadas. En ORA seguimos los principios suizos de adhesión celular: imitamos la elasticidad y resistencia del diente natural.
+        </p>
+      </div>
+
+      <!-- Comparative Side-by-Side Matrix -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Traditional Dentistry -->
+        <div class="bg-ora-travertine p-8 sm:p-10 rounded-2xl border border-ora-border relative">
+          <div class="flex items-center justify-between mb-6 pb-4 border-b border-ora-border">
+            <span class="font-mono text-xs uppercase tracking-widest text-neutral-400 font-bold">Enfoque Convencional Antiguo</span>
+            <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-xs">✕</span>
+          </div>
+
+          <h3 class="font-editorial text-2xl font-bold text-ora-earth mb-4">Odontología Destructiva</h3>
+          
+          <ul class="space-y-4 text-sm text-ora-muted font-sans">
+            <li class="flex items-start gap-3">
+              <i data-lucide="x" class="w-4 h-4 text-rose-500 mt-1 shrink-0"></i>
+              <span><strong>Desgaste agresivo:</strong> Se mutila hasta el 60% de esmalte virgen para fijar coronas de metal-porcelana.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="x" class="w-4 h-4 text-rose-500 mt-1 shrink-0"></i>
+              <span><strong>Líneas grises en la encía:</strong> Los núcleos metálicos terminan oxidándose y oscureciendo el reborde gingival.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="x" class="w-4 h-4 text-rose-500 mt-1 shrink-0"></i>
+              <span><strong>Dolor y sensibilidad:</strong> El tallado profundo llega cerca de la pulpa dental, provocando endodoncias innecesarias.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="x" class="w-4 h-4 text-rose-500 mt-1 shrink-0"></i>
+              <span><strong>Moldeados incómodos con masilla:</strong> Náuseas provocadas por pastas de alginato y cubetas en la boca.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Biomimetic Dentistry (ORA Studio) -->
+        <div class="bg-ora-sage text-white p-8 sm:p-10 rounded-2xl border border-ora-sage shadow-xl relative">
+          <div class="flex items-center justify-between mb-6 pb-4 border-b border-white/20">
+            <span class="font-mono text-xs uppercase tracking-widest text-ora-sageLight font-bold">Protocolo ORA Biomimético</span>
+            <span class="w-6 h-6 rounded-full bg-emerald-400 text-ora-sage flex items-center justify-center font-bold text-xs">✓</span>
+          </div>
+
+          <h3 class="font-editorial text-2xl font-bold text-white mb-4">Preservación Biológica Total</h3>
+          
+          <ul class="space-y-4 text-sm text-neutral-200 font-sans">
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-4 h-4 text-ora-sageLight mt-1 shrink-0"></i>
+              <span><strong>Micro-preparación o Cero Desgaste:</strong> Respetamos el 95% del diente natural gracias a lentes de aumento 8X.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-4 h-4 text-ora-sageLight mt-1 shrink-0"></i>
+              <span><strong>100% Porcelana Feldespática &amp; E.max:</strong> Cero metales. La luz viaja a través del diente igual que en el esmalte original.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-4 h-4 text-ora-sageLight mt-1 shrink-0"></i>
+              <span><strong>Sellado Dentinario Inmediato (IDS):</strong> Cero sensibilidad posoperatoria protegiendo la vitalidad del nervio de por vida.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-4 h-4 text-ora-sageLight mt-1 shrink-0"></i>
+              <span><strong>Escaneo Óptico 3D iTero 5D:</strong> Renderizado digital instantáneo sin pastas desagradables en 60 segundos.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 3: EL PROTOCOLO SENSORIAL "ZERO-ANXIETY" (EXPERIENCIA DEL PACIENTE)
+       ========================================================================= -->
+  <section id="sensorial" class="py-24 px-4 sm:px-8 bg-ora-sand border-b border-ora-border">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-ora-sage font-mono text-xs uppercase tracking-widest font-bold mb-3">
+          <i data-lucide="heart" class="w-3.5 h-3.5"></i>
+          <span>Odontofobia Cero</span>
+        </div>
+        <h2 class="font-editorial text-3xl sm:text-5xl font-bold text-ora-earth tracking-tight">
+          El Gabinete Sensorial: <span class="italic font-light text-ora-terracotta">sin agujas ni ruidos</span>
+        </h2>
+        <p class="font-sans text-ora-muted text-sm sm:text-base mt-4">
+          Diseñamos cada estímulo visual, olfativo y auditivo para que tu pulso cardíaco disminuya desde el primer minuto.
+        </p>
+      </div>
+
+      <!-- 4 Sensory Pods -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="bg-white p-7 rounded-2xl border border-ora-border flex flex-col justify-between hover:shadow-lg transition-shadow">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-ora-sageLight text-ora-sage flex items-center justify-center mb-6">
+              <i data-lucide="wand-2" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] uppercase font-mono tracking-wider font-bold text-ora-terracotta block mb-1">Tecnología The Wand</span>
+            <h3 class="font-editorial text-xl font-bold text-ora-earth mb-2">Anestesia Sin Aguja Visible</h3>
+            <p class="text-xs text-ora-muted leading-relaxed">
+              Inyección computarizada controlada por microprocesador. El flujo anestésico entra a una velocidad imperceptible para los receptores de dolor. Cero sensación de pinchazo.
+            </p>
+          </div>
+          <div class="pt-4 mt-6 border-t border-ora-border text-[11px] font-mono text-ora-sage font-semibold">
+            Presión milimétrica asistida
+          </div>
+        </div>
+
+        <div class="bg-white p-7 rounded-2xl border border-ora-border flex flex-col justify-between hover:shadow-lg transition-shadow">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-ora-sageLight text-ora-sage flex items-center justify-center mb-6">
+              <i data-lucide="headphones" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] uppercase font-mono tracking-wider font-bold text-ora-terracotta block mb-1">Cancelación Activa</span>
+            <h3 class="font-editorial text-xl font-bold text-ora-earth mb-2">Gafas 4K &amp; Audio Bose</h3>
+            <p class="text-xs text-ora-muted leading-relaxed">
+              Durante tu sesión disfrutas de tu serie favorita de Netflix o música relajante con cancelación absoluta del sonido de turbina o instrumental clínico.
+            </p>
+          </div>
+          <div class="pt-4 mt-6 border-t border-ora-border text-[11px] font-mono text-ora-sage font-semibold">
+            Inmersión audiovisual total
+          </div>
+        </div>
+
+        <div class="bg-white p-7 rounded-2xl border border-ora-border flex flex-col justify-between hover:shadow-lg transition-shadow">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-ora-sageLight text-ora-sage flex items-center justify-center mb-6">
+              <i data-lucide="wind" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] uppercase font-mono tracking-wider font-bold text-ora-terracotta block mb-1">Medicina del Confort</span>
+            <h3 class="font-editorial text-xl font-bold text-ora-earth mb-2">Sedación Consciente</h3>
+            <p class="text-xs text-ora-muted leading-relaxed">
+              Inhalación suave de óxido nitroso monitorizada por médico anestesista. Permanece despierto pero en un estado de profunda serenidad y desconexión de la ansiedad.
+            </p>
+          </div>
+          <div class="pt-4 mt-6 border-t border-ora-border text-[11px] font-mono text-ora-sage font-semibold">
+            Recuperación inmediata en 5 min
+          </div>
+        </div>
+
+        <div class="bg-white p-7 rounded-2xl border border-ora-border flex flex-col justify-between hover:shadow-lg transition-shadow">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-ora-sageLight text-ora-sage flex items-center justify-center mb-6">
+              <i data-lucide="sun" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] uppercase font-mono tracking-wider font-bold text-ora-terracotta block mb-1">Arquitectura Circadiana</span>
+            <h3 class="font-editorial text-xl font-bold text-ora-earth mb-2">Diseño Wabi-Sabi</h3>
+            <p class="text-xs text-ora-muted leading-relaxed">
+              Acabados en madera de roble, cuarzo y luz solar indirecta. Nada de luces fluorescentes frías de hospital ni el característico "olor a dentista".
+            </p>
+          </div>
+          <div class="pt-4 mt-6 border-t border-ora-border text-[11px] font-mono text-ora-sage font-semibold">
+            Aromaterapia de lavanda pura
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 4: GALERÍA DE CASOS CLÍNICOS (BEFORE & AFTER SLIDER INTERACTIVO)
+       ========================================================================= -->
+  <section id="casos" class="py-24 px-4 sm:px-8 bg-white border-b border-ora-border">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+        <div>
+          <div class="inline-flex items-center gap-2 text-ora-sage font-mono text-xs uppercase tracking-widest font-bold mb-3">
+            <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+            <span>Casos Clínicos Reales</span>
+          </div>
+          <h2 class="font-editorial text-3xl sm:text-5xl font-bold text-ora-earth tracking-tight">
+            Transformaciones que <span class="italic font-light text-ora-terracotta">cambian vidas</span>
+          </h2>
+        </div>
+
+        <!-- Case Filter Selector -->
+        <div class="flex flex-wrap gap-2 font-mono text-xs">
+          <button onclick="switchCase('carillas')" class="case-btn active bg-ora-sage text-white px-4 py-2 rounded-lg font-bold transition-colors" data-case="carillas">
+            Carillas E.max 0.2mm
+          </button>
+          <button onclick="switchCase('invisalign')" class="case-btn bg-ora-sand text-ora-earth hover:bg-ora-border px-4 py-2 rounded-lg font-bold transition-colors" data-case="invisalign">
+            Invisalign Ortodoncia
+          </button>
+          <button onclick="switchCase('implante')" class="case-btn bg-ora-sand text-ora-earth hover:bg-ora-border px-4 py-2 rounded-lg font-bold transition-colors" data-case="implante">
+            Implante Zirconio
+          </button>
+        </div>
+      </div>
+
+      <!-- Case Content Box -->
+      <div class="bg-ora-travertine rounded-3xl border border-ora-border p-6 sm:p-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Before & After Interactive Visual Slider (7 cols) -->
+          <div class="lg:col-span-7">
+            <div class="relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-ora-border shadow-inner ba-slider select-none">
+              <!-- After Image (Base) -->
+              <img id="case-img-after" 
+                   src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=1200&q=80&auto=format&fit=crop" 
+                   alt="Resultado Después" 
+                   class="absolute inset-0 w-full h-full object-cover">
+              
+              <!-- Before Image (Overlay clipped by width) -->
+              <div id="case-before-wrapper" class="absolute inset-y-0 left-0 w-1/2 overflow-hidden border-r-2 border-white shadow-2xl">
+                <img id="case-img-before" 
+                     src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1200&q=80&auto=format&fit=crop" 
+                     alt="Estado Inicial Antes" 
+                     class="absolute inset-0 w-full h-full object-cover filter grayscale">
+              </div>
+
+              <!-- Tags -->
+              <div class="absolute top-4 left-4 bg-black/70 backdrop-blur-md text-white font-mono text-[10px] font-bold px-3 py-1 rounded-md">
+                ANTES
+              </div>
+              <div class="absolute top-4 right-4 bg-ora-sage text-white font-mono text-[10px] font-bold px-3 py-1 rounded-md">
+                DESPUÉS (BIOMIMÉTICO)
+              </div>
+
+              <!-- Draggable Range Slider Bar -->
+              <input type="range" min="0" max="100" value="50" oninput="handleSliderChange(this.value)" class="absolute bottom-4 left-6 right-6 z-20 w-[calc(100%-3rem)] cursor-ew-resize">
+            </div>
+            <p class="text-center font-mono text-[11px] text-ora-muted mt-3">Desliza la barra inferior para comparar el estado inicial con el resultado definitivo.</p>
+          </div>
+
+          <!-- Clinical Case Details (5 cols) -->
+          <div class="lg:col-span-5 space-y-6">
+            <div>
+              <span id="case-tag" class="text-[10px] font-mono uppercase tracking-widest text-ora-terracotta font-bold block mb-1">Caso #0492 &bull; Diseño de Sonrisa</span>
+              <h3 id="case-title" class="font-editorial text-2xl sm:text-3xl font-bold text-ora-earth">Cierre de Diastemas y Reconstrucción Incisal</h3>
+              <p id="case-desc" class="font-sans text-xs sm:text-sm text-ora-muted leading-relaxed mt-3">
+                Paciente de 32 años con desgaste severo por bruxismo y separación interdental anterior. Se colocaron 6 micro-carillas de disilicato de litio E.max prensado en tono BL1 sin tallado del esmalte original.
+              </p>
+            </div>
+
+            <div class="space-y-3 p-4 bg-white rounded-xl border border-ora-border text-xs font-mono">
+              <div class="flex justify-between py-1 border-b border-ora-border">
+                <span class="text-ora-muted">Tiempo Total:</span>
+                <strong id="case-time" class="text-ora-earth">2 Sesiones (72 Horas)</strong>
+              </div>
+              <div class="flex justify-between py-1 border-b border-ora-border">
+                <span class="text-ora-muted">Técnica Empleada:</span>
+                <strong id="case-tech" class="text-ora-earth">Adhesión Molecular 0-Prep</strong>
+              </div>
+              <div class="flex justify-between py-1">
+                <span class="text-ora-muted">Longevidad Estimada:</span>
+                <strong class="text-emerald-700 font-bold">15 &ndash; 20 Años Garantizados</strong>
+              </div>
+            </div>
+
+            <a href="#reserva" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-ora-sage hover:text-ora-earth uppercase tracking-wider">
+              <span>¿Tienes un caso similar? Solicitar diagnóstico digital</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 5: TRATAMIENTOS ESPECIALIZADOS & LABORATORIO CAD/CAM IN-HOUSE
+       ========================================================================= -->
+  <section class="py-24 px-4 sm:px-8 bg-ora-sand border-b border-ora-border">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-ora-sage font-mono text-xs uppercase tracking-widest font-bold mb-3">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+          <span>Laboratorio Digital Integrado</span>
+        </div>
+        <h2 class="font-editorial text-3xl sm:text-5xl font-bold text-ora-earth tracking-tight">
+          Tratamientos de <span class="italic font-light text-ora-terracotta">Precisión Robótica</span>
+        </h2>
+        <p class="font-sans text-ora-muted text-sm sm:text-base mt-4">
+          Sin enviar tus prótesis a laboratorios externos lejanos. Diseñamos, fresamos y sinterizamos tu nueva sonrisa en nuestras propias instalaciones.
+        </p>
+      </div>
+
+      <!-- 4 Treatment Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="bg-white p-7 rounded-2xl border border-ora-border flex flex-col justify-between hover:-translate-y-1 transition-transform">
+          <div>
+            <span class="text-3xl font-editorial font-bold text-ora-sage mb-4 block">01</span>
+            <h3 class="font-editorial text-xl font-bold text-ora-earth mb-2">Carillas de Porcelana Ultrafina</h3>
+            <p class="text-xs text-ora-muted leading-relaxed mb-4">
+              Láminas de 0.2mm creadas con disilicato de litio IPS e.max. Modifican color, forma y posición con translucidez idéntica al esmalte natural virgen.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-ora-border flex justify-between items-center text-xs font-mono">
+            <span class="text-ora-muted">Garantía:</span>
+            <strong class="text-ora-sage">10 Años Escritos</strong>
+          </div>
+        </div>
+
+        <div class="bg-white p-7 rounded-2xl border border-ora-border flex flex-col justify-between hover:-translate-y-1 transition-transform">
+          <div>
+            <span class="text-3xl font-editorial font-bold text-ora-sage mb-4 block">02</span>
+            <h3 class="font-editorial text-xl font-bold text-ora-earth mb-2">Invisalign Diamond Provider</h3>
+            <p class="text-xs text-ora-muted leading-relaxed mb-4">
+              Alineadores transparentes removibles con escaneo digital iTero en 3D. Corrige apiñamientos sin alambres metálicos ni llagas bucales.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-ora-border flex justify-between items-center text-xs font-mono">
+            <span class="text-ora-muted">Duración:</span>
+            <strong class="text-ora-sage">6 a 12 Meses</strong>
+          </div>
+        </div>
+
+        <div class="bg-white p-7 rounded-2xl border border-ora-border flex flex-col justify-between hover:-translate-y-1 transition-transform">
+          <div>
+            <span class="text-3xl font-editorial font-bold text-ora-sage mb-4 block">03</span>
+            <h3 class="font-editorial text-xl font-bold text-ora-earth mb-2">Implantes Cerámicos de Zirconio</h3>
+            <p class="text-xs text-ora-muted leading-relaxed mb-4">
+              Sustitución de raíz de diente ausente mediante implantes Straumann PURE de cerámica blanca 100% libre de titanio y metales galvánicos.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-ora-border flex justify-between items-center text-xs font-mono">
+            <span class="text-ora-muted">Biocompatibilidad:</span>
+            <strong class="text-emerald-700">100% Metal-Free</strong>
+          </div>
+        </div>
+
+        <div class="bg-white p-7 rounded-2xl border border-ora-border flex flex-col justify-between hover:-translate-y-1 transition-transform">
+          <div>
+            <span class="text-3xl font-editorial font-bold text-ora-sage mb-4 block">04</span>
+            <h3 class="font-editorial text-xl font-bold text-ora-earth mb-2">Blanqueamiento Láser Fototérmico</h3>
+            <p class="text-xs text-ora-muted leading-relaxed mb-4">
+              Protocolo Phillips Zoom WhiteSpeed con desensibilizante previo. Aclara hasta 6 tonos en una sola sesión de 45 minutos sin desmineralizar el diente.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-ora-border flex justify-between items-center text-xs font-mono">
+            <span class="text-ora-muted">Tiempo:</span>
+            <strong class="text-ora-sage">1 Sesión / 45 Min</strong>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 6: CALCULADORA INTERACTIVA DE INVERSIÓN & CUOTAS SIN INTERESES
+       ========================================================================= -->
+  <section id="calculadora" class="py-24 px-4 sm:px-8 bg-white border-b border-ora-border">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-ora-terracotta font-mono text-xs uppercase tracking-widest font-bold mb-3">
+          <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+          <span>Transparencia Presupuestaria</span>
+        </div>
+        <h2 class="font-editorial text-3xl sm:text-5xl font-bold text-ora-earth tracking-tight">
+          Simulador de <span class="italic font-light text-ora-sage">Inversión &amp; Financiación</span>
+        </h2>
+        <p class="font-sans text-ora-muted text-sm sm:text-base mt-4">
+          Calcula tu cuota mensual sin intereses y descubre qué incluye tu tratamiento desde el día uno.
+        </p>
+      </div>
+
+      <!-- Main Calculator Box -->
+      <div class="bg-ora-travertine p-8 sm:p-12 rounded-3xl border border-ora-border max-w-4xl mx-auto shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          
+          <!-- Selectors (7 cols) -->
+          <div class="md:col-span-7 space-y-6">
+            <div>
+              <label class="block font-mono text-xs uppercase tracking-wider text-ora-muted font-bold mb-2">1. Selecciona tu Tratamiento Deseado</label>
+              <select id="calc-treatment" onchange="calculateDentalFee()" class="w-full bg-white border border-ora-border rounded-xl px-4 py-3.5 text-ora-earth font-sans text-sm outline-none cursor-pointer">
+                <option value="650" data-name="Blanqueamiento Láser Phillips Zoom">Blanqueamiento Láser Clínico ($650 USD)</option>
+                <option value="2800" data-name="Invisalign Go (Ortodoncia Invisible)" selected>Invisalign Ortodoncia Invisible ($2,800 USD)</option>
+                <option value="3600" data-name="Diseño de Sonrisa &middot; 6 Carillas E.max">Diseño de Sonrisa: 6 Carillas E.max ($3,600 USD)</option>
+                <option value="1650" data-name="Implante Dental Straumann Zirconio">Implante Zirconio Corona Incluida ($1,650 USD)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-mono text-xs uppercase tracking-wider text-ora-muted font-bold mb-2">2. Plazo de Financiación (Tasa 0% Intereses)</label>
+              <div class="grid grid-cols-4 gap-2">
+                <button type="button" onclick="setCalcTerm(6)" class="term-pill p-3 text-center rounded-xl border border-ora-border bg-white font-mono text-xs font-bold hover:border-ora-sage transition-all" data-term="6">6 Meses</button>
+                <button type="button" onclick="setCalcTerm(12)" class="term-pill active p-3 text-center rounded-xl border-2 border-ora-sage bg-ora-sage text-white font-mono text-xs font-bold transition-all" data-term="12">12 Meses</button>
+                <button type="button" onclick="setCalcTerm(18)" class="term-pill p-3 text-center rounded-xl border border-ora-border bg-white font-mono text-xs font-bold hover:border-ora-sage transition-all" data-term="18">18 Meses</button>
+                <button type="button" onclick="setCalcTerm(24)" class="term-pill p-3 text-center rounded-xl border border-ora-border bg-white font-mono text-xs font-bold hover:border-ora-sage transition-all" data-term="24">24 Meses</button>
+              </div>
+            </div>
+
+            <div class="text-xs text-ora-muted font-sans space-y-1.5 pt-2">
+              <p class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Aprobación inmediata con tarjetas BAC Credomatic / Scotiabank.</p>
+              <p class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Cero prima inicial requerida en primera cita.</p>
+            </div>
+          </div>
+
+          <!-- Fee Calculation Output Display (5 cols) -->
+          <div class="md:col-span-5 bg-white p-6 sm:p-8 rounded-2xl border border-ora-border text-center flex flex-col justify-between shadow-md">
+            <div>
+              <span class="text-[10px] uppercase font-mono tracking-widest text-ora-muted font-bold block mb-1">Cuota Mensual Estimada</span>
+              <p id="calc-fee" class="font-editorial text-4xl sm:text-5xl font-bold text-ora-sage">$233 <span class="text-xs font-mono text-ora-muted">/ mes</span></p>
+              
+              <div class="my-6 py-4 border-y border-ora-border text-xs font-mono space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-ora-muted">Inversión Total:</span>
+                  <strong id="calc-total" class="text-ora-earth font-bold">$2,800 USD</strong>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-ora-muted">Intereses:</span>
+                  <strong class="text-emerald-700 font-bold">$0 (Tasa Cero)</strong>
+                </div>
+              </div>
+            </div>
+
+            <a href="#reserva" class="w-full bg-ora-sage hover:bg-ora-earth text-white font-sans text-xs font-bold uppercase tracking-wider py-3.5 rounded-xl transition-colors">
+              Bloquear Plan de Financiación
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 7: EL CUADRO MÉDICO DE DEDICACIÓN EXCLUSIVA
+       ========================================================================= -->
+  <section class="py-24 px-4 sm:px-8 bg-ora-travertine border-b border-ora-border">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-ora-sage font-mono text-xs uppercase tracking-widest font-bold mb-3">
+          <i data-lucide="award" class="w-3.5 h-3.5"></i>
+          <span>Especialistas Acreditados</span>
+        </div>
+        <h2 class="font-editorial text-3xl sm:text-5xl font-bold text-ora-earth tracking-tight">
+          Doctores con <span class="italic font-light text-ora-terracotta">dedicación exclusiva</span>
+        </h2>
+        <p class="font-sans text-ora-muted text-sm sm:text-base mt-4">
+          Sin doctores rotatorios ni pasantes. Serás atendido en cada cita por el especialista titular de tu área.
+        </p>
+      </div>
+
+      <!-- Doctors Grid (3 Profiles) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Doctor 1 -->
+        <div class="bg-white rounded-2xl overflow-hidden border border-ora-border shadow-sm group hover:border-ora-sage transition-all">
+          <div class="h-80 relative overflow-hidden bg-ora-sand">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80&auto=format&fit=crop" 
+                 alt="Dra. Jimena Céspedes" 
+                 class="w-full h-full object-cover object-top filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500">
+            <div class="absolute top-4 right-4 bg-ora-sage text-white font-mono text-[10px] font-bold px-3 py-1 rounded-md uppercase">
+              Directora de Estética
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-editorial text-2xl font-bold text-ora-earth mb-1">Dra. Jimena Céspedes</h3>
+            <p class="text-xs font-mono text-ora-terracotta font-semibold mb-4">Master Estética Dental (UCM Madrid)</p>
+            <p class="text-xs text-ora-muted font-sans leading-relaxed mb-6">
+              Especialista en diseño biomimético de sonrisa y microcarillas cerámicas. Conferenciante internacional en el uso de adhesión molecular en odontología mínimamente invasiva.
+            </p>
+            <div class="pt-4 border-t border-ora-border text-xs font-mono text-ora-muted flex justify-between items-center">
+              <span>Colegiada #3812</span>
+              <span class="text-ora-sage font-bold">12 Años Exp.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor 2 -->
+        <div class="bg-white rounded-2xl overflow-hidden border border-ora-border shadow-sm group hover:border-ora-sage transition-all">
+          <div class="h-80 relative overflow-hidden bg-ora-sand">
+            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&q=80&auto=format&fit=crop" 
+                 alt="Dr. Sebastián Varela" 
+                 class="w-full h-full object-cover object-top filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500">
+            <div class="absolute top-4 right-4 bg-ora-sage text-white font-mono text-[10px] font-bold px-3 py-1 rounded-md uppercase">
+              Cirugía &amp; Zirconio
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-editorial text-2xl font-bold text-ora-earth mb-1">Dr. Sebastián Varela</h3>
+            <p class="text-xs font-mono text-ora-terracotta font-semibold mb-4">Implantología Quirúrgica (NYU Nueva York)</p>
+            <p class="text-xs text-ora-muted font-sans leading-relaxed mb-6">
+              Pionero en Centroamérica en la colocación de implantes cerámicos de zirconio Straumann Pure guiados por cirugía robótica 3D sin incisiones dolorosas.
+            </p>
+            <div class="pt-4 border-t border-ora-border text-xs font-mono text-ora-muted flex justify-between items-center">
+              <span>Colegiado #2940</span>
+              <span class="text-ora-sage font-bold">15 Años Exp.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor 3 -->
+        <div class="bg-white rounded-2xl overflow-hidden border border-ora-border shadow-sm group hover:border-ora-sage transition-all">
+          <div class="h-80 relative overflow-hidden bg-ora-sand">
+            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80&auto=format&fit=crop" 
+                 alt="Gabinete de Ortodoncia Invisible" 
+                 class="w-full h-full object-cover object-center filter contrast-125">
+            <div class="absolute top-4 right-4 bg-ora-sage text-white font-mono text-[10px] font-bold px-3 py-1 rounded-md uppercase">
+              Invisalign Diamond
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-editorial text-2xl font-bold text-ora-earth mb-1">Dra. Camila Fonseca</h3>
+            <p class="text-xs font-mono text-ora-terracotta font-semibold mb-4">Ortodoncia Invisible (Univ. Barcelona)</p>
+            <p class="text-xs text-ora-muted font-sans leading-relaxed mb-6">
+              Categoría Invisalign Diamond Apex con más de 1,200 casos completados. Trata casos complejos de apiñamiento, mordida abierta y apnea del sueño.
+            </p>
+            <div class="pt-4 border-t border-ora-border text-xs font-mono text-ora-muted flex justify-between items-center">
+              <span>Colegiada #4105</span>
+              <span class="text-ora-sage font-bold">Invisalign Apex</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECCIÓN 8: CONCIERGE DE CITA, SELECTOR DE SILLÓN & MEGA FOOTER
+       ========================================================================= -->
+  <section id="reserva" class="py-24 px-4 sm:px-8 bg-ora-earth text-white relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Column: Guarantee & Protocol -->
+        <div class="lg:col-span-5">
+          <div class="inline-flex items-center gap-2 bg-white/10 text-ora-sageLight px-4 py-1.5 rounded-md text-xs font-mono font-semibold uppercase tracking-wider mb-6">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            Primera Consulta Incluye Escaneo 3D Sin Costo
+          </div>
+
+          <h2 class="font-editorial text-3xl sm:text-5xl font-bold tracking-tight leading-tight mb-6">
+            Tu sonrisa merece <span class="italic font-light text-ora-sageLight">manos expertas</span> y cero ansiedad.
+          </h2>
+
+          <p class="font-sans text-neutral-300 text-sm leading-relaxed mb-8">
+            En tu primera visita realizamos un diagnóstico integral: tomografía computarizada 3D, fotos de arquitectura facial, simulación de resultado y plan de tratamiento detallado sin sorpresas.
+          </p>
+
+          <div class="space-y-4 font-mono text-xs text-neutral-300">
+            <div class="flex items-center gap-3 p-3.5 bg-white/5 rounded-xl border border-white/10">
+              <i data-lucide="shield-check" class="w-5 h-5 text-ora-sageLight shrink-0"></i>
+              <span>Garantía de confort: si sientes molestia, pausamos al instante.</span>
+            </div>
+            <div class="flex items-center gap-3 p-3.5 bg-white/5 rounded-xl border border-white/10">
+              <i data-lucide="clock" class="w-5 h-5 text-ora-sageLight shrink-0"></i>
+              <span>Puntualidad suiza: no toleramos salas de espera congestionadas.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Appointment Box -->
+        <div class="lg:col-span-7 bg-white text-ora-earth p-8 sm:p-10 rounded-3xl border border-ora-border shadow-2xl">
+          <form id="appointment-form" onsubmit="handleAppointmentSubmit(event)" class="space-y-6">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 font-sans">
+              <div>
+                <label class="block text-[11px] font-mono uppercase tracking-wider text-ora-muted font-bold mb-2">Nombre y Apellidos *</label>
+                <input type="text" required placeholder="Ej. Ana Lucía Monge" class="w-full bg-ora-travertine border border-ora-border focus:border-ora-sage rounded-xl px-4 py-3 text-ora-earth text-sm outline-none transition-colors">
+              </div>
+              <div>
+                <label class="block text-[11px] font-mono uppercase tracking-wider text-ora-muted font-bold mb-2">Teléfono / WhatsApp *</label>
+                <input type="tel" required placeholder="+506 8888-0000" class="w-full bg-ora-travertine border border-ora-border focus:border-ora-sage rounded-xl px-4 py-3 text-ora-earth text-sm outline-none transition-colors">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 font-sans">
+              <div>
+                <label class="block text-[11px] font-mono uppercase tracking-wider text-ora-muted font-bold mb-2">Tratamiento Principal</label>
+                <select class="w-full bg-ora-travertine border border-ora-border focus:border-ora-sage rounded-xl px-4 py-3 text-ora-earth text-sm outline-none transition-colors cursor-pointer">
+                  <option>Diseño de Sonrisa &middot; Carillas E.max</option>
+                  <option>Ortodoncia Invisible &middot; Invisalign</option>
+                  <option>Implantes Cerámicos de Zirconio</option>
+                  <option>Blanqueamiento Láser Inmediato</option>
+                  <option>Valoración Integral por Odontofobia / Miedo</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-mono uppercase tracking-wider text-ora-muted font-bold mb-2">Preferencia Sensorial</label>
+                <select class="w-full bg-ora-travertine border border-ora-border focus:border-ora-sage rounded-xl px-4 py-3 text-ora-earth text-sm outline-none transition-colors cursor-pointer">
+                  <option>Gabinete Estándar (Sin Sedación)</option>
+                  <option>Gafas 4K + Audio Bose Insonorizado</option>
+                  <option>Sedación Consciente por Ansiedad</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-mono uppercase tracking-wider text-ora-muted font-bold mb-2">Franja Horaria de Preferencia</label>
+              <div class="grid grid-cols-3 gap-2 font-mono text-xs">
+                <label class="p-3 border border-ora-border rounded-xl text-center cursor-pointer hover:border-ora-sage flex items-center justify-center gap-1.5">
+                  <input type="radio" name="time_slot" value="Mañana (08:00 - 12:00)" checked class="accent-ora-sage">
+                  <span>Mañana</span>
+                </label>
+                <label class="p-3 border border-ora-border rounded-xl text-center cursor-pointer hover:border-ora-sage flex items-center justify-center gap-1.5">
+                  <input type="radio" name="time_slot" value="Mediodía (12:00 - 15:00)" class="accent-ora-sage">
+                  <span>Mediodía</span>
+                </label>
+                <label class="p-3 border border-ora-border rounded-xl text-center cursor-pointer hover:border-ora-sage flex items-center justify-center gap-1.5">
+                  <input type="radio" name="time_slot" value="Tarde (15:00 - 19:00)" class="accent-ora-sage">
+                  <span>Tarde</span>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full bg-ora-sage hover:bg-ora-earth text-white font-sans text-xs font-bold uppercase tracking-widest py-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg hover:scale-[1.01]">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              <span>Solicitar Mi Cita Biomimética</span>
+            </button>
+            <p id="appointment-success" class="hidden text-center text-xs font-mono font-bold text-emerald-600 pt-2">
+              ✓ Solicitud recibida. Un concierge clínico te confirmará la fecha exacta por WhatsApp en menos de 15 minutos.
+            </p>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Mega Footer -->
+      <footer class="mt-24 pt-12 border-t border-white/10 text-neutral-400 text-xs font-sans">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 bg-ora-sage rounded flex items-center justify-center text-white font-editorial font-bold text-base">O</div>
+              <span class="font-editorial text-white font-bold text-base tracking-wider">ORA ATELIER</span>
+            </div>
+            <p class="text-neutral-400 text-xs leading-relaxed mb-4">
+              Odontología biomimética, prótesis cerámicas de micro-espesor y cirugía sin dolor.
+            </p>
+            <p class="font-mono text-[11px] text-ora-sageLight">&copy; 2026 ORA Biomimetic Studio. All rights reserved.</p>
+          </div>
+
+          <div>
+            <h4 class="font-mono uppercase tracking-widest text-[11px] font-bold text-white mb-4">Sedes Clínicas</h4>
+            <ul class="space-y-2 text-xs text-neutral-300">
+              <li><strong>Escazú Village:</strong> Torre Médica, Nivel 4, San José</li>
+              <li><strong>Curridabat:</strong> Edificio Terraza Médica, Suite 202</li>
+              <li><strong>Parqueo Privado:</strong> Servicio de Valet Parking sin costo</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-mono uppercase tracking-widest text-[11px] font-bold text-white mb-4">Horarios de Atención</h4>
+            <ul class="space-y-2 font-mono text-xs text-neutral-300">
+              <li class="flex justify-between"><span>Lunes &ndash; Viernes:</span> <strong class="text-white">08:00 &ndash; 19:00</strong></li>
+              <li class="flex justify-between"><span>Sábados:</span> <strong class="text-white">09:00 &ndash; 14:00</strong></li>
+              <li class="flex justify-between"><span>Urgencias 24h:</span> <strong class="text-ora-sageLight">Vía WhatsApp</strong></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-mono uppercase tracking-widest text-[11px] font-bold text-white mb-4">Certificaciones</h4>
+            <p class="text-xs text-neutral-400 leading-relaxed mb-3">
+              Gabinete esterilizado bajo norma hospitalaria ISO 9001. Miembros de la Academy of Biomimetic Dentistry (EE.UU.).
+            </p>
+            <span class="text-ora-sageLight text-[11px] font-mono">Registro Sanitario Ministerio de Salud #4981-D</span>
+          </div>
+
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       JAVASCRIPT AUTÓNOMO (VITA SHADE LAB, BEFORE/AFTER SLIDER, CALCULATOR)
+       ========================================================================= -->
+  <script>
+    // Inicializar Iconos Lucide
+    lucide.createIcons();
+
+    // -------------------------------------------------------------------------
+    // 1. MOBILE NAV TOGGLE
+    // -------------------------------------------------------------------------
+    const navToggle = document.getElementById('mobile-nav-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    function toggleMobileNav() {
+      mobileNav.classList.toggle('hidden');
+    }
+    if (navToggle) {
+      navToggle.addEventListener('click', toggleMobileNav);
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. VITA MASTER 3D SHADE LAB (HERO INTERACTION)
+    // -------------------------------------------------------------------------
+    function changeVitaShade(shadeCode, colorHex, translucency, thickness, desc, skinMatch) {
+      // Update Button active classes
+      document.querySelectorAll('.shade-btn').forEach(btn => {
+        if (btn.getAttribute('data-shade') === shadeCode) {
+          btn.classList.add('active', 'border-2', 'border-ora-sage', 'bg-white');
+          btn.classList.remove('border-ora-border', 'bg-white/60');
+        } else {
+          btn.classList.remove('active', 'border-2', 'border-ora-sage');
+          btn.classList.add('border-ora-border', 'bg-white/60');
+        }
+      });
+
+      // Update Outputs
+      document.getElementById('shade-trans').textContent = translucency;
+      document.getElementById('shade-thick').textContent = thickness;
+      document.getElementById('shade-desc').textContent = `${desc} (${skinMatch})`;
+    }
+
+    // -------------------------------------------------------------------------
+    // 3. BEFORE & AFTER SLIDER INTERACTION
+    // -------------------------------------------------------------------------
+    const caseWrapper = document.getElementById('case-before-wrapper');
+    function handleSliderChange(val) {
+      if (caseWrapper) {
+        caseWrapper.style.width = val + '%';
+      }
+    }
+
+    // Case Switcher
+    const casesData = {
+      carillas: {
+        tag: 'Caso #0492 \u2022 Dise\u00f1o de Sonrisa',
+        title: 'Cierre de Diastemas y Reconstrucci\u00f3n Incisal',
+        desc: 'Paciente de 32 a\u00f1os con desgaste severo por bruxismo y separaci\u00f3n interdental anterior. Se colocaron 6 micro-carillas de disilicato de litio E.max prensado en tono BL1 sin tallado del esmalte original.',
+        time: '2 Sesiones (72 Horas)',
+        tech: 'Adhesi\u00f3n Molecular 0-Prep',
+        imgBefore: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1200&q=80&auto=format&fit=crop',
+        imgAfter: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=1200&q=80&auto=format&fit=crop'
+      },
+      invisalign: {
+        tag: 'Caso #0718 \u2022 Ortodoncia Invisible',
+        title: 'Correcci\u00f3n de Api\u00f1amiento Severo y Mordida Cruzada',
+        desc: 'Tratamiento completo Invisalign Comprehensive con 24 pares de alineadores transparentes cambiados cada 10 d\u00edas. Expansi\u00f3n del arco dental sin extracciones de premolares.',
+        time: '9 Meses de Tratamiento',
+        tech: 'SmartTrack & iTero 5D Plus',
+        imgBefore: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1200&q=80&auto=format&fit=crop',
+        imgAfter: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&q=80&auto=format&fit=crop'
+      },
+      implante: {
+        tag: 'Caso #0311 \u2022 Cirug\u00eda Guiada Metal-Free',
+        title: 'Reemplazo Incisivo Central con Implante de Zirconio',
+        desc: 'Extracci\u00f3n atraum\u00e1tica y colocaci\u00f3n inmediata de implante cer\u00e1mico Straumann Pure de Zirconio blanco con corona provisional el mismo d\u00eda. Cero sombras oscuras en la enc\u00eda.',
+        time: 'Carga Inmediata en 1 D\u00eda',
+        tech: 'Cirug\u00eda Rob\u00f3tica Guiada 3D',
+        imgBefore: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1200&q=80&auto=format&fit=crop',
+        imgAfter: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=1200&q=80&auto=format&fit=crop'
+      }
+    };
+
+    function switchCase(caseKey) {
+      // Update buttons
+      document.querySelectorAll('.case-btn').forEach(btn => {
+        if (btn.getAttribute('data-case') === caseKey) {
+          btn.classList.add('active', 'bg-ora-sage', 'text-white');
+          btn.classList.remove('bg-ora-sand', 'text-ora-earth');
+        } else {
+          btn.classList.remove('active', 'bg-ora-sage', 'text-white');
+          btn.classList.add('bg-ora-sand', 'text-ora-earth');
+        }
+      });
+
+      const data = casesData[caseKey];
+      document.getElementById('case-tag').textContent = data.tag;
+      document.getElementById('case-title').textContent = data.title;
+      document.getElementById('case-desc').textContent = data.desc;
+      document.getElementById('case-time').textContent = data.time;
+      document.getElementById('case-tech').textContent = data.tech;
+      document.getElementById('case-img-before').src = data.imgBefore;
+      document.getElementById('case-img-after').src = data.imgAfter;
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. CALCULADORA DE INVERSIÓN DENTAL
+    // -------------------------------------------------------------------------
+    let currentCalcTerm = 12;
+
+    function setCalcTerm(months) {
+      currentCalcTerm = months;
+      document.querySelectorAll('.term-pill').forEach(pill => {
+        if (parseInt(pill.getAttribute('data-term')) === months) {
+          pill.classList.add('active', 'border-2', 'border-ora-sage', 'bg-ora-sage', 'text-white');
+          pill.classList.remove('border-ora-border', 'bg-white', 'text-ora-earth');
+        } else {
+          pill.classList.remove('active', 'border-2', 'border-ora-sage', 'bg-ora-sage', 'text-white');
+          pill.classList.add('border-ora-border', 'bg-white', 'text-ora-earth');
+        }
+      });
+      calculateDentalFee();
+    }
+
+    function calculateDentalFee() {
+      const select = document.getElementById('calc-treatment');
+      const totalAmount = parseFloat(select.value);
+      const months = currentCalcTerm;
+
+      const monthlyFee = Math.round(totalAmount / months);
+
+      document.getElementById('calc-fee').innerHTML = `$${monthlyFee} <span class="text-xs font-mono text-ora-muted">/ mes</span>`;
+      document.getElementById('calc-total').textContent = `$${totalAmount.toLocaleString('en-US')} USD`;
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. APPOINTMENT FORM SUBMISSION
+    // -------------------------------------------------------------------------
+    function handleAppointmentSubmit(e) {
+      e.preventDefault();
+      const successMsg = document.getElementById('appointment-success');
+      if (successMsg) {
+        successMsg.classList.remove('hidden');
+      }
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>

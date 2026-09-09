@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebShip — Los Mejores en Diseño Web en Costa Rica | Sitios que Venden en 5 Días</title>
+  <meta name="description" content="Diseño y desarrollo web de alta gama en Costa Rica. Creamos sitios modernos, ultrarrápidos y optimizados para convertir visitantes en clientes en solo 5 días."/>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>"/>
+
+  <!-- Fonts: Inter + DM Serif Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- GSAP + ScrollTrigger + Lenis via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Three.js r160 via ES Module -->
+  <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/transitions.css"/>
+
+  <style>
+    /* ══════════════════════════════════════════════════════════════
+       ESTILOS EXCLUSIVOS & MEJORAS DE INDEX.HTML
+       ══════════════════════════════════════════════════════════════ */
+    :root {
+      --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Touch & Cursor Rules ───────────────────────────────────── */
+    @media (pointer: coarse), (max-width: 1024px) {
+      body { cursor: auto !important; }
+      #c-dot, #c-trail { display: none !important; }
+      a, button, [role="button"], .rotator-card { cursor: pointer !important; }
+    }
+
+    /* ── Navbar Full-Width Ultra-Premium (Fusión Fluida & Frosted Glass) ── */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 74px;
+      z-index: 1000;
+      transition: background-color 0.4s var(--ease-lux),
+                  border-color 0.4s var(--ease-lux),
+                  box-shadow 0.4s var(--ease-lux),
+                  backdrop-filter 0.4s var(--ease-lux);
+    }
+
+    .nav-container {
+      width: 100% !important;
+      max-width: 1240px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      box-sizing: border-box;
+    }
+
+    /* Estado inicial arriba (transparente, fusionado con el fondo) */
+    #nav.nav-at-top {
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      box-shadow: none;
+    }
+
+    /* Estado scrolled con Frosted Glass y Adaptación de Tema */
+    #nav.nav-scrolled.nav-theme-dark {
+      background: rgba(13, 13, 13, 0.85);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    }
+
+    #nav.nav-scrolled.nav-theme-light {
+      background: rgba(250, 250, 248, 0.90);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Logo */
+    #nav .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      transition: color 0.3s ease;
+    }
+    #nav .nav-logo .dot { color: #6366F1; }
+    #nav.nav-theme-dark .nav-logo { color: #FFFFFF; }
+    #nav.nav-theme-light .nav-logo { color: #0D0D0D; }
+
+    /* Links de Navegación */
+    .nav-links-wrap {
+      display: flex;
+      align-items: center;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.25s ease, background 0.25s ease;
+      white-space: nowrap;
+    }
+    #nav.nav-theme-dark .nav-links a {
+      color: #9CA3AF;
+    }
+    #nav.nav-theme-dark .nav-links a:hover,
+    #nav.nav-theme-dark .nav-links a.active {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    #nav.nav-theme-light .nav-links a {
+      color: #6B7280;
+    }
+    #nav.nav-theme-light .nav-links a:hover,
+    #nav.nav-theme-light .nav-links a.active {
+      color: #0D0D0D;
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Badge de Portafolio */
+    .nav-portfolio-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.70rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 9999px;
+      letter-spacing: 0.02em;
+    }
+    #nav.nav-theme-dark .nav-portfolio-count {
+      background: rgba(99, 102, 241, 0.20);
+      color: #A5B4FC;
+      border: 1px solid rgba(99, 102, 241, 0.35);
+    }
+    #nav.nav-theme-light .nav-portfolio-count {
+      background: rgba(99, 102, 241, 0.12);
+      color: #4F46E5;
+      border: 1px solid rgba(99, 102, 241, 0.25);
+    }
+
+    /* Acciones Derecha */
+    .nav-right-actions {
+      display: flex !important;
+      align-items: center !important;
+      gap: 14px;
+      margin-left: auto !important;
+    }
+    #nav .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 9999px;
+      padding: 9px 22px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s var(--ease-lux);
+    }
+    #nav .btn-nav .btn-nav-arrow {
+      transition: transform 0.25s ease;
+    }
+    #nav .btn-nav:hover .btn-nav-arrow {
+      transform: translateX(3px);
+    }
+    #nav.nav-theme-dark .btn-nav {
+      background: #FFFFFF;
+      color: #0D0D0D;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    #nav.nav-theme-dark .btn-nav:hover {
+      background: #F3F4F6;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(255, 255, 255, 0.22);
+    }
+    #nav.nav-theme-light .btn-nav {
+      background: #0D0D0D;
+      color: #FFFFFF;
+      border: 1px solid #0D0D0D;
+    }
+    #nav.nav-theme-light .btn-nav:hover {
+      background: #262626;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Hamburger para Mobile */
+    .nav-hamburger {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border: 1px solid transparent;
+      transition: all 0.25s ease;
+      background: transparent;
+    }
+    .nav-hamburger .ham-line {
+      width: 18px;
+      height: 2px;
+      border-radius: 2px;
+      transition: background-color 0.25s ease;
+    }
+    #nav.nav-theme-dark .nav-hamburger {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+    #nav.nav-theme-dark .nav-hamburger .ham-line {
+      background: #FFFFFF;
+    }
+    #nav.nav-theme-light .nav-hamburger {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.10);
+    }
+    #nav.nav-theme-light .nav-hamburger .ham-line {
+      background: #0D0D0D;
+    }
+
+    /* Responsive Navbar */
+    @media (max-width: 900px) {
+      #nav {
+        height: 68px !important;
+        padding: 0 !important;
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .nav-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 20px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        box-sizing: border-box !important;
+      }
+      .nav-links-wrap { display: none !important; }
+      .nav-right-actions {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        margin-left: auto !important;
+        flex-shrink: 0 !important;
+      }
+      #nav .btn-nav { display: none !important; }
+      .nav-hamburger {
+        display: flex !important;
+        margin-left: auto !important;
+      }
+    }
+    @media (max-width: 480px) {
+      #nav {
+        height: 62px !important;
+      }
+      .nav-container {
+        padding: 0 16px !important;
+      }
+      #nav .nav-logo {
+        font-size: 1.22rem !important;
+      }
+    }
+
+    /* ── Mobile Menu Drawer ─────────────────────────────────────── */
+    #mobile-menu-drawer {
+      position: fixed; inset: 0;
+      z-index: 1000000;
+      background: rgba(13, 13, 13, 0.94);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-lux), transform 0.4s var(--ease-lux);
+      transform: translateY(-8px);
+      padding: 20px;
+    }
+    #mobile-menu-drawer.open {
+      opacity: 1; pointer-events: auto;
+      transform: translateY(0);
+    }
+    .mobile-drawer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .mobile-drawer-header .nav-logo {
+      color: #FFFFFF; font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700;
+    }
+    .btn-drawer-close {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFFFFF; width: 40px; height: 40px;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .mobile-drawer-content {
+      flex: 1; display: flex; flex-direction: column; justify-content: space-between;
+      padding: 28px 4px 10px 4px; overflow-y: auto;
+    }
+    .mobile-nav-links {
+      list-style: none; display: flex; flex-direction: column; gap: 12px;
+      padding: 0; margin: 0;
+    }
+    .mobile-nav-links a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px; border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #D1D5DB; font-size: 1.05rem; font-weight: 500;
+      text-decoration: none; transition: all 0.25s ease;
+    }
+    .mobile-nav-links a:hover {
+      background: rgba(255, 255, 255, 0.12); color: #FFFFFF;
+    }
+    .mobile-drawer-footer {
+      padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .mobile-status-pill {
+      display: flex; align-items: center; gap: 8px; font-size: 0.78rem;
+      color: #10B981; margin-bottom: 14px; justify-content: center;
+    }
+    .pulse-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #10B981; box-shadow: 0 0 8px #10B981;
+      animation: waPulse 2s infinite;
+    }
+
+    /* ── Responsive Container Adjustments ──────────────────────── */
+    @media (max-width: 768px) {
+      .container { padding: 0 20px !important; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px !important; }
+    }
+
+    /* ── Seccion Portafolio Rotativo Dinámico (3 Random Demos) ─── */
+    .rotator-control-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .rotator-timer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-md);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 0.80rem;
+      color: var(--fg);
+      font-weight: 500;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rotator-pulse {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #10B981; box-shadow: 0 0 6px #10B981;
+      animation: waPulse 2s infinite;
+      flex-shrink: 0;
+    }
+
+    .rotator-progress-track {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: rgba(0, 0, 0, 0.06);
+    }
+    .rotator-progress-fill {
+      height: 100%;
+      background: #10B981;
+      width: 0%;
+      transition: width 8s linear;
+    }
+
+    .btn-rotator-shuffle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-md);
+      color: var(--fg);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 0.80rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-lux);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-rotator-shuffle:hover {
+      background: var(--fg);
+      color: #FFFFFF;
+      border-color: var(--fg);
+      transform: translateY(-1px);
+    }
+
+    .portfolio-rotator-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      min-height: 480px;
+    }
+
+    @media (max-width: 1024px) {
+      .portfolio-rotator-grid {
+        grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+        gap: 24px;
+      }
+    }
+    @media (max-width: 680px) {
+      .portfolio-rotator-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    .rotator-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      transition: transform 0.9s var(--ease-lux),
+                  box-shadow 0.9s var(--ease-lux),
+                  border-color 0.6s var(--ease-lux);
+      position: relative;
+    }
+    .rotator-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.12);
+      border-color: rgba(0, 0, 0, 0.18);
+    }
+
+    .rotator-preview {
+      position: relative;
+      background: #111419;
+      overflow: hidden;
+      border-top-left-radius: 17px;
+      border-top-right-radius: 17px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .rotator-browser-bar {
+      height: 30px;
+      background: #191C22;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      z-index: 5;
+      position: relative;
+    }
+
+    .r-dots { display: flex; align-items: center; gap: 5px; }
+    .r-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+    .r-dot.red { background: #EF4444; opacity: 0.85; }
+    .r-dot.yellow { background: #F59E0B; opacity: 0.85; }
+    .r-dot.green { background: #10B981; opacity: 0.85; }
+
+    .r-url {
+      font-size: 0.66rem;
+      color: #9CA3AF;
+      font-family: monospace;
+      background: rgba(255, 255, 255, 0.07);
+      padding: 2px 8px;
+      border-radius: 5px;
+    }
+
+    .r-live-tag {
+      font-size: 0.60rem;
+      font-weight: 700;
+      color: #10B981;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(16, 185, 129, 0.12);
+      padding: 2px 7px;
+      border-radius: 9999px;
+      letter-spacing: 0.05em;
+    }
+    .r-live-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: #10B981; box-shadow: 0 0 6px #10B981;
+      animation: waPulse 2s infinite;
+    }
+
+    .rotator-viewport {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background: #0E1015;
+    }
+    @media (max-width: 640px) {
+      .rotator-viewport { height: 195px; }
+    }
+
+    .rotator-img-mockup {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.7s var(--ease-lux), filter 0.4s ease;
+      will-change: transform;
+    }
+    .rotator-card:hover .rotator-img-mockup {
+      transform: scale(1.06);
+    }
+    .rotator-card {
+      content-visibility: auto;
+      contain-intrinsic-size: 380px 420px;
+    }
+
+    .rotator-badge {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: rgba(13, 13, 13, 0.88);
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .rotator-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(13, 13, 13, 0.48);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s var(--ease-lux);
+      z-index: 6;
+    }
+    .rotator-card:hover .rotator-overlay { opacity: 1; }
+
+    .btn-rotator-explore {
+      background: #FFFFFF;
+      color: #0D0D0D;
+      padding: 9px 18px;
+      border-radius: 9999px;
+      font-size: 0.80rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      transform: translateY(6px);
+      transition: transform 0.4s var(--ease-lux);
+    }
+    .rotator-card:hover .btn-rotator-explore { transform: translateY(0); }
+
+    .rotator-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+    @media (max-width: 640px) {
+      .rotator-body { padding: 18px 16px; }
+    }
+
+    .rotator-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .rotator-cat {
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--fg-muted);
+    }
+    .rotator-style {
+      font-size: 0.70rem;
+      background: rgba(0, 0, 0, 0.04);
+      padding: 2px 7px;
+      border-radius: 5px;
+      color: var(--fg);
+      font-weight: 500;
+    }
+
+    .rotator-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.22;
+      color: var(--fg);
+      margin-bottom: 6px;
+    }
+    .rotator-desc {
+      font-size: 0.84rem;
+      color: var(--fg-muted);
+      line-height: 1.48;
+      margin-bottom: 16px;
+    }
+
+    .rotator-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+    .r-feat {
+      font-size: 0.68rem;
+      color: var(--fg);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 9999px;
+    }
+
+    .rotator-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .rotator-link-label {
+      font-size: 0.80rem;
+      font-weight: 600;
+      color: var(--fg);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.25s ease;
+    }
+    .rotator-card:hover .rotator-link-label {
+      transform: translateX(4px);
+    }
+
+    /* ── Botón Flotante Obsidian Dark Luxury Glass ─────────────────── */
+    .floating-wa-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 17, 23, 0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #FFFFFF;
+      padding: 10px 18px 10px 12px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.45),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      text-decoration: none;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .floating-wa-btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(34, 197, 94, 0.50);
+      box-shadow: 0 20px 42px -6px rgba(0, 0, 0, 0.60),
+                  0 0 24px rgba(34, 197, 94, 0.20),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+    .f-wa-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.14);
+      border: 1px solid rgba(34, 197, 94, 0.30);
+      color: #22C55E;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .floating-wa-btn:hover .f-wa-icon-box {
+      transform: scale(1.05);
+      background: rgba(34, 197, 94, 0.22);
+    }
+    .f-wa-pulse-dot {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #22C55E;
+      border: 2px solid #0F1117;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
+      animation: fWaPulse 2s infinite ease-in-out;
+    }
+    @keyframes fWaPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+    .f-wa-label {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .f-wa-title {
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.15;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+    .f-wa-sub {
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: #9CA3AF;
+      margin-top: 2px;
+    }
+    @media (max-width: 640px) {
+      .floating-wa-btn {
+        bottom: 16px;
+        right: 16px;
+        padding: 8px 14px 8px 10px;
+      }
+      .f-wa-sub {
+        display: none;
+      }
+      .f-wa-title {
+        font-size: 0.80rem;
+      }
+    }
+
+    /* ── Trust Badges en Sección de Contacto ────────────────────── */
+    .trust-badges-grid {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+    }
+    .trust-badge-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--fg-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ LOADER ════════════════════════════════════════ -->
+  <div id="loader">
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+    <span class="loader-label">WebShip<span class="loader-dots"><span class="loader-dot dot-1">.</span><span class="loader-dot dot-2">.</span><span class="loader-dot dot-3">.</span></span></span>
+  </div>
+
+  <!-- ═══ CUSTOM CURSOR ═══════════════════════════════ -->
+  <div id="c-dot"></div>
+  <div id="c-trail"></div>
+
+  <!-- ═══ NAVIGATION WEBSHIP (HEADER FULL-WIDTH ULTRA-PREMIUM) ═════ -->
+  <header id="nav" class="nav-header nav-at-top nav-theme-dark">
+    <div class="nav-container">
+      <!-- Logotipo de la Marca -->
+      <a href="index.html" class="nav-logo">
+        <span class="logo-text">WebShip</span><span class="dot">.</span>
+      </a>
+
+      <!-- Enlaces de Navegación -->
+      <nav class="nav-links-wrap" aria-label="Navegación principal">
+        <ul class="nav-links" id="nav-links-list">
+          <li><a href="#servicios" class="nav-item-link">Servicios</a></li>
+          <li><a href="#proceso" class="nav-item-link">Proceso</a></li>
+          <li>
+            <a href="portafolio.html" class="nav-item-link nav-link-portfolio">
+              <span>Portafolio</span>
+              <span class="nav-portfolio-count">16</span>
+            </a>
+          </li>
+          <li><a href="#faq" class="nav-item-link">Preguntas</a></li>
+          <li><a href="#contacto" class="nav-item-link">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <!-- Acciones Derecha -->
+      <div class="nav-right-actions">
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20cotizar%20un%20proyecto%20web%20para%20mi%20negocio" target="_blank" class="btn btn-nav">
+          <span>Cotizar</span>
+          <span class="btn-nav-arrow">→</span>
+        </a>
+        <button class="nav-hamburger" id="nav-toggle" aria-label="Abrir Menú" onclick="toggleMobileMenu()">
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ DRAWER DE NAVEGACIÓN MÓVIL (FROSTED GLASS) ═══════ -->
+  <div id="mobile-menu-drawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <a href="index.html" class="nav-logo">WebShip<span class="dot">.</span></a>
+      <button class="btn-drawer-close" onclick="toggleMobileMenu()" aria-label="Cerrar Menú">
+        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+      </button>
+    </div>
+    <div class="mobile-drawer-content">
+      <ul class="mobile-nav-links">
+        <li><a href="#servicios" onclick="toggleMobileMenu()"><span>Servicios</span> <i data-lucide="chevron-right" style="width: 16px; height: 16px; opacity: 0.6;"></i></a></li>
+        <li><a href="#proceso" onclick="toggleMobileMenu()"><span>Proceso en 5 Días</span> <i data-lucide="chevron-right" style="width: 16px; height: 16px; opacity: 0.6;"></i></a></li>
+        <li><a href="portafolio.html" onclick="toggleMobileMenu()" style="color: #6366F1;"><span>Portafolio (16 Demos en Vivo)</span> <i data-lucide="chevron-right" style="width: 16px; height: 16px; opacity: 0.6;"></i></a></li>
+        <li><a href="#faq" onclick="toggleMobileMenu()"><span>Preguntas Frecuentes</span> <i data-lucide="chevron-right" style="width: 16px; height: 16px; opacity: 0.6;"></i></a></li>
+        <li><a href="#contacto" onclick="toggleMobileMenu()"><span>Contacto Directo</span> <i data-lucide="chevron-right" style="width: 16px; height: 16px; opacity: 0.6;"></i></a></li>
+      </ul>
+      <div class="mobile-drawer-footer">
+        <div class="mobile-status-pill">
+          <span class="pulse-dot"></span>
+          <span>Respuesta inmediata en 15 min</span>
+        </div>
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20cotizar%20un%20proyecto%20web" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 15px 20px; font-size: 0.95rem;">
+          <span>Cotizar por WhatsApp</span>
+          <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ HERO ══════════════════════════════════════════ -->
+  <section id="hero" class="dark-section">
+    <!-- Three.js canvas -->
+    <canvas id="hero-canvas"></canvas>
+
+    <!-- Aurora WebGL overlay -->
+    <div id="aurora-bg"></div>
+
+    <!-- Hero content -->
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Disponible para nuevos proyectos &bull; Entrega en 5 Días
+      </div>
+      <h1 class="hero-title">
+        <span class="line-wrap"><span class="line-text">Páginas web</span></span>
+        <span class="line-wrap italic"><span class="line-text">atractivas</span></span>
+        <span class="line-wrap"><span class="line-text">que venden.</span></span>
+      </h1>
+      <p class="hero-sub">
+        ¿No tienes página web o la tuya se ve anticuada?<br/>
+        Diseñamos sistemas digitales modernos con micro-interacciones que convierten cada visita en una venta real.
+      </p>
+      
+      <div class="hero-ctas" style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20lanzar%20mi%20página%20web%20en%205%20días" target="_blank" class="btn btn-primary" style="padding: 1rem 2.2rem; font-weight: 600;">
+          <span>Lanzar mi Sitio en 5 Días</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="portafolio.html" class="btn btn-ghost" style="border-color: rgba(255,255,255,0.3); color: #FFFFFF; padding: 1rem 2rem;">
+          <span>Ver Portafolio en Vivo (16 Demos)</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat"><strong class="stat-n" data-n="80">0</strong><span>Proyectos Lanzados</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><strong class="stat-n" data-n="100">0</strong><span>% Satisfacción</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><strong class="stat-n" data-n="5">0</strong><span>Días Promedio</span></div>
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint">
+      <div class="scroll-wheel"></div>
+      <span>Desplázate</span>
+    </div>
+  </section>
+
+  <!-- ═══ TRANSICIÓN: HERO (DARK) ➔ LOGOS / SERVICIOS (LIGHT) ═══ -->
+  <div class="color-transition-divider ctd-hero-to-light" aria-hidden="true">
+    <div class="ctd-ambient-glow"></div>
+  </div>
+
+  <!-- ═══ LOGOS ══════════════════════════════════════════ -->
+  <section class="logos-band">
+    <div class="logos-inner">
+      <span>TechCorp</span> <span class="dot">•</span>
+      <span>Sonrix Dental</span> <span class="dot">•</span>
+      <span>PetCare Hospital</span> <span class="dot">•</span>
+      <span>Vandal Burger</span> <span class="dot">•</span>
+      <span>Lumen Estates</span> <span class="dot">•</span>
+      <span>Titan Performance</span> <span class="dot">•</span>
+      <span>Élan Beauté</span> <span class="dot">•</span>
+      <span>Vallejo & Montero</span>
+    </div>
+  </section>
+
+  <!-- ═══ SERVICIOS ══════════════════════════════════════ -->
+  <section id="servicios" class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Servicios Especializados</span>
+        <h2 class="section-title">Todo lo que tu<br/><em>negocio necesita</em></h2>
+      </div>
+
+      <div class="services-grid">
+        <!-- Card 1 -->
+        <div class="service-card" data-index="01">
+          <div class="sc-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="4" y="4" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M4 10H24" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M10 4V24" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Diseño Moderno</h3>
+          <p>Tu página se verá increíblemente profesional, inspirando confianza inmediata en cada persona que te visite.</p>
+          <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20me%20interesa%20un%20Diseño%20Moderno%20para%20mi%20negocio" target="_blank" class="sc-link">Cotizar diseño <span>→</span></a>
+        </div>
+        <!-- Card 2 -->
+        <div class="service-card" data-index="02">
+          <div class="sc-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M14 4L24 10V24H4V10L14 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M14 14V24" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Para Celulares</h3>
+          <p>Más del 80% de tus clientes llegarán desde su celular. Nos aseguramos de que todo cargue rápido y se use con total comodidad.</p>
+          <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20una%20página%20optimizada%20para%20celulares" target="_blank" class="sc-link">Ver detalles <span>→</span></a>
+        </div>
+        <!-- Card 3 -->
+        <div class="service-card" data-index="03">
+          <div class="sc-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M14 8V14L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Páginas con Vida</h3>
+          <p>Incorporamos micro-animaciones, interactividad táctil y detalles sutiles para retener la atención del usuario.</p>
+          <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20animaciones%20e%20interactividad%20en%20mi%20web" target="_blank" class="sc-link">Consultar estilo <span>→</span></a>
+        </div>
+        <!-- Card 4 -->
+        <div class="service-card" data-index="04">
+          <div class="sc-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 24L14 4L24 24" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M8 16H20" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Vende Online</h3>
+          <p>Creamos tiendas virtuales con catálogo intuitivo, cálculo de envíos y botón directo de compra por WhatsApp o tarjeta.</p>
+          <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20crear%20una%20Tienda%20Online%20para%20mi%20negocio" target="_blank" class="sc-link">Empezar tienda <span>→</span></a>
+        </div>
+        <!-- Card 5 -->
+        <div class="service-card" data-index="05">
+          <div class="sc-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 14L10 20L24 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Aparece en Google (SEO)</h3>
+          <p>Estructura semántica limpia, velocidad de carga óptima y configuración interna para que te encuentren cuando busquen tus servicios.</p>
+          <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20me%20interesa%20posicionamiento%20en%20Google%20para%20mi%20web" target="_blank" class="sc-link">Mejorar SEO <span>→</span></a>
+        </div>
+        <!-- Card 6 -->
+        <div class="service-card" data-index="06">
+          <div class="sc-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="4" y="4" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="15" y="4" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="4" y="15" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="15" y="15" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Nos Hacemos Cargo</h3>
+          <p>Tu página nunca se cae ni se desactualiza. Nos encargamos del hosting, dominio, respaldos y soporte técnico por ti.</p>
+          <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20información%20sobre%20mantenimiento%20y%20hosting" target="_blank" class="sc-link">Soporte total <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TRANSICIÓN: SERVICIOS (LIGHT) ➔ PROCESO (DARK) ═══ -->
+  <div class="color-transition-divider ctd-light-to-proceso" aria-hidden="true">
+    <div class="ctd-ambient-glow glow-warm"></div>
+  </div>
+
+  <!-- ═══ PROCESO EN 5 DÍAS ═══════════════════════════════ -->
+  <section id="proceso" class="section launch-section dark-section">
+    <!-- MODELO 3D -->
+    <div class="launch-model" aria-hidden="true">
+      <canvas id="launch-model-canvas" aria-label="Modelo 3D"></canvas>
+    </div>
+
+    <!-- FONDOS -->
+    <div class="launch-grid" aria-hidden="true"></div>
+    <div class="launch-glow launch-glow-one" aria-hidden="true"></div>
+    <div class="launch-glow launch-glow-two" aria-hidden="true"></div>
+
+    <div class="container launch-content">
+      <div class="launch-heading">
+        <div>
+          <span class="tag">El método WebShip</span>
+          <h2 class="section-title">De idea a online<br><em>en 5 días.</em></h2>
+        </div>
+        <p>
+          Un proceso ágil, claro y sin fricción. Tú nos cuentas la visión; nosotros convertimos cada detalle en una página lista para generar clientes.
+        </p>
+      </div>
+
+      <div class="launch-steps-wrapper">
+        <div class="launch-steps">
+          <article class="launch-step">
+            <div class="launch-step-marker"><span>01</span></div>
+            <div class="launch-step-copy">
+              <span class="launch-day">DÍA 1 · DIRECCIÓN ESTRATÉGICA</span>
+              <h3>Definimos el norte.</h3>
+              <p>Hablamos de tu negocio, tu cliente ideal y el objetivo de la página para que cada bloque visual tenga propósito comercial.</p>
+            </div>
+          </article>
+
+          <article class="launch-step">
+            <div class="launch-step-marker"><span>02</span></div>
+            <div class="launch-step-copy">
+              <span class="launch-day">DÍA 1–2 · CONTENIDO Y MENSAJE</span>
+              <h3>Ordenamos lo importante.</h3>
+              <p>Tomamos tus servicios, fotos y materiales para convertirlos en una historia clara y persuasiva que genere alta confianza.</p>
+            </div>
+          </article>
+
+          <article class="launch-step">
+            <div class="launch-step-marker"><span>03</span></div>
+            <div class="launch-step-copy">
+              <span class="launch-day">DÍA 2–4 · DISEÑO E INTERACCIÓN</span>
+              <h3>Diseñamos para convencer.</h3>
+              <p>Te enviamos una vista previa en vivo y afinamos hasta que cada pantalla y animación represente fielmente tu marca.</p>
+            </div>
+          </article>
+
+          <article class="launch-step launch-step-final">
+            <div class="launch-step-marker"><span>04</span></div>
+            <div class="launch-step-copy">
+              <span class="launch-day">DÍA 5 · DESPEGUE EN VIVO</span>
+              <h3>Publicamos y activamos.</h3>
+              <p>Conectamos tu dominio, optimizamos velocidad, activamos enlaces directos de WhatsApp y dejamos tu web lista para vender.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="launch-footer">
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20iniciar%20mi%20lanzamiento%20web%20en%205%20días" target="_blank" rel="noopener noreferrer" class="launch-link">
+          Iniciar mi lanzamiento en 5 días <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TRANSICIÓN: PROCESO (DARK) ➔ PORTAFOLIO (LIGHT) ═══ -->
+  <div class="color-transition-divider ctd-proceso-to-light" aria-hidden="true">
+    <div class="ctd-ambient-glow glow-cyan"></div>
+  </div>
+
+  <!-- ═══ PORTAFOLIO EN VIVO (ROTADOR ALEATORIO DE 3 PROYECTOS) ════ -->
+  <section id="portafolio" class="section" style="background: #FAFAF8;">
+    <div class="container">
+      <div class="section-head centered">
+        <span class="tag">Portafolio Dinámico</span>
+        <h2 class="section-title">Trabajo que<br/><em>habla por sí solo</em></h2>
+        <p class="section-desc" style="max-width: 650px; margin: 0 auto;">
+          Mostrando <strong>3 proyectos en rotación automática</strong> basados en negocios reales. Haz clic en cualquiera para abrir el <strong>portafolio completo</strong> e interactuar en pantalla completa.
+        </p>
+
+        <!-- Barra de Control del Rotador -->
+        <div class="rotator-control-bar">
+          <div class="rotator-timer-pill">
+            <span class="rotator-pulse"></span>
+            <span>Rotando prototipos en vivo cada 8s</span>
+            <div class="rotator-progress-track">
+              <div class="rotator-progress-fill" id="rotator-progress"></div>
+            </div>
+          </div>
+          <button class="btn-rotator-shuffle" onclick="shuffleRandomProjects(true)" title="Rotar proyectos ahora">
+            <i data-lucide="shuffle" style="width: 13px; height: 13px;"></i>
+            <span>Rotar ahora ↻</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenedor dinámico de 3 proyectos aleatorios -->
+      <div class="portfolio-rotator-grid" id="portfolio-rotator-grid">
+        <!-- Renderizado dinámicamente por JavaScript -->
+      </div>
+
+      <!-- CTA Principal de Portafolio -->
+      <div class="portfolio-cta" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 50px;">
+        <a href="portafolio.html" class="btn btn-outline" style="font-weight: 600; padding: 14px 28px;">
+          <span>Ver el Catálogo Completo (16 Demos en Vivo)</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20vi%20los%20proyectos%20del%20portafolio%20y%20quiero%20un%20sitio%20así%20para%20mi%20negocio" target="_blank" class="btn btn-primary" style="padding: 14px 28px;">
+          <span>Quiero una página web como estas</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHY US ═══════════════════════════════════════════ -->
+  <section class="section why-section">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-left">
+          <span class="tag">Por qué WebShip</span>
+          <h2 class="section-title">No somos otra<br/>agencia <em>más.</em></h2>
+          <p class="section-desc">Somos una agencia web cercana, ágil y enfocada en resultados en Costa Rica. No necesitas aprender de código, servidores o DNS: necesitas una presencia digital profesional que cuente bien tu historia y atraiga clientes.</p>
+          <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20conversar%20sobre%20mi%20proyecto%20web" target="_blank" class="btn btn-primary mt-8">
+            <span>Hablar con un Diseñador por WhatsApp</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div class="why-right">
+          <div class="why-card">
+            <div class="wc-num">01</div>
+            <div>
+              <h4>Habla directo con nosotros</h4>
+              <p>Sin intermediarios ni tickets de soporte infinitos. Nos escribes por WhatsApp y nosotros mismos te resolvemos de inmediato.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="wc-num">02</div>
+            <div>
+              <h4>Todo incluido</h4>
+              <p>Sin costos sorpresa. El diseño, la tecnología, la velocidad en celulares, el hosting y el dominio están cubiertos.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="wc-num">03</div>
+            <div>
+              <h4>Hecho a tu medida</h4>
+              <p>Cero plantillas genéricas. Diseñamos con una identidad visual única que resalte los diferenciales de tu marca.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="wc-num">04</div>
+            <div>
+              <h4>Primero entendemos tu negocio</h4>
+              <p>Antes de escribir una sola línea de código, comprendemos qué vendes, quién es tu comprador y qué acción esperas que tome.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="wc-num">05</div>
+            <div>
+              <h4>Diseño pensado para convertir</h4>
+              <p>Combinamos estética refinada con llamados a la acción estratégicos y flujos directos hacia tu WhatsApp comercial.</p>
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="wc-num">06</div>
+            <div>
+              <h4>Te acompañamos después del despegue</h4>
+              <p>No desaparecemos tras la entrega. Mantenemos tu web actualizada, segura y veloz para que tú te concentres en atender clientes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TRANSICIÓN: WHY (LIGHT) ➔ TESTIMONIOS (DARK) ═══ -->
+  <div class="color-transition-divider ctd-light-to-testimonials" aria-hidden="true">
+    <div class="ctd-ambient-glow glow-warm"></div>
+  </div>
+
+  <!-- ═══ TESTIMONIOS (DARK LUXURY EXPERT SHOWCASE) ═══════════════ -->
+  <section class="section testimonials-section">
+    <div id="ghost-fibers" class="ghost-fibers" aria-hidden="true"></div>
+    <div class="container testimonials-content">
+      <div class="section-head centered">
+        <span class="tag">Casos de Éxito &bull; Resultados Reales</span>
+        <h2 class="section-title">Clientes que<br/><em>hablan por nosotros</em></h2>
+        <p class="section-desc" style="max-width: 620px; margin: 0 auto; color: #94A3B8;">
+          Marcas, clínicas y profesionales en Costa Rica que transformaron su presencia digital en un canal activo de autoridad y clientes calificados.
+        </p>
+
+        <!-- Social Proof Metrics Bar -->
+        <div class="testimonials-metrics-bar">
+          <div class="t-metric-pill">
+            <span class="t-metric-val">⭐ 4.9 / 5.0</span>
+            <span class="t-metric-lbl">Google Reviews</span>
+          </div>
+          <div class="t-metric-divider"></div>
+          <div class="t-metric-pill">
+            <span class="t-metric-val">⚡ 5 a 7 Días</span>
+            <span class="t-metric-lbl">Entrega promedio</span>
+          </div>
+          <div class="t-metric-divider"></div>
+          <div class="t-metric-pill">
+            <span class="t-metric-val">📈 +240%</span>
+            <span class="t-metric-lbl">Contactos WhatsApp</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Caso 1: Sonrix Dental Studio -->
+        <article class="t-card">
+          <div class="t-card-glow"></div>
+          <div class="t-card-header">
+            <div class="t-badge-outcome">
+              <i data-lucide="trending-up" style="width: 13px; height: 13px; color: #10B981;"></i>
+              <span>+240% Citas Directas</span>
+            </div>
+            <div class="t-stars-verified">
+              <span class="t-stars-gold">★★★★★</span>
+              <span class="t-verified-badge"><i data-lucide="badge-check" style="width: 12px; height: 12px;"></i> Verificado</span>
+            </div>
+          </div>
+          <blockquote>
+            "Teníamos una página antigua que no transmitía la tecnología que usamos en clínica. <strong>WebShip rediseñó nuestra presencia en 5 días</strong>: limpia, rápida y con agenda directa por WhatsApp. Hoy más del 65% de pacientes nuevos nos contactan por la web."
+          </blockquote>
+          <div class="t-card-footer">
+            <div class="t-author-wrap">
+              <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=120&h=120&fit=crop&crop=face" alt="Dr. Carlos Ramírez" class="t-avatar-img" loading="lazy" />
+              <div>
+                <strong class="t-author-name">Dr. Carlos Ramírez</strong>
+                <span class="t-author-role">Director Médico &bull; Sonrix Dental</span>
+                <span class="t-author-location"><i data-lucide="map-pin" style="width: 11px; height: 11px;"></i> Escazú, San José</span>
+              </div>
+            </div>
+            <a href="demos/demo-01-dental/index.html" target="_blank" class="t-demo-link" title="Ver demo">
+              <span>Ver estilo</span>
+              <i data-lucide="arrow-up-right" style="width: 13px; height: 13px;"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Caso 2: VANDAL Burger Club -->
+        <article class="t-card">
+          <div class="t-card-glow"></div>
+          <div class="t-card-header">
+            <div class="t-badge-outcome">
+              <i data-lucide="zap" style="width: 13px; height: 13px; color: #F59E0B;"></i>
+              <span>+380 Pedidos en Lanzamiento</span>
+            </div>
+            <div class="t-stars-verified">
+              <span class="t-stars-gold">★★★★★</span>
+              <span class="t-verified-badge"><i data-lucide="badge-check" style="width: 12px; height: 12px;"></i> Verificado</span>
+            </div>
+          </div>
+          <blockquote>
+            "El menú interactivo y la estética brutalista capturó de inmediato el vibe de nuestra marca. <strong>Los clientes exploran las smash burgers antes de ordenar</strong>. Les mandamos las fotos y armaron una web que vende por sí sola."
+          </blockquote>
+          <div class="t-card-footer">
+            <div class="t-author-wrap">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&h=120&fit=crop&crop=face" alt="Mariana Brenes" class="t-avatar-img" loading="lazy" />
+              <div>
+                <strong class="t-author-name">Mariana Brenes</strong>
+                <span class="t-author-role">Cofundadora &bull; VANDAL Burger Club</span>
+                <span class="t-author-location"><i data-lucide="map-pin" style="width: 11px; height: 11px;"></i> Barrio Escalante, San Pedro</span>
+              </div>
+            </div>
+            <a href="demos/demo-03-burger/index.html" target="_blank" class="t-demo-link" title="Ver demo">
+              <span>Ver estilo</span>
+              <i data-lucide="arrow-up-right" style="width: 13px; height: 13px;"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Caso 3: Vallejo & Montero Abogados -->
+        <article class="t-card">
+          <div class="t-card-glow"></div>
+          <div class="t-card-header">
+            <div class="t-badge-outcome">
+              <i data-lucide="shield-check" style="width: 13px; height: 13px; color: #38BDF8;"></i>
+              <span>Autoridad Legal Corporativa</span>
+            </div>
+            <div class="t-stars-verified">
+              <span class="t-stars-gold">★★★★★</span>
+              <span class="t-verified-badge"><i data-lucide="badge-check" style="width: 12px; height: 12px;"></i> Verificado</span>
+            </div>
+          </div>
+          <blockquote>
+            "En el sector legal corporativo, la primera impresión es determinante. <strong>El portal transmite el prestigio y sobriedad de un bufete internacional</strong>, y el triaje confidencial nos filtra clientes calificados sin pérdida de tiempo."
+          </blockquote>
+          <div class="t-card-footer">
+            <div class="t-author-wrap">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=120&h=120&fit=crop&crop=face" alt="Lic. José Mora" class="t-avatar-img" loading="lazy" />
+              <div>
+                <strong class="t-author-name">Lic. José Mora Calderón</strong>
+                <span class="t-author-role">Socio Corporativo &bull; Vallejo &amp; Montero</span>
+                <span class="t-author-location"><i data-lucide="map-pin" style="width: 11px; height: 11px;"></i> Curridabat, San José</span>
+              </div>
+            </div>
+            <a href="demos/demo-09-lawfirm/index.html" target="_blank" class="t-demo-link" title="Ver demo">
+              <span>Ver estilo</span>
+              <i data-lucide="arrow-up-right" style="width: 13px; height: 13px;"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Caso 4: LUMEN Private Estates -->
+        <article class="t-card">
+          <div class="t-card-glow"></div>
+          <div class="t-card-header">
+            <div class="t-badge-outcome">
+              <i data-lucide="gem" style="width: 13px; height: 13px; color: #A855F7;"></i>
+              <span>Leads VIP de más de $1.5M</span>
+            </div>
+            <div class="t-stars-verified">
+              <span class="t-stars-gold">★★★★★</span>
+              <span class="t-verified-badge"><i data-lucide="badge-check" style="width: 12px; height: 12px;"></i> Verificado</span>
+            </div>
+          </div>
+          <blockquote>
+            "Buscábamos una presentación editorial a la altura de propiedades exclusivas en Costa Rica. <strong>La velocidad en móviles y el dossier interactivo</strong> han cautivado a inversionistas extranjeros desde el primer instante."
+          </blockquote>
+          <div class="t-card-footer">
+            <div class="t-author-wrap">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&h=120&fit=crop&crop=face" alt="Silvia Castillo" class="t-avatar-img" loading="lazy" />
+              <div>
+                <strong class="t-author-name">Silvia Castillo R.</strong>
+                <span class="t-author-role">Directora Comercial &bull; LUMEN Estates</span>
+                <span class="t-author-location"><i data-lucide="map-pin" style="width: 11px; height: 11px;"></i> Santa Ana, San José</span>
+              </div>
+            </div>
+            <a href="demos/demo-07-realestate/index.html" target="_blank" class="t-demo-link" title="Ver demo">
+              <span>Ver estilo</span>
+              <i data-lucide="arrow-up-right" style="width: 13px; height: 13px;"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Banner de Confianza / CTA -->
+      <div class="testimonials-cta-band">
+        <div class="t-cta-content">
+          <div class="t-cta-icon-box">
+            <i data-lucide="sparkles" style="width: 22px; height: 22px; color: #38BDF8;"></i>
+          </div>
+          <div>
+            <h4 class="t-cta-heading">¿Listo para que tu negocio sea nuestro próximo caso de éxito?</h4>
+            <p class="t-cta-sub">Diseñamos tu página web funcional, optimizada para celulares y lista para vender en 5 días.</p>
+          </div>
+        </div>
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20vi%20los%20casos%20de%20éxito%20y%20quiero%20cotizar%20mi%20página%20web" target="_blank" class="btn btn-primary" style="white-space: nowrap; padding: 14px 24px;">
+          <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+          <span>Conversar por WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TRANSICIÓN: TESTIMONIOS (DARK) ➔ FAQ (LIGHT) ═══ -->
+  <div class="color-transition-divider ctd-testimonials-to-light" aria-hidden="true">
+    <div class="ctd-ambient-glow"></div>
+  </div>
+
+  <!-- ═══ FAQ ════════════════════════════════════════════ -->
+  <section id="faq" class="section faq-section">
+    <div class="container">
+      <div class="faq-grid">
+        <div class="faq-left">
+          <span class="tag">Preguntas Frecuentes</span>
+          <h2 class="section-title">Resolvemos<br/><em>tus dudas</em></h2>
+          <p class="section-desc">Aquí respondemos todo lo que necesitas saber antes de empezar. Sin rodeos técnicos ni letras pequeñas.</p>
+          <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20tengo%20una%20pregunta%20sobre%20mi%20futuro%20sitio%20web" target="_blank" class="btn btn-outline mt-6">
+            <span>Preguntar directo por WhatsApp</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+        <div class="faq-right">
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>¿Cuánto tarda mi página en estar lista?</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-a"><p>La gran mayoría de proyectos los entregamos listos, funcionando y con dominio conectado en solo 5 días hábiles.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>¿Qué tengo que hacer yo?</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-a"><p>Muy poco. Solo nos cuentas sobre tu negocio por WhatsApp y nos facilitas tu logo y fotos si tienes. Nosotros nos encargamos de los textos, la maquetación y la infraestructura tecnológica.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>¿Qué incluye el servicio completo?</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-a"><p>Absolutamente todo: diseño responsive a medida, micro-interacciones, conexión de tu dominio (.com o .cr), hosting de alta velocidad, certificado SSL seguro y enlaces de WhatsApp configurados.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>¿Podré revisar la página antes de que se publique?</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-a"><p>Por supuesto. Te enviamos un enlace de vista previa interactivo para que pruebes el sitio, nos des tus observaciones y afinemos cada detalle antes de la salida al aire.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q">
+              <span>¿Cómo se verá en teléfonos celulares?</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="faq-a"><p>Impecable. Aplicamos diseño Mobile-First con botones táctiles cómodos, tipografía nítida y velocidad instantánea tanto en iPhone como en Android.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TRANSICIÓN: FAQ (LIGHT) ➔ CONTACTO (DARK) ═══ -->
+  <div class="color-transition-divider ctd-light-to-contact" aria-hidden="true">
+    <div class="ctd-ambient-glow glow-warm"></div>
+  </div>
+
+  <!-- ═══ CONTACTO ═══════════════════════════════════════ -->
+  <section id="contacto" class="section contact-section" style="background: #0D0D0D; color: #FFFFFF; padding: 120px 0;">
+    <div class="container" style="max-width: 840px; text-align: center;">
+      <span class="tag" style="background: rgba(255,255,255,0.1); color: #FFFFFF; border-color: rgba(255,255,255,0.2);">Contacto Directo</span>
+      <h2 class="section-title" style="color: #FFFFFF; margin-top: 16px;">Iniciemos tu<br/><em>próximo éxito web.</em></h2>
+      <p class="section-desc" style="margin: 0 auto 40px auto; max-width: 560px; color: #9CA3AF; font-size: 1.05rem;">
+        Cuéntanos tu idea por WhatsApp. Te asesoramos de inmediato, te mostramos referencias para tu sector y te cotizamos con presupuesto cerrado y transparente.
+      </p>
+
+      <div class="contact-info" style="display: flex; flex-direction: column; align-items: center; gap: 24px;">
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20iniciar%20mi%20proyecto%20web" target="_blank" class="btn btn-primary" style="background: #FFFFFF; color: #0D0D0D; padding: 1.35rem 3.5rem; font-size: 1.15rem; font-weight: 700; border-radius: 9999px;">
+          <span>Hablar por WhatsApp Directo</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.845.509 3.57 1.391 5.064l-1.431 5.236 5.384-1.411c1.438.807 3.09 1.271 4.836 1.271 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/>
+          </svg>
+        </a>
+
+        <!-- Garantías de Confianza -->
+        <div class="trust-badges-grid" style="border-color: rgba(255,255,255,0.1);">
+          <div class="trust-badge-item" style="color: #E5E7EB;">
+            <i data-lucide="clock" style="width: 16px; height: 16px; color: #10B981;"></i>
+            <span>Entrega en 5 días</span>
+          </div>
+          <div class="trust-badge-item" style="color: #E5E7EB;">
+            <i data-lucide="shield-check" style="width: 16px; height: 16px; color: #60A5FA;"></i>
+            <span>Presupuesto transparente</span>
+          </div>
+          <div class="trust-badge-item" style="color: #E5E7EB;">
+            <i data-lucide="map-pin" style="width: 16px; height: 16px; color: #F59E0B;"></i>
+            <span>100% Costa Rica</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 40px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
+          <a href="mailto:webshipcr@gmail.com" class="ci-row" style="color: #9CA3AF;">
+            <div class="ci-icon" style="background: rgba(255,255,255,0.08); color: #FFFFFF;">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M2 6l7 5 7-5" stroke="currentColor" stroke-width="1.3"/></svg>
+            </div>
+            <div style="text-align: left;">
+              <span class="ci-label" style="color: #6B7280;">Correo</span>
+              <strong style="color: #FFFFFF;">webshipcr@gmail.com</strong>
+            </div>
+          </a>
+          <a href="https://instagram.com/webship.cr" target="_blank" class="ci-row" style="color: #9CA3AF;">
+            <div class="ci-icon" style="background: rgba(255,255,255,0.08); color: #FFFFFF;">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="4" stroke="currentColor" stroke-width="1.3"/><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.3"/><circle cx="13.5" cy="4.5" r="0.8" fill="currentColor"/></svg>
+            </div>
+            <div style="text-align: left;">
+              <span class="ci-label" style="color: #6B7280;">Instagram</span>
+              <strong style="color: #FFFFFF;">@webship.cr</strong>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">WebShip<span class="dot">.</span></a>
+        <p>Creamos páginas web de alto impacto que funcionan y venden en Costa Rica.</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="#servicios">Servicios</a>
+        <a href="#proceso">Proceso</a>
+        <a href="portafolio.html">Portafolio</a>
+        <a href="#faq">Preguntas</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <p class="footer-copy">© 2026 WebShip. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ═══ BOTÓN FLOTANTE WHATSAPP OBSIDIAN DARK LUXURY GLASS ═══ -->
+  <a id="floating-wa" href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20cotizar%20un%20proyecto%20web%20para%20mi%20negocio" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" class="floating-wa-btn">
+    <div class="f-wa-icon-box">
+      <span class="f-wa-pulse-dot"></span>
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.845.509 3.57 1.391 5.064l-1.431 5.236 5.384-1.411c1.438.807 3.09 1.271 4.836 1.271 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/>
+      </svg>
+    </div>
+    <div class="f-wa-label">
+      <span class="f-wa-title">Cotizar por WhatsApp</span>
+      <span class="f-wa-sub">En línea · Respuesta en ~5 min</span>
+    </div>
+  </a>
+
+  <!-- =========================================================================
+       SISTEMA DEL ROTADOR ALEATORIO DE 3 PROYECTOS & CONTROL MÓVIL
+       ========================================================================= -->
+  <script>
+    // Catálogo de 16 soluciones funcionales con mockups visuales ultraligeros
+    const WEBSHIP_ROTATOR_DEMOS = [
+      {
+        id: 'demo-01',
+        title: 'Sonrix Dental Studio',
+        niche: 'Clínica Odontológica & Ortodoncia',
+        category: 'Salud',
+        style: 'Corporate Medical',
+        badge: 'DEMO 01',
+        desc: 'Plataforma clínica con agenda directa por WhatsApp, tratamientos y testimonios de pacientes.',
+        features: ['Citas WhatsApp', 'Tratamientos', 'FAQ Clínico'],
+        path: 'demos/demo-01-dental/index.html',
+        image: 'demos/screenshots/demo-01.webp'
+      },
+      {
+        id: 'demo-02',
+        title: 'PetCare Vet & Spa',
+        niche: 'Hospital Veterinario 24/7 & Spa',
+        category: 'Mascotas',
+        style: 'Modern Bento Grid',
+        badge: 'DEMO 02',
+        desc: 'Diseño enérgico con selector interactivo de planes de salud y urgencias 24/7.',
+        features: ['Bento Grid', 'Planes de Salud', 'Urgencias 24/7'],
+        path: 'demos/demo-02-vet/index.html',
+        image: 'demos/screenshots/demo-02.webp'
+      },
+      {
+        id: 'demo-03',
+        title: 'VANDAL Burger Club',
+        niche: 'Smash Burgers & Street Food',
+        category: 'Gastronomía',
+        style: 'Dark Brutalism',
+        badge: 'DEMO 03',
+        desc: 'Experiencia inmersiva con creador interactivo de hamburguesas y secret drops.',
+        features: ['Burger Builder', 'Menú Filtrable', 'Secret Drops'],
+        path: 'demos/demo-03-burger/index.html',
+        image: 'demos/screenshots/demo-03.webp'
+      },
+      {
+        id: 'demo-04',
+        title: 'ÉLAN Institut de Beauté',
+        niche: 'Clínica Estética & Skincare Suizo',
+        category: 'Estética',
+        style: 'Quiet Luxury',
+        badge: 'DEMO 04',
+        desc: 'Elegancia médica con slider Antes/Después interactivo y quiz facial virtual.',
+        features: ['Before / After Slider', 'Quiz Virtual', 'Concierge VIP'],
+        path: 'demos/demo-04-aesthetic/index.html',
+        image: 'demos/screenshots/demo-04.webp'
+      },
+      {
+        id: 'demo-05',
+        title: 'Clínica Metropolitana',
+        niche: 'Hospital General & Urgencias',
+        category: 'Salud',
+        style: 'Clinical Authority',
+        badge: 'DEMO 05',
+        desc: 'Portal hospitalario con triaje interactivo en 3 niveles y buscador de médicos.',
+        features: ['Triaje 3 Niveles', 'Buscador Médicos', 'Portal Resultados'],
+        path: 'demos/demo-05-clinic/index.html',
+        image: 'demos/screenshots/demo-05.webp'
+      },
+      {
+        id: 'demo-06',
+        title: 'AURA RESERVE Lounge',
+        niche: 'Cafetería de Especialidad & Roastery',
+        category: 'Gastronomía',
+        style: 'Reserve Luxury',
+        badge: 'DEMO 06',
+        desc: 'Estética en verde esmeralda con personalizador Barista Studio y catas.',
+        features: ['Barista Studio', 'Menú Reserve', 'Reserva Catas'],
+        path: 'demos/demo-06-coffee/index.html',
+        image: 'demos/screenshots/demo-06.webp'
+      },
+      {
+        id: 'demo-07',
+        title: 'LUMEN Private Estates',
+        niche: 'Bienes Raíces de Ultra-Lujo',
+        category: 'Inmobiliaria',
+        style: 'Architectural Editorial',
+        badge: 'DEMO 07',
+        desc: 'Arquitectura de alto valor con calculadora hipotecaria y dossier VIP.',
+        features: ['Calculadora Hipoteca', 'Filtro Dinámico', 'Dossier VIP'],
+        path: 'demos/demo-07-realestate/index.html',
+        image: 'demos/screenshots/demo-07.webp'
+      },
+      {
+        id: 'demo-08',
+        title: 'TITAN Performance Lab',
+        niche: 'Gimnasio Boutique & CrossFit',
+        category: 'Fitness',
+        style: 'Volt Neon',
+        badge: 'DEMO 08',
+        desc: 'Poder deportivo con horario interactivo de clases y pase de 1 día gratis.',
+        features: ['Horario Semanal', 'Selector RPE', 'Pase 1 Día'],
+        path: 'demos/demo-08-gym/index.html',
+        image: 'demos/screenshots/demo-08.webp'
+      },
+      {
+        id: 'demo-09',
+        title: 'VALLEJO & MONTERO Abogados',
+        niche: 'Firma Legal Corporativa & M&A',
+        category: 'Servicios',
+        style: 'Executive Prestige',
+        badge: 'DEMO 09',
+        desc: 'Autoridad jurídica solemne con triaje legal interactivo en 4 pasos.',
+        features: ['Triaje Legal 4 Pasos', 'M&A y Litigios', 'Canal Seguro'],
+        path: 'demos/demo-09-lawfirm/index.html',
+        image: 'demos/screenshots/demo-09.webp'
+      },
+      {
+        id: 'demo-10',
+        title: 'ORA Biomimetic Dental',
+        niche: 'Odontología Biomimética & Zen',
+        category: 'Salud',
+        style: 'Nordic Wabi-Sabi',
+        badge: 'DEMO 10',
+        desc: 'Odontología biológica con selector de tonos VITA 3D y simulador a tasa cero.',
+        features: ['VITA 3D Shade Lab', 'Before / After', 'Gabinete Zen'],
+        path: 'demos/demo-10-dental-studio/index.html',
+        image: 'demos/screenshots/demo-10.webp'
+      },
+      {
+        id: 'demo-11',
+        title: 'GLITCH:2000 Apparel',
+        niche: 'Streetwear Y2K & Cyber Retro',
+        category: 'E-commerce',
+        style: 'Cyber-Grunge',
+        badge: 'DEMO 11',
+        desc: 'Tienda de culto con reproductor Winamp interactivo y drawer de compras.',
+        features: ['Winamp Player Dock', 'Taskbar OS', 'Cart Drawer'],
+        path: 'demos/demo-11-y2k-streetwear/index.html',
+        image: 'demos/screenshots/demo-11.webp'
+      },
+      {
+        id: 'demo-12',
+        title: 'Patitas & Co.',
+        niche: 'Veterinaria 24/7 & Spa',
+        category: 'Veterinaria',
+        style: 'Playful Cartoon',
+        badge: 'DEMO 12',
+        desc: 'Hospital veterinario con triaje interactivo en 3 pasos y selector de mascotas.',
+        features: ['Triaje Rápido', 'Urgencias 24/7', 'Bouncy UI'],
+        path: 'demos/demo-12-vet-playful/index.html',
+        image: 'demos/screenshots/demo-12.webp'
+      },
+      {
+        id: 'demo-13',
+        title: 'AETHEL Surgery',
+        niche: 'Odontología Robótica',
+        category: 'Salud',
+        style: 'Swiss High-Tech',
+        badge: 'DEMO 13',
+        desc: 'Cirugía e implantes guiados con simulador 3D tomográfico y margen de ±0.02mm.',
+        features: ['Simulador 3D Scan', 'Margen ±0.02mm', 'Protocolo 4 Fases'],
+        path: 'demos/demo-13-dental-precision/index.html',
+        image: 'demos/screenshots/demo-13.webp'
+      },
+      {
+        id: 'demo-14',
+        title: 'Botánica Odontología',
+        niche: 'Dental Holístico & Bienestar',
+        category: 'Salud',
+        style: 'Sensory Sanctuary',
+        badge: 'DEMO 14',
+        desc: 'Odontología biológica libre de metales con test de confort y aromaterapia.',
+        features: ['Test Ansiedad', 'Menú Sensorial', 'Libre Metales'],
+        path: 'demos/demo-14-dental-holistic/index.html',
+        image: 'demos/screenshots/demo-14.webp'
+      },
+      {
+        id: 'demo-15',
+        title: 'NOVA Wealth',
+        niche: 'Neo-Banca & Inversión',
+        category: 'Finanzas',
+        style: 'Cyber Wealth',
+        badge: 'DEMO 15',
+        desc: 'Banca privada con simulador de interés compuesto en tiempo real y tarjeta 3D.',
+        features: ['Calculadora 8.4%', 'Tarjeta 3D Tilt', 'Bóvedas USD/EUR'],
+        path: 'demos/demo-15-fintech-nova/index.html',
+        image: 'demos/screenshots/demo-15.webp'
+      },
+      {
+        id: 'demo-16',
+        title: 'KRAFT Arquitectura',
+        niche: 'Arquitectura Bioclimática',
+        category: 'Arquitectura',
+        style: 'Warm Brutalism',
+        badge: 'DEMO 16',
+        desc: 'Taller bioclimático con matriz de huella de carbono y monografía de obras.',
+        features: ['Matriz Carbono', 'Física Pasiva', 'Obras Monográficas'],
+        path: 'demos/demo-16-eco-architecture/index.html',
+        image: 'demos/screenshots/demo-16.webp'
+      }
+    ];
+
+    document.querySelectorAll('.nav-portfolio-count').forEach(el => el.textContent = WEBSHIP_ROTATOR_DEMOS.length);
+    let currentRotatorIndices = [];
+    let rotationTimer = null;
+    const ROTATION_INTERVAL = 8000;
+    let isRotatorHovered = false;
+
+    function getRandomIndices(total, count, exclude = []) {
+      const pool = [];
+      for (let i = 0; i < total; i++) {
+        if (!exclude.includes(i)) pool.push(i);
+      }
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+      return pool.slice(0, count);
+    }
+
+    function renderRotatorProjects(animate = false) {
+      const grid = document.getElementById('portfolio-rotator-grid');
+      if (!grid) return;
+
+      currentRotatorIndices = getRandomIndices(WEBSHIP_ROTATOR_DEMOS.length, 3, currentRotatorIndices);
+      const selected = currentRotatorIndices.map(idx => WEBSHIP_ROTATOR_DEMOS[idx]);
+
+      const html = selected.map(item => `
+        <a href="portafolio.html" class="rotator-card" title="Clic para explorar ${item.title} en el Portafolio">
+          <div class="rotator-preview">
+            <div class="rotator-browser-bar">
+              <div class="r-dots">
+                <span class="r-dot red"></span>
+                <span class="r-dot yellow"></span>
+                <span class="r-dot green"></span>
+              </div>
+              <span class="r-url">webship.cr/${item.id}</span>
+              <span class="r-live-tag"><span class="r-live-dot"></span> PROYECTO</span>
+            </div>
+            <div class="rotator-viewport">
+              <img src="${item.image}" alt="Vista previa de ${item.title}" class="rotator-img-mockup" loading="lazy" decoding="async" />
+              <span class="rotator-badge">${item.badge}</span>
+              <div class="rotator-overlay">
+                <span class="btn-rotator-explore">
+                  <span>Abrir en Portafolio</span>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span style="font-size: 0.72rem; color: #E5E7EB; margin-top: 5px;">Clic para interactuar en pantalla completa</span>
+              </div>
+            </div>
+          </div>
+          <div class="rotator-body">
+            <div>
+              <div class="rotator-meta">
+                <span class="rotator-cat">${item.category} &bull; ${item.niche}</span>
+                <span class="rotator-style">${item.style}</span>
+              </div>
+              <h4 class="rotator-title">${item.title}</h4>
+              <p class="rotator-desc">${item.desc}</p>
+              <div class="rotator-features">
+                ${item.features.map(f => `<span class="r-feat">✓ ${f}</span>`).join('')}
+              </div>
+            </div>
+            <div class="rotator-footer">
+              <span class="rotator-link-label">
+                <span>Explorar Proyecto Completo</span>
+                <span>→</span>
+              </span>
+            </div>
+          </div>
+        </a>
+      `).join('');
+
+      if (animate && typeof gsap !== 'undefined') {
+        gsap.to('.rotator-card', {
+          opacity: 0,
+          y: -12,
+          duration: 0.3,
+          stagger: 0.03,
+          ease: 'power2.in',
+          onComplete: () => {
+            grid.innerHTML = html;
+            lucide.createIcons();
+            gsap.fromTo('.rotator-card',
+              { opacity: 0, y: 16, scale: 0.98 },
+              { opacity: 1, y: 0, scale: 1, duration: 0.65, stagger: 0.06, ease: 'power3.out' }
+            );
+          }
+        });
+      } else {
+        grid.innerHTML = html;
+        lucide.createIcons();
+      }
+    }
+
+    function resetRotatorTimer() {
+      clearInterval(rotationTimer);
+      const progressBar = document.getElementById('rotator-progress');
+      if (progressBar) {
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+        setTimeout(() => {
+          if (!isRotatorHovered) {
+            progressBar.style.transition = `width ${ROTATION_INTERVAL}ms linear`;
+            progressBar.style.width = '100%';
+          }
+        }, 50);
+      }
+
+      rotationTimer = setInterval(() => {
+        if (!isRotatorHovered) {
+          renderRotatorProjects(true);
+          resetRotatorTimer();
+        }
+      }, ROTATION_INTERVAL);
+    }
+
+    function shuffleRandomProjects(manual = false) {
+      renderRotatorProjects(true);
+      resetRotatorTimer();
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-menu-drawer');
+      if (!drawer) return;
+      const isOpen = drawer.classList.toggle('open');
+      drawer.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    // ── Sistema Dinámico de Navbar (Fusión Transparente y Frosted Glass) ──
+    let navRafId = null;
+    function updateNavTheme() {
+      const nav = document.getElementById('nav');
+      if (!nav) return;
+
+      const scrollY = window.scrollY || window.pageYOffset;
+      if (scrollY < 30) {
+        nav.classList.add('nav-at-top');
+        nav.classList.remove('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-at-top');
+        nav.classList.add('nav-scrolled');
+      }
+
+      const navProbeY = 46;
+      const sections = document.querySelectorAll('section, footer');
+      let activeTheme = 'dark'; // Hero inicial es dark
+
+      for (let i = 0; i < sections.length; i++) {
+        const sec = sections[i];
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= navProbeY && rect.bottom >= navProbeY) {
+          const isDark = sec.classList.contains('dark-section') ||
+                         sec.classList.contains('testimonials-section') ||
+                         sec.id === 'hero' ||
+                         sec.id === 'proceso' ||
+                         sec.id === 'contacto' ||
+                         sec.tagName.toLowerCase() === 'footer';
+          activeTheme = isDark ? 'dark' : 'light';
+          break;
+        }
+      }
+
+      if (activeTheme === 'light') {
+        nav.classList.add('nav-theme-light');
+        nav.classList.remove('nav-theme-dark');
+      } else {
+        nav.classList.add('nav-theme-dark');
+        nav.classList.remove('nav-theme-light');
+      }
+    }
+
+    function onNavScroll() {
+      if (navRafId) cancelAnimationFrame(navRafId);
+      navRafId = requestAnimationFrame(updateNavTheme);
+    }
+    window.addEventListener('scroll', onNavScroll, { passive: true });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderRotatorProjects(false);
+      resetRotatorTimer();
+      updateNavTheme();
+
+      const gridEl = document.getElementById('portfolio-rotator-grid');
+      if (gridEl) {
+        gridEl.addEventListener('mouseenter', () => {
+          isRotatorHovered = true;
+          const pb = document.getElementById('rotator-progress');
+          if (pb) pb.style.opacity = '0.4';
+        });
+        gridEl.addEventListener('mouseleave', () => {
+          isRotatorHovered = false;
+          const pb = document.getElementById('rotator-progress');
+          if (pb) pb.style.opacity = '1';
+          resetRotatorTimer();
+        });
+      }
+    });
+  </script>
+
+  <!-- Scripts Base de WebShip -->
+  <script type="module" src="js/scene.js"></script>
+  <script type="module" src="js/launch-model.js"></script>
+  <script type="module" src="js/ghost-fibers.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/transitions.js"></script>
+</body>
+</html>

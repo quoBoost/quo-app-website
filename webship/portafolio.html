@@ -1,0 +1,2373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portafolio &mdash; WebShip &bull; Los Mejores en Diseño Web en Costa Rica</title>
+
+  <!-- Fonts: Inter + DM Serif Display (Exact same as WebShip) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- GSAP + ScrollTrigger + Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- WebShip Global Stylesheets -->
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/transitions.css"/>
+
+  <style>
+    /* Estilos específicos y complementarios de Portafolio respetando los tokens de WebShip */
+    :root {
+      --portfolio-spotlight: rgba(255, 255, 255, 0.08);
+      --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Loader & Page Transitions ─────────────────────────────── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #0D0D0D;
+      z-index: 9999999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      pointer-events: all;
+    }
+    .loader-label {
+      color: #fff;
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      opacity: 0.85;
+    }
+    .loader-bar {
+      width: 180px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .loader-progress {
+      height: 100%;
+      background: #FFFFFF;
+      width: 0%;
+      border-radius: 2px;
+    }
+
+    /* ── Navbar Full-Width Ultra-Premium (Fusión Fluida & Frosted Glass) ── */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 74px;
+      z-index: 1000;
+      transition: background-color 0.4s var(--ease-lux),
+                  border-color 0.4s var(--ease-lux),
+                  box-shadow 0.4s var(--ease-lux),
+                  backdrop-filter 0.4s var(--ease-lux);
+    }
+
+    .nav-container {
+      width: 100% !important;
+      max-width: 1240px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      box-sizing: border-box;
+    }
+
+    /* Estado inicial arriba (transparente, fusionado con el fondo) */
+    #nav.nav-at-top {
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      box-shadow: none;
+    }
+
+    /* Estado scrolled con Frosted Glass y Adaptación de Tema */
+    #nav.nav-scrolled.nav-theme-dark {
+      background: rgba(13, 13, 13, 0.85);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    }
+
+    #nav.nav-scrolled.nav-theme-light {
+      background: rgba(250, 250, 248, 0.90);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Logo */
+    #nav .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      transition: color 0.3s ease;
+    }
+    #nav .nav-logo .dot { color: #6366F1; }
+    #nav.nav-theme-dark .nav-logo { color: #FFFFFF; }
+    #nav.nav-theme-light .nav-logo { color: #0D0D0D; }
+
+    /* Links de Navegación */
+    .nav-links-wrap {
+      display: flex;
+      align-items: center;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.25s ease, background 0.25s ease;
+      white-space: nowrap;
+    }
+    #nav.nav-theme-dark .nav-links a {
+      color: #9CA3AF;
+    }
+    #nav.nav-theme-dark .nav-links a:hover,
+    #nav.nav-theme-dark .nav-links a.active {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    #nav.nav-theme-light .nav-links a {
+      color: #6B7280;
+    }
+    #nav.nav-theme-light .nav-links a:hover,
+    #nav.nav-theme-light .nav-links a.active {
+      color: #0D0D0D;
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Badge de Portafolio */
+    .nav-portfolio-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.70rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 9999px;
+      letter-spacing: 0.02em;
+    }
+    #nav.nav-theme-dark .nav-portfolio-count {
+      background: rgba(99, 102, 241, 0.20);
+      color: #A5B4FC;
+      border: 1px solid rgba(99, 102, 241, 0.35);
+    }
+    #nav.nav-theme-light .nav-portfolio-count {
+      background: rgba(99, 102, 241, 0.12);
+      color: #4F46E5;
+      border: 1px solid rgba(99, 102, 241, 0.25);
+    }
+
+    /* Acciones Derecha */
+    .nav-right-actions {
+      display: flex !important;
+      align-items: center !important;
+      gap: 14px;
+      margin-left: auto !important;
+    }
+    #nav .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 9999px;
+      padding: 9px 22px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s var(--ease-lux);
+    }
+    #nav .btn-nav .btn-nav-arrow {
+      transition: transform 0.25s ease;
+    }
+    #nav .btn-nav:hover .btn-nav-arrow {
+      transform: translateX(3px);
+    }
+    #nav.nav-theme-dark .btn-nav {
+      background: #FFFFFF;
+      color: #0D0D0D;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    #nav.nav-theme-dark .btn-nav:hover {
+      background: #F3F4F6;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(255, 255, 255, 0.22);
+    }
+    #nav.nav-theme-light .btn-nav {
+      background: #0D0D0D;
+      color: #FFFFFF;
+      border: 1px solid #0D0D0D;
+    }
+    #nav.nav-theme-light .btn-nav:hover {
+      background: #262626;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Hamburger para Mobile */
+    .nav-hamburger {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border: 1px solid transparent;
+      transition: all 0.25s ease;
+      background: transparent;
+    }
+    .nav-hamburger .ham-line {
+      width: 18px;
+      height: 2px;
+      border-radius: 2px;
+      transition: background-color 0.25s ease;
+    }
+    #nav.nav-theme-dark .nav-hamburger {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+    #nav.nav-theme-dark .nav-hamburger .ham-line {
+      background: #FFFFFF;
+    }
+    #nav.nav-theme-light .nav-hamburger {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.10);
+    }
+    #nav.nav-theme-light .nav-hamburger .ham-line {
+      background: #0D0D0D;
+    }
+
+    /* Responsive Navbar */
+    @media (max-width: 900px) {
+      #nav {
+        height: 68px !important;
+        padding: 0 !important;
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .nav-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 20px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        box-sizing: border-box !important;
+      }
+      .nav-links-wrap { display: none !important; }
+      .nav-right-actions {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        margin-left: auto !important;
+        flex-shrink: 0 !important;
+      }
+      #nav .btn-nav { display: none !important; }
+      .nav-hamburger {
+        display: flex !important;
+        margin-left: auto !important;
+      }
+    }
+    @media (max-width: 480px) {
+      #nav {
+        height: 62px !important;
+      }
+      .nav-container {
+        padding: 0 16px !important;
+      }
+      #nav .nav-logo {
+        font-size: 1.22rem !important;
+      }
+    }
+
+    /* ── Mobile Menu Drawer ─────────────────────────────────────── */
+    #mobile-menu-drawer {
+      position: fixed; inset: 0;
+      z-index: 1000000;
+      background: rgba(13, 13, 13, 0.94);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-lux), transform 0.4s var(--ease-lux);
+      transform: translateY(-8px);
+      padding: 20px;
+    }
+    #mobile-menu-drawer.open {
+      opacity: 1; pointer-events: auto;
+      transform: translateY(0);
+    }
+    .mobile-drawer-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .mobile-drawer-header .nav-logo {
+      color: #FFFFFF; font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700;
+    }
+    .btn-drawer-close {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #FFFFFF; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .btn-drawer-close:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: rotate(90deg);
+    }
+    .mobile-drawer-content {
+      display: flex; flex-direction: column; justify-content: space-between;
+      height: 100%; padding: 30px 0 20px 0;
+    }
+    .mobile-nav-links {
+      list-style: none; display: flex; flex-direction: column; gap: 14px;
+    }
+    .mobile-nav-links a {
+      color: #E5E7EB; font-size: 1.25rem; font-weight: 600;
+      text-decoration: none; padding: 12px 16px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.3s ease;
+    }
+    .mobile-nav-links a:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(4px);
+    }
+    .mobile-drawer-footer {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .mobile-status-pill {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; color: #9CA3AF;
+      padding: 8px 14px; background: rgba(255, 255, 255, 0.04);
+      border-radius: 9999px; width: fit-content;
+    }
+
+    /* ── Botón Flotante Obsidian Dark Luxury Glass ─────────────────── */
+    .floating-wa-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 17, 23, 0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #FFFFFF;
+      padding: 10px 18px 10px 12px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.45),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      text-decoration: none;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .floating-wa-btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(34, 197, 94, 0.50);
+      box-shadow: 0 20px 42px -6px rgba(0, 0, 0, 0.60),
+                  0 0 24px rgba(34, 197, 94, 0.20),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+    .f-wa-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.14);
+      border: 1px solid rgba(34, 197, 94, 0.30);
+      color: #22C55E;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .floating-wa-btn:hover .f-wa-icon-box {
+      transform: scale(1.05);
+      background: rgba(34, 197, 94, 0.22);
+    }
+    .f-wa-pulse-dot {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #22C55E;
+      border: 2px solid #0F1117;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
+      animation: fWaPulse 2s infinite ease-in-out;
+    }
+    @keyframes fWaPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+    .f-wa-label {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .f-wa-title {
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.15;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+    .f-wa-sub {
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: #9CA3AF;
+      margin-top: 2px;
+    }
+    @media (max-width: 640px) {
+      .floating-wa-btn {
+        bottom: 16px;
+        right: 16px;
+        padding: 8px 14px 8px 10px;
+      }
+      .f-wa-sub {
+        display: none;
+      }
+      .f-wa-title {
+        font-size: 0.80rem;
+      }
+    }
+
+    /* Hero Spotlight que sigue el mouse con inercia suave */
+    #hero-portfolio {
+      position: relative;
+      background-color: #0D0D0D;
+      color: #FFFFFF;
+      overflow: hidden;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 140px 24px 80px 24px;
+    }
+
+    .spotlight-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(750px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.12), transparent 70%);
+      transition: opacity 0.6s var(--ease-lux);
+      z-index: 1;
+    }
+
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-portfolio-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1080px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .disclaimer-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      color: #D1D5DB;
+      margin-bottom: 24px;
+      backdrop-filter: blur(8px);
+      max-width: 90%;
+    }
+
+    .disclaimer-banner strong {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .hero-portfolio-title {
+      font-family: var(--font-sans);
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    .hero-portfolio-title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      background: linear-gradient(135deg, #FFFFFF 30%, rgba(255,255,255,0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-portfolio-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: #9CA3AF;
+      max-width: 720px;
+      margin: 0 auto 36px auto;
+      line-height: 1.6;
+    }
+
+    /* Barra de Filtros de Portafolio */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+
+    .filter-btn {
+      background: #FFFFFF;
+      border: 1px solid var(--border-md);
+      color: var(--fg-muted);
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.5s var(--ease-lux);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--fg);
+      color: var(--fg);
+      transform: translateY(-2px);
+    }
+
+    .filter-btn.active {
+      background: var(--fg);
+      border-color: var(--fg);
+      color: #FFFFFF;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+    }
+
+    /* Grid de Proyectos Modular */
+    .portfolio-showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 36px;
+    }
+
+    @media (max-width: 640px) {
+      .portfolio-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Tarjeta de Proyecto con Vista Previa en Vivo ────────────── */
+    .demo-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 1.2s var(--ease-lux),
+                  box-shadow 1.2s var(--ease-lux),
+                  border-color 0.8s var(--ease-lux);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      position: relative;
+    }
+
+    .demo-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.12);
+      border-color: rgba(0, 0, 0, 0.18);
+    }
+
+    .demo-card-preview {
+      position: relative;
+      background: #111419;
+      cursor: pointer;
+      overflow: hidden;
+      border-top-left-radius: 17px;
+      border-top-right-radius: 17px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    /* Barra de Navegador Miniatura */
+    .preview-browser-bar {
+      height: 32px;
+      background: #191C22;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      z-index: 5;
+      position: relative;
+    }
+
+    .browser-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .b-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .b-dot.red { background: #EF4444; opacity: 0.85; }
+    .b-dot.yellow { background: #F59E0B; opacity: 0.85; }
+    .b-dot.green { background: #10B981; opacity: 0.85; }
+
+    .browser-url-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 6px;
+      padding: 2px 10px;
+      font-size: 0.68rem;
+      color: #9CA3AF;
+      font-family: monospace;
+      max-width: 180px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .live-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #10B981;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    .live-indicator {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 6px #10B981;
+      animation: livePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Ventana del Iframe Real Scaled */
+    .preview-viewport {
+      position: relative;
+      width: 100%;
+      height: 235px;
+      overflow: hidden;
+      background: #0E1015;
+    }
+
+    .preview-img-mockup {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.7s var(--ease-lux), filter 0.4s ease;
+      will-change: transform;
+    }
+
+    .demo-card:hover .preview-img-mockup {
+      transform: scale(1.06);
+    }
+
+    .demo-card {
+      content-visibility: auto;
+      contain-intrinsic-size: 380px 450px;
+    }
+
+    .demo-card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(13, 13, 13, 0.88);
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      font-size: 0.70rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(255,255,255,0.15);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Overlay interactivo en hover */
+    .demo-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(13, 13, 13, 0.45);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: opacity 0.5s var(--ease-lux);
+      z-index: 6;
+    }
+
+    .demo-card-preview:hover .demo-card-overlay {
+      opacity: 1;
+    }
+
+    .demo-card:hover .preview-frame-wrap {
+      filter: brightness(0.96);
+    }
+
+    .btn-preview-quick {
+      background: #FFFFFF;
+      color: #0D0D0D;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transform: translateY(8px);
+      transition: transform 0.6s var(--ease-lux),
+                  background 0.3s ease;
+    }
+
+    .demo-card-preview:hover .btn-preview-quick {
+      transform: translateY(0);
+    }
+
+    .btn-preview-quick:hover {
+      background: #F3F4F6;
+      transform: scale(1.04) translateY(0);
+    }
+
+    .demo-card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .demo-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .demo-category {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--fg-muted);
+    }
+
+    .demo-style {
+      font-size: 0.72rem;
+      background: rgba(0,0,0,0.04);
+      padding: 3px 8px;
+      border-radius: 6px;
+      color: var(--fg);
+      font-weight: 500;
+    }
+
+    .demo-title {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--fg);
+      margin-bottom: 8px;
+    }
+
+    .demo-desc {
+      font-size: 0.88rem;
+      color: var(--fg-muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .demo-features-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .feature-tag {
+      font-size: 0.72rem;
+      color: var(--fg);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .demo-card-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .btn-card-launch {
+      flex: 1;
+      background: var(--fg);
+      color: #FFFFFF;
+      padding: 11px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.5s var(--ease-lux);
+      cursor: pointer;
+    }
+
+    .btn-card-launch:hover {
+      background: #262626;
+      transform: translateY(-2px);
+    }
+
+    .btn-card-external {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border-md);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg);
+      transition: all 0.5s var(--ease-lux);
+    }
+
+    .btn-card-external:hover {
+      border-color: var(--fg);
+      background: rgba(0,0,0,0.03);
+      transform: translateY(-2px);
+    }
+
+    /* Modal Visor en Pantalla Completa (Full Screen Interactive Device Viewer) */
+    #viewer-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100000;
+      background: rgba(13, 13, 13, 0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s var(--ease-lux);
+    }
+
+    #viewer-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .viewer-topbar {
+      height: 64px;
+      background: #1A1A1A;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      color: #FFFFFF;
+    }
+
+    .viewer-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .viewer-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: #FFFFFF;
+    }
+
+    .viewer-category-tag {
+      font-size: 0.72rem;
+      background: rgba(255,255,255,0.1);
+      padding: 3px 10px;
+      border-radius: 9999px;
+      color: #9CA3AF;
+      font-family: var(--font-sans);
+    }
+
+    .viewer-device-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #0D0D0D;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .device-btn {
+      background: transparent;
+      border: none;
+      color: #9CA3AF;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .device-btn.active {
+      background: #262626;
+      color: #FFFFFF;
+    }
+
+    .viewer-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-viewer-open {
+      background: rgba(255,255,255,0.1);
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-viewer-open:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .btn-viewer-close {
+      background: #262626;
+      color: #FFFFFF;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s ease;
+    }
+
+    .btn-viewer-close:hover {
+      background: #E11D48;
+    }
+
+    .viewer-iframe-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: #0D0D0D;
+      overflow: hidden;
+    }
+
+    .viewer-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #FFFFFF;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      transition: width 0.35s var(--ease-out);
+    }
+
+    /* Device sizes */
+    .viewer-frame.desktop { width: 100%; }
+    .viewer-frame.tablet { width: 768px; }
+    .viewer-frame.mobile { width: 390px; }
+
+    /* ══════════════════════════════════════════════════════════════
+       SISTEMA RESPONSIVO TOTAL (MÓVIL, TABLET, DESKTOP)
+       ══════════════════════════════════════════════════════════════ */
+
+    /* 1. Touch & Mobile Cursor */
+    @media (pointer: coarse), (max-width: 1024px) {
+      body {
+        cursor: auto !important;
+      }
+      #c-dot, #c-trail {
+        display: none !important;
+      }
+      a, button, [role="button"], .filter-btn, .demo-card-preview {
+        cursor: pointer !important;
+      }
+    }
+
+    /* 2. Padding contenedor adaptativo */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px !important;
+      }
+    }
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 16px !important;
+      }
+    }
+
+    /* 3. Navbar Mobile & Hamburger */
+    .nav-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-hamburger {
+      display: none;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.3s var(--ease-lux);
+    }
+
+    .nav-hamburger .ham-line {
+      width: 18px;
+      height: 2px;
+      background: #FFFFFF;
+      border-radius: 2px;
+      transition: all 0.3s var(--ease-lux);
+    }
+
+    #nav.scrolled-light .nav-hamburger {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    #nav.scrolled-light .nav-hamburger .ham-line {
+      background: #0D0D0D;
+    }
+
+    @media (max-width: 868px) {
+      #nav {
+        padding: 0 !important;
+        height: 66px;
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      .nav-container {
+        width: 100% !important;
+        padding: 0 20px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+      }
+      #nav .nav-links {
+        display: none !important;
+      }
+      .nav-right-actions {
+        display: flex !important;
+        align-items: center !important;
+        margin-left: auto !important;
+      }
+      .nav-hamburger {
+        display: flex !important;
+        margin-left: auto !important;
+      }
+      #nav .btn-nav {
+        padding: 8px 16px;
+        font-size: 0.78rem;
+      }
+    }
+
+    @media (max-width: 440px) {
+      #nav .btn-nav {
+        display: none !important;
+      }
+      .nav-container {
+        padding: 0 16px !important;
+      }
+    }
+
+    /* 4. Mobile Navigation Drawer (Frosted Glass) */
+    #mobile-menu-drawer {
+      position: fixed;
+      inset: 0;
+      z-index: 1000000;
+      background: rgba(13, 13, 13, 0.94);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-lux), transform 0.4s var(--ease-lux);
+      transform: translateY(-8px);
+      padding: 20px;
+    }
+
+    #mobile-menu-drawer.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .mobile-drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mobile-drawer-header .nav-logo {
+      color: #FFFFFF;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .btn-drawer-close {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-drawer-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .mobile-drawer-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 28px 4px 10px 4px;
+      overflow-y: auto;
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-nav-links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #D1D5DB;
+      font-size: 1.05rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .mobile-nav-links a.active,
+    .mobile-nav-links a:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .mobile-drawer-footer {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mobile-status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: #10B981;
+      margin-bottom: 14px;
+      justify-content: center;
+    }
+
+    .mobile-status-pill .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 8px #10B981;
+      animation: livePulse 2s infinite;
+    }
+
+    /* 5. Hero Responsivo */
+    @media (max-width: 768px) {
+      #hero-portfolio {
+        min-height: auto;
+        padding: 95px 16px 45px 16px;
+      }
+      .disclaimer-banner {
+        width: 100%;
+        max-width: 100%;
+        font-size: 0.74rem;
+        padding: 10px 14px;
+        margin-bottom: 18px;
+        border-radius: 12px;
+        text-align: left;
+        line-height: 1.45;
+        gap: 8px;
+        flex-direction: row;
+      }
+      .hero-portfolio-title {
+        font-size: clamp(2rem, 7.5vw, 2.9rem);
+        line-height: 1.14;
+        margin-bottom: 16px;
+      }
+      .hero-portfolio-sub {
+        font-size: 0.92rem;
+        line-height: 1.55;
+        margin-bottom: 24px;
+        padding: 0 4px;
+      }
+      .hero-cta-buttons {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+      .hero-cta-buttons .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+        font-size: 0.88rem;
+      }
+      .hero-stats-indicator {
+        margin-top: 32px !important;
+        font-size: 0.76rem !important;
+        text-align: center;
+        line-height: 1.4;
+      }
+    }
+
+    /* 6. Filter Bar Responsiva (Scroll horizontal suave) */
+    @media (max-width: 768px) {
+      .filter-bar {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        padding: 4px 16px 14px 16px;
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-bottom: 24px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .filter-bar::-webkit-scrollbar {
+        display: none;
+      }
+      .filter-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 8px 16px;
+        font-size: 0.80rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .filter-bar {
+        margin-left: -16px;
+        margin-right: -16px;
+      }
+    }
+
+    /* 7. Grid & Tarjetas Responsivas */
+    @media (max-width: 1024px) {
+      .portfolio-showcase-grid {
+        grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .portfolio-showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .demo-card {
+        border-radius: 16px;
+      }
+      .preview-viewport {
+        height: 200px;
+      }
+      .preview-browser-bar {
+        height: 28px;
+        padding: 0 10px;
+      }
+      .browser-url-pill {
+        max-width: 120px;
+        font-size: 0.60rem;
+        padding: 2px 6px;
+      }
+      .live-pill {
+        font-size: 0.58rem;
+        padding: 2px 6px;
+      }
+      .demo-card-badge {
+        top: 10px;
+        left: 10px;
+        font-size: 0.65rem;
+        padding: 3px 8px;
+      }
+      .preview-tap-hint {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background: rgba(13, 13, 13, 0.82);
+        backdrop-filter: blur(8px);
+        color: #FFFFFF;
+        font-size: 0.65rem;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255,255,255,0.18);
+        pointer-events: none;
+        z-index: 5;
+      }
+      .demo-card-overlay {
+        display: none;
+      }
+      .demo-card-body {
+        padding: 18px 16px;
+      }
+      .demo-card-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        margin-bottom: 8px;
+      }
+      .demo-title {
+        font-size: 1.25rem;
+        margin-bottom: 6px;
+      }
+      .demo-desc {
+        font-size: 0.82rem;
+        line-height: 1.45;
+        margin-bottom: 14px;
+      }
+      .demo-features-list {
+        gap: 4px;
+        margin-bottom: 16px;
+      }
+      .feature-tag {
+        font-size: 0.66rem;
+        padding: 3px 8px;
+      }
+      .demo-card-actions {
+        padding-top: 14px;
+        gap: 8px;
+      }
+      .btn-card-launch {
+        padding: 10px 14px;
+        font-size: 0.80rem;
+      }
+      .btn-card-external {
+        width: 38px;
+        height: 38px;
+      }
+    }
+
+    /* 8. Modal Visor 360 Responsivo */
+    @media (max-width: 768px) {
+      .viewer-topbar {
+        height: auto;
+        min-height: 52px;
+        padding: 8px 12px;
+        gap: 8px;
+        flex-wrap: nowrap;
+      }
+      .viewer-info {
+        max-width: 58%;
+        gap: 8px;
+      }
+      .viewer-title {
+        font-size: 0.90rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .viewer-category-tag {
+        font-size: 0.60rem;
+        padding: 2px 6px;
+      }
+      .viewer-device-toggle {
+        display: none;
+      }
+      .btn-viewer-open span {
+        display: none;
+      }
+      .btn-viewer-open {
+        padding: 7px 10px;
+      }
+      .btn-viewer-close {
+        width: 32px;
+        height: 32px;
+      }
+      .viewer-iframe-container {
+        padding: 0 !important;
+      }
+      .viewer-frame {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+      }
+    }
+
+    /* 9. Bottom CTA Banner & Footer Responsivo */
+    .portfolio-cta-banner {
+      margin-top: 80px;
+      background: #0D0D0D;
+      color: #FFFFFF;
+      border-radius: var(--radius);
+      padding: 56px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .portfolio-cta-banner {
+        margin-top: 50px;
+        padding: 38px 18px !important;
+        border-radius: 16px !important;
+      }
+      .portfolio-cta-banner h3 {
+        font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
+        line-height: 1.2;
+      }
+      .portfolio-cta-banner p {
+        font-size: 0.88rem !important;
+        margin-bottom: 24px !important;
+      }
+      .portfolio-cta-banner .btn {
+        width: 100%;
+        padding: 14px 18px !important;
+        font-size: 0.88rem !important;
+        justify-content: center;
+      }
+      .footer {
+        padding: 48px 0 32px 0;
+      }
+      .footer-inner {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 24px !important;
+      }
+      .footer-nav {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 12px 18px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ LOADER / TRANSITION OVERLAY ════════════════════ -->
+  <div id="loader">
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+    <span class="loader-label">WebShip<span class="loader-dots"><span class="loader-dot dot-1">.</span><span class="loader-dot dot-2">.</span><span class="loader-dot dot-3">.</span></span></span>
+  </div>
+
+  <!-- Custom Cursor de WebShip -->
+  <div id="c-dot"></div>
+  <div id="c-trail"></div>
+
+  <!-- ═══ NAVIGATION WEBSHIP (HEADER FULL-WIDTH ULTRA-PREMIUM) ═════ -->
+  <header id="nav" class="nav-header nav-at-top nav-theme-dark">
+    <div class="nav-container">
+      <!-- Logotipo de la Marca -->
+      <a href="index.html" class="nav-logo">
+        <span class="logo-text">WebShip</span><span class="dot">.</span>
+      </a>
+
+      <!-- Enlaces de Navegación -->
+      <nav class="nav-links-wrap" aria-label="Navegación principal">
+        <ul class="nav-links" id="nav-links-list">
+          <li><a href="index.html#servicios" class="nav-item-link">Servicios</a></li>
+          <li><a href="index.html#proceso" class="nav-item-link">Proceso</a></li>
+          <li>
+            <a href="portafolio.html" class="nav-item-link nav-link-portfolio active">
+              <span>Portafolio</span>
+              <span class="nav-portfolio-count">16</span>
+            </a>
+          </li>
+          <li><a href="index.html#faq" class="nav-item-link">Preguntas</a></li>
+          <li><a href="index.html#contacto" class="nav-item-link">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <!-- Acciones Derecha -->
+      <div class="nav-right-actions">
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20cotizar%20un%20proyecto%20web%20para%20mi%20negocio" target="_blank" class="btn btn-nav">
+          <span>Cotizar</span>
+          <span class="btn-nav-arrow">→</span>
+        </a>
+        <button class="nav-hamburger" id="nav-toggle" aria-label="Abrir Menú" onclick="toggleMobileMenu()">
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ DRAWER DE NAVEGACIÓN MÓVIL (FROSTED GLASS) ═══════ -->
+  <div id="mobile-menu-drawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <a href="index.html" class="nav-logo">WebShip<span class="dot">.</span></a>
+      <button class="btn-drawer-close" onclick="toggleMobileMenu()" aria-label="Cerrar Menú">
+        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+      </button>
+    </div>
+    <div class="mobile-drawer-content">
+      <ul class="mobile-nav-links">
+        <li><a href="index.html#servicios" onclick="toggleMobileMenu()"><span>Servicios</span> <i data-lucide="chevron-right" style="width: 16px; height: 16px; opacity: 0.6;"></i></a></li>
+        <li><a href="index.html#proceso" onclick="toggleMobileMenu()"><span>Proceso en 5 Días</span> <i data-lucide="chevron-right" style="width: 16px; height: 16px; opacity: 0.6;"></i></a></li>
+        <li><a href="portafolio.html" class="active" onclick="toggleMobileMenu()"><span>Portafolio (16 Demos)</span> <i data-lucide="chevron-right" style="width: 16px; height: 16px; opacity: 0.6;"></i></a></li>
+        <li><a href="index.html#faq" onclick="toggleMobileMenu()"><span>Preguntas Frecuentes</span> <i data-lucide="chevron-right" style="width: 16px; height: 16px; opacity: 0.6;"></i></a></li>
+        <li><a href="index.html#contacto" onclick="toggleMobileMenu()"><span>Contacto</span> <i data-lucide="chevron-right" style="width: 16px; height: 16px; opacity: 0.6;"></i></a></li>
+      </ul>
+      <div class="mobile-drawer-footer">
+        <div class="mobile-status-pill">
+          <span class="pulse-dot"></span>
+          <span>Respuesta inmediata en 15 min</span>
+        </div>
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20cotizar%20un%20proyecto%20web" target="_blank" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 15px 20px; font-size: 0.95rem;">
+          <span>Cotizar mi Proyecto</span>
+          <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ HERO: INTERACTIVO, SPOTLIGHT SEGUIDOR DEL MOUSE ══════════ -->
+  <section id="hero-portfolio">
+    <!-- Grid sutil de fondo -->
+    <div class="hero-grid-lines"></div>
+
+    <!-- Spotlight dinámico con seguimiento del cursor -->
+    <div class="spotlight-overlay" id="hero-spotlight"></div>
+
+    <div class="hero-portfolio-content">
+      
+      <!-- Disclaimer / Nota de Transparencia Requerida -->
+      <div class="disclaimer-banner">
+        <i data-lucide="info" style="width: 16px; height: 16px; color: #60A5FA; flex-shrink: 0;"></i>
+        <span><strong>Nota de Transparencia:</strong> Los proyectos exhibidos son prototipos de muestra basados en negocios reales para demostrar nuestra arquitectura y conversión.</span>
+      </div>
+
+      <!-- Título de Autoridad Solicitado -->
+      <h1 class="hero-portfolio-title">
+        Los mejores en <em>diseño web</em><br/>en Costa Rica.
+      </h1>
+
+      <!-- Textos que acompañan la idea -->
+      <p class="hero-portfolio-sub">
+        No construimos páginas de plantilla. Diseñamos sistemas digitales a medida con micro-interacciones, velocidad fulgurante y arquitectura comercial pensada para convertir cada visita en una venta real.
+      </p>
+
+      <div class="hero-cta-buttons" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="#galeria" class="btn btn-primary" style="background: #FFFFFF; color: #0D0D0D;">
+          <span>Explorar Proyectos en Vivo</span>
+          <i data-lucide="arrow-down" style="width: 16px; height: 16px;"></i>
+        </a>
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20cotizar%20un%20proyecto%20web%20para%20mi%20negocio" target="_blank" class="btn btn-ghost" style="border-color: rgba(255,255,255,0.25); color: #FFFFFF;">
+          Cotizar mi Proyecto por WhatsApp
+        </a>
+      </div>
+
+      <!-- Indicador de total de proyectos activos -->
+      <div class="hero-stats-indicator" style="margin-top: 48px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.85rem; color: #9CA3AF;">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #10B981; display: inline-block;"></span>
+        <span><strong style="color: #FFFFFF;" id="total-demos-count">16</strong> Soluciones de Alta Gama listas para interactuar en pantalla completa</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ TRANSICIÓN: HERO (DARK) ➔ GALERÍA (LIGHT) ═══ -->
+  <div class="color-transition-divider ctd-portfolio-hero-to-galeria" aria-hidden="true">
+    <div class="ctd-ambient-glow"></div>
+  </div>
+
+  <!-- ═══ SECCIÓN DE PROYECTOS MODULAR (REGISTRO DINÁMICO) ══════════ -->
+  <section id="galeria" class="section" style="padding-top: 80px; padding-bottom: 120px;">
+    <div class="container">
+      
+      <!-- Encabezado de Sección -->
+      <div class="section-head centered" style="margin-bottom: 36px;">
+        <span class="tag">Catálogo Activo</span>
+        <h2 class="section-title">Soluciones que<br/><em>inspiran confianza</em></h2>
+        <p class="section-desc" style="max-width: 600px; margin: 0 auto;">
+          Selecciona cualquier categoría o interactúa directamente con los prototipos funcionales haciendo clic en <strong>"Probar en Vivo"</strong>.
+        </p>
+      </div>
+
+      <!-- Barra de Filtros Dinámica -->
+      <div class="filter-bar" id="category-filters">
+        <!-- Renderizado dinámicamente por JS -->
+      </div>
+
+      <!-- Grid de Demos (Renderizado Modular y Automático) -->
+      <div class="portfolio-showcase-grid" id="demos-grid">
+        <!-- Las tarjetas se inyectan automáticamente desde window.WEBSHIP_DEMOS -->
+      </div>
+
+      <!-- Banner de Cierre / Llamado a la Acción -->
+      <div class="portfolio-cta-banner">
+        <span class="tag" style="background: rgba(255,255,255,0.1); color: #FFFFFF; border-color: rgba(255,255,255,0.2); margin-bottom: 16px;">¿Tu Negocio Necesita Despegar?</span>
+        <h3 style="font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 16px;">
+          Tu próxima página web lista en <em>solo 5 días.</em>
+        </h3>
+        <p style="color: #9CA3AF; max-width: 580px; margin: 0 auto 32px auto; font-size: 1rem;">
+          Nos encargamos de todo: diseño moderno, adaptado a celulares, hosting, dominio y optimización comercial. Sin dolores de cabeza técnicos.
+        </p>
+        <a href="https://wa.me/50663152104" target="_blank" class="btn btn-primary" style="background: #FFFFFF; color: #0D0D0D; padding: 16px 36px; font-size: 1rem;">
+          <span>Hablar Directo con WebShip por WhatsApp</span>
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ MODAL VISOR EN PANTALLA COMPLETA INTERACTIVO (DISPOSITIVOS 360) ═══ -->
+  <div id="viewer-modal" aria-hidden="true">
+    
+    <!-- Topbar del Visor -->
+    <div class="viewer-topbar">
+      <div class="viewer-info">
+        <div style="width: 10px; height: 10px; border-radius: 50%; background: #10B981; flex-shrink: 0;"></div>
+        <div style="min-width: 0;">
+          <h4 class="viewer-title" id="viewer-title">Proyecto</h4>
+          <span class="viewer-category-tag" id="viewer-category">Categoría</span>
+        </div>
+      </div>
+
+      <!-- Selector de Dispositivo (Desktop / Tablet / Mobile) -->
+      <div class="viewer-device-toggle">
+        <button class="device-btn active" onclick="setDeviceView('desktop')" id="dev-desktop">
+          <i data-lucide="monitor" style="width: 14px; height: 14px;"></i>
+          <span class="dev-label">Desktop</span>
+        </button>
+        <button class="device-btn" onclick="setDeviceView('tablet')" id="dev-tablet">
+          <i data-lucide="tablet" style="width: 14px; height: 14px;"></i>
+          <span class="dev-label">Tablet</span>
+        </button>
+        <button class="device-btn" onclick="setDeviceView('mobile')" id="dev-mobile">
+          <i data-lucide="smartphone" style="width: 14px; height: 14px;"></i>
+          <span class="dev-label">Móvil</span>
+        </button>
+      </div>
+
+      <!-- Acciones de Ventana -->
+      <div class="viewer-actions">
+        <a href="#" target="_blank" id="viewer-external-link" class="btn-viewer-open" title="Abrir en pestaña nueva">
+          <span class="btn-open-label">Abrir pestaña</span>
+          <i data-lucide="external-link" style="width: 13px; height: 13px;"></i>
+        </a>
+        <button class="btn-viewer-close" onclick="closeViewerModal()" title="Cerrar visor (ESC)">
+          <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenedor del Iframe Interactivo -->
+    <div class="viewer-iframe-container">
+      <iframe id="viewer-iframe" class="viewer-frame desktop" src="" title="Vista Previa de la Página Web"></iframe>
+    </div>
+  </div>
+
+  <!-- ═══ TRANSICIÓN: GALERÍA (LIGHT) ➔ FOOTER (DARK) ═══ -->
+  <div class="color-transition-divider ctd-portfolio-galeria-to-footer" aria-hidden="true">
+    <div class="ctd-ambient-glow glow-warm"></div>
+  </div>
+
+  <!-- ═══ FOOTER WEBSHIP ══════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">WebShip<span class="dot">.</span></a>
+        <p>Creamos páginas web que funcionan y venden en Costa Rica.</p>
+      </div>
+      <nav class="footer-nav">
+        <a href="index.html#servicios">Servicios</a>
+        <a href="index.html#proceso">Proceso</a>
+        <a href="portafolio.html">Portafolio</a>
+        <a href="index.html#faq">Preguntas</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 WebShip. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ═══ BOTÓN FLOTANTE WHATSAPP OBSIDIAN DARK LUXURY GLASS ═══ -->
+  <a id="floating-wa" href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20cotizar%20un%20proyecto%20web%20para%20mi%20negocio" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" class="floating-wa-btn">
+    <div class="f-wa-icon-box">
+      <span class="f-wa-pulse-dot"></span>
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.845.509 3.57 1.391 5.064l-1.431 5.236 5.384-1.411c1.438.807 3.09 1.271 4.836 1.271 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/>
+      </svg>
+    </div>
+    <div class="f-wa-label">
+      <span class="f-wa-title">Cotizar por WhatsApp</span>
+      <span class="f-wa-sub">En línea · Respuesta en ~5 min</span>
+    </div>
+  </a>
+
+  <!-- =========================================================================
+       REGISTRO MODULAR DE DEMOS & SISTEMA INTERACTIVO
+       (Agrega una demo en esta lista y se actualizará automáticamente en vivo)
+       ========================================================================= -->
+  <script>
+    window.WEBSHIP_DEMOS = [
+      {
+        id: 'demo-01',
+        title: 'Sonrix Dental Studio',
+        niche: 'Clínica Odontológica & Ortodoncia',
+        category: 'Salud',
+        style: 'Corporate Modern Medical',
+        badge: 'DEMO 01',
+        desc: 'Plataforma clínica de alta confianza con agenda directa por WhatsApp, catálogo de especialidades y sección de testimonios de pacientes.',
+        features: ['Citas WhatsApp', 'Tratamientos', 'FAQ Interactivo', 'Mapa Clínico'],
+        path: 'demos/demo-01-dental/index.html',
+        image: 'demos/screenshots/demo-01.webp'
+      },
+      {
+        id: 'demo-02',
+        title: 'PetCare Vet & Spa',
+        niche: 'Hospital Veterinario 24/7 & Spa',
+        category: 'Mascotas',
+        style: 'Warm Playful & Modern Bento',
+        badge: 'DEMO 02',
+        desc: 'Diseño amigable y enérgico con selector interactivo de planes de salud para mascotas, urgencias 24h y micro-animaciones en tarjetas.',
+        features: ['Bento Grid', 'Planes de Salud', 'Urgencias 24/7', 'Hover Cards'],
+        path: 'demos/demo-02-vet/index.html',
+        image: 'demos/screenshots/demo-02.webp'
+      },
+      {
+        id: 'demo-03',
+        title: 'VANDAL Burger Club',
+        niche: 'Smash Burgers & Street Food',
+        category: 'Gastronomía',
+        style: 'Dark Brutalism & Minimalist',
+        badge: 'DEMO 03',
+        desc: 'Experiencia inmersiva con seguimiento de mouse en hero, creador interactivo de hamburguesas con cálculo de precio/calorías y secret drops.',
+        features: ['Parallax Mouse', 'Burger Builder', 'Menú Filtrable', 'Secret Drops'],
+        path: 'demos/demo-03-burger/index.html',
+        image: 'demos/screenshots/demo-03.webp'
+      },
+      {
+        id: 'demo-04',
+        title: 'ÉLAN Institut de Beauté',
+        niche: 'Clínica Estética & Skincare Suizo',
+        category: 'Estética',
+        style: 'Quiet Luxury & Swiss Minimalist',
+        badge: 'DEMO 04',
+        desc: 'Elegancia médica en tonos alabastro y oro con slider comparativo Antes/Después interactivo y quiz de diagnóstico facial virtual.',
+        features: ['Before / After Slider', 'Quiz Virtual', 'Concierge VIP', 'Catálogo'],
+        path: 'demos/demo-04-aesthetic/index.html',
+        image: 'demos/screenshots/demo-04.webp'
+      },
+      {
+        id: 'demo-05',
+        title: 'Clínica Metropolitana',
+        niche: 'Hospital General & Urgencias',
+        category: 'Salud',
+        style: 'Clinical Authority & Portal',
+        badge: 'DEMO 05',
+        desc: 'Portal hospitalario de alta credibilidad con triaje interactivo en 3 niveles, buscador de médicos en tiempo real y consulta de resultados.',
+        features: ['Triaje 3 Niveles', 'Buscador Médicos', 'Portal Resultados', 'Seguros'],
+        path: 'demos/demo-05-clinic/index.html',
+        image: 'demos/screenshots/demo-05.webp'
+      },
+      {
+        id: 'demo-06',
+        title: 'AURA RESERVE Lounge',
+        niche: 'Cafetería de Especialidad & Roastery',
+        category: 'Gastronomía',
+        style: 'Starbucks Reserve Luxury',
+        badge: 'DEMO 06',
+        desc: 'Estética cálida en verde esmeralda y latón con personalizador "Barista Studio" interactivo, maridaje de repostería y reserva de catas.',
+        features: ['Barista Studio', 'Menú Reserve', 'Cálculo en Vivo', 'Reserva Catas'],
+        path: 'demos/demo-06-coffee/index.html',
+        image: 'demos/screenshots/demo-06.webp'
+      },
+      {
+        id: 'demo-07',
+        title: 'LUMEN Private Estates',
+        niche: 'Bienes Raíces de Ultra-Lujo & Penthouses',
+        category: 'Inmobiliaria',
+        style: 'Architectural Editorial',
+        badge: 'DEMO 07',
+        desc: 'Arquitectura de alto valor con calculadora hipotecaria en tiempo real, filtro de propiedades, dossier técnico y drawer de favoritos.',
+        features: ['Calculadora Hipoteca', 'Filtro Dinámico', 'Modal Dossier', 'Favoritos'],
+        path: 'demos/demo-07-realestate/index.html',
+        image: 'demos/screenshots/demo-07.webp'
+      },
+      {
+        id: 'demo-08',
+        title: 'TITAN Performance Lab',
+        niche: 'Gimnasio Boutique, CrossFit & Boxeo',
+        category: 'Fitness',
+        style: 'Cyber Athletic & Volt Neon',
+        badge: 'DEMO 08',
+        desc: 'Poder y telemetría deportiva con horario interactivo de clases por día y disciplina, selector de intensidad RPE y switch de membresías.',
+        features: ['Horario Semanal', 'Selector RPE', 'Switch Precios', 'Pase 1 Día'],
+        path: 'demos/demo-08-gym/index.html',
+        image: 'demos/screenshots/demo-08.webp'
+      },
+      {
+        id: 'demo-09',
+        title: 'VALLEJO & MONTERO Abogados',
+        niche: 'Firma Legal Corporativa & M&A',
+        category: 'Servicios',
+        style: 'Old Money & Executive Prestige',
+        badge: 'DEMO 09',
+        desc: 'Autoridad jurídica solemne con asistente interactivo de triaje legal en 4 pasos, áreas de práctica y consulta bajo secreto profesional.',
+        features: ['Triaje Legal 4 Pasos', 'Asignación Socio', 'M&A y Litigios', 'Canal Seguro'],
+        path: 'demos/demo-09-lawfirm/index.html',
+        image: 'demos/screenshots/demo-09.webp'
+      },
+      {
+        id: 'demo-10',
+        title: 'ORA Biomimetic Dental',
+        niche: 'Odontología Biomimética & Sin Miedo',
+        category: 'Salud',
+        style: 'Nordic Wabi-Sabi & Architectural',
+        badge: 'DEMO 10',
+        desc: 'Odontología de conservación biológica con selector interactivo de tonos VITA 3D, comparador antes/después y simulador a tasa cero.',
+        features: ['VITA 3D Shade Lab', 'Before / After', 'Simulador Cuotas', 'Gabinete Zen'],
+        path: 'demos/demo-10-dental-studio/index.html',
+        image: 'demos/screenshots/demo-10.webp'
+      },
+      {
+        id: 'demo-11',
+        title: 'GLITCH:2000 Apparel',
+        niche: 'Streetwear Y2K & Cyber Retro',
+        category: 'E-commerce',
+        style: 'Y2K Cyber-Grunge & Web 1.0 OS',
+        badge: 'DEMO 11',
+        desc: 'Tienda de culto con reproductor Winamp interactivo, barra de tareas OS, estimador de tallas boxy y carrito de compras deslizable.',
+        features: ['Winamp Player Dock', 'Taskbar OS', 'Virtual Fit-Lab', 'Cart Drawer'],
+        path: 'demos/demo-11-y2k-streetwear/index.html',
+        image: 'demos/screenshots/demo-11.webp'
+      },
+      {
+        id: 'demo-12',
+        title: 'Patitas & Co. Hospital Veterinario',
+        niche: 'Clínica Veterinaria 24/7 & Spa Pet',
+        category: 'Veterinaria',
+        style: 'Playful Cartoon & Bouncy Animation',
+        badge: 'DEMO 12',
+        desc: 'Landing animada y juguetona con triaje interactivo en 3 pasos, selector de especies de mascotas, urgencias 24/7 y micro-rebotes.',
+        features: ['Triaje Interactivo', 'Selector Especies', 'Urgencias 24/7', 'Bouncy UI'],
+        path: 'demos/demo-12-vet-playful/index.html',
+        image: 'demos/screenshots/demo-12.webp'
+      },
+      {
+        id: 'demo-13',
+        title: 'AETHEL Robotic Surgery',
+        niche: 'Cirugía Maxilofacial & Odontología Robótica',
+        category: 'Salud',
+        style: 'Swiss High-Tech & Precision Robotics',
+        badge: 'DEMO 13',
+        desc: 'Centro quirúrgico de vanguardia con simulador interactivo de tomografía 3D vs corona de zirconio, protocolo en 4 fases y telemetría clínica.',
+        features: ['Simulador 3D Scan', 'Margen ±0.02mm', 'Protocolo 4 Fases', 'HUD Quirúrgico'],
+        path: 'demos/demo-13-dental-precision/index.html',
+        image: 'demos/screenshots/demo-13.webp'
+      },
+      {
+        id: 'demo-14',
+        title: 'Botánica Odontología Biológica',
+        niche: 'Clínica Dental Holística & Sin Ansiedad',
+        category: 'Salud',
+        style: 'Warm Boutique & Sensory Sanctuary',
+        badge: 'DEMO 14',
+        desc: 'Odontología libre de metales en un oasis botánico con test interactivo de ansiedad dental, menú sensorial y protocolo SMART certificado.',
+        features: ['Test de Ansiedad', 'Menú Sensorial', 'Libre de Metales', 'Protocolo SMART'],
+        path: 'demos/demo-14-dental-holistic/index.html',
+        image: 'demos/screenshots/demo-14.webp'
+      },
+      {
+        id: 'demo-15',
+        title: 'NOVA Private Wealth',
+        niche: 'Neo-Banca Privada & Bóvedas de Inversión',
+        category: 'Finanzas',
+        style: 'Cyber Wealth & Emerald Glassmorphism',
+        badge: 'DEMO 15',
+        desc: 'Plataforma patrimonial con simulador interactivo de interés compuesto en tiempo real, tarjeta de titanio 3D interactiva y bóvedas al 8.4% APY.',
+        features: ['Calculadora 8.4% APY', 'Tarjeta 3D Tilt', 'Bóvedas USD/EUR', 'KYC en 90s'],
+        path: 'demos/demo-15-fintech-nova/index.html',
+        image: 'demos/screenshots/demo-15.webp'
+      },
+      {
+        id: 'demo-16',
+        title: 'KRAFT Taller de Arquitectura',
+        niche: 'Arquitectura Bioclimática & Paisaje',
+        category: 'Arquitectura',
+        style: 'Warm Brutalism & Monographic Editorial',
+        badge: 'DEMO 16',
+        desc: 'Estudio de arquitectura regenerativa con matriz interactiva de huella de carbono y materiales vernáculos, monografía de obras y física pasiva.',
+        features: ['Matriz de Carbono', 'Física Pasiva', 'Obras Monográficas', 'Tipografía Syne'],
+        path: 'demos/demo-16-eco-architecture/index.html',
+        image: 'demos/screenshots/demo-16.webp'
+      }
+    ];
+
+    // -------------------------------------------------------------------------
+    // 1. RENDERIZADO MODULAR DE FILTROS & DEMOS
+    // -------------------------------------------------------------------------
+    let activeFilter = 'Todos';
+
+    function initPortfolio() {
+      const demos = window.WEBSHIP_DEMOS;
+      document.getElementById('total-demos-count').textContent = demos.length;
+      document.querySelectorAll('.nav-portfolio-count').forEach(el => el.textContent = demos.length);
+
+      // Generar lista única de categorías
+      const categories = ['Todos', ...new Set(demos.map(d => d.category))];
+      const filterContainer = document.getElementById('category-filters');
+
+      filterContainer.innerHTML = categories.map(cat => {
+        const count = cat === 'Todos' ? demos.length : demos.filter(d => d.category === cat).length;
+        return `
+          <button class="filter-btn ${cat === activeFilter ? 'active' : ''}" onclick="applyFilter('${cat}')">
+            ${cat} (${count})
+          </button>
+        `;
+      }).join('');
+
+      renderDemosGrid();
+    }
+
+    function applyFilter(category) {
+      activeFilter = category;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.textContent.includes(category)) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      renderDemosGrid();
+    }
+
+    function renderDemosGrid() {
+      const container = document.getElementById('demos-grid');
+      const filtered = activeFilter === 'Todos' 
+        ? window.WEBSHIP_DEMOS 
+        : window.WEBSHIP_DEMOS.filter(d => d.category === activeFilter);
+
+      container.innerHTML = filtered.map(item => `
+        <article class="demo-card">
+          <!-- Vista Previa Real en Vivo de la Página Web con Browser Mockup -->
+          <div class="demo-card-preview" onclick="openViewerModal('${item.id}')" title="Clic para interactuar en pantalla completa">
+            
+            <!-- Barra superior miniatura estilo navegador -->
+            <div class="preview-browser-bar">
+              <div class="browser-dots">
+                <span class="b-dot red"></span>
+                <span class="b-dot yellow"></span>
+                <span class="b-dot green"></span>
+              </div>
+              <div class="browser-url-pill">
+                <i data-lucide="globe" style="width: 10px; height: 10px; opacity: 0.7;"></i>
+                <span>webship.cr/${item.id}</span>
+              </div>
+              <div class="live-pill">
+                <span class="live-indicator"></span>
+                <span>EN VIVO</span>
+              </div>
+            </div>
+
+            <!-- Viewport Optimizado con Mockup Visual de Alta Resolución -->
+            <div class="preview-viewport">
+              <img src="${item.image}" alt="Vista previa de ${item.title}" class="preview-img-mockup" loading="lazy" decoding="async" />
+              <span class="demo-card-badge">${item.badge}</span>
+              <!-- Indicador táctil en pantallas móviles -->
+              <span class="preview-tap-hint"><i data-lucide="maximize-2" style="width: 10px; height: 10px;"></i> Probar en vivo</span>
+              <!-- Overlay interactivo en hover de escritorio -->
+              <div class="demo-card-overlay">
+                <span class="btn-preview-quick">
+                  <i data-lucide="maximize-2" style="width: 14px; height: 14px;"></i>
+                  <span>Explorar en Pantalla Completa</span>
+                </span>
+                <span style="font-size: 0.74rem; color: #E5E7EB; letter-spacing: 0.02em; font-weight: 500;">Desktop &bull; Tablet &bull; Móvil</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Body de la Tarjeta -->
+          <div class="demo-card-body">
+            <div>
+              <div class="demo-card-meta">
+                <span class="demo-category">${item.category} &bull; ${item.niche}</span>
+                <span class="demo-style">${item.style}</span>
+              </div>
+              <h3 class="demo-title">${item.title}</h3>
+              <p class="demo-desc">${item.desc}</p>
+              
+              <!-- Micro features -->
+              <div class="demo-features-list">
+                ${item.features.map(f => `<span class="feature-tag"><i data-lucide="check" style="width: 11px; height: 11px; color: #10B981;"></i> ${f}</span>`).join('')}
+              </div>
+            </div>
+
+            <!-- Acciones -->
+            <div class="demo-card-actions">
+              <button class="btn-card-launch" onclick="openViewerModal('${item.id}')">
+                <i data-lucide="play" style="width: 13px; height: 13px; fill: currentColor;"></i>
+                <span>Probar en Vivo</span>
+              </button>
+              <a href="${item.path}" target="_blank" class="btn-card-external" title="Abrir en pestaña nueva">
+                <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      lucide.createIcons();
+
+      // Animación suave de entrada con GSAP
+      if (typeof gsap !== 'undefined') {
+        gsap.fromTo('.demo-card', 
+          { opacity: 0, y: 32 }, 
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 1.3, 
+            stagger: 0.07, 
+            ease: 'power3.out',
+            overwrite: 'auto'
+          }
+        );
+      }
+    }
+
+
+
+    // -------------------------------------------------------------------------
+    // 3. CONTROL DEL MENÚ MÓVIL (DRAWER)
+    // -------------------------------------------------------------------------
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-menu-drawer');
+      if (!drawer) return;
+      const isOpen = drawer.classList.toggle('open');
+      drawer.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. HERO SPOTLIGHT CON SEGUIMIENTO DE INERCIA SUAVE (LERP)
+    // -------------------------------------------------------------------------
+    const heroSection = document.getElementById('hero-portfolio');
+    const heroSpotlight = document.getElementById('hero-spotlight');
+    let spotTargetX = window.innerWidth / 2;
+    let spotTargetY = 320;
+    let spotCurrentX = spotTargetX;
+    let spotCurrentY = spotTargetY;
+
+    if (heroSection && heroSpotlight) {
+      heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        spotTargetX = e.clientX - rect.left;
+        spotTargetY = e.clientY - rect.top;
+      });
+
+      function animateSpotlight() {
+        // Factor 0.045 para una inercia sedosa y pausada
+        spotCurrentX += (spotTargetX - spotCurrentX) * 0.045;
+        spotCurrentY += (spotTargetY - spotCurrentY) * 0.045;
+        heroSpotlight.style.setProperty('--mouse-x', `${spotCurrentX.toFixed(2)}px`);
+        heroSpotlight.style.setProperty('--mouse-y', `${spotCurrentY.toFixed(2)}px`);
+        requestAnimationFrame(animateSpotlight);
+      }
+      animateSpotlight();
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. NAVBAR DINÁMICA ULTRA-PREMIUM (FUSIÓN TRANSPARENTE Y FROSTED GLASS)
+    // -------------------------------------------------------------------------
+    let navRafId = null;
+    function updateNavTheme() {
+      const nav = document.getElementById('nav');
+      if (!nav) return;
+
+      const scrollY = window.scrollY || window.pageYOffset;
+      if (scrollY < 30) {
+        nav.classList.add('nav-at-top');
+        nav.classList.remove('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-at-top');
+        nav.classList.add('nav-scrolled');
+      }
+
+      const navProbeY = 46;
+      const galeriaEl = document.getElementById('galeria');
+      let isLight = false;
+
+      if (galeriaEl) {
+        const rect = galeriaEl.getBoundingClientRect();
+        if (rect.top <= navProbeY && rect.bottom >= navProbeY) {
+          isLight = true;
+        }
+      }
+
+      if (isLight) {
+        nav.classList.add('nav-theme-light');
+        nav.classList.remove('nav-theme-dark');
+      } else {
+        nav.classList.add('nav-theme-dark');
+        nav.classList.remove('nav-theme-light');
+      }
+    }
+
+    function onNavScroll() {
+      if (navRafId) cancelAnimationFrame(navRafId);
+      navRafId = requestAnimationFrame(updateNavTheme);
+    }
+    window.addEventListener('scroll', onNavScroll, { passive: true });
+
+    // -------------------------------------------------------------------------
+    // 6. FULL SCREEN LIVE DEVICE VIEWER MODAL
+    // -------------------------------------------------------------------------
+    const viewerModal = document.getElementById('viewer-modal');
+    const viewerIframe = document.getElementById('viewer-iframe');
+    const viewerTitle = document.getElementById('viewer-title');
+    const viewerCategory = document.getElementById('viewer-category');
+    const viewerExternalLink = document.getElementById('viewer-external-link');
+
+    function openViewerModal(demoId) {
+      const demo = window.WEBSHIP_DEMOS.find(d => d.id === demoId);
+      if (!demo) return;
+
+      viewerTitle.textContent = demo.title;
+      viewerCategory.textContent = `${demo.badge} &bull; ${demo.niche}`;
+      viewerIframe.src = demo.path;
+      viewerExternalLink.href = demo.path;
+
+      // Reset to desktop view on desktop screen, or full on mobile
+      setDeviceView(window.innerWidth > 768 ? 'desktop' : 'mobile');
+
+      viewerModal.classList.add('open');
+      viewerModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeViewerModal() {
+      viewerModal.classList.remove('open');
+      viewerModal.setAttribute('aria-hidden', 'true');
+      viewerIframe.src = '';
+      document.body.style.overflow = '';
+    }
+
+    function setDeviceView(device) {
+      document.querySelectorAll('.device-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`dev-${device}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      viewerIframe.className = `viewer-frame ${device}`;
+    }
+
+    // Cerrar con tecla Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && viewerModal.classList.contains('open')) {
+        closeViewerModal();
+      }
+    });
+
+    // -------------------------------------------------------------------------
+    // 7. SMOOTH SCROLL CON LENIS (Sensación Ponderada & Lujosa en Escritorio)
+    // -------------------------------------------------------------------------
+    if (typeof Lenis !== 'undefined') {
+      const isTouch = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 1024;
+      if (!isTouch) {
+        const lenis = new Lenis({
+          duration: 1.8,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical',
+          smoothWheel: true,
+          wheelMultiplier: 0.9,
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 8. CUSTOM CURSOR SYNC CON MOVIMIENTO EXTRA SUAVE (Solo en dispositivos no-touch)
+    // -------------------------------------------------------------------------
+    const cDot = document.getElementById('c-dot');
+    const cTrail = document.getElementById('c-trail');
+    let mouseX = 0, mouseY = 0;
+    let trailX = 0, trailY = 0;
+
+    if (cDot && cTrail && !window.matchMedia('(pointer: coarse)').matches && window.innerWidth > 1024) {
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cDot.style.left = mouseX + 'px';
+        cDot.style.top = mouseY + 'px';
+      });
+
+      function animateCursor() {
+        // 0.08 para una suavidad líquida y relajada
+        trailX += (mouseX - trailX) * 0.08;
+        trailY += (mouseY - trailY) * 0.08;
+        cTrail.style.left = trailX + 'px';
+        cTrail.style.top = trailY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+    }
+
+    // -------------------------------------------------------------------------
+    // 7. LOADER & TRANSICIONES DE PÁGINA (SUAVE & VELOZ)
+    function runPortfolioIntro() {
+      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+      tl.fromTo('.disclaimer-banner', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.85 })
+        .fromTo('.hero-portfolio-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.0 }, '-=0.65')
+        .fromTo('.hero-portfolio-sub', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.85 }, '-=0.75')
+        .fromTo('.hero-cta-buttons', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.75 }, '-=0.65')
+        .fromTo('.hero-stats-indicator', { opacity: 0 }, { opacity: 1, duration: 0.75 }, '-=0.5');
+    }
+
+    // Iniciar portafolio al cargar DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      initPortfolio();
+      updateNavTheme();
+      lucide.createIcons();
+    });
+  </script>
+  <script src="js/transitions.js"></script>
+</body>
+</html>

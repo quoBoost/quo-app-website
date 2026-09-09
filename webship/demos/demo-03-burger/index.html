@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VANDAL &mdash; Brutalist Burger Club &amp; Craft Bar</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Syne (Ultra Bold Brutalist Display) + Space Grotesk + Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            vandal: {
+              black:  '#080808',
+              surface:'#111111',
+              card:   '#161616',
+              border: '#242424',
+              orange: '#FF3E00', // Neon Fiery Orange
+              amber:  '#FFB800', // Smoked Cheddar Amber
+              acid:   '#D4FF00', // Brutalist Acid Green
+              muted:  '#777777',
+              light:  '#ECECEC',
+            }
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            sans:    ['Space Grotesk', 'sans-serif'],
+            mono:    ['Space Mono', 'monospace'],
+          },
+          letterSpacing: {
+            tighter: '-0.06em',
+            tightest: '-0.08em',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #080808; }
+    ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #FF3E00; }
+
+    /* Noise Texture Overlay */
+    .noise-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* Outlined Text */
+    .text-stroke-white {
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.35);
+      color: transparent;
+    }
+    .text-stroke-orange {
+      -webkit-text-stroke: 2px #FF3E00;
+      color: transparent;
+    }
+
+    /* Floating animation */
+    @keyframes hero-float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-14px) rotate(1deg); }
+    }
+    .animate-hero-burger {
+      animation: hero-float 6s ease-in-out infinite;
+    }
+
+    /* Marquee animation */
+    @keyframes marquee {
+      0%   { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: 200%;
+      animation: marquee 22s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    /* Brutalist Button Glitch/Lift */
+    .brutal-btn {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 4px 4px 0px #FF3E00;
+    }
+    .brutal-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0px #FF3E00;
+    }
+    .brutal-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #FF3E00;
+    }
+
+    .brutal-btn-white {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 4px 4px 0px #FFFFFF;
+    }
+    .brutal-btn-white:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0px #FFFFFF;
+    }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-vandal-black text-vandal-light font-sans antialiased overflow-x-hidden selection:bg-vandal-orange selection:text-black">
+
+  <!-- ============================================================
+       TOP LIVE SYSTEM TICKER
+       ============================================================ -->
+  <div class="bg-vandal-orange text-black font-mono text-[11px] font-bold py-1.5 px-4 flex justify-between items-center tracking-widest border-b border-black select-none z-50 relative">
+    <div class="flex items-center gap-6">
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-black animate-ping"></span>
+        <span class="w-2 h-2 rounded-full bg-black -ml-3.5"></span>
+        KITCHEN STATUS: LIVE &amp; SERVING
+      </span>
+      <span class="hidden md:inline">&bull; 45-DAY DRY AGED BATCH #84 UNLOCKED</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <span class="hidden sm:inline font-mono">ESCAZ&Uacute; &bull; SAN JOS&Eacute;, CR</span>
+      <span id="live-clock" class="bg-black text-vandal-orange px-2 py-0.5 rounded font-mono font-bold">19:42:00</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       BRUTALIST NAVBAR
+       ============================================================ -->
+  <header class="sticky top-0 z-40 bg-vandal-black/95 backdrop-blur-md border-b border-vandal-border">
+    <div class="max-w-[1440px] mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-vandal-orange text-black font-display font-black text-2xl flex items-center justify-center transform -rotate-3 group-hover:rotate-0 transition-transform">
+          V
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-black text-2xl tracking-tighter leading-none text-white">VANDAL<span class="text-vandal-orange">.</span></span>
+          <span class="font-mono text-[9px] uppercase tracking-widest text-vandal-muted">Burger Club &bull; Craft</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-8 font-mono text-xs uppercase tracking-widest text-vandal-muted">
+        <a href="#filosofia" class="hover:text-vandal-orange transition-colors">01// Craft</a>
+        <a href="#menu" class="hover:text-vandal-orange transition-colors">02// Men&uacute;</a>
+        <a href="#builder" class="hover:text-vandal-orange transition-colors">03// Customizer</a>
+        <a href="#vault" class="hover:text-vandal-orange transition-colors text-vandal-amber flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-vandal-amber animate-pulse"></span>04// Drops
+        </a>
+        <a href="#atmosfera" class="hover:text-vandal-orange transition-colors">05// The Noise</a>
+        <a href="#reservas" class="hover:text-vandal-orange transition-colors">06// Book Table</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-4">
+        <button id="sound-btn" onclick="toggleVibeSound()" class="hidden sm:flex items-center gap-2 border border-vandal-border bg-vandal-surface px-3.5 py-2 font-mono text-[11px] text-vandal-muted hover:text-white hover:border-vandal-orange transition-colors">
+          <i data-lucide="volume-2" id="sound-icon" class="w-3.5 h-3.5 text-vandal-orange"></i>
+          <span id="sound-text">LO-FI: OFF</span>
+        </button>
+
+        <a href="#reservas" class="brutal-btn bg-vandal-orange text-black font-display font-black text-xs uppercase tracking-wider px-5 py-3 border border-black flex items-center gap-2">
+          <span>Mesa VIP</span>
+          <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mob-toggle" class="lg:hidden p-2 text-white border border-vandal-border bg-vandal-surface">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mob-menu" class="hidden lg:hidden border-t border-vandal-border bg-vandal-surface px-6 py-6 font-mono text-sm space-y-4">
+      <a href="#filosofia" class="block py-2 text-vandal-muted hover:text-white border-b border-vandal-border/40">01// Craft &amp; Manifiesto</a>
+      <a href="#menu" class="block py-2 text-vandal-muted hover:text-white border-b border-vandal-border/40">02// Men&uacute; Signature</a>
+      <a href="#builder" class="block py-2 text-vandal-muted hover:text-white border-b border-vandal-border/40">03// Monster Burger Builder</a>
+      <a href="#vault" class="block py-2 text-vandal-amber border-b border-vandal-border/40">04// Secret Drop #042</a>
+      <a href="#atmosfera" class="block py-2 text-vandal-muted hover:text-white border-b border-vandal-border/40">05// Reviews &amp; Vibe</a>
+      <a href="#reservas" class="block py-2 text-vandal-orange font-bold">06// Reservar Mesa</a>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       SECTION 1: HERO SECTION (Parallax Text Behind Centerpiece Burger)
+       ============================================================ -->
+  <section id="hero" class="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-vandal-black noise-bg border-b border-vandal-border pt-12 pb-20">
+    
+    <!-- Deep Ambient Glow behind burger -->
+    <div class="absolute w-[600px] md:w-[900px] h-[600px] md:h-[900px] bg-vandal-orange/15 rounded-full blur-[160px] pointer-events-none -z-0"></div>
+    <div class="absolute w-[400px] h-[400px] bg-vandal-amber/10 rounded-full blur-[140px] top-1/3 left-1/4 pointer-events-none -z-0"></div>
+
+    <!-- LAYER 1: MASSIVE PARALLAX TYPOGRAPHY BEHIND THE BURGER -->
+    <div id="hero-bg-text" class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none select-none z-10 transition-transform duration-150 ease-out">
+      <div class="font-display font-black text-[18vw] sm:text-[16vw] lg:text-[15vw] leading-[0.8] tracking-tightest uppercase text-stroke-white opacity-40 whitespace-nowrap">
+        VANDAL
+      </div>
+      <div class="font-display font-black text-[14vw] sm:text-[12vw] lg:text-[11vw] leading-[0.8] tracking-tightest uppercase text-vandal-border/40 whitespace-nowrap mt-2">
+        SMASH CLUB
+      </div>
+    </div>
+
+    <!-- LAYER 2: THE CENTERPIECE BURGER & FLOATING BADGES -->
+    <div class="relative z-20 max-w-[1300px] mx-auto px-6 w-full flex flex-col items-center">
+      
+      <!-- Top Eyebrow Tag -->
+      <div class="inline-flex items-center gap-3 bg-vandal-surface/90 border border-vandal-border px-4 py-2 rounded-full font-mono text-[11px] text-vandal-muted uppercase tracking-widest mb-4 backdrop-blur-md shadow-2xl reveal">
+        <span class="w-2 h-2 rounded-full bg-vandal-orange animate-ping"></span>
+        <span>NO VEGETALES FALSOS &bull; 100% CARNE DE VERDAD</span>
+      </div>
+
+      <!-- Centerpiece Burger Image with Interactive Mouse Parallax -->
+      <div id="burger-container" class="relative my-4 group cursor-crosshair">
+        <!-- Floating Tag Left -->
+        <div class="absolute -top-4 -left-6 sm:-left-12 lg:-left-20 z-30 bg-vandal-card/90 backdrop-blur-md border border-vandal-border p-4 shadow-2xl hidden sm:block transform -rotate-6 hover:rotate-0 transition-transform">
+          <p class="font-mono text-[9px] uppercase tracking-widest text-vandal-orange font-bold">BLEND SECRETO</p>
+          <p class="font-display font-black text-xl text-white">45-DAY AGED</p>
+          <p class="font-mono text-[10px] text-vandal-muted mt-0.5">Wagyu + Brisket 70/30</p>
+        </div>
+
+        <!-- Floating Tag Right -->
+        <div class="absolute bottom-10 -right-6 sm:-right-12 lg:-right-20 z-30 bg-vandal-surface/90 backdrop-blur-md border border-vandal-orange/60 p-4 shadow-2xl hidden sm:block transform rotate-6 hover:rotate-0 transition-transform">
+          <div class="flex items-center gap-1.5 text-vandal-amber mb-1">
+            <i data-lucide="flame" class="w-4 h-4 fill-current"></i>
+            <span class="font-mono text-[9px] uppercase tracking-widest font-bold">220&deg;C SMASH</span>
+          </div>
+          <p class="font-display font-black text-xl text-white">COSTRAMAX&trade;</p>
+          <p class="font-mono text-[10px] text-vandal-muted mt-0.5">Doble costra crujiente</p>
+        </div>
+
+        <!-- HERO BURGER IMAGE -->
+        <div class="relative w-[300px] sm:w-[420px] md:w-[500px] lg:w-[560px] h-[280px] sm:h-[380px] md:h-[450px] lg:h-[500px] rounded-[3rem] overflow-hidden border-2 border-vandal-border shadow-[0_25px_80px_rgba(0,0,0,0.9)] animate-hero-burger">
+          <img 
+            id="hero-burger-img"
+            src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=80" 
+            alt="The Vandal God Burger" 
+            class="w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-700"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-vandal-black via-transparent to-transparent opacity-60"></div>
+          <div class="absolute bottom-4 left-4 right-4 bg-black/75 backdrop-blur-sm border border-white/10 p-3 rounded-2xl flex justify-between items-center text-xs font-mono">
+            <span class="text-vandal-amber font-bold">BURGER #01: THE GODFATHER</span>
+            <span class="text-white font-bold">&cent;7.900</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Tagline & Actions -->
+      <div class="text-center max-w-xl mx-auto mt-6 z-20 reveal reveal-delay-2">
+        <h2 class="font-display font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight uppercase mb-4">
+          La hamburguesa que arruinar&aacute; a todas las dem&aacute;s.
+        </h2>
+        <p class="font-mono text-xs sm:text-sm text-vandal-muted leading-relaxed mb-8">
+          Sin trucos de marketing. Carne madurada 45 d&iacute;as, pan de papa fermentado en casa, queso cheddar fundido al soplete y mantequilla de tu&eacute;tano.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#menu" class="brutal-btn w-full sm:w-auto bg-vandal-orange text-black font-display font-black text-sm uppercase tracking-wider px-8 py-4 border border-black flex items-center justify-center gap-2">
+            <span>Ver Men&uacute; Completo</span>
+            <i data-lucide="utensils" class="w-4 h-4"></i>
+          </a>
+          <a href="#builder" class="brutal-btn-white w-full sm:w-auto bg-vandal-surface text-white font-mono font-bold text-xs uppercase tracking-wider px-7 py-4 border border-vandal-border flex items-center justify-center gap-2 hover:border-white">
+            <i data-lucide="sliders" class="w-4 h-4 text-vandal-orange"></i>
+            <span>Armar tu Monstruo</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Micro metadata footer in hero -->
+    <div class="absolute bottom-4 left-6 right-6 hidden md:flex justify-between items-center font-mono text-[10px] text-vandal-muted uppercase tracking-widest border-t border-vandal-border/40 pt-3 z-20">
+      <span>// LAT 9.9324&deg; N &bull; LON 84.1432&deg; W</span>
+      <span class="text-vandal-orange">CRAFTED FOR CARNIVORES &bull; NO APOLOGIES</span>
+      <span>EDICI&Oacute;N LIMITADA 2026 //</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: RAW MANIFESTO & THE SPECS MARQUEE
+       ============================================================ -->
+  <section id="filosofia" class="bg-vandal-surface border-b border-vandal-border overflow-hidden py-16">
+    
+    <!-- Running Marquee -->
+    <div class="overflow-hidden border-y border-vandal-border bg-vandal-black py-4 mb-20">
+      <div class="animate-marquee font-display font-black text-3xl sm:text-5xl uppercase tracking-tighter text-white">
+        <span class="mx-6 text-vandal-orange">&bull; SMASH CRUST 220&deg;C</span>
+        <span class="mx-6">&bull; 45-DAY DRY AGED</span>
+        <span class="mx-6 text-vandal-amber">&bull; BRIOCHE ARTESANAL</span>
+        <span class="mx-6">&bull; CHEDDAR INGLES VINTAGE</span>
+        <span class="mx-6 text-vandal-acid">&bull; ZERO FROZEN MEAT</span>
+        <span class="mx-6 text-vandal-orange">&bull; SMASH CRUST 220&deg;C</span>
+        <span class="mx-6">&bull; 45-DAY DRY AGED</span>
+        <span class="mx-6 text-vandal-amber">&bull; BRIOCHE ARTESANAL</span>
+        <span class="mx-6">&bull; CHEDDAR INGLES VINTAGE</span>
+        <span class="mx-6 text-vandal-acid">&bull; ZERO FROZEN MEAT</span>
+      </div>
+    </div>
+
+    <!-- Manifesto Grid (Brutalist Blocks) -->
+    <div class="max-w-[1440px] mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left Statement (5 cols) -->
+        <div class="lg:col-span-5 reveal">
+          <p class="font-mono text-xs uppercase tracking-widest text-vandal-orange mb-4 font-bold">// 01. EL MANIFIESTO</p>
+          <h2 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl text-white tracking-tighter uppercase leading-[0.95] mb-8">
+            Hacemos hamburguesas sin piedad.
+          </h2>
+          <p class="font-mono text-sm text-vandal-muted leading-relaxed mb-6">
+            Nacimos con una sola obsesi&oacute;n: desmantelar las hamburguesas gen&eacute;ricas de cadena. Creemos en el fuego alto, el hierro fundido, la grasa de calidad y los ingredientes que no necesitan filtros de Instagram para hablar por s&iacute; mismos.
+          </p>
+          <div class="border-l-2 border-vandal-orange pl-4 py-2 font-mono text-xs text-white">
+            "Si no te manchas las manos hasta las mu&ntilde;ecas, no es una Vandal."
+          </div>
+        </div>
+
+        <!-- Right Specs Grid (7 cols) -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 reveal reveal-delay-1">
+          
+          <!-- Spec 1 -->
+          <div class="bg-vandal-card border border-vandal-border p-8 hover:border-vandal-orange transition-colors group">
+            <div class="flex justify-between items-start mb-6">
+              <span class="font-mono text-2xl font-bold text-vandal-orange">01/</span>
+              <i data-lucide="flame" class="w-6 h-6 text-vandal-muted group-hover:text-vandal-orange transition-colors"></i>
+            </div>
+            <h3 class="font-display font-black text-xl text-white uppercase mb-2">Hierro Fundido 220&deg;C</h3>
+            <p class="font-mono text-xs text-vandal-muted leading-relaxed">
+              La reacci&oacute;n de Maillard llevada al l&iacute;mite. Aplastamos la carne al segundo exacto para crear una costra crujiente e hiper-sabrosa que retiene todo el jugo interno.
+            </p>
+          </div>
+
+          <!-- Spec 2 -->
+          <div class="bg-vandal-card border border-vandal-border p-8 hover:border-vandal-amber transition-colors group">
+            <div class="flex justify-between items-start mb-6">
+              <span class="font-mono text-2xl font-bold text-vandal-amber">02/</span>
+              <i data-lucide="scale" class="w-6 h-6 text-vandal-muted group-hover:text-vandal-amber transition-colors"></i>
+            </div>
+            <h3 class="font-display font-black text-xl text-white uppercase mb-2">Blend Wagyu 70/30</h3>
+            <p class="font-mono text-xs text-vandal-muted leading-relaxed">
+              Cero recortes baratos. Solo cortes nobles: pica&ntilde;a, brisket y grasa de wagyu madurada durante 45 d&iacute;as en nuestra propia c&aacute;mara de fr&iacute;o.
+            </p>
+          </div>
+
+          <!-- Spec 3 -->
+          <div class="bg-vandal-card border border-vandal-border p-8 hover:border-vandal-acid transition-colors group">
+            <div class="flex justify-between items-start mb-6">
+              <span class="font-mono text-2xl font-bold text-vandal-acid">03/</span>
+              <i data-lucide="sparkles" class="w-6 h-6 text-vandal-muted group-hover:text-vandal-acid transition-colors"></i>
+            </div>
+            <h3 class="font-display font-black text-xl text-white uppercase mb-2">Potato Brioche 36h</h3>
+            <p class="font-mono text-xs text-vandal-muted leading-relaxed">
+              Fermentaci&oacute;n lenta con masa madre y f&eacute;cula de papa. Suave como una nube pero con la resistencia justa para aguantar toneladas de queso y jugo.
+            </p>
+          </div>
+
+          <!-- Spec 4 -->
+          <div class="bg-vandal-card border border-vandal-border p-8 hover:border-white transition-colors group">
+            <div class="flex justify-between items-start mb-6">
+              <span class="font-mono text-2xl font-bold text-white">04/</span>
+              <i data-lucide="beer" class="w-6 h-6 text-vandal-muted group-hover:text-white transition-colors"></i>
+            </div>
+            <h3 class="font-display font-black text-xl text-white uppercase mb-2">12 Craft Taps</h3>
+            <p class="font-mono text-xs text-vandal-muted leading-relaxed">
+              Cervezas artesanales locales e internacionales pinchadas en barril a -2&deg;C. IPAs lupuladas, Stouts ahumadas y Sour beers seleccionadas por nuestro Sommelier.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: INTERACTIVE SIGNATURE MENU (Filterable Bento)
+       ============================================================ -->
+  <section id="menu" class="py-28 bg-vandal-black border-b border-vandal-border">
+    <div class="max-w-[1440px] mx-auto px-6">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6 reveal">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-vandal-orange mb-2 font-bold">// 02. LA CARTA</p>
+          <h2 class="font-display font-black text-4xl sm:text-6xl text-white tracking-tighter uppercase">
+            Signature Lineup.
+          </h2>
+        </div>
+        
+        <!-- Category Filter Buttons -->
+        <div class="flex flex-wrap gap-2 font-mono text-xs">
+          <button onclick="filterMenu('all')" class="menu-filter-btn px-4 py-2 border border-vandal-orange bg-vandal-orange text-black font-bold uppercase transition-all" data-category="all">
+            Todos [6]
+          </button>
+          <button onclick="filterMenu('smash')" class="menu-filter-btn px-4 py-2 border border-vandal-border bg-vandal-surface text-vandal-muted font-bold uppercase hover:border-white hover:text-white transition-all" data-category="smash">
+            Smash Beast
+          </button>
+          <button onclick="filterMenu('aged')" class="menu-filter-btn px-4 py-2 border border-vandal-border bg-vandal-surface text-vandal-muted font-bold uppercase hover:border-white hover:text-white transition-all" data-category="aged">
+            Dry Aged
+          </button>
+          <button onclick="filterMenu('sides')" class="menu-filter-btn px-4 py-2 border border-vandal-border bg-vandal-surface text-vandal-muted font-bold uppercase hover:border-white hover:text-white transition-all" data-category="sides">
+            Sides &amp; Loaded
+          </button>
+        </div>
+      </div>
+
+      <!-- Menu Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-container">
+        
+        <!-- Item 1: The Godfather -->
+        <div class="menu-item bg-vandal-card border border-vandal-border rounded-none overflow-hidden group hover:border-vandal-orange transition-all duration-300 flex flex-col" data-cat="smash">
+          <div class="relative h-64 overflow-hidden border-b border-vandal-border">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="The Godfather Burger" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+            <span class="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-vandal-orange border border-vandal-orange font-mono text-[10px] font-bold px-2.5 py-1 uppercase tracking-widest">
+              BESTSELLER
+            </span>
+            <span class="absolute bottom-4 right-4 bg-black/90 text-white font-mono text-sm font-black px-3 py-1 border border-white/20">
+              &cent;7.900
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <h3 class="font-display font-black text-2xl text-white uppercase group-hover:text-vandal-orange transition-colors">THE GODFATHER</h3>
+                <span class="font-mono text-[11px] text-vandal-muted">2x110g</span>
+              </div>
+              <p class="font-mono text-xs text-vandal-muted leading-relaxed mb-6">
+                Doble smash Wagyu, doble queso cheddar vintage, tocineta ahumada crujiente en madera de manzano, cebolla caramelizada al bourbon y salsa secreta Vandal.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-vandal-border flex items-center justify-between font-mono text-xs">
+              <span class="text-vandal-muted">Pairing: <strong class="text-white">West Coast IPA</strong></span>
+              <button onclick="quickOrder('The Godfather', '7.900')" class="text-vandal-orange font-bold hover:underline flex items-center gap-1">
+                Pedir <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2: Truffle Bastard -->
+        <div class="menu-item bg-vandal-card border border-vandal-border rounded-none overflow-hidden group hover:border-vandal-amber transition-all duration-300 flex flex-col" data-cat="aged">
+          <div class="relative h-64 overflow-hidden border-b border-vandal-border">
+            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80" alt="Truffle Bastard" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+            <span class="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-vandal-amber border border-vandal-amber font-mono text-[10px] font-bold px-2.5 py-1 uppercase tracking-widest">
+              TRUFFLE DROP
+            </span>
+            <span class="absolute bottom-4 right-4 bg-black/90 text-white font-mono text-sm font-black px-3 py-1 border border-white/20">
+              &cent;9.200
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <h3 class="font-display font-black text-2xl text-white uppercase group-hover:text-vandal-amber transition-colors">TRUFFLE BASTARD</h3>
+                <span class="font-mono text-[11px] text-vandal-muted">200g Dry-Aged</span>
+              </div>
+              <p class="font-mono text-xs text-vandal-muted leading-relaxed mb-6">
+                Patty grueso de carne madurada 45 d&iacute;as, queso Gouda holand&eacute;s derretido, hongos portobello salteados en mantequilla de trufa negra y mayonesa de ajo negro.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-vandal-border flex items-center justify-between font-mono text-xs">
+              <span class="text-vandal-muted">Pairing: <strong class="text-white">Imperial Stout</strong></span>
+              <button onclick="quickOrder('Truffle Bastard', '9.200')" class="text-vandal-amber font-bold hover:underline flex items-center gap-1">
+                Pedir <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3: Oklahoma Onion Monster -->
+        <div class="menu-item bg-vandal-card border border-vandal-border rounded-none overflow-hidden group hover:border-vandal-orange transition-all duration-300 flex flex-col" data-cat="smash">
+          <div class="relative h-64 overflow-hidden border-b border-vandal-border">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80" alt="Oklahoma Smash" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+            <span class="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white border border-white/30 font-mono text-[10px] font-bold px-2.5 py-1 uppercase tracking-widest">
+              CLASSIC CRUST
+            </span>
+            <span class="absolute bottom-4 right-4 bg-black/90 text-white font-mono text-sm font-black px-3 py-1 border border-white/20">
+              &cent;7.200
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <h3 class="font-display font-black text-2xl text-white uppercase group-hover:text-vandal-orange transition-colors">OKLAHOMA ONION</h3>
+                <span class="font-mono text-[11px] text-vandal-muted">2x110g</span>
+              </div>
+              <p class="font-mono text-xs text-vandal-muted leading-relaxed mb-6">
+                Cebolla finamente laminada incrustada y caramelizada a presi&oacute;n sobre la carne en la plancha caliente. Mostaza americana picante, pepinillos encurtidos y queso americano.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-vandal-border flex items-center justify-between font-mono text-xs">
+              <span class="text-vandal-muted">Pairing: <strong class="text-white">German Pilsner</strong></span>
+              <button onclick="quickOrder('Oklahoma Onion', '7.200')" class="text-vandal-orange font-bold hover:underline flex items-center gap-1">
+                Pedir <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4: El Diablo Hot Honey -->
+        <div class="menu-item bg-vandal-card border border-vandal-border rounded-none overflow-hidden group hover:border-vandal-orange transition-all duration-300 flex flex-col" data-cat="smash">
+          <div class="relative h-64 overflow-hidden border-b border-vandal-border">
+            <img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=800&q=80" alt="El Diablo Hot Honey" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+            <span class="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-red-500 border border-red-500 font-mono text-[10px] font-bold px-2.5 py-1 uppercase tracking-widest flex items-center gap-1">
+              <i data-lucide="flame" class="w-3 h-3 fill-current"></i> SPICY
+            </span>
+            <span class="absolute bottom-4 right-4 bg-black/90 text-white font-mono text-sm font-black px-3 py-1 border border-white/20">
+              &cent;8.400
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <h3 class="font-display font-black text-2xl text-white uppercase group-hover:text-vandal-orange transition-colors">EL DIABLO HONEY</h3>
+                <span class="font-mono text-[11px] text-vandal-muted">2x110g</span>
+              </div>
+              <p class="font-mono text-xs text-vandal-muted leading-relaxed mb-6">
+                Doble carne smash, queso Pepper Jack fundido, jalape&ntilde;os tatemados al carb&oacute;n, panceta glaseada en miel picante de habanero y mayonesa de chipotle ahumado.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-vandal-border flex items-center justify-between font-mono text-xs">
+              <span class="text-vandal-muted">Pairing: <strong class="text-white">Red Ale</strong></span>
+              <button onclick="quickOrder('El Diablo Honey', '8.400')" class="text-vandal-orange font-bold hover:underline flex items-center gap-1">
+                Pedir <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5: Bone Marrow Butter Burger -->
+        <div class="menu-item bg-vandal-card border border-vandal-border rounded-none overflow-hidden group hover:border-vandal-amber transition-all duration-300 flex flex-col" data-cat="aged">
+          <div class="relative h-64 overflow-hidden border-b border-vandal-border">
+            <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=800&q=80" alt="Bone Marrow Burger" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+            <span class="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-vandal-amber border border-vandal-amber font-mono text-[10px] font-bold px-2.5 py-1 uppercase tracking-widest">
+              CHEF SIGNATURE
+            </span>
+            <span class="absolute bottom-4 right-4 bg-black/90 text-white font-mono text-sm font-black px-3 py-1 border border-white/20">
+              &cent;9.800
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <h3 class="font-display font-black text-2xl text-white uppercase group-hover:text-vandal-amber transition-colors">BONE MARROW LUXE</h3>
+                <span class="font-mono text-[11px] text-vandal-muted">220g Aged</span>
+              </div>
+              <p class="font-mono text-xs text-vandal-muted leading-relaxed mb-6">
+                Carne madurada ba&ntilde;ada en reducci&oacute;n de mantequilla de tu&eacute;tano asado en le&ntilde;a, queso provolone ahumado, confitura de chalotas y sal Maldon.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-vandal-border flex items-center justify-between font-mono text-xs">
+              <span class="text-vandal-muted">Pairing: <strong class="text-white">Barleywine</strong></span>
+              <button onclick="quickOrder('Bone Marrow Luxe', '9.800')" class="text-vandal-amber font-bold hover:underline flex items-center gap-1">
+                Pedir <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6: Vandal Truffle Fries -->
+        <div class="menu-item bg-vandal-card border border-vandal-border rounded-none overflow-hidden group hover:border-vandal-acid transition-all duration-300 flex flex-col" data-cat="sides">
+          <div class="relative h-64 overflow-hidden border-b border-vandal-border">
+            <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=800&q=80" alt="Vandal Fries" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+            <span class="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-vandal-acid border border-vandal-acid font-mono text-[10px] font-bold px-2.5 py-1 uppercase tracking-widest">
+              LOADED SIDE
+            </span>
+            <span class="absolute bottom-4 right-4 bg-black/90 text-white font-mono text-sm font-black px-3 py-1 border border-white/20">
+              &cent;4.500
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <h3 class="font-display font-black text-2xl text-white uppercase group-hover:text-vandal-acid transition-colors">TRUFFLE PARM FRIES</h3>
+                <span class="font-mono text-[11px] text-vandal-muted">Triple Cooked</span>
+              </div>
+              <p class="font-mono text-xs text-vandal-muted leading-relaxed mb-6">
+                Papas r&uacute;sticas cortadas a mano cocinadas en tres tiempos. Aceite de trufa blanca de Alba, lluvia de queso Parmigiano Reggiano 24 meses y romero frito.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-vandal-border flex items-center justify-between font-mono text-xs">
+              <span class="text-vandal-muted">Dip: <strong class="text-white">Black Garlic Mayo</strong></span>
+              <button onclick="quickOrder('Truffle Parm Fries', '4.500')" class="text-vandal-acid font-bold hover:underline flex items-center gap-1">
+                Pedir <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: INTERACTIVE "MONSTER BUILDER" (Component Stack)
+       ============================================================ -->
+  <section id="builder" class="py-28 bg-vandal-surface border-b border-vandal-border">
+    <div class="max-w-[1440px] mx-auto px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <p class="font-mono text-xs uppercase tracking-widest text-vandal-orange mb-2 font-bold">// 03. EL LABORATORIO</p>
+        <h2 class="font-display font-black text-4xl sm:text-6xl text-white tracking-tighter uppercase mb-4">
+          Arma tu Monstruo.
+        </h2>
+        <p class="font-mono text-xs sm:text-sm text-vandal-muted">
+          Selecciona tus capas en tiempo real. Calculamos el balance de grasa, calor&iacute;as y precio al instante.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Interactive Controls (7 cols) -->
+        <div class="lg:col-span-7 space-y-4 reveal">
+          
+          <!-- Layer 1: Pan -->
+          <div class="bg-vandal-card border border-vandal-border p-5 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 bg-vandal-black border border-vandal-border flex items-center justify-center text-vandal-orange font-mono font-bold text-sm">
+                01
+              </div>
+              <div>
+                <p class="font-display font-black text-lg text-white uppercase">Pan Brioche Artesanal</p>
+                <p class="font-mono text-xs text-vandal-muted">Tostado en mantequilla clarificada</p>
+              </div>
+            </div>
+            <span class="font-mono text-xs text-vandal-muted font-bold">INCLUIDO</span>
+          </div>
+
+          <!-- Layer 2: Carne Toggle -->
+          <div class="bg-vandal-card border border-vandal-border p-5 flex items-center justify-between hover:border-vandal-orange transition-colors">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 bg-vandal-black border border-vandal-border flex items-center justify-center text-vandal-orange font-mono font-bold text-sm">
+                02
+              </div>
+              <div>
+                <p class="font-display font-black text-lg text-white uppercase">Patties de Wagyu (110g c/u)</p>
+                <p class="font-mono text-xs text-vandal-muted">Smash con costra caramelizada</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <button onclick="changePatty(-1)" class="w-8 h-8 bg-vandal-black border border-vandal-border text-white hover:bg-vandal-orange hover:text-black font-mono font-bold flex items-center justify-center">-</button>
+              <span id="patty-count" class="font-mono font-black text-base text-vandal-orange w-4 text-center">2</span>
+              <button onclick="changePatty(1)" class="w-8 h-8 bg-vandal-black border border-vandal-border text-white hover:bg-vandal-orange hover:text-black font-mono font-bold flex items-center justify-center">+</button>
+            </div>
+          </div>
+
+          <!-- Layer 3: Quesos Multi-Select -->
+          <div class="bg-vandal-card border border-vandal-border p-5 hover:border-vandal-amber transition-colors">
+            <div class="flex justify-between items-center mb-3">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-vandal-black border border-vandal-border flex items-center justify-center text-vandal-amber font-mono font-bold text-sm">
+                  03
+                </div>
+                <div>
+                  <p class="font-display font-black text-lg text-white uppercase">Queso Fundido</p>
+                  <p class="font-mono text-xs text-vandal-muted">Fundido directo con soplete</p>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 pl-14 font-mono text-xs">
+              <label class="flex items-center gap-2 p-2 bg-vandal-black border border-vandal-border cursor-pointer hover:border-vandal-amber">
+                <input type="checkbox" onchange="toggleIngredient('cheddar', 1000)" class="accent-vandal-orange" checked>
+                <span>Cheddar (+&cent;1k)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-vandal-black border border-vandal-border cursor-pointer hover:border-vandal-amber">
+                <input type="checkbox" onchange="toggleIngredient('gouda', 1200)" class="accent-vandal-orange">
+                <span>Gouda (+&cent;1.2k)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-vandal-black border border-vandal-border cursor-pointer hover:border-vandal-amber">
+                <input type="checkbox" onchange="toggleIngredient('provolone', 1200)" class="accent-vandal-orange">
+                <span>Provolone (+&cent;1.2k)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Layer 4: Toppings Premium -->
+          <div class="bg-vandal-card border border-vandal-border p-5 hover:border-vandal-acid transition-colors">
+            <div class="flex justify-between items-center mb-3">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-vandal-black border border-vandal-border flex items-center justify-center text-vandal-acid font-mono font-bold text-sm">
+                  04
+                </div>
+                <div>
+                  <p class="font-display font-black text-lg text-white uppercase">Toppings Canallas</p>
+                  <p class="font-mono text-xs text-vandal-muted">Extras que marcan la diferencia</p>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 pl-14 font-mono text-xs">
+              <label class="flex items-center gap-2 p-2 bg-vandal-black border border-vandal-border cursor-pointer hover:border-vandal-acid">
+                <input type="checkbox" onchange="toggleIngredient('bacon', 1500)" class="accent-vandal-orange" checked>
+                <span>Bacon Crujiente (+&cent;1.5k)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-vandal-black border border-vandal-border cursor-pointer hover:border-vandal-acid">
+                <input type="checkbox" onchange="toggleIngredient('marrow', 2000)" class="accent-vandal-orange">
+                <span>Tu&eacute;tano (+&cent;2k)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-vandal-black border border-vandal-border cursor-pointer hover:border-vandal-acid">
+                <input type="checkbox" onchange="toggleIngredient('trufa', 1800)" class="accent-vandal-orange">
+                <span>Mayonesa Trufa (+&cent;1.8k)</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Realtime Live Price & Visual Stack (5 cols) -->
+        <div class="lg:col-span-5 reveal reveal-delay-1">
+          <div class="bg-vandal-black border-2 border-vandal-orange p-8 shadow-[8px_8px_0px_rgba(255,62,0,0.3)]">
+            <div class="flex justify-between items-center border-b border-vandal-border pb-4 mb-6">
+              <span class="font-mono text-xs uppercase tracking-widest text-vandal-muted font-bold">// TU CREACI&Oacute;N</span>
+              <span class="bg-vandal-orange text-black font-mono text-[10px] font-black px-2 py-0.5 uppercase">CUSTOM SPEC</span>
+            </div>
+
+            <!-- Visual Layer Stack Output -->
+            <div id="stack-summary" class="space-y-2 font-mono text-xs mb-8 min-h-[160px]">
+              <div class="flex justify-between text-vandal-muted border-b border-vandal-border/40 pb-1">
+                <span>[TOP] Brioche Toasted Bun</span>
+                <span class="text-white">&cent;0</span>
+              </div>
+              <div id="stack-patties" class="flex justify-between text-vandal-orange border-b border-vandal-border/40 pb-1">
+                <span>[MEAT] 2x 110g Wagyu Patties</span>
+                <span>&cent;5.000</span>
+              </div>
+              <div id="stack-cheeses" class="flex justify-between text-vandal-amber border-b border-vandal-border/40 pb-1">
+                <span>[CHEESE] Cheddar Vintage</span>
+                <span>&cent;1.000</span>
+              </div>
+              <div id="stack-toppings" class="flex justify-between text-vandal-acid border-b border-vandal-border/40 pb-1">
+                <span>[EXTRAS] Smoked Bacon</span>
+                <span>&cent;1.500</span>
+              </div>
+              <div class="flex justify-between text-vandal-muted border-b border-vandal-border/40 pb-1">
+                <span>[BOTTOM] Brioche Base</span>
+                <span class="text-white">&cent;0</span>
+              </div>
+            </div>
+
+            <!-- Price & Action -->
+            <div class="border-t-2 border-vandal-border pt-6 flex justify-between items-end mb-6">
+              <div>
+                <p class="font-mono text-[10px] text-vandal-muted uppercase">PRECIO TOTAL ESTIMADO</p>
+                <p id="total-price" class="font-display font-black text-4xl text-white">&cent;7.500</p>
+              </div>
+              <div class="text-right">
+                <p class="font-mono text-[10px] text-vandal-muted">CALOR&Iacute;AS ESTIMADAS</p>
+                <p id="total-cals" class="font-mono font-bold text-lg text-vandal-orange">920 kcal</p>
+              </div>
+            </div>
+
+            <button onclick="orderCustomBurger()" class="brutal-btn w-full bg-vandal-orange text-black font-display font-black text-sm uppercase tracking-wider py-4 border border-black flex items-center justify-center gap-2">
+              <span>Enviar a Cocina</span>
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: THE SECRET VAULT (Limited Edition Drop Countdown)
+       ============================================================ -->
+  <section id="vault" class="py-24 bg-vandal-black border-b border-vandal-border relative overflow-hidden">
+    
+    <!-- Background Warning Stripe -->
+    <div class="absolute inset-0 opacity-5 pointer-events-none bg-[repeating-linear-gradient(45deg,#FF3E00,#FF3E00_20px,#000_20px,#000_40px)]"></div>
+
+    <div class="max-w-[1440px] mx-auto px-6 relative z-10">
+      <div class="bg-vandal-card border-2 border-vandal-amber p-8 sm:p-12 lg:p-16 shadow-[12px_12px_0px_#FFB800] reveal">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Drop Info (7 cols) -->
+          <div class="lg:col-span-7">
+            <div class="inline-flex items-center gap-2 bg-vandal-amber text-black font-mono text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-6">
+              <i data-lucide="lock" class="w-3.5 h-3.5"></i> DROP EXCLUSIVO #042 &bull; SOLO ESTA NOCHE
+            </div>
+            
+            <h2 class="font-display font-black text-4xl sm:text-6xl text-white tracking-tighter uppercase leading-[0.95] mb-6">
+              THE GOLDEN <br><span class="text-vandal-amber">WAGYU TRUFFLE.</span>
+            </h2>
+
+            <p class="font-mono text-sm text-vandal-muted leading-relaxed mb-8 max-w-xl">
+              Solo preparamos 50 unidades por servicio. Carne Wagyu A5 de Miyazaki, l&aacute;minas de trufa negra fresca ralladas en mesa, foie gras sellado a la le&ntilde;a y pan brioche con pan de oro comestible de 24k.
+            </p>
+
+            <!-- Remaining Units Meter -->
+            <div class="bg-vandal-black border border-vandal-border p-6 mb-8 max-w-lg">
+              <div class="flex justify-between items-center font-mono text-xs mb-3">
+                <span class="text-vandal-muted">UNIDADES DISPONIBLES:</span>
+                <span class="text-vandal-amber font-bold text-sm" id="units-left">14 / 50 RESTANTES</span>
+              </div>
+              <div class="w-full h-3 bg-vandal-surface border border-vandal-border overflow-hidden">
+                <div class="w-[28%] h-full bg-vandal-amber transition-all duration-500"></div>
+              </div>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div class="flex items-center gap-4 font-mono text-center">
+              <div class="bg-vandal-black border border-vandal-border p-3 w-20">
+                <p id="cd-hours" class="font-display font-black text-2xl text-white">03</p>
+                <p class="text-[9px] text-vandal-muted uppercase">Horas</p>
+              </div>
+              <span class="text-vandal-amber font-black text-xl">:</span>
+              <div class="bg-vandal-black border border-vandal-border p-3 w-20">
+                <p id="cd-mins" class="font-display font-black text-2xl text-white">42</p>
+                <p class="text-[9px] text-vandal-muted uppercase">Minutos</p>
+              </div>
+              <span class="text-vandal-amber font-black text-xl">:</span>
+              <div class="bg-vandal-black border border-vandal-border p-3 w-20">
+                <p id="cd-secs" class="font-display font-black text-2xl text-vandal-orange">18</p>
+                <p class="text-[9px] text-vandal-muted uppercase">Segundos</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Drop Image & Claim CTA (5 cols) -->
+          <div class="lg:col-span-5 text-center">
+            <div class="relative w-full h-80 sm:h-96 rounded-none overflow-hidden border-2 border-vandal-amber shadow-2xl mb-6">
+              <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80" alt="Drop 042" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4 bg-vandal-black/90 p-3 border border-vandal-amber/40 flex justify-between items-center font-mono">
+                <span class="text-xs text-white font-bold">PRECIO DROP</span>
+                <span class="text-vandal-amber font-black text-lg">&cent;14.500</span>
+              </div>
+            </div>
+
+            <button onclick="claimDrop()" class="brutal-btn w-full bg-vandal-amber text-black font-display font-black text-sm uppercase tracking-wider py-4 border border-black flex items-center justify-center gap-2">
+              <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
+              <span>Reclamar Ticket de Drop</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6: THE NOISE / REVIEWS & RAW ATMOSPHERE
+       ============================================================ -->
+  <section id="atmosfera" class="py-28 bg-vandal-surface border-b border-vandal-border">
+    <div class="max-w-[1440px] mx-auto px-6">
+      
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6 reveal">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-vandal-orange mb-2 font-bold">// 05. EL RUIDO</p>
+          <h2 class="font-display font-black text-4xl sm:text-6xl text-white tracking-tighter uppercase">
+            Lo que dice la calle.
+          </h2>
+        </div>
+        <div class="font-mono text-xs text-vandal-muted border-l-2 border-vandal-orange pl-4">
+          <span>GOOGLE RATING: <strong>4.9 / 5.0</strong></span><br>
+          <span>BASADO EN +1.200 RESE&Ntilde;AS VERIFICADAS</span>
+        </div>
+      </div>
+
+      <!-- Brutalist Reviews Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+        
+        <!-- Review 1 -->
+        <div class="bg-vandal-black border border-vandal-border p-8 hover:border-vandal-orange transition-colors reveal">
+          <div class="flex text-vandal-amber mb-4">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <p class="font-mono text-sm text-vandal-light leading-relaxed mb-6 italic">
+            "La costra de la carne es una locura. Cruje por fuera y chorrea jugo al primer mordisco. No vuelvo a pisar otra hamburgueser&iacute;a en Costa Rica."
+          </p>
+          <div class="flex items-center gap-3 pt-4 border-t border-vandal-border font-mono text-xs">
+            <div class="w-8 h-8 bg-vandal-orange text-black font-bold flex items-center justify-center">FG</div>
+            <div>
+              <p class="text-white font-bold">Felipe G&oacute;mez</p>
+              <p class="text-[10px] text-vandal-muted">Food Critic &bull; San Jos&eacute;</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-vandal-black border border-vandal-border p-8 hover:border-vandal-amber transition-colors reveal reveal-delay-1">
+          <div class="flex text-vandal-amber mb-4">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <p class="font-mono text-sm text-vandal-light leading-relaxed mb-6 italic">
+            "La Truffle Bastard vale cada cinco. El pan no se desarma a pesar de lo cargada que est&aacute;, y la selecci&oacute;n de cervezas de barril es insuperable."
+          </p>
+          <div class="flex items-center gap-3 pt-4 border-t border-vandal-border font-mono text-xs">
+            <div class="w-8 h-8 bg-vandal-amber text-black font-bold flex items-center justify-center">MV</div>
+            <div>
+              <p class="text-white font-bold">Mariana Vega</p>
+              <p class="text-[10px] text-vandal-muted">Local Guide Level 7</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="bg-vandal-black border border-vandal-border p-8 hover:border-vandal-acid transition-colors reveal reveal-delay-2">
+          <div class="flex text-vandal-amber mb-4">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <p class="font-mono text-sm text-vandal-light leading-relaxed mb-6 italic">
+            "El ambiente con m&uacute;sica en vinilo y la cocina abierta con fuego a la vista te mete en una pel&iacute;cula. Recomiendo pedir la mantequilla de tu&eacute;tano extra."
+          </p>
+          <div class="flex items-center gap-3 pt-4 border-t border-vandal-border font-mono text-xs">
+            <div class="w-8 h-8 bg-vandal-acid text-black font-bold flex items-center justify-center">EA</div>
+            <div>
+              <p class="text-white font-bold">Esteban Alvarado</p>
+              <p class="text-[10px] text-vandal-muted">Cliente VIP #012</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Atmosphere Photo Masonry -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="relative h-60 overflow-hidden border border-vandal-border group">
+          <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=600&q=80" alt="Bar Vibe" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+          <div class="absolute bottom-2 left-2 bg-black/80 px-2 py-1 font-mono text-[9px] text-white">THE TAP BAR</div>
+        </div>
+        <div class="relative h-60 overflow-hidden border border-vandal-border group">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="Kitchen Action" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+          <div class="absolute bottom-2 left-2 bg-black/80 px-2 py-1 font-mono text-[9px] text-vandal-orange">LIVE KITCHEN</div>
+        </div>
+        <div class="relative h-60 overflow-hidden border border-vandal-border group">
+          <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=600&q=80" alt="Loaded Fries" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+          <div class="absolute bottom-2 left-2 bg-black/80 px-2 py-1 font-mono text-[9px] text-vandal-acid">PARM FRIES</div>
+        </div>
+        <div class="relative h-60 overflow-hidden border border-vandal-border group">
+          <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=600&q=80" alt="Burger Smashed" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+          <div class="absolute bottom-2 left-2 bg-black/80 px-2 py-1 font-mono text-[9px] text-vandal-amber">220&deg;C CRUST</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 7: INTERACTIVE BOOKING + LOCATION & MEGA BRUTALIST FOOTER
+       ============================================================ -->
+  <section id="reservas" class="py-28 bg-vandal-black relative overflow-hidden">
+    <div class="max-w-[1440px] mx-auto px-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
+        
+        <!-- Left: Location & Details (5 cols) -->
+        <div class="lg:col-span-5 reveal">
+          <p class="font-mono text-xs uppercase tracking-widest text-vandal-orange mb-2 font-bold">// 06. CONTACTO &amp; SEDE</p>
+          <h2 class="font-display font-black text-4xl sm:text-6xl text-white tracking-tighter uppercase mb-6 leading-[0.95]">
+            Encu&eacute;ntranos <br>en la guarida.
+          </h2>
+          <p class="font-mono text-xs sm:text-sm text-vandal-muted leading-relaxed mb-8">
+            Ubicados en el coraz&oacute;n gastron&oacute;mico de Escaz&uacute;. Ambiente oscuro, luces de ne&oacute;n tenues, sistema de sonido anal&oacute;gico y cocina abierta frente a la barra.
+          </p>
+
+          <div class="space-y-4 font-mono text-xs">
+            <div class="bg-vandal-surface border border-vandal-border p-4 flex items-start gap-4">
+              <i data-lucide="map-pin" class="w-5 h-5 text-vandal-orange shrink-0 mt-0.5"></i>
+              <div>
+                <p class="text-white font-bold mb-0.5">DIRECCI&Oacute;N F&Iacute;SICA</p>
+                <p class="text-vandal-muted">Plaza Tempo, Local B-12 &bull; Escaz&uacute;, San Jos&eacute;, CR</p>
+              </div>
+            </div>
+            
+            <div class="bg-vandal-surface border border-vandal-border p-4 flex items-start gap-4">
+              <i data-lucide="clock" class="w-5 h-5 text-vandal-amber shrink-0 mt-0.5"></i>
+              <div>
+                <p class="text-white font-bold mb-0.5">HORARIOS DE SERVICIO</p>
+                <p class="text-vandal-muted">Mar &ndash; Jue: 12:00 PM &ndash; 11:00 PM</p>
+                <p class="text-vandal-muted">Vie &ndash; S&aacute;b: 12:00 PM &ndash; 01:00 AM (Kitchen Bar)</p>
+                <p class="text-vandal-muted">Domingos: 12:00 PM &ndash; 10:00 PM</p>
+              </div>
+            </div>
+
+            <div class="bg-vandal-surface border border-vandal-border p-4 flex items-start gap-4">
+              <i data-lucide="phone" class="w-5 h-5 text-vandal-acid shrink-0 mt-0.5"></i>
+              <div>
+                <p class="text-white font-bold mb-0.5">L&Iacute;NEA DIRECTA &amp; WHATSAPP</p>
+                <a href="https://wa.me/50600000000" class="text-vandal-orange hover:underline font-bold">+506 8888-BURGER (2874)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Table Booking Form (7 cols) -->
+        <div class="lg:col-span-7 reveal reveal-delay-1">
+          <div class="bg-vandal-surface border-2 border-vandal-border p-8 sm:p-12 shadow-[8px_8px_0px_#242424]">
+            <div class="flex justify-between items-center border-b border-vandal-border pb-4 mb-8">
+              <span class="font-mono text-xs uppercase tracking-widest text-vandal-orange font-bold">// RESERVA DE MESA INSTANT&Aacute;NEA</span>
+              <span class="font-mono text-[10px] text-vandal-muted">SIN DEP&Oacute;SITO REQUERIDO</span>
+            </div>
+
+            <form id="booking-form" onsubmit="handleBooking(event)" class="space-y-6 font-mono text-xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-vandal-muted uppercase mb-2">Nombre Completo *</label>
+                  <input type="text" required placeholder="Ej: Carlos Murillo" class="w-full bg-vandal-black border border-vandal-border p-3.5 text-white focus:outline-none focus:border-vandal-orange">
+                </div>
+                <div>
+                  <label class="block text-vandal-muted uppercase mb-2">WhatsApp / Tel&eacute;fono *</label>
+                  <input type="tel" required placeholder="+506 8888-0000" class="w-full bg-vandal-black border border-vandal-border p-3.5 text-white focus:outline-none focus:border-vandal-orange">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-vandal-muted uppercase mb-2">Personas</label>
+                  <select class="w-full bg-vandal-black border border-vandal-border p-3.5 text-white focus:outline-none focus:border-vandal-orange">
+                    <option>2 Personas</option>
+                    <option>3 - 4 Personas</option>
+                    <option>5 - 8 Personas (Mesa Grande)</option>
+                    <option>Barra Frente a Cocina (1-2 pax)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-vandal-muted uppercase mb-2">Fecha</label>
+                  <input type="date" required class="w-full bg-vandal-black border border-vandal-border p-3.5 text-white focus:outline-none focus:border-vandal-orange">
+                </div>
+                <div>
+                  <label class="block text-vandal-muted uppercase mb-2">Hora</label>
+                  <select class="w-full bg-vandal-black border border-vandal-border p-3.5 text-white focus:outline-none focus:border-vandal-orange">
+                    <option>12:30 PM (Almuerzo)</option>
+                    <option>01:30 PM (Almuerzo)</option>
+                    <option>07:00 PM (Cena)</option>
+                    <option>08:30 PM (Prime Time)</option>
+                    <option>10:00 PM (Late Night Bar)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-vandal-muted uppercase mb-2">Notas Especiales / Cumplea&ntilde;os / Alergias</label>
+                <input type="text" placeholder="Ej: Mesa cerca de la cabina de DJ / Sin gluten" class="w-full bg-vandal-black border border-vandal-border p-3.5 text-white focus:outline-none focus:border-vandal-orange">
+              </div>
+
+              <button type="submit" class="brutal-btn w-full bg-vandal-orange text-black font-display font-black text-base uppercase tracking-wider py-4 border border-black flex items-center justify-center gap-2">
+                <span>Confirmar Reserva de Mesa</span>
+                <i data-lucide="check" class="w-5 h-5"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MEGA BRUTALIST FOOTER -->
+      <footer class="border-t-2 border-vandal-border pt-16">
+        
+        <!-- Giant Outlined Brand Name in Footer -->
+        <div class="font-display font-black text-[14vw] leading-none tracking-tightest text-stroke-white opacity-20 hover:opacity-40 transition-opacity select-none text-center mb-12">
+          VANDAL.CR
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 font-mono text-xs mb-16">
+          <div>
+            <p class="text-white font-bold mb-4 uppercase text-vandal-orange">// CLUB &amp; CRAFT</p>
+            <p class="text-vandal-muted leading-relaxed">
+              Vandal Burger Club es una marca registrada de gastronom&iacute;a canalla. Hecho para los que exigen sabor sin censura.
+            </p>
+          </div>
+          <div>
+            <p class="text-white font-bold mb-4 uppercase">// NAVEGACI&Oacute;N</p>
+            <ul class="space-y-2 text-vandal-muted">
+              <li><a href="#filosofia" class="hover:text-white">Manifiesto</a></li>
+              <li><a href="#menu" class="hover:text-white">Carta Completa</a></li>
+              <li><a href="#builder" class="hover:text-white">Customizer</a></li>
+              <li><a href="#vault" class="hover:text-white">Secret Drops</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-white font-bold mb-4 uppercase">// SOCIAL &amp; NOISE</p>
+            <ul class="space-y-2 text-vandal-muted">
+              <li><a href="#" class="hover:text-vandal-orange flex items-center gap-1"><i data-lucide="instagram" class="w-3.5 h-3.5"></i> @vandalburger.cr</a></li>
+              <li><a href="#" class="hover:text-vandal-orange flex items-center gap-1"><i data-lucide="music" class="w-3.5 h-3.5"></i> Spotify Playlists</a></li>
+              <li><a href="#" class="hover:text-vandal-orange flex items-center gap-1"><i data-lucide="video" class="w-3.5 h-3.5"></i> TikTok Official</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-white font-bold mb-4 uppercase text-vandal-acid">// NEWSLETTER DROPS</p>
+            <p class="text-vandal-muted mb-3">Recibe los c&oacute;digos para los drops secretos antes de que se agoten.</p>
+            <div class="flex">
+              <input type="email" placeholder="tu@email.com" class="bg-vandal-surface border border-vandal-border px-3 py-2 text-white w-full focus:outline-none focus:border-vandal-acid">
+              <button class="bg-vandal-acid text-black font-bold px-4 hover:bg-white transition-colors">GO</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-vandal-border/40 pt-8 flex flex-col sm:flex-row justify-between items-center font-mono text-[11px] text-vandal-muted gap-4">
+          <p>&copy; 2026 VANDAL BURGER CLUB. TODOS LOS DERECHOS RESERVADOS.</p>
+          <div class="flex gap-6">
+            <a href="#" class="hover:text-white">PRIVACIDAD</a>
+            <a href="#" class="hover:text-white">AL&Eacute;RGENOS</a>
+            <a href="#" class="hover:text-white">TERMINOS CANALLAS</a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       QUICK ORDER MODAL & NOTIFICATIONS
+       ============================================================ -->
+  <div id="order-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-vandal-card border-2 border-vandal-orange max-w-md w-full p-8 shadow-[10px_10px_0px_#FF3E00] relative">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-vandal-muted hover:text-white">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      
+      <div class="inline-flex items-center gap-2 bg-vandal-orange text-black font-mono text-[10px] font-black px-2.5 py-0.5 uppercase mb-4">
+        PEDIDO R&Aacute;PIDO WHATSAPP
+      </div>
+      <h3 id="modal-title" class="font-display font-black text-2xl text-white uppercase mb-2">THE GODFATHER</h3>
+      <p id="modal-price" class="font-mono text-lg text-vandal-orange font-bold mb-6">&cent;7.900</p>
+      
+      <div class="space-y-4 font-mono text-xs mb-6">
+        <div>
+          <label class="block text-vandal-muted mb-1 uppercase">Tu Nombre</label>
+          <input id="modal-name" type="text" placeholder="Ej: Alejandro" class="w-full bg-vandal-black border border-vandal-border p-3 text-white focus:outline-none focus:border-vandal-orange">
+        </div>
+        <div>
+          <label class="block text-vandal-muted mb-1 uppercase">T&eacute;rmino de la Carne</label>
+          <select id="modal-doneness" class="w-full bg-vandal-black border border-vandal-border p-3 text-white focus:outline-none focus:border-vandal-orange">
+            <option>T&eacute;rmino Medio (Recomendado)</option>
+            <option>Tres Cuartos</option>
+            <option>Bien Cocido</option>
+          </select>
+        </div>
+      </div>
+
+      <button onclick="sendWhatsAppOrder()" class="brutal-btn w-full bg-vandal-orange text-black font-display font-black text-sm uppercase tracking-wider py-4 border border-black flex items-center justify-center gap-2">
+        <i data-lucide="message-circle" class="w-5 h-5"></i>
+        <span>Enviar a WhatsApp Oficial</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VANILLA JAVASCRIPT FOR INTERACTIVITY
+       ============================================================ -->
+  <script>
+    // Init Lucide
+    lucide.createIcons();
+
+    // 1. Live Clock GMT-6
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      const secs = String(now.getSeconds()).padStart(2, '0');
+      const clockEl = document.getElementById('live-clock');
+      if (clockEl) clockEl.textContent = `${hours}:${mins}:${secs}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. Parallax Effect on Hero
+    const heroSection = document.getElementById('hero');
+    const heroBgText = document.getElementById('hero-bg-text');
+    const heroBurgerImg = document.getElementById('hero-burger-img');
+
+    if (heroSection && heroBgText) {
+      window.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 30;
+        const y = (e.clientY / window.innerHeight - 0.5) * 30;
+        heroBgText.style.transform = `translate(${x * -0.6}px, ${y * -0.6}px)`;
+        if (heroBurgerImg) {
+          heroBurgerImg.style.transform = `scale(1.06) translate(${x * 0.4}px, ${y * 0.4}px)`;
+        }
+      });
+    }
+
+    // 3. Mobile Menu Toggle
+    const mobToggle = document.getElementById('mob-toggle');
+    const mobMenu = document.getElementById('mob-menu');
+    if (mobToggle && mobMenu) {
+      mobToggle.addEventListener('click', () => {
+        mobMenu.classList.toggle('hidden');
+      });
+      mobMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => mobMenu.classList.add('hidden'));
+      });
+    }
+
+    // 4. Menu Category Filter
+    function filterMenu(category) {
+      const items = document.querySelectorAll('.menu-item');
+      const buttons = document.querySelectorAll('.menu-filter-btn');
+
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-category') === category) {
+          btn.className = "menu-filter-btn px-4 py-2 border border-vandal-orange bg-vandal-orange text-black font-bold uppercase transition-all";
+        } else {
+          btn.className = "menu-filter-btn px-4 py-2 border border-vandal-border bg-vandal-surface text-vandal-muted font-bold uppercase hover:border-white hover:text-white transition-all";
+        }
+      });
+
+      items.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-cat') === category) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // 5. Monster Burger Builder Logic
+    let basePrice = 5000;
+    let baseCals = 650;
+    let patties = 2;
+    let ingredients = {
+      cheddar: true,
+      gouda: false,
+      provolone: false,
+      bacon: true,
+      marrow: false,
+      trufa: false
+    };
+
+    function changePatty(delta) {
+      patties = Math.max(1, Math.min(4, patties + delta));
+      document.getElementById('patty-count').textContent = patties;
+      updateBuilder();
+    }
+
+    function toggleIngredient(name, price) {
+      ingredients[name] = !ingredients[name];
+      updateBuilder();
+    }
+
+    function updateBuilder() {
+      let price = 2500 + (patties * 2500);
+      let cals = 350 + (patties * 280);
+
+      const stackPatties = document.getElementById('stack-patties');
+      stackPatties.innerHTML = `<span>[MEAT] ${patties}x 110g Wagyu Patties</span><span>&cent;${(patties * 2500).toLocaleString('es-CR')}</span>`;
+
+      // Cheeses
+      let cheeseNames = [];
+      if (ingredients.cheddar) { price += 1000; cals += 110; cheeseNames.push('Cheddar Vintage'); }
+      if (ingredients.gouda) { price += 1200; cals += 120; cheeseNames.push('Gouda Holandés'); }
+      if (ingredients.provolone) { price += 1200; cals += 115; cheeseNames.push('Provolone'); }
+      
+      const stackCheeses = document.getElementById('stack-cheeses');
+      if (cheeseNames.length > 0) {
+        stackCheeses.innerHTML = `<span>[CHEESE] ${cheeseNames.join(' + ')}</span><span>&cent;${cheeseNames.length * 1000}</span>`;
+      } else {
+        stackCheeses.innerHTML = `<span>[CHEESE] Sin Queso</span><span>&cent;0</span>`;
+      }
+
+      // Toppings
+      let extraNames = [];
+      if (ingredients.bacon) { price += 1500; cals += 140; extraNames.push('Smoked Bacon'); }
+      if (ingredients.marrow) { price += 2000; cals += 180; extraNames.push('Bone Marrow'); }
+      if (ingredients.trufa) { price += 1800; cals += 90; extraNames.push('Truffle Mayo'); }
+
+      const stackToppings = document.getElementById('stack-toppings');
+      if (extraNames.length > 0) {
+        stackToppings.innerHTML = `<span>[EXTRAS] ${extraNames.join(' + ')}</span><span>&cent;${extraNames.length * 1500}</span>`;
+      } else {
+        stackToppings.innerHTML = `<span>[EXTRAS] Sin Extras</span><span>&cent;0</span>`;
+      }
+
+      document.getElementById('total-price').textContent = `¢${price.toLocaleString('es-CR')}`;
+      document.getElementById('total-cals').textContent = `${cals} kcal`;
+    }
+
+    function orderCustomBurger() {
+      const price = document.getElementById('total-price').textContent;
+      const text = `Hola Vandal! Quiero pedir mi Monster Burger personalizada (${patties} patties) por ${price}.`;
+      window.open(`https://wa.me/50600000000?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    // 6. Secret Drop Countdown Timer
+    let dropSecs = 13420;
+    function updateCountdown() {
+      if (dropSecs > 0) dropSecs--;
+      const h = Math.floor(dropSecs / 3600);
+      const m = Math.floor((dropSecs % 3600) / 60);
+      const s = dropSecs % 60;
+      document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+      document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+      document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+
+    function claimDrop() {
+      const text = "Hola Vandal! Quiero reclamar mi Ticket para el Drop Exclusivo #042 The Golden Wagyu Truffle.";
+      window.open(`https://wa.me/50600000000?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    // 7. Quick Order Modal
+    let activeItem = '';
+    let activePrice = '';
+    function quickOrder(name, price) {
+      activeItem = name;
+      activePrice = price;
+      document.getElementById('modal-title').textContent = name;
+      document.getElementById('modal-price').textContent = `¢${price}`;
+      document.getElementById('order-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('order-modal').classList.add('hidden');
+    }
+
+    function sendWhatsAppOrder() {
+      const name = document.getElementById('modal-name').value || 'Cliente';
+      const doneness = document.getElementById('modal-doneness').value;
+      const msg = `Hola Vandal! Mi nombre es ${name}. Quiero pedir: ${activeItem} (¢${activePrice}) - Término: ${doneness}.`;
+      window.open(`https://wa.me/50600000000?text=${encodeURIComponent(msg)}`, '_blank');
+      closeModal();
+    }
+
+    // 8. Booking Form Handler
+    function handleBooking(e) {
+      e.preventDefault();
+      alert('¡Mesa pre-reservada con éxito! Te contactaremos por WhatsApp en 5 minutos para confirmar.');
+    }
+
+    // 9. Sound vibe toggle
+    let vibeActive = false;
+    function toggleVibeSound() {
+      vibeActive = !vibeActive;
+      const text = document.getElementById('sound-text');
+      const icon = document.getElementById('sound-icon');
+      if (vibeActive) {
+        text.textContent = 'LO-FI: ON 45RPM';
+        icon.className = 'w-3.5 h-3.5 text-vandal-acid animate-spin';
+      } else {
+        text.textContent = 'LO-FI: OFF';
+        icon.className = 'w-3.5 h-3.5 text-vandal-orange';
+      }
+    }
+
+    // 10. Scroll Reveal Observer
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

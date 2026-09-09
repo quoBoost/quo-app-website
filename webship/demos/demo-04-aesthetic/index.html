@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&Eacute;LAN &mdash; Institut de Beaut&eacute; &amp; Medicina Est&eacute;tica Avanzada</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Italiana (Haute Couture Serif) + Plus Jakarta Sans + Cormorant Garamond -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Italiana&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            elan: {
+              sand:     '#FBF9F5', // Warm alabaster / cream background
+              stone:    '#F2EFEB', // Light stone secondary surface
+              border:   '#E8E3DA', // Ultra-fine 1px border
+              gold:     '#BA9873', // Champagne muted gold
+              goldLight:'#D8C4A9',
+              goldDark: '#8F7150',
+              sage:     '#8E9A8E', // Botanical subtle sage
+              charcoal: '#1C1A19', // Deep espresso dark
+              muted:    '#7D7771', // Serene body gray
+            }
+          },
+          fontFamily: {
+            serif:   ['Italiana', 'serif'],
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans:    ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          },
+          letterSpacing: {
+            ultra: '0.28em',
+            mega:  '0.36em',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Luxury Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #FBF9F5; }
+    ::-webkit-scrollbar-thumb { background: #D8C4A9; border-radius: 2px; }
+    ::-webkit-scrollbar-thumb:hover { background: #BA9873; }
+
+    /* Ultra-fine Line Accents */
+    .fine-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #E8E3DA, transparent);
+    }
+    .fine-line-gold {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #BA9873, transparent);
+    }
+
+    /* Soft Glow */
+    .glow-aura {
+      background: radial-gradient(circle, rgba(186, 152, 115, 0.12) 0%, rgba(251, 249, 245, 0) 70%);
+    }
+
+    /* Smooth Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Subtle image hover zoom */
+    .img-luxe {
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+    }
+    .group:hover .img-luxe {
+      transform: scale(1.03);
+    }
+
+    /* Luxury Button */
+    .btn-luxe {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-luxe::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #1C1A19;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+    }
+    .btn-luxe:hover::after {
+      transform: translateY(0);
+    }
+    .btn-luxe span, .btn-luxe i {
+      position: relative;
+      z-index: 10;
+    }
+    .btn-luxe:hover span, .btn-luxe:hover i {
+      color: #FFFFFF;
+    }
+
+    /* Before & After Interactive Slider */
+    .ba-container {
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+    .ba-after {
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 50%;
+      overflow: hidden;
+      border-right: 1.5px solid #BA9873;
+    }
+    .ba-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid #BA9873;
+      box-shadow: 0 4px 20px rgba(186, 152, 115, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: ew-resize;
+      z-index: 30;
+    }
+  </style>
+</head>
+<body class="bg-elan-sand text-elan-charcoal font-sans antialiased overflow-x-hidden selection:bg-elan-goldLight/30 selection:text-elan-charcoal">
+
+  <!-- ============================================================
+       TOP CONCIERGE BAR
+       ============================================================ -->
+  <div class="bg-elan-stone text-elan-muted border-b border-elan-border/80 text-[11px] font-sans tracking-ultra uppercase py-2 px-6">
+    <div class="max-w-[1400px] mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <span class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-elan-gold animate-pulse"></span>
+          <span>Protocolos M&eacute;dicos Suizos Certificados</span>
+        </span>
+        <span class="hidden md:inline text-elan-border">|</span>
+        <span class="hidden md:inline">Distrito Cuatro &bull; Escaz&uacute;, Costa Rica</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="tel:+50622220000" class="hover:text-elan-gold transition-colors font-medium">Concierge VIP: +506 2222-ELAN</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MINIMALIST LUXE NAVIGATION
+       ============================================================ -->
+  <header class="sticky top-0 z-40 bg-elan-sand/90 backdrop-blur-xl border-b border-elan-border/60 transition-all duration-300" id="main-nav">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="flex flex-col">
+          <span class="font-serif text-3xl tracking-[0.18em] text-elan-charcoal leading-none group-hover:text-elan-gold transition-colors">
+            &Eacute;LAN
+          </span>
+          <span class="font-sans text-[8px] uppercase tracking-mega text-elan-muted font-medium mt-1">
+            Institut de Beaut&eacute;
+          </span>
+        </div>
+      </a>
+
+      <!-- Center Links -->
+      <nav class="hidden lg:flex items-center gap-10 font-sans text-[11.5px] uppercase tracking-ultra text-elan-muted font-medium">
+        <a href="#filosofia" class="hover:text-elan-gold transition-colors">Filosof&iacute;a</a>
+        <a href="#tratamientos" class="hover:text-elan-gold transition-colors">Tratamientos</a>
+        <a href="#resultados" class="hover:text-elan-gold transition-colors">Resultados</a>
+        <a href="#diagnostico" class="hover:text-elan-gold transition-colors text-elan-gold">Diagn&oacute;stico Virtual</a>
+        <a href="#especialistas" class="hover:text-elan-gold transition-colors">Direcci&oacute;n M&eacute;dica</a>
+      </nav>
+
+      <!-- Right CTA -->
+      <div class="flex items-center gap-4">
+        <a href="#contacto" class="btn-luxe hidden sm:inline-flex items-center gap-2 border border-elan-charcoal px-6 py-2.5 font-sans text-[11px] uppercase tracking-ultra font-semibold text-elan-charcoal bg-transparent hover:border-elan-charcoal">
+          <span>Agendar Valoraci&oacute;n</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-elan-gold"></i>
+        </a>
+
+        <button id="mob-toggle" class="lg:hidden p-2 text-elan-charcoal">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mob-menu" class="hidden lg:hidden border-t border-elan-border bg-elan-stone px-6 py-6 font-sans text-xs uppercase tracking-ultra space-y-4">
+      <a href="#filosofia" class="block py-2 text-elan-muted hover:text-elan-charcoal border-b border-elan-border/40">Filosof&iacute;a &amp; Ciencia</a>
+      <a href="#tratamientos" class="block py-2 text-elan-muted hover:text-elan-charcoal border-b border-elan-border/40">Tratamientos Signature</a>
+      <a href="#resultados" class="block py-2 text-elan-muted hover:text-elan-charcoal border-b border-elan-border/40">Casos &amp; Antes / Despu&eacute;s</a>
+      <a href="#diagnostico" class="block py-2 text-elan-gold border-b border-elan-border/40">Diagn&oacute;stico Virtual</a>
+      <a href="#especialistas" class="block py-2 text-elan-muted hover:text-elan-charcoal border-b border-elan-border/40">Especialistas</a>
+      <a href="#contacto" class="block py-3 text-center bg-elan-charcoal text-white font-semibold mt-2">Agendar Cita Privada</a>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       SECTION 1: HERO SECTION (Quiet Luxury Architectural Serenity)
+       ============================================================ -->
+  <section class="relative min-h-[90vh] flex items-center pt-8 pb-20 overflow-hidden bg-elan-sand">
+    
+    <!-- Ambient Warm Glow -->
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[600px] glow-aura pointer-events-none -z-0"></div>
+
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 w-full relative z-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Editorial Column (6 cols) -->
+        <div class="lg:col-span-6 reveal">
+          
+          <!-- Category Pill -->
+          <div class="inline-flex items-center gap-2 border border-elan-gold/40 bg-elan-stone/80 px-4 py-1.5 rounded-full mb-8 backdrop-blur-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-elan-gold"></span>
+            <span class="font-sans text-[10.5px] uppercase tracking-ultra text-elan-goldDark font-semibold">
+              Armonizaci&oacute;n Facial No Invasiva
+            </span>
+          </div>
+
+          <!-- Main Title -->
+          <h1 class="font-serif text-5xl sm:text-6xl lg:text-[4.75rem] text-elan-charcoal leading-[1.08] tracking-tight mb-8">
+            La belleza no se fabrica. <br>
+            <span class="italic font-display font-normal text-elan-goldDark">Se revela.</span>
+          </h1>
+
+          <p class="font-sans text-base sm:text-lg text-elan-muted font-normal leading-[1.8] max-w-lg mb-10">
+            Medicina est&eacute;tica de alta precisi&oacute;n enfocada en la sutiliza, la regeneraci&oacute;n celular y el respeto absoluto por tu anatom&iacute;a natural. Sin transformaciones exageradas.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-16">
+            <a href="#contacto" class="btn-luxe bg-elan-charcoal text-white px-8 py-4 font-sans text-xs uppercase tracking-ultra font-semibold text-center shadow-lg hover:shadow-xl">
+              <span>Consulta de Valoraci&oacute;n</span>
+            </a>
+            <a href="#diagnostico" class="inline-flex items-center justify-center gap-2 border border-elan-border bg-white px-8 py-4 font-sans text-xs uppercase tracking-ultra font-semibold text-elan-charcoal hover:border-elan-gold transition-colors">
+              <i data-lucide="sparkles" class="w-4 h-4 text-elan-gold"></i>
+              <span>Diagn&oacute;stico en 60s</span>
+            </a>
+          </div>
+
+          <!-- Micro Clinical Indicators -->
+          <div class="grid grid-cols-3 gap-6 pt-8 border-t border-elan-border/80 text-left">
+            <div>
+              <p class="font-serif text-3xl text-elan-charcoal leading-none">100%</p>
+              <p class="font-sans text-[9.5px] uppercase tracking-ultra text-elan-muted font-semibold mt-2">M&eacute;dicos Colegiados</p>
+            </div>
+            <div>
+              <p class="font-serif text-3xl text-elan-charcoal leading-none">0 d&iacute;as</p>
+              <p class="font-sans text-[9.5px] uppercase tracking-ultra text-elan-muted font-semibold mt-2">Incapacidad Cl&iacute;nica</p>
+            </div>
+            <div>
+              <p class="font-serif text-3xl text-elan-charcoal leading-none">Swiss</p>
+              <p class="font-sans text-[9.5px] uppercase tracking-ultra text-elan-muted font-semibold mt-2">Tecnolog&iacute;a Fotona</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Visual Showcase (6 cols) -->
+        <div class="lg:col-span-6 relative reveal reveal-delay-1">
+          
+          <div class="relative max-w-md mx-auto lg:max-w-none group">
+            
+            <!-- Main Aesthetic Image Container -->
+            <div class="relative h-[520px] sm:h-[620px] rounded-t-[10rem] rounded-b-[2rem] overflow-hidden border border-elan-border bg-elan-stone shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80" 
+                alt="Piel Perfecta y Armonización ÉLAN" 
+                class="w-full h-full object-cover img-luxe"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-elan-charcoal/40 via-transparent to-transparent"></div>
+            </div>
+
+            <!-- Floating Subtle Card Top-Right -->
+            <div class="absolute -top-6 -right-4 sm:-right-8 bg-white/95 backdrop-blur-md border border-elan-border p-5 rounded-2xl shadow-xl max-w-[200px] hidden sm:block">
+              <div class="flex items-center gap-2 text-elan-gold mb-1">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                <span class="font-sans text-[9px] uppercase tracking-ultra font-bold">Protocolo</span>
+              </div>
+              <p class="font-serif text-lg text-elan-charcoal leading-tight">Glow &amp; Lifting</p>
+              <p class="font-sans text-[10px] text-elan-muted mt-1">Efecto tensor inmediato</p>
+            </div>
+
+            <!-- Floating Card Bottom-Left -->
+            <div class="absolute -bottom-6 -left-4 sm:-left-8 bg-white/95 backdrop-blur-md border border-elan-border p-5 rounded-2xl shadow-xl flex items-center gap-4 hidden sm:flex">
+              <div class="w-10 h-10 rounded-full bg-elan-stone flex items-center justify-center text-elan-gold">
+                <i data-lucide="award" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="font-serif text-base text-elan-charcoal font-bold leading-none">Excelencia M&eacute;dica</p>
+                <p class="font-sans text-[10px] text-elan-muted mt-1">Galard&oacute;n Iberoamericano 2025</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: MANIFESTO & THE 4 PILLARS OF SCIENCE
+       ============================================================ -->
+  <section id="filosofia" class="py-28 bg-elan-stone border-y border-elan-border">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      
+      <!-- Section Tagline -->
+      <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+        <p class="font-sans text-[11px] uppercase tracking-mega text-elan-gold font-semibold mb-4">
+          // 01. EL MANIFIESTO &Eacute;LAN
+        </p>
+        <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-elan-charcoal tracking-tight mb-8">
+          La elegancia de la discreci&oacute;n.
+        </h2>
+        <div class="fine-line-gold max-w-xs mx-auto mb-8"></div>
+        <p class="font-sans text-base text-elan-muted leading-relaxed">
+          Creemos que el mejor procedimiento est&eacute;tico es aquel que nadie puede se&ntilde;alar con el dedo, pero todos notan en tu frescura, vitalidad y descanso. Combinamos ciencia dermatol&oacute;gica rigurosa con arte escult&oacute;rico.
+        </p>
+      </div>
+
+      <!-- 4 Pillars Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Pillar 1 -->
+        <div class="bg-elan-sand border border-elan-border p-8 hover:border-elan-gold transition-colors duration-500 reveal">
+          <span class="font-serif text-3xl text-elan-gold block mb-6">01</span>
+          <h3 class="font-serif text-2xl text-elan-charcoal mb-3">Bioestimulaci&oacute;n Celular</h3>
+          <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed">
+            Estimulamos a tus propios fibroblastos para generar col&aacute;geno tipo I y elastina aut&eacute;ntica mediante Sculptra y Radiesse.
+          </p>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="bg-elan-sand border border-elan-border p-8 hover:border-elan-gold transition-colors duration-500 reveal reveal-delay-1">
+          <span class="font-serif text-3xl text-elan-gold block mb-6">02</span>
+          <h3 class="font-serif text-2xl text-elan-charcoal mb-3">L&aacute;ser de Grado M&eacute;dico</h3>
+          <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed">
+            Fotona 4D y Erbio Fraccionado para tensar planos profundos, tratar manchas solares y cerrar poros sin periodo de recuperaci&oacute;n.
+          </p>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="bg-elan-sand border border-elan-border p-8 hover:border-elan-gold transition-colors duration-500 reveal reveal-delay-2">
+          <span class="font-serif text-3xl text-elan-gold block mb-6">03</span>
+          <h3 class="font-serif text-2xl text-elan-charcoal mb-3">Micro-Armonizaci&oacute;n</h3>
+          <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed">
+            Restauraci&oacute;n de vol&uacute;menes perdidos con &aacute;cido hialur&oacute;nico reticulado en puntos de soporte estrat&eacute;gicos.
+          </p>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="bg-elan-sand border border-elan-border p-8 hover:border-elan-gold transition-colors duration-500 reveal reveal-delay-3">
+          <span class="font-serif text-3xl text-elan-gold block mb-6">04</span>
+          <h3 class="font-serif text-2xl text-elan-charcoal mb-3">Medicina de Longevidad</h3>
+          <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed">
+            Sueroterapia intravenosa con antioxidantes maestros (Glutation, NAD+, Vitamina C) para rejuvenecer desde el interior celular.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: SIGNATURE TREATMENT COLLECTION (Interactive Tabs)
+       ============================================================ -->
+  <section id="tratamientos" class="py-28 bg-elan-sand">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6 reveal">
+        <div>
+          <p class="font-sans text-[11px] uppercase tracking-mega text-elan-gold font-semibold mb-2">
+            // 02. CAT&Aacute;LOGO M&Eacute;DICO
+          </p>
+          <h2 class="font-serif text-4xl sm:text-5xl text-elan-charcoal tracking-tight">
+            Protocolos Signature.
+          </h2>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap gap-2 font-sans text-xs uppercase tracking-ultra">
+          <button onclick="filterTreatments('all')" class="treatment-tab px-5 py-2.5 border border-elan-charcoal bg-elan-charcoal text-white font-medium transition-all" data-category="all">
+            Todos
+          </button>
+          <button onclick="filterTreatments('facial')" class="treatment-tab px-5 py-2.5 border border-elan-border bg-transparent text-elan-muted hover:border-elan-charcoal hover:text-elan-charcoal transition-all" data-category="facial">
+            Rostro &amp; Ojeras
+          </button>
+          <button onclick="filterTreatments('laser')" class="treatment-tab px-5 py-2.5 border border-elan-border bg-transparent text-elan-muted hover:border-elan-charcoal hover:text-elan-charcoal transition-all" data-category="laser">
+            L&aacute;ser &amp; Piel
+          </button>
+          <button onclick="filterTreatments('iv')" class="treatment-tab px-5 py-2.5 border border-elan-border bg-transparent text-elan-muted hover:border-elan-charcoal hover:text-elan-charcoal transition-all" data-category="iv">
+            Longevidad IV
+          </button>
+        </div>
+      </div>
+
+      <!-- Treatment Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="treatment-grid">
+        
+        <!-- Treatment 1: Armonización Facial -->
+        <div class="treatment-item bg-white border border-elan-border overflow-hidden group hover:border-elan-gold transition-all duration-500 flex flex-col" data-cat="facial">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80" alt="Armonización Facial" class="w-full h-full object-cover img-luxe">
+            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 font-sans text-[10px] uppercase tracking-ultra font-semibold text-elan-goldDark">
+              Top Procedimiento
+            </div>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="font-sans text-[10px] uppercase tracking-ultra text-elan-muted mb-1">Estructura &amp; Definici&oacute;n</p>
+              <h3 class="font-serif text-2xl text-elan-charcoal mb-3 group-hover:text-elan-goldDark transition-colors">
+                Armonizaci&oacute;n &Eacute;lan Couture
+              </h3>
+              <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed mb-6">
+                Perfilado mandibular, proyecci&oacute;n de ment&oacute;n y p&oacute;mulos con &aacute;cido hialur&oacute;nico suizo Teoxane. Corrige asimetr&iacute;as respetando tu expresi&oacute;n &uacute;nica.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-elan-border flex items-center justify-between font-sans text-xs">
+              <span class="text-elan-muted font-medium">Duraci&oacute;n: <strong>45 min</strong></span>
+              <a href="#contacto" class="text-elan-goldDark font-semibold hover:text-elan-charcoal flex items-center gap-1">
+                Consultar <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Treatment 2: Fotona 4D Láser -->
+        <div class="treatment-item bg-white border border-elan-border overflow-hidden group hover:border-elan-gold transition-all duration-500 flex flex-col" data-cat="laser">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" alt="Fotona 4D Lifting" class="w-full h-full object-cover img-luxe">
+            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 font-sans text-[10px] uppercase tracking-ultra font-semibold text-elan-goldDark">
+              Tecnolog&iacute;a L&aacute;ser
+            </div>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="font-sans text-[10px] uppercase tracking-ultra text-elan-muted mb-1">Tensado &amp; Firmeza</p>
+              <h3 class="font-serif text-2xl text-elan-charcoal mb-3 group-hover:text-elan-goldDark transition-colors">
+                Lifting No Quir&uacute;rgico Fotona 4D
+              </h3>
+              <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed mb-6">
+                Cuatro dimensiones de rejuvenecimiento l&aacute;ser, incluyendo tensado intraoral para rellenar surcos nasogenianos sin agujas y renovaci&oacute;n total de la superficie cut&aacute;nea.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-elan-border flex items-center justify-between font-sans text-xs">
+              <span class="text-elan-muted font-medium">Sesiones: <strong>3 recomendadas</strong></span>
+              <a href="#contacto" class="text-elan-goldDark font-semibold hover:text-elan-charcoal flex items-center gap-1">
+                Consultar <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Treatment 3: Bioestimulación Sculptra -->
+        <div class="treatment-item bg-white border border-elan-border overflow-hidden group hover:border-elan-gold transition-all duration-500 flex flex-col" data-cat="facial">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=800&q=80" alt="Sculptra Bioestimulación" class="w-full h-full object-cover img-luxe">
+            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 font-sans text-[10px] uppercase tracking-ultra font-semibold text-elan-goldDark">
+              Col&aacute;geno Puro
+            </div>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="font-sans text-[10px] uppercase tracking-ultra text-elan-muted mb-1">Regeneraci&oacute;n Celular</p>
+              <h3 class="font-serif text-2xl text-elan-charcoal mb-3 group-hover:text-elan-goldDark transition-colors">
+                Bioestimulaci&oacute;n de Col&aacute;geno Sculptra
+              </h3>
+              <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed mb-6">
+                &Aacute;cido poli-L-l&aacute;ctico biocompatible que restaura la densidad dérmica desde adentro hacia afuera. Resultados naturales que evolucionan favorablemente durante 24 meses.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-elan-border flex items-center justify-between font-sans text-xs">
+              <span class="text-elan-muted font-medium">Durabilidad: <strong>Hasta 2 a&ntilde;os</strong></span>
+              <a href="#contacto" class="text-elan-goldDark font-semibold hover:text-elan-charcoal flex items-center gap-1">
+                Consultar <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Treatment 4: HydraFacial Platinum -->
+        <div class="treatment-item bg-white border border-elan-border overflow-hidden group hover:border-elan-gold transition-all duration-500 flex flex-col" data-cat="laser">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=800&q=80" alt="HydraFacial Deluxe" class="w-full h-full object-cover img-luxe">
+            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 font-sans text-[10px] uppercase tracking-ultra font-semibold text-elan-goldDark">
+              Skin Health
+            </div>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="font-sans text-[10px] uppercase tracking-ultra text-elan-muted mb-1">Limpieza &amp; Nutrici&oacute;n</p>
+              <h3 class="font-serif text-2xl text-elan-charcoal mb-3 group-hover:text-elan-goldDark transition-colors">
+                HydraFacial&trade; Platinum Medical
+              </h3>
+              <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed mb-6">
+                Tecnolog&iacute;a patentada Vortex-Fusion para extraer impurezas, exfoliar suavemente e infundir antioxidantes, p&eacute;ptidos y &aacute;cido hialur&oacute;nico puro.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-elan-border flex items-center justify-between font-sans text-xs">
+              <span class="text-elan-muted font-medium">Recuperaci&oacute;n: <strong>Inmediata</strong></span>
+              <a href="#contacto" class="text-elan-goldDark font-semibold hover:text-elan-charcoal flex items-center gap-1">
+                Consultar <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Treatment 5: Sueroterapia NAD+ -->
+        <div class="treatment-item bg-white border border-elan-border overflow-hidden group hover:border-elan-gold transition-all duration-500 flex flex-col" data-cat="iv">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80" alt="NAD+ Longevity IV Drip" class="w-full h-full object-cover img-luxe">
+            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 font-sans text-[10px] uppercase tracking-ultra font-semibold text-elan-goldDark">
+              Longevidad
+            </div>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="font-sans text-[10px] uppercase tracking-ultra text-elan-muted mb-1">Anti-Aging Sist&eacute;mico</p>
+              <h3 class="font-serif text-2xl text-elan-charcoal mb-3 group-hover:text-elan-goldDark transition-colors">
+                Infusi&oacute;n Celular NAD+ &amp; Glutation
+              </h3>
+              <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed mb-6">
+                La mol&eacute;cula de la juventud celular. Repara el ADN mitocondrial, combate el estr&eacute;s oxidativo y devuelve la energ&iacute;a biol&oacute;gica a cada tejido del organismo.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-elan-border flex items-center justify-between font-sans text-xs">
+              <span class="text-elan-muted font-medium">V&iacute;a: <strong>Intravenosa directa</strong></span>
+              <a href="#contacto" class="text-elan-goldDark font-semibold hover:text-elan-charcoal flex items-center gap-1">
+                Consultar <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Treatment 6: Toxina Botulínica Baby Botox -->
+        <div class="treatment-item bg-white border border-elan-border overflow-hidden group hover:border-elan-gold transition-all duration-500 flex flex-col" data-cat="facial">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Baby Botox Natural" class="w-full h-full object-cover img-luxe">
+            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 font-sans text-[10px] uppercase tracking-ultra font-semibold text-elan-goldDark">
+              Micro-Dosis
+            </div>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="font-sans text-[10px] uppercase tracking-ultra text-elan-muted mb-1">Prevenci&oacute;n Sutil</p>
+              <h3 class="font-serif text-2xl text-elan-charcoal mb-3 group-hover:text-elan-goldDark transition-colors">
+                Baby Botox &amp; Relajaci&oacute;n Expresiva
+              </h3>
+              <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed mb-6">
+                Micro-dosis precisas para suavizar l&iacute;neas de expresi&oacute;n en frente y patas de gallo manteniendo tu movilidad facial 100% natural, sin congelar el rostro.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-elan-border flex items-center justify-between font-sans text-xs">
+              <span class="text-elan-muted font-medium">Efecto: <strong>4 a 6 meses</strong></span>
+              <a href="#contacto" class="text-elan-goldDark font-semibold hover:text-elan-charcoal flex items-center gap-1">
+                Consultar <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: INTERACTIVE BEFORE & AFTER COMPARISON SLIDER
+       ============================================================ -->
+  <section id="resultados" class="py-28 bg-elan-stone border-y border-elan-border">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Text (5 cols) -->
+        <div class="lg:col-span-5 reveal">
+          <p class="font-sans text-[11px] uppercase tracking-mega text-elan-gold font-semibold mb-2">
+            // 03. EVIDENCIA CL&Iacute;NICA
+          </p>
+          <h2 class="font-serif text-4xl sm:text-5xl text-elan-charcoal tracking-tight mb-6">
+            Resultados que hablan en susurros.
+          </h2>
+          <p class="font-sans text-sm text-elan-muted leading-relaxed mb-8">
+            Nuestros pacientes buscan verse descansados, no intervenidos. Desliza el cursor para comparar el estado de la piel y el soporte facial antes y despu&eacute;s del protocolo de armonizaci&oacute;n con l&aacute;ser y &aacute;cido hialur&oacute;nico.
+          </p>
+
+          <div class="space-y-4 font-sans text-xs text-elan-charcoal">
+            <div class="flex items-center gap-3">
+              <div class="w-5 h-5 rounded-full bg-elan-gold/20 flex items-center justify-center text-elan-goldDark">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </div>
+              <span>Simetr&iacute;a mandibular restaurada sin aumento de volumen</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-5 h-5 rounded-full bg-elan-gold/20 flex items-center justify-center text-elan-goldDark">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </div>
+              <span>Ojeras atenuadas y mirada luminosa y descansada</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-5 h-5 rounded-full bg-elan-gold/20 flex items-center justify-center text-elan-goldDark">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              </div>
+              <span>Fotograf&iacute;as cl&iacute;nicas reales sin retoques digitales</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Interactive Slider (7 cols) -->
+        <div class="lg:col-span-7 reveal reveal-delay-1">
+          <div class="relative bg-white p-4 border border-elan-border shadow-2xl rounded-2xl">
+            
+            <div id="before-after-box" class="ba-container w-full h-[400px] sm:h-[480px] rounded-xl overflow-hidden cursor-ew-resize">
+              
+              <!-- BEFORE Image (Full width background) -->
+              <img 
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80" 
+                alt="Antes del tratamiento" 
+                class="absolute inset-0 w-full h-full object-cover filter brightness-95"
+              >
+              <div class="absolute top-4 right-4 bg-black/60 text-white font-sans text-[10px] uppercase tracking-ultra px-3 py-1 rounded-full z-10 backdrop-blur-sm">
+                Despu&eacute;s (Protocolo &Eacute;lan)
+              </div>
+
+              <!-- AFTER Image (Clipped overlay) -->
+              <div id="ba-after-layer" class="ba-after">
+                <img 
+                  src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80" 
+                  alt="Después del tratamiento" 
+                  class="absolute top-0 left-0 h-full object-cover max-w-none filter contrast-105"
+                  style="width: 1000px;"
+                >
+                <div class="absolute top-4 left-4 bg-white/90 text-elan-charcoal font-sans text-[10px] uppercase tracking-ultra px-3 py-1 rounded-full z-10 backdrop-blur-sm">
+                  Antes de la Cita
+                </div>
+              </div>
+
+              <!-- Drag Handle Button -->
+              <div id="ba-handle" class="ba-handle">
+                <i data-lucide="move-horizontal" class="w-4 h-4 text-elan-gold"></i>
+              </div>
+            </div>
+
+            <p class="font-sans text-[10px] text-center text-elan-muted uppercase tracking-ultra mt-3">
+              &larr; Desliza hacia los lados para comparar &rarr;
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: VIRTUAL AESTHETIC DIAGNOSTIC (Interactive Quiz)
+       ============================================================ -->
+  <section id="diagnostico" class="py-28 bg-elan-sand">
+    <div class="max-w-[1000px] mx-auto px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <div class="inline-flex items-center gap-2 border border-elan-gold/40 bg-elan-stone px-4 py-1.5 rounded-full mb-4">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-elan-gold"></i>
+          <span class="font-sans text-[10px] uppercase tracking-ultra text-elan-goldDark font-semibold">
+            Herramienta Interactiva
+          </span>
+        </div>
+        <h2 class="font-serif text-4xl sm:text-5xl text-elan-charcoal tracking-tight mb-4">
+          Descubre tu Protocolo Ideal.
+        </h2>
+        <p class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed">
+          Responde 3 preguntas breves y nuestro algoritmo m&eacute;dico recomendar&aacute; la combinaci&oacute;n de tratamientos &oacute;ptima para tu piel.
+        </p>
+      </div>
+
+      <!-- Interactive Quiz Card -->
+      <div class="bg-white border border-elan-border p-8 sm:p-12 shadow-xl rounded-2xl reveal">
+        
+        <!-- Step 1: Objetivo Principal -->
+        <div id="quiz-step-1">
+          <p class="font-sans text-xs uppercase tracking-ultra text-elan-gold font-bold mb-2">Paso 01 / 03</p>
+          <h3 class="font-serif text-2xl text-elan-charcoal mb-6">&iquest;Cu&aacute;l es tu principal objetivo est&eacute;tico hoy?</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 font-sans text-xs">
+            <button onclick="selectGoal('glow')" class="quiz-btn border border-elan-border p-5 text-left rounded-xl hover:border-elan-gold hover:bg-elan-stone transition-all">
+              <span class="font-bold text-elan-charcoal block mb-1 text-sm">Luminosidad &amp; Manchas</span>
+              <span class="text-elan-muted text-[11px]">Unificar tono, cerrar poros y brillo natural.</span>
+            </button>
+            <button onclick="selectGoal('firm')" class="quiz-btn border border-elan-border p-5 text-left rounded-xl hover:border-elan-gold hover:bg-elan-stone transition-all">
+              <span class="font-bold text-elan-charcoal block mb-1 text-sm">Firmeza &amp; Flacidez</span>
+              <span class="text-elan-muted text-[11px]">Tensar contornos y estimular col&aacute;geno.</span>
+            </button>
+            <button onclick="selectGoal('contour')" class="quiz-btn border border-elan-border p-5 text-left rounded-xl hover:border-elan-gold hover:bg-elan-stone transition-all">
+              <span class="font-bold text-elan-charcoal block mb-1 text-sm">Armonizar Rostro</span>
+              <span class="text-elan-muted text-[11px]">Ojeras, mand&iacute;bula o labios sutiles.</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Rango de Edad (Hidden initially) -->
+        <div id="quiz-step-2" class="hidden">
+          <p class="font-sans text-xs uppercase tracking-ultra text-elan-gold font-bold mb-2">Paso 02 / 03</p>
+          <h3 class="font-serif text-2xl text-elan-charcoal mb-6">&iquest;En qu&eacute; rango de edad te encuentras?</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 font-sans text-xs">
+            <button onclick="selectAge('25-35')" class="quiz-btn border border-elan-border p-5 text-center rounded-xl hover:border-elan-gold hover:bg-elan-stone transition-all">
+              <span class="font-serif text-2xl text-elan-charcoal block mb-1">25 a 35</span>
+              <span class="text-elan-muted text-[11px]">Prevenci&oacute;n &amp; Glow</span>
+            </button>
+            <button onclick="selectAge('36-48')" class="quiz-btn border border-elan-border p-5 text-center rounded-xl hover:border-elan-gold hover:bg-elan-stone transition-all">
+              <span class="font-serif text-2xl text-elan-charcoal block mb-1">36 a 48</span>
+              <span class="text-elan-muted text-[11px]">Restauraci&oacute;n &amp; Soporte</span>
+            </button>
+            <button onclick="selectAge('49+')" class="quiz-btn border border-elan-border p-5 text-center rounded-xl hover:border-elan-gold hover:bg-elan-stone transition-all">
+              <span class="font-serif text-2xl text-elan-charcoal block mb-1">49+</span>
+              <span class="text-elan-muted text-[11px]">Rejuvenecimiento Global</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quiz Result Screen (Hidden initially) -->
+        <div id="quiz-result" class="hidden text-center py-4">
+          <div class="w-12 h-12 rounded-full bg-elan-gold/20 flex items-center justify-center text-elan-goldDark mx-auto mb-4">
+            <i data-lucide="check" class="w-6 h-6"></i>
+          </div>
+          <p class="font-sans text-[10px] uppercase tracking-mega text-elan-gold font-bold mb-1">
+            PROTOCOLO RECOMENDADO POR EL EQUIPO M&Eacute;DICO
+          </p>
+          <h3 id="result-title" class="font-serif text-3xl sm:text-4xl text-elan-charcoal mb-3">
+            Protocolo &Eacute;lan Radiance &amp; Lifting
+          </h3>
+          <p id="result-desc" class="font-sans text-xs sm:text-sm text-elan-muted leading-relaxed max-w-lg mx-auto mb-8">
+            Combinaci&oacute;n de l&aacute;ser Fotona 4D con bioestimulador Sculptra para reponer la matriz d&eacute;rmica de col&aacute;geno sin alterar tus rasgos naturales.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="#contacto" class="btn-luxe bg-elan-charcoal text-white px-8 py-3.5 font-sans text-xs uppercase tracking-ultra font-semibold rounded-none">
+              <span>Agendar este Protocolo</span>
+            </a>
+            <button onclick="resetQuiz()" class="text-elan-muted hover:text-elan-charcoal font-sans text-xs uppercase tracking-ultra font-semibold underline py-3.5">
+              Volver a evaluar
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6: MEDICAL DIRECTORS & SANCTUARY GALLERY
+       ============================================================ -->
+  <section id="especialistas" class="py-28 bg-elan-stone border-t border-elan-border">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      
+      <!-- Doctor Feature -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-24 reveal">
+        
+        <!-- Doctor Image (5 cols) -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative h-[480px] rounded-2xl overflow-hidden border border-elan-border shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80" alt="Dra. Elena De La Tour" class="w-full h-full object-cover">
+          </div>
+          <div class="absolute -bottom-6 -right-6 bg-white p-6 border border-elan-border rounded-xl shadow-lg hidden sm:block">
+            <p class="font-sans text-[9px] uppercase tracking-ultra text-elan-gold font-bold">Colegiado M&eacute;dico</p>
+            <p class="font-serif text-lg text-elan-charcoal font-bold">#MED-9402 CR</p>
+            <p class="font-sans text-[10px] text-elan-muted">Ginebra &bull; Barcelona</p>
+          </div>
+        </div>
+
+        <!-- Doctor Bio (7 cols) -->
+        <div class="lg:col-span-7">
+          <p class="font-sans text-[11px] uppercase tracking-mega text-elan-gold font-semibold mb-2">
+            // 05. DIRECCI&Oacute;N M&Eacute;DICA
+          </p>
+          <h2 class="font-serif text-4xl sm:text-5xl text-elan-charcoal tracking-tight mb-2">
+            Dra. Elena De La Tour
+          </h2>
+          <p class="font-sans text-xs uppercase tracking-ultra text-elan-goldDark font-semibold mb-6">
+            M&aacute;ster en Medicina Est&eacute;tica &amp; Rejuvenecimiento Facial (Univ. de Barcelona)
+          </p>
+          
+          <p class="font-sans text-sm text-elan-muted leading-relaxed mb-6">
+            Con m&aacute;s de 14 a&ntilde;os de pr&aacute;ctica cl&iacute;nica internacional, la Dra. De La Tour lidera el comit&eacute; m&eacute;dico de &Eacute;LAN con una sola premisa: la armonizaci&oacute;n facial debe devolver el brillo y la proporci&oacute;n, jam&aacute;s transformar quién eres.
+          </p>
+          <p class="font-sans text-sm text-elan-muted leading-relaxed mb-8">
+            Miembro activo de la Sociedad Espa&ntilde;ola de Medicina Est&eacute;tica (SEME) y conferencista internacional en t&eacute;cnicas de inyecci&oacute;n con c&aacute;nula atraum&aacute;tica de micro-precisi&oacute;n.
+          </p>
+
+          <div class="grid grid-cols-2 gap-4 border-t border-elan-border/80 pt-6 font-sans text-xs">
+            <div>
+              <p class="font-bold text-elan-charcoal mb-1">M&aacute;ster Univ. Barcelona</p>
+              <p class="text-elan-muted text-[11px]">Medicina Est&eacute;tica Avanzada</p>
+            </div>
+            <div>
+              <p class="font-bold text-elan-charcoal mb-1">Certificaci&oacute;n Suiza</p>
+              <p class="text-elan-muted text-[11px]">Protocolos Teoxane Academy</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sanctuary Architectural Space Gallery -->
+      <div class="border-t border-elan-border pt-20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <p class="font-sans text-[10px] uppercase tracking-mega text-elan-gold font-semibold mb-2">EL SANTUARIO</p>
+          <h3 class="font-serif text-3xl text-elan-charcoal">Espacios dise&ntilde;ados para la serenidad.</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="relative h-64 rounded-xl overflow-hidden border border-elan-border group">
+            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80" alt="Consultorio Privado" class="w-full h-full object-cover img-luxe">
+            <div class="absolute bottom-3 left-3 bg-white/90 px-3 py-1 font-sans text-[10px] uppercase tracking-ultra font-semibold">
+              Suite M&eacute;dica Privada
+            </div>
+          </div>
+          <div class="relative h-64 rounded-xl overflow-hidden border border-elan-border group">
+            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=800&q=80" alt="Lounge de Recuperación" class="w-full h-full object-cover img-luxe">
+            <div class="absolute bottom-3 left-3 bg-white/90 px-3 py-1 font-sans text-[10px] uppercase tracking-ultra font-semibold">
+              Lounge de Relajaci&oacute;n
+            </div>
+          </div>
+          <div class="relative h-64 rounded-xl overflow-hidden border border-elan-border group">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" alt="Área Láser" class="w-full h-full object-cover img-luxe">
+            <div class="absolute bottom-3 left-3 bg-white/90 px-3 py-1 font-sans text-[10px] uppercase tracking-ultra font-semibold">
+              Unidad L&aacute;ser Fotona
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 7: CONCIERGE APPOINTMENT & LUXURY MEGA FOOTER
+       ============================================================ -->
+  <section id="contacto" class="py-28 bg-elan-sand relative">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-24">
+        
+        <!-- Left Contact Info (5 cols) -->
+        <div class="lg:col-span-5 reveal">
+          <p class="font-sans text-[11px] uppercase tracking-mega text-elan-gold font-semibold mb-2">
+            // 06. ATENCI&Oacute;N PRIVADA
+          </p>
+          <h2 class="font-serif text-4xl sm:text-5xl text-elan-charcoal tracking-tight mb-6">
+            Inicia tu valoraci&oacute;n personalizada.
+          </h2>
+          <p class="font-sans text-sm text-elan-muted leading-relaxed mb-8">
+            Cada consulta incluye diagn&oacute;stico facial computarizado en 3D, evaluaci&oacute;n anat&oacute;mica directa con un m&eacute;dico especialista y dise&ntilde;o de protocolo a tu medida.
+          </p>
+
+          <div class="space-y-4 font-sans text-xs">
+            <div class="bg-white border border-elan-border p-5 flex items-start gap-4">
+              <i data-lucide="map-pin" class="w-5 h-5 text-elan-goldDark shrink-0 mt-0.5"></i>
+              <div>
+                <p class="font-bold text-elan-charcoal mb-0.5">UBICACI&Oacute;N SANCTUARY</p>
+                <p class="text-elan-muted">Distrito Cuatro, Torre M&eacute;dica 2, Piso 5 &bull; Escaz&uacute;, CR</p>
+              </div>
+            </div>
+
+            <div class="bg-white border border-elan-border p-5 flex items-start gap-4">
+              <i data-lucide="clock" class="w-5 h-5 text-elan-goldDark shrink-0 mt-0.5"></i>
+              <div>
+                <p class="font-bold text-elan-charcoal mb-0.5">HORARIOS DE ATENCI&Oacute;N PRIVADA</p>
+                <p class="text-elan-muted">Lunes a Viernes: 8:30 AM &ndash; 7:00 PM</p>
+                <p class="text-elan-muted">S&aacute;bados: 9:00 AM &ndash; 3:00 PM (Previa Cita)</p>
+              </div>
+            </div>
+
+            <div class="bg-white border border-elan-border p-5 flex items-start gap-4">
+              <i data-lucide="phone" class="w-5 h-5 text-elan-goldDark shrink-0 mt-0.5"></i>
+              <div>
+                <p class="font-bold text-elan-charcoal mb-0.5">CONCIERGE &amp; WHATSAPP VIP</p>
+                <a href="https://wa.me/50600000000" class="text-elan-goldDark hover:underline font-bold">+506 2222-ELAN (3526)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Appointment Form (7 cols) -->
+        <div class="lg:col-span-7 reveal reveal-delay-1">
+          <div class="bg-white border border-elan-border p-8 sm:p-12 shadow-2xl rounded-2xl">
+            <div class="flex justify-between items-center border-b border-elan-border pb-4 mb-8">
+              <span class="font-sans text-[11px] uppercase tracking-ultra text-elan-gold font-bold">SOLICITUD DE CITA PRIVADA</span>
+              <span class="font-sans text-[10px] text-elan-muted">RESPUESTA EN &lt; 15 MIN</span>
+            </div>
+
+            <form id="appointment-form" onsubmit="handleAppointment(event)" class="space-y-6 font-sans text-xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-elan-muted uppercase mb-2">Nombre Completo *</label>
+                  <input type="text" required placeholder="Ej: Sofía Brenes" class="w-full bg-elan-sand border border-elan-border p-3.5 text-elan-charcoal focus:outline-none focus:border-elan-gold">
+                </div>
+                <div>
+                  <label class="block text-elan-muted uppercase mb-2">Tel&eacute;fono / WhatsApp *</label>
+                  <input type="tel" required placeholder="+506 8888-0000" class="w-full bg-elan-sand border border-elan-border p-3.5 text-elan-charcoal focus:outline-none focus:border-elan-gold">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-elan-muted uppercase mb-2">Tratamiento de Inter&eacute;s</label>
+                  <select class="w-full bg-elan-sand border border-elan-border p-3.5 text-elan-charcoal focus:outline-none focus:border-elan-gold">
+                    <option>Armonizaci&oacute;n Facial / &Aacute;cido Hialur&oacute;nico</option>
+                    <option>L&aacute;ser Fotona 4D Lifting</option>
+                    <option>Bioestimulador de Col&aacute;geno Sculptra</option>
+                    <option>Baby Botox &amp; L&iacute;neas de Expresi&oacute;n</option>
+                    <option>HydraFacial Deluxe</option>
+                    <option>Sueroterapia Longevidad IV</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-elan-muted uppercase mb-2">Preferencia de Fecha</label>
+                  <input type="date" required class="w-full bg-elan-sand border border-elan-border p-3.5 text-elan-charcoal focus:outline-none focus:border-elan-gold">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-elan-muted uppercase mb-2">Comentarios o dudas particulares</label>
+                <textarea rows="3" placeholder="Cuéntanos brevemente qué te gustaría mejorar..." class="w-full bg-elan-sand border border-elan-border p-3.5 text-elan-charcoal focus:outline-none focus:border-elan-gold"></textarea>
+              </div>
+
+              <button type="submit" class="btn-luxe w-full bg-elan-charcoal text-white font-sans text-xs uppercase tracking-ultra font-semibold py-4.5 py-4 border border-elan-charcoal flex items-center justify-center gap-2">
+                <span>Confirmar Solicitud de Cita</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-elan-gold"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LUXURY MEGA FOOTER -->
+      <footer class="border-t border-elan-border pt-16">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-16">
+          <div class="flex flex-col">
+            <span class="font-serif text-4xl tracking-[0.18em] text-elan-charcoal leading-none">
+              &Eacute;LAN
+            </span>
+            <span class="font-sans text-[9px] uppercase tracking-mega text-elan-muted font-medium mt-1">
+              Institut de Beaut&eacute; &bull; Est&eacute;tica M&eacute;dica
+            </span>
+          </div>
+
+          <div class="flex flex-wrap gap-8 font-sans text-xs uppercase tracking-ultra text-elan-muted">
+            <a href="#filosofia" class="hover:text-elan-gold transition-colors">Filosof&iacute;a</a>
+            <a href="#tratamientos" class="hover:text-elan-gold transition-colors">Tratamientos</a>
+            <a href="#resultados" class="hover:text-elan-gold transition-colors">Resultados</a>
+            <a href="#especialistas" class="hover:text-elan-gold transition-colors">Especialistas</a>
+            <a href="#contacto" class="hover:text-elan-gold transition-colors">Contacto</a>
+          </div>
+        </div>
+
+        <div class="border-t border-elan-border/60 pt-8 flex flex-col sm:flex-row justify-between items-center font-sans text-[10.5px] text-elan-muted gap-4">
+          <p>&copy; 2026 &Eacute;LAN CLINIC. TODOS LOS DERECHOS RESERVADOS. C&Oacute;DIGO DE &Eacute;TICA M&Eacute;DICA.</p>
+          <div class="flex gap-6 uppercase tracking-widest">
+            <a href="#" class="hover:text-elan-charcoal">Privacidad M&eacute;dica</a>
+            <a href="#" class="hover:text-elan-charcoal">Consentimiento Informado</a>
+            <a href="#" class="hover:text-elan-charcoal">T&eacute;rminos</a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCRIPTS FOR INTERACTIONS
+       ============================================================ -->
+  <script>
+    // 1. Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 2. Mobile Menu Toggle
+    const mobToggle = document.getElementById('mob-toggle');
+    const mobMenu = document.getElementById('mob-menu');
+    if (mobToggle && mobMenu) {
+      mobToggle.addEventListener('click', () => {
+        mobMenu.classList.toggle('hidden');
+      });
+      mobMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => mobMenu.classList.add('hidden'));
+      });
+    }
+
+    // 3. Treatment Tab Filter
+    function filterTreatments(category) {
+      const items = document.querySelectorAll('.treatment-item');
+      const tabs = document.querySelectorAll('.treatment-tab');
+
+      tabs.forEach(tab => {
+        if (tab.getAttribute('data-category') === category) {
+          tab.className = "treatment-tab px-5 py-2.5 border border-elan-charcoal bg-elan-charcoal text-white font-medium transition-all";
+        } else {
+          tab.className = "treatment-tab px-5 py-2.5 border border-elan-border bg-transparent text-elan-muted hover:border-elan-charcoal hover:text-elan-charcoal transition-all";
+        }
+      });
+
+      items.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-cat') === category) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // 4. Interactive Before / After Slider Drag
+    const baBox = document.getElementById('before-after-box');
+    const baAfterLayer = document.getElementById('ba-after-layer');
+    const baHandle = document.getElementById('ba-handle');
+
+    if (baBox && baAfterLayer && baHandle) {
+      let isDragging = false;
+
+      function updateSliderPosition(clientX) {
+        const rect = baBox.getBoundingClientRect();
+        let posX = clientX - rect.left;
+        posX = Math.max(0, Math.min(rect.width, posX));
+        const percent = (posX / rect.width) * 100;
+        
+        baAfterLayer.style.width = percent + '%';
+        baHandle.style.left = percent + '%';
+      }
+
+      baBox.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        updateSliderPosition(e.clientX);
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        updateSliderPosition(e.clientX);
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      // Touch events for mobile
+      baBox.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        updateSliderPosition(e.touches[0].clientX);
+      });
+
+      window.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        updateSliderPosition(e.touches[0].clientX);
+      });
+
+      window.addEventListener('touchend', () => {
+        isDragging = false;
+      });
+    }
+
+    // 5. Interactive Virtual Diagnostic Quiz
+    let userGoal = '';
+    let userAge = '';
+
+    function selectGoal(goal) {
+      userGoal = goal;
+      document.getElementById('quiz-step-1').classList.add('hidden');
+      document.getElementById('quiz-step-2').classList.remove('hidden');
+    }
+
+    function selectAge(age) {
+      userAge = age;
+      document.getElementById('quiz-step-2').classList.add('hidden');
+      const resultBox = document.getElementById('quiz-result');
+      resultBox.classList.remove('hidden');
+
+      const title = document.getElementById('result-title');
+      const desc = document.getElementById('result-desc');
+
+      if (userGoal === 'glow') {
+        title.textContent = "Protocolo Élan Hydra-Laser Glow";
+        desc.textContent = "Combinación de HydraFacial Platinum con peeling suave de erbio para renovar la textura de la piel, cerrar poros y aportar una luminosidad inmediata.";
+      } else if (userGoal === 'firm') {
+        title.textContent = "Protocolo Élan Sculpt & Fotona 4D";
+        desc.textContent = "Tensado profundo no quirúrgico con láser Fotona 4D complementado con bioestimulador Sculptra para inducir nueva síntesis de colágeno natural.";
+      } else {
+        title.textContent = "Protocolo Élan Couture Harmonie";
+        desc.textContent = "Micro-inyecciones de ácido hialurónico Teoxane para dar soporte anatómico a pómulos, ojeras y línea mandibular con resultado imperceptible y sofisticado.";
+      }
+    }
+
+    function resetQuiz() {
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('quiz-step-2').classList.add('hidden');
+      document.getElementById('quiz-step-1').classList.remove('hidden');
+    }
+
+    // 6. Appointment Submission Handler
+    function handleAppointment(e) {
+      e.preventDefault();
+      alert('¡Solicitud recibida! Nuestro equipo médico se comunicará contigo vía WhatsApp en menos de 15 minutos para coordinar tu cita privada.');
+    }
+
+    // 7. Scroll Reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

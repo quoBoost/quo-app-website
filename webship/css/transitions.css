@@ -1,0 +1,228 @@
+/* ════════════════════════════════════════════════════════
+   transitions.css — WebShip
+   Transiciones cinemáticas ultra-suaves entre secciones
+   de diferentes colores (Dark ↔ Light)
+   ════════════════════════════════════════════════════════ */
+
+/* ── Divisores de Transición de Color ──────────────────── */
+.color-transition-divider {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+  margin-top: -1px;
+  margin-bottom: -1px;
+}
+
+/* 1. Hero (#0A0A12) ➔ Logos & Servicios (#FAFAF8) */
+.ctd-hero-to-light {
+  background: linear-gradient(
+    to bottom,
+    #0A0A12 0%,
+    rgba(10, 10, 18, 0.98) 12%,
+    rgba(25, 25, 36, 0.82) 30%,
+    rgba(70, 70, 85, 0.52) 52%,
+    rgba(165, 165, 172, 0.32) 72%,
+    rgba(235, 235, 232, 0.85) 90%,
+    #FAFAF8 100%
+  );
+}
+
+/* 2. Servicios (#FAFAF8) ➔ Proceso (#090913) */
+.ctd-light-to-proceso {
+  background: linear-gradient(
+    to bottom,
+    #FAFAF8 0%,
+    rgba(235, 235, 232, 0.95) 15%,
+    rgba(160, 160, 172, 0.45) 38%,
+    rgba(65, 65, 82, 0.75) 62%,
+    rgba(20, 20, 32, 0.95) 85%,
+    #090913 100%
+  );
+}
+
+/* 3. Proceso (#090913) ➔ Portafolio (#FAFAF8) */
+.ctd-proceso-to-light {
+  background: linear-gradient(
+    to bottom,
+    #090913 0%,
+    rgba(20, 20, 32, 0.95) 15%,
+    rgba(65, 65, 82, 0.75) 38%,
+    rgba(160, 160, 172, 0.45) 62%,
+    rgba(235, 235, 232, 0.95) 85%,
+    #FAFAF8 100%
+  );
+}
+
+/* 4. Why-Us (#FFFFFF) ➔ Testimonios (#120F17) */
+.ctd-light-to-testimonials {
+  background: linear-gradient(
+    to bottom,
+    #FFFFFF 0%,
+    rgba(245, 245, 248, 0.95) 15%,
+    rgba(165, 158, 175, 0.45) 40%,
+    rgba(70, 60, 85, 0.78) 65%,
+    rgba(28, 24, 36, 0.95) 85%,
+    #120F17 100%
+  );
+}
+
+/* 5. Testimonios (#120F17) ➔ FAQ (#FFFFFF) */
+.ctd-testimonials-to-light {
+  background: linear-gradient(
+    to bottom,
+    #120F17 0%,
+    rgba(28, 24, 36, 0.95) 15%,
+    rgba(70, 60, 85, 0.78) 35%,
+    rgba(165, 158, 175, 0.45) 60%,
+    rgba(245, 245, 248, 0.95) 85%,
+    #FFFFFF 100%
+  );
+}
+
+/* 6. FAQ (#FFFFFF) ➔ Contacto (#0D0D0D) */
+.ctd-light-to-contact {
+  background: linear-gradient(
+    to bottom,
+    #FFFFFF 0%,
+    rgba(240, 240, 240, 0.95) 15%,
+    rgba(145, 145, 145, 0.45) 40%,
+    rgba(55, 55, 55, 0.78) 65%,
+    rgba(22, 22, 22, 0.95) 85%,
+    #0D0D0D 100%
+  );
+}
+
+/* 7. Portafolio Hero (#08080C) ➔ Galería (#FAFAF8) */
+.ctd-portfolio-hero-to-galeria {
+  background: linear-gradient(
+    to bottom,
+    #08080C 0%,
+    rgba(15, 15, 22, 0.95) 15%,
+    rgba(55, 55, 70, 0.60) 40%,
+    rgba(150, 150, 160, 0.38) 65%,
+    rgba(235, 235, 232, 0.90) 88%,
+    #FAFAF8 100%
+  );
+}
+
+/* 8. Portafolio Galería (#FAFAF8) ➔ Footer (#09090D) */
+.ctd-portfolio-galeria-to-footer {
+  background: linear-gradient(
+    to bottom,
+    #FAFAF8 0%,
+    rgba(235, 235, 232, 0.95) 15%,
+    rgba(145, 145, 155, 0.45) 40%,
+    rgba(55, 55, 65, 0.78) 65%,
+    rgba(20, 20, 25, 0.95) 85%,
+    #09090D 100%
+  );
+}
+
+/* ── Resplandor Atmosférico Sutil ──────────────────────── */
+.ctd-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 75%;
+  height: 130%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.16) 0%, transparent 70%);
+  filter: blur(32px);
+  pointer-events: none;
+  opacity: 0.55;
+  transition: opacity 0.8s var(--ease-lux, ease-out), transform 0.8s var(--ease-lux, ease-out);
+}
+
+.ctd-ambient-glow.glow-warm {
+  background: radial-gradient(ellipse at center, rgba(199, 105, 130, 0.13) 0%, transparent 70%);
+}
+
+.ctd-ambient-glow.glow-cyan {
+  background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.13) 0%, transparent 70%);
+}
+
+/* Quitar bordes duros de logos-band para fusión perfecta */
+.logos-band {
+  border-top: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .color-transition-divider {
+    height: 90px;
+  }
+}
+
+/* ── Animación de Carga: Puntos Azules Dinámicos WebShip... ──── */
+.loader-dots {
+  display: inline-flex;
+  color: #38BDF8; /* Azul eléctrico WebShip */
+  margin-left: 1px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+.loader-dot {
+  display: inline-block;
+  will-change: opacity, transform;
+}
+
+.loader-dot.dot-1 {
+  animation: loaderDotPulse1 1.25s infinite ease-in-out;
+}
+
+.loader-dot.dot-2 {
+  opacity: 0;
+  animation: loaderDotPulse2 1.25s infinite ease-in-out;
+}
+
+.loader-dot.dot-3 {
+  opacity: 0;
+  animation: loaderDotPulse3 1.25s infinite ease-in-out;
+}
+
+@keyframes loaderDotPulse1 {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.2);
+    color: #60A5FA;
+  }
+}
+
+@keyframes loaderDotPulse2 {
+  0%, 22% {
+    opacity: 0;
+    transform: translateY(1px) scale(0.85);
+  }
+  28%, 88% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  94%, 100% {
+    opacity: 0;
+    transform: translateY(1px) scale(0.85);
+  }
+}
+
+@keyframes loaderDotPulse3 {
+  0%, 50% {
+    opacity: 0;
+    transform: translateY(1px) scale(0.85);
+  }
+  56%, 88% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  94%, 100% {
+    opacity: 0;
+    transform: translateY(1px) scale(0.85);
+  }
+}

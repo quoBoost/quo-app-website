@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMEN &mdash; Private Estates &amp; Luxury Real Estate</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Playfair Display + Cormorant Garamond + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            lumen: {
+              cream:     '#FAF8F5', // Alabastro cálido
+              sand:      '#F3EFEA', // Marfil suave
+              surface:   '#FFFFFF',
+              border:    '#E7E1D8',
+              borderDark:'#2E3036',
+              bronze:    '#B89758', // Bronce arquitectónico
+              bronzeLight:'#D8C29D',
+              bronzeDark: '#8F7138',
+              graphite:  '#121316', // Negro grafito
+              charcoal:  '#1C1E22', // Fondo oscuro secundario
+              muted:     '#6B6964',
+              subtle:    '#9E9B94',
+            }
+          },
+          fontFamily: {
+            serif:   ['"Playfair Display"', 'Georgia', 'serif'],
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans:    ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Architectural Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #FAF8F5; }
+    ::-webkit-scrollbar-thumb { background: #B89758; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #8F7138; }
+
+    /* Ambient Warm Glow */
+    .glow-bronze {
+      background: radial-gradient(circle, rgba(184, 151, 88, 0.2) 0%, rgba(18, 19, 22, 0) 70%);
+    }
+
+    /* Range slider custom styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      height: 4px;
+      background: #E7E1D8;
+      border-radius: 2px;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #B89758;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(184, 151, 88, 0.5);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      background: #8F7138;
+    }
+
+    /* Modal transition */
+    #dossier-modal {
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    #dossier-modal.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #dossier-modal:not(.hidden) {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* Pulse animation */
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+    .animate-pulse-slow {
+      animation: pulse-slow 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-lumen-cream text-lumen-graphite font-sans antialiased selection:bg-lumen-bronze selection:text-white">
+
+  <!-- =========================================================================
+       BOTÓN FLOTANTE CONSERJERÍA VIP & WHATSAPP
+       ========================================================================= -->
+  <aside aria-label="Contacto Rápido" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <!-- Quick Off-Market Alert Badge -->
+    <div id="toast-offmarket" class="hidden sm:flex items-center gap-3 bg-lumen-graphite text-white px-4 py-2.5 rounded-full shadow-2xl border border-lumen-bronze/30 text-xs transition-all duration-500 animate-bounce">
+      <span class="w-2 h-2 rounded-full bg-lumen-bronze animate-ping"></span>
+      <span><strong>Nuevo Off-Market:</strong> Villa Amanecer &middot; $4.8M USD</span>
+      <button onclick="document.getElementById('toast-offmarket').classList.add('hidden')" class="text-lumen-subtle hover:text-white ml-1">
+        <i data-lucide="x" class="w-3.5 h-3.5"></i>
+      </button>
+    </div>
+
+    <!-- WhatsApp VIP Concierge -->
+    <a href="https://wa.me/50600000000?text=Hola%2C%20deseo%20informaci%C3%B3n%20sobre%20el%20portafolio%20privado%20de%20LUMEN%20Estates" 
+       target="_blank" 
+       rel="noopener"
+       aria-label="Contactar Conserjería Privada por WhatsApp" 
+       class="group flex items-center gap-3 bg-lumen-graphite hover:bg-lumen-bronze text-white px-5 py-3.5 rounded-full shadow-2xl border border-lumen-bronze/40 transition-all duration-300 hover:scale-105 hover:shadow-lumen-bronze/20">
+      <div class="relative flex items-center justify-center">
+        <i data-lucide="message-square" class="w-5 h-5 text-lumen-bronzeLight group-hover:text-white transition-colors"></i>
+        <span class="absolute -top-1 -right-1 w-2 h-2 bg-emerald-500 rounded-full ring-2 ring-lumen-graphite"></span>
+      </div>
+      <div class="text-left leading-tight hidden sm:block">
+        <p class="text-[10px] uppercase tracking-widest text-lumen-bronzeLight group-hover:text-white font-medium">Conserjería Privada</p>
+        <p class="text-xs font-bold tracking-tight">Atención VIP Inmediata</p>
+      </div>
+    </a>
+  </aside>
+
+  <!-- =========================================================================
+       1. HEADER & NAVBAR FLOTANTE TIPO PÍLDORA
+       ========================================================================= -->
+  <header class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-4 transition-all duration-300">
+    <div class="max-w-7xl mx-auto bg-lumen-graphite/90 backdrop-blur-md text-white rounded-full px-5 sm:px-8 py-3.5 flex items-center justify-between border border-white/10 shadow-2xl">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 bg-lumen-bronze rounded-full flex items-center justify-center text-lumen-graphite font-serif font-bold text-lg tracking-tighter shadow-inner group-hover:rotate-12 transition-transform duration-300">
+          L
+        </div>
+        <div class="flex flex-col">
+          <span class="font-serif tracking-[0.2em] text-base sm:text-lg font-bold uppercase leading-none">LUMEN</span>
+          <span class="text-[9px] uppercase tracking-[0.3em] text-lumen-bronzeLight font-sans mt-0.5">Private Estates</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7 text-xs uppercase tracking-widest text-neutral-300 font-medium">
+        <a href="#propiedades" class="hover:text-lumen-bronzeLight transition-colors">Colección</a>
+        <a href="#calculadora" class="hover:text-lumen-bronzeLight transition-colors">Calculadora</a>
+        <a href="#servicios" class="hover:text-lumen-bronzeLight transition-colors">Servicios VIP</a>
+        <a href="#trayectoria" class="hover:text-lumen-bronzeLight transition-colors">Autoridad</a>
+        <a href="#contacto" class="hover:text-lumen-bronzeLight transition-colors">Visita Privada</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- Favorites Counter Button -->
+        <button onclick="toggleFavoritesDrawer()" class="relative p-2 rounded-full text-neutral-300 hover:text-lumen-bronzeLight hover:bg-white/5 transition-colors" title="Ver propiedades guardadas">
+          <i data-lucide="bookmark" class="w-4 h-4"></i>
+          <span id="fav-count-badge" class="absolute -top-1 -right-1 w-4 h-4 bg-lumen-bronze text-lumen-graphite font-bold text-[9px] rounded-full flex items-center justify-center">0</span>
+        </button>
+
+        <a href="#contacto" class="hidden sm:inline-flex items-center gap-2 bg-lumen-bronze hover:bg-lumen-bronzeLight text-lumen-graphite text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-lumen-bronze/30">
+          <i data-lucide="key" class="w-3.5 h-3.5"></i>
+          <span>Vender Propiedad</span>
+        </a>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobile-menu-btn" class="md:hidden p-1.5 text-neutral-300 hover:text-white" aria-label="Menú">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden max-w-7xl mx-auto mt-2 bg-lumen-graphite/95 backdrop-blur-lg border border-white/10 rounded-2xl p-5 text-white shadow-2xl">
+      <nav class="flex flex-col gap-3 text-sm uppercase tracking-wider">
+        <a href="#propiedades" class="py-2 border-b border-white/5 hover:text-lumen-bronzeLight" onclick="toggleMobileMenu()">Colección de Propiedades</a>
+        <a href="#calculadora" class="py-2 border-b border-white/5 hover:text-lumen-bronzeLight" onclick="toggleMobileMenu()">Calculadora Financiera</a>
+        <a href="#servicios" class="py-2 border-b border-white/5 hover:text-lumen-bronzeLight" onclick="toggleMobileMenu()">Servicios de Brokerage</a>
+        <a href="#trayectoria" class="py-2 border-b border-white/5 hover:text-lumen-bronzeLight" onclick="toggleMobileMenu()">Autoridad &amp; Prensa</a>
+        <a href="#contacto" class="py-2 text-lumen-bronzeLight font-bold" onclick="toggleMobileMenu()">Agendar Recorrido Privado &rarr;</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO SECTION CINEMATOGRÁFICO & BUSCADOR FLOTANTE
+       ========================================================================= -->
+  <section class="relative min-h-screen flex flex-col justify-between pt-28 pb-12 px-4 sm:px-8 bg-lumen-graphite text-white overflow-hidden">
+    <!-- Background Image with Editorial Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80&auto=format&fit=crop" 
+           alt="Villa Arquitectónica de Lujo" 
+           class="w-full h-full object-cover object-center scale-105 animate-pulse-slow">
+      <div class="absolute inset-0 bg-gradient-to-t from-lumen-graphite via-lumen-graphite/70 to-lumen-graphite/40"></div>
+      <div class="absolute inset-0 bg-radial-gradient from-transparent via-black/40 to-black/80"></div>
+    </div>
+
+    <!-- Ambient Bronze Glow -->
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] glow-bronze pointer-events-none"></div>
+
+    <!-- Hero Content Container -->
+    <div class="relative z-10 max-w-7xl mx-auto w-full pt-16 sm:pt-24">
+      
+      <!-- Top Exclusivity Tag -->
+      <div class="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md border border-lumen-bronze/40 px-4 py-1.5 rounded-full mb-6">
+        <span class="w-2 h-2 rounded-full bg-lumen-bronze animate-ping"></span>
+        <span class="text-xs uppercase tracking-[0.25em] text-lumen-bronzeLight font-semibold">Exclusividad &amp; Privacidad &middot; Transacciones &gt; $1.5M+</span>
+      </div>
+
+      <!-- Main Heading -->
+      <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight leading-[1.08] max-w-4xl text-white mb-6">
+        Propiedades <span class="italic font-normal text-lumen-bronzeLight">extraordinarias</span> para vidas excepcionales.
+      </h1>
+
+      <p class="text-neutral-300 text-base sm:text-lg max-w-2xl font-light leading-relaxed mb-10">
+        Curaduría inmobiliaria de alta gama, residencias arquitectónicas de autor y acceso confidencial a las propiedades <span class="text-white font-medium">Off-Market</span> más codiciadas de América y el Mediterráneo.
+      </p>
+
+      <!-- Quick Action CTA -->
+      <div class="flex flex-wrap items-center gap-4 mb-16">
+        <a href="#propiedades" class="inline-flex items-center gap-3 bg-lumen-bronze hover:bg-lumen-bronzeLight text-lumen-graphite px-8 py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-xl shadow-lumen-bronze/20 hover:-translate-y-0.5">
+          <span>Explorar Portafolio 2026</span>
+          <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+        </a>
+        <a href="#contacto" class="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-full font-semibold text-xs uppercase tracking-widest transition-all duration-300">
+          <i data-lucide="compass" class="w-4 h-4 text-lumen-bronzeLight"></i>
+          <span>Solicitar Búsqueda Personalizada</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Interactive Quick Search Bar (Floating Hero Widget) -->
+    <div class="relative z-10 max-w-6xl mx-auto w-full">
+      <div class="bg-lumen-charcoal/95 backdrop-blur-xl border border-lumen-bronze/30 p-4 sm:p-6 rounded-3xl shadow-2xl">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
+          
+          <!-- Category Selector -->
+          <div class="flex flex-col border-b sm:border-b-0 sm:border-r border-white/10 pb-3 sm:pb-0 sm:pr-4">
+            <label class="text-[10px] uppercase tracking-widest text-lumen-bronzeLight font-semibold mb-1 flex items-center gap-1.5">
+              <i data-lucide="building" class="w-3.5 h-3.5"></i> Tipo de Residencia
+            </label>
+            <select id="hero-type-filter" class="bg-transparent text-white text-sm font-medium focus:outline-none cursor-pointer">
+              <option value="all" class="bg-lumen-charcoal text-white">Todas las Residencias</option>
+              <option value="villa" class="bg-lumen-charcoal text-white">Villas Frente al Mar</option>
+              <option value="penthouse" class="bg-lumen-charcoal text-white">Penthouses Urbanos</option>
+              <option value="mountain" class="bg-lumen-charcoal text-white">Fincas de Montaña</option>
+              <option value="offmarket" class="bg-lumen-charcoal text-white">Inversión Off-Market</option>
+            </select>
+          </div>
+
+          <!-- Location Selector -->
+          <div class="flex flex-col border-b sm:border-b-0 sm:border-r border-white/10 pb-3 sm:pb-0 sm:pr-4">
+            <label class="text-[10px] uppercase tracking-widest text-lumen-bronzeLight font-semibold mb-1 flex items-center gap-1.5">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Destino Exclusivo
+            </label>
+            <select id="hero-loc-filter" class="bg-transparent text-white text-sm font-medium focus:outline-none cursor-pointer">
+              <option value="all" class="bg-lumen-charcoal text-white">Todos los Destinos</option>
+              <option value="costarica" class="bg-lumen-charcoal text-white">Península de Papagayo &middot; CR</option>
+              <option value="manhattan" class="bg-lumen-charcoal text-white">Tribeca &amp; 5th Ave &middot; NY</option>
+              <option value="tulum" class="bg-lumen-charcoal text-white">Riviera Maya &middot; MX</option>
+              <option value="madrid" class="bg-lumen-charcoal text-white">Barrio Salamanca &middot; ES</option>
+            </select>
+          </div>
+
+          <!-- Price Range Selector -->
+          <div class="flex flex-col border-b sm:border-b-0 lg:border-r border-white/10 pb-3 sm:pb-0 lg:pr-4">
+            <label class="text-[10px] uppercase tracking-widest text-lumen-bronzeLight font-semibold mb-1 flex items-center gap-1.5">
+              <i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i> Rango de Inversión
+            </label>
+            <select id="hero-price-filter" class="bg-transparent text-white text-sm font-medium focus:outline-none cursor-pointer">
+              <option value="all" class="bg-lumen-charcoal text-white">$1.5M &ndash; $25M+ USD</option>
+              <option value="tier1" class="bg-lumen-charcoal text-white">$1.5M &ndash; $3.5M USD</option>
+              <option value="tier2" class="bg-lumen-charcoal text-white">$3.5M &ndash; $7.0M USD</option>
+              <option value="tier3" class="bg-lumen-charcoal text-white">$7.0M+ USD (Trophy Assets)</option>
+            </select>
+          </div>
+
+          <!-- Filter Submit Button -->
+          <button onclick="applyHeroFilter()" class="w-full bg-lumen-bronze hover:bg-lumen-bronzeLight text-lumen-graphite font-bold text-xs uppercase tracking-widest py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-lumen-bronze/30 hover:scale-[1.02]">
+            <i data-lucide="search" class="w-4 h-4"></i>
+            <span>Ver Resultados</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       2. TRUST BAR & AUTORIDAD DE MERCADO (MARKET AUTHORITY)
+       ========================================================================= -->
+  <section id="trayectoria" class="py-14 bg-lumen-sand border-y border-lumen-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+          <span class="text-[11px] uppercase tracking-[0.2em] text-lumen-muted font-bold mb-1">Volumen Transaccionado</span>
+          <p class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-lumen-graphite tracking-tight">+$480M<span class="text-lumen-bronze text-2xl lg:text-3xl font-light"> USD</span></p>
+          <p class="text-xs text-lumen-muted mt-1 font-medium">En residencias de ultra-lujo y trofeos arquitectónicos</p>
+        </div>
+
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left border-l-0 sm:border-l border-lumen-border/80 sm:pl-8">
+          <span class="text-[11px] uppercase tracking-[0.2em] text-lumen-muted font-bold mb-1">Tiempo de Colocación</span>
+          <p class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-lumen-graphite tracking-tight">12<span class="text-lumen-bronze text-2xl lg:text-3xl font-light"> Días</span></p>
+          <p class="text-xs text-lumen-muted mt-1 font-medium">Promedio para activos exclusivos con compradores calificados</p>
+        </div>
+
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left border-l-0 lg:border-l border-lumen-border/80 lg:pl-8">
+          <span class="text-[11px] uppercase tracking-[0.2em] text-lumen-muted font-bold mb-1">Satisfacción VIP</span>
+          <p class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-lumen-graphite tracking-tight">98.4<span class="text-lumen-bronze text-2xl lg:text-3xl font-light">%</span></p>
+          <p class="text-xs text-lumen-muted mt-1 font-medium">Family Offices, fondos y clientes privados internacionales</p>
+        </div>
+
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left border-l-0 sm:border-l border-lumen-border/80 sm:pl-8">
+          <span class="text-[11px] uppercase tracking-[0.2em] text-lumen-muted font-bold mb-1">Inventario Privado</span>
+          <p class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-lumen-graphite tracking-tight">+45<span class="text-lumen-bronze text-2xl lg:text-3xl font-light"> Off-Market</span></p>
+          <p class="text-xs text-lumen-muted mt-1 font-medium">Inmuebles sin exposición pública para total discreción</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       3. COLECCIÓN EXCLUSIVA DE PROPIEDADES (CATÁLOGO FILTRABLE)
+       ========================================================================= -->
+  <section id="propiedades" class="py-24 px-4 sm:px-8 bg-lumen-cream">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <div class="inline-flex items-center gap-2 text-lumen-bronze font-semibold text-xs uppercase tracking-[0.25em] mb-3">
+            <i data-lucide="gem" class="w-3.5 h-3.5"></i>
+            <span>Curaduría de Excelencia</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-5xl font-normal text-lumen-graphite tracking-tight">
+            Residencias en <span class="italic font-normal">Colección Activa</span>
+          </h2>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap items-center gap-2 bg-lumen-sand p-1.5 rounded-full border border-lumen-border self-start md:self-auto">
+          <button onclick="filterProperties('all')" class="filter-tab active px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 bg-lumen-graphite text-white shadow-md" data-category="all">
+            Todas
+          </button>
+          <button onclick="filterProperties('villa')" class="filter-tab px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-lumen-muted hover:text-lumen-graphite transition-all duration-300" data-category="villa">
+            Villas Costeras
+          </button>
+          <button onclick="filterProperties('penthouse')" class="filter-tab px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-lumen-muted hover:text-lumen-graphite transition-all duration-300" data-category="penthouse">
+            Penthouses
+          </button>
+          <button onclick="filterProperties('mountain')" class="filter-tab px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-lumen-muted hover:text-lumen-graphite transition-all duration-300" data-category="mountain">
+            Montaña
+          </button>
+          <button onclick="filterProperties('offmarket')" class="filter-tab px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-lumen-muted hover:text-lumen-graphite transition-all duration-300" data-category="offmarket">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-lumen-bronze mr-1"></span>Off-Market
+          </button>
+        </div>
+      </div>
+
+      <!-- Properties Grid (6 Items) -->
+      <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Property 1: Villa Frente al Mar -->
+        <article class="property-card group bg-white rounded-3xl overflow-hidden border border-lumen-border shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500" data-category="villa" data-price="4850000">
+          <div class="relative h-72 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80&auto=format&fit=crop" 
+                 alt="Villa Oceana &middot; Papagayo" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="bg-lumen-graphite/80 backdrop-blur-md text-lumen-bronzeLight text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-lumen-bronze/30">Villa Costera</span>
+              <span class="bg-emerald-950/80 backdrop-blur-md text-emerald-300 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-emerald-500/30">Llave en Mano</span>
+            </div>
+
+            <!-- Favorite Toggle Button -->
+            <button onclick="toggleFav(this, 'Villa Oceana &middot; Papagayo', '$4,850,000 USD')" class="fav-btn absolute top-4 right-4 w-9 h-9 bg-white/80 hover:bg-white backdrop-blur-md rounded-full flex items-center justify-center text-lumen-graphite transition-all shadow-md">
+              <i data-lucide="heart" class="w-4 h-4"></i>
+            </button>
+
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white">
+              <div>
+                <p class="text-xs text-neutral-300 flex items-center gap-1 font-medium">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-lumen-bronzeLight"></i> Península Papagayo, Guanacaste
+                </p>
+                <h3 class="font-serif text-2xl font-bold leading-tight mt-0.5">Villa Oceana</h3>
+              </div>
+              <p class="font-serif text-xl font-bold text-lumen-bronzeLight">$4,850,000 <span class="text-xs font-sans text-white/80">USD</span></p>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <!-- Features Specs -->
+            <div class="grid grid-cols-3 gap-3 py-3 border-b border-lumen-border text-center text-xs text-lumen-muted">
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">620 m²</strong> Construcción</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">5 Suites</strong> 6 Baños</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">Infinity</strong> Pool Privada</div>
+            </div>
+
+            <p class="text-xs text-lumen-muted mt-4 line-clamp-2 leading-relaxed">
+              Residencia de diseño biofílico con acceso directo a playa privada, terraza con piscina infinita voladiza y helipuerto a 5 minutos.
+            </p>
+
+            <div class="mt-6 flex items-center justify-between gap-3">
+              <button onclick="openDossier('Villa Oceana', '$4,850,000 USD', 'Península Papagayo, Costa Rica', '620 m²', '5 Suites · 6 Baños', 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80&auto=format&fit=crop', 'Arquitectura contemporánea abierta al Pacífico con maderas de teca certificada, automatización Lutron integral y paneles solares con almacenamiento Tesla Powerwall.')" 
+                      class="w-full bg-lumen-sand hover:bg-lumen-graphite hover:text-white text-lumen-graphite text-xs font-bold uppercase tracking-wider py-3 rounded-xl border border-lumen-border transition-all duration-300 flex items-center justify-center gap-2">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-lumen-bronze"></i>
+                <span>Ver Dossier &amp; Planos</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Property 2: Penthouse Urbano -->
+        <article class="property-card group bg-white rounded-3xl overflow-hidden border border-lumen-border shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500" data-category="penthouse" data-price="3200000">
+          <div class="relative h-72 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80&auto=format&fit=crop" 
+                 alt="The Sky Horizon Penthouse &middot; Manhattan" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="bg-lumen-graphite/80 backdrop-blur-md text-lumen-bronzeLight text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-lumen-bronze/30">Penthouse Duplex</span>
+              <span class="bg-amber-950/80 backdrop-blur-md text-amber-300 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-amber-500/30">Skyline 360°</span>
+            </div>
+
+            <button onclick="toggleFav(this, 'The Sky Horizon &middot; Manhattan', '$3,200,000 USD')" class="fav-btn absolute top-4 right-4 w-9 h-9 bg-white/80 hover:bg-white backdrop-blur-md rounded-full flex items-center justify-center text-lumen-graphite transition-all shadow-md">
+              <i data-lucide="heart" class="w-4 h-4"></i>
+            </button>
+
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white">
+              <div>
+                <p class="text-xs text-neutral-300 flex items-center gap-1 font-medium">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-lumen-bronzeLight"></i> Tribeca, New York City
+                </p>
+                <h3 class="font-serif text-2xl font-bold leading-tight mt-0.5">The Sky Horizon</h3>
+              </div>
+              <p class="font-serif text-xl font-bold text-lumen-bronzeLight">$3,200,000 <span class="text-xs font-sans text-white/80">USD</span></p>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="grid grid-cols-3 gap-3 py-3 border-b border-lumen-border text-center text-xs text-lumen-muted">
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">410 m²</strong> Piso 42 &amp; 43</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">3 Suites</strong> 4 Baños</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">Rooftop</strong> Spa Privado</div>
+            </div>
+
+            <p class="text-xs text-lumen-muted mt-4 line-clamp-2 leading-relaxed">
+              Vistas despejadas al río Hudson y rascacielos icónicos. Acabados en mármol de Carrara, ascensor privado directo y conserje 24/7.
+            </p>
+
+            <div class="mt-6 flex items-center justify-between gap-3">
+              <button onclick="openDossier('The Sky Horizon', '$3,200,000 USD', 'Tribeca, New York', '410 m²', '3 Suites · 4 Baños', 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80&auto=format&fit=crop', 'Diseñado por estudio de arquitectura galardonado con ventanales de suelo a techo de triple cristal acústico, chimenea de gas etanol y bodega climatizada para 300 botellas.')" 
+                      class="w-full bg-lumen-sand hover:bg-lumen-graphite hover:text-white text-lumen-graphite text-xs font-bold uppercase tracking-wider py-3 rounded-xl border border-lumen-border transition-all duration-300 flex items-center justify-center gap-2">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-lumen-bronze"></i>
+                <span>Ver Dossier &amp; Planos</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Property 3: Finca de Montaña -->
+        <article class="property-card group bg-white rounded-3xl overflow-hidden border border-lumen-border shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500" data-category="mountain" data-price="2750000">
+          <div class="relative h-72 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80&auto=format&fit=crop" 
+                 alt="Reserva Monte Alto &middot; Escazú" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="bg-lumen-graphite/80 backdrop-blur-md text-lumen-bronzeLight text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-lumen-bronze/30">Finca de Autor</span>
+              <span class="bg-emerald-950/80 backdrop-blur-md text-emerald-300 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-emerald-500/30">Privacidad Total</span>
+            </div>
+
+            <button onclick="toggleFav(this, 'Reserva Monte Alto &middot; Escazú', '$2,750,000 USD')" class="fav-btn absolute top-4 right-4 w-9 h-9 bg-white/80 hover:bg-white backdrop-blur-md rounded-full flex items-center justify-center text-lumen-graphite transition-all shadow-md">
+              <i data-lucide="heart" class="w-4 h-4"></i>
+            </button>
+
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white">
+              <div>
+                <p class="text-xs text-neutral-300 flex items-center gap-1 font-medium">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-lumen-bronzeLight"></i> Cerros de Escazú, Costa Rica
+                </p>
+                <h3 class="font-serif text-2xl font-bold leading-tight mt-0.5">Reserva Monte Alto</h3>
+              </div>
+              <p class="font-serif text-xl font-bold text-lumen-bronzeLight">$2,750,000 <span class="text-xs font-sans text-white/80">USD</span></p>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="grid grid-cols-3 gap-3 py-3 border-b border-lumen-border text-center text-xs text-lumen-muted">
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">850 m²</strong> Terreno 4,200m²</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">4 Dorm.</strong> 5 Baños</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">Valle</strong> Vista Panorámica</div>
+            </div>
+
+            <p class="text-xs text-lumen-muted mt-4 line-clamp-2 leading-relaxed">
+              Santuario de calma con vista ininterrumpida al Valle Central. Estilo arquitectónico moderno en concreto aparente, acero corten y roble negro.
+            </p>
+
+            <div class="mt-6 flex items-center justify-between gap-3">
+              <button onclick="openDossier('Reserva Monte Alto', '$2,750,000 USD', 'Escazú, Costa Rica', '850 m² Const. / 4,200 m² Terreno', '4 Suites · 5 Baños', 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80&auto=format&fit=crop', 'Incluye casa de huéspedes independiente de 120m², cava subterránea de piedra volcánica natural y sistema de seguridad perimetral de grado militar.')" 
+                      class="w-full bg-lumen-sand hover:bg-lumen-graphite hover:text-white text-lumen-graphite text-xs font-bold uppercase tracking-wider py-3 rounded-xl border border-lumen-border transition-all duration-300 flex items-center justify-center gap-2">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-lumen-bronze"></i>
+                <span>Ver Dossier &amp; Planos</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Property 4: Inversión Off-Market 1 -->
+        <article class="property-card group bg-white rounded-3xl overflow-hidden border border-lumen-border shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500" data-category="offmarket" data-price="6900000">
+          <div class="relative h-72 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80&auto=format&fit=crop" 
+                 alt="Villa Akoya &middot; Tulum" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="bg-lumen-bronze text-lumen-graphite text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">Confidencial Off-Market</span>
+              <span class="bg-black/60 backdrop-blur-md text-white text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded-full">NDA Requerido</span>
+            </div>
+
+            <button onclick="toggleFav(this, 'Villa Akoya &middot; Tulum Secret', '$6,900,000 USD')" class="fav-btn absolute top-4 right-4 w-9 h-9 bg-white/80 hover:bg-white backdrop-blur-md rounded-full flex items-center justify-center text-lumen-graphite transition-all shadow-md">
+              <i data-lucide="heart" class="w-4 h-4"></i>
+            </button>
+
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white">
+              <div>
+                <p class="text-xs text-neutral-300 flex items-center gap-1 font-medium">
+                  <i data-lucide="lock" class="w-3.5 h-3.5 text-lumen-bronzeLight"></i> Riviera Maya Secreta, Tulum
+                </p>
+                <h3 class="font-serif text-2xl font-bold leading-tight mt-0.5">Villa Akoya</h3>
+              </div>
+              <p class="font-serif text-xl font-bold text-lumen-bronzeLight">$6,900,000 <span class="text-xs font-sans text-white/80">USD</span></p>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="grid grid-cols-3 gap-3 py-3 border-b border-lumen-border text-center text-xs text-lumen-muted">
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">920 m²</strong> Selva Privada</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">6 Suites</strong> Cenote Propio</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">ROI 14%</strong> Alquiler Lujo</div>
+            </div>
+
+            <p class="text-xs text-lumen-muted mt-4 line-clamp-2 leading-relaxed">
+              Propiedad exclusiva fuera del mercado público. Cuenta con cenote natural privado, arquitectura de chukum y madera de tzalam.
+            </p>
+
+            <div class="mt-6 flex items-center justify-between gap-3">
+              <button onclick="openDossier('Villa Akoya (Off-Market)', '$6,900,000 USD', 'Tulum, México', '920 m²', '6 Suites · 7 Baños · Cenote', 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80&auto=format&fit=crop', 'Acceso restringido a compradores acreditados. Genera un flujo de caja auditado superior a $680,000 USD anuales en hospitalidad ultra-premium.')" 
+                      class="w-full bg-lumen-graphite text-lumen-bronzeLight hover:bg-lumen-bronze hover:text-lumen-graphite text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md">
+                <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                <span>Solicitar Dossier Confidencial</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Property 5: Villa Costera 2 -->
+        <article class="property-card group bg-white rounded-3xl overflow-hidden border border-lumen-border shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500" data-category="villa" data-price="5400000">
+          <div class="relative h-72 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80&auto=format&fit=crop" 
+                 alt="Casa Mirador del Sol &middot; Santa Teresa" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="bg-lumen-graphite/80 backdrop-blur-md text-lumen-bronzeLight text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-lumen-bronze/30">Costa &amp; Surf</span>
+              <span class="bg-blue-950/80 backdrop-blur-md text-blue-300 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-500/30">Sunset Front</span>
+            </div>
+
+            <button onclick="toggleFav(this, 'Casa Mirador del Sol &middot; Santa Teresa', '$5,400,000 USD')" class="fav-btn absolute top-4 right-4 w-9 h-9 bg-white/80 hover:bg-white backdrop-blur-md rounded-full flex items-center justify-center text-lumen-graphite transition-all shadow-md">
+              <i data-lucide="heart" class="w-4 h-4"></i>
+            </button>
+
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white">
+              <div>
+                <p class="text-xs text-neutral-300 flex items-center gap-1 font-medium">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-lumen-bronzeLight"></i> Santa Teresa, Puntarenas
+                </p>
+                <h3 class="font-serif text-2xl font-bold leading-tight mt-0.5">Casa Mirador del Sol</h3>
+              </div>
+              <p class="font-serif text-xl font-bold text-lumen-bronzeLight">$5,400,000 <span class="text-xs font-sans text-white/80">USD</span></p>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="grid grid-cols-3 gap-3 py-3 border-b border-lumen-border text-center text-xs text-lumen-muted">
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">740 m²</strong> Acantilado</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">5 Dorm.</strong> 6 Baños</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">Puestas Sol</strong> 365 días</div>
+            </div>
+
+            <p class="text-xs text-lumen-muted mt-4 line-clamp-2 leading-relaxed">
+              Emplazada sobre un risco con vista ininterrumpida a las rompientes de surf. Deck volado de madera Ipe con piscina templada.
+            </p>
+
+            <div class="mt-6 flex items-center justify-between gap-3">
+              <button onclick="openDossier('Casa Mirador del Sol', '$5,400,000 USD', 'Santa Teresa, Costa Rica', '740 m²', '5 Suites · 6 Baños', 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80&auto=format&fit=crop', 'Diseño galardonado en la Bienal de Arquitectura Tropical. Incluye estudio de yoga privado en voladizo sobre la jungla y sistema de recolección pluvial inteligente.')" 
+                      class="w-full bg-lumen-sand hover:bg-lumen-graphite hover:text-white text-lumen-graphite text-xs font-bold uppercase tracking-wider py-3 rounded-xl border border-lumen-border transition-all duration-300 flex items-center justify-center gap-2">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-lumen-bronze"></i>
+                <span>Ver Dossier &amp; Planos</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Property 6: Penthouse Urbano 2 -->
+        <article class="property-card group bg-white rounded-3xl overflow-hidden border border-lumen-border shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500" data-category="penthouse" data-price="4100000">
+          <div class="relative h-72 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1200&q=80&auto=format&fit=crop" 
+                 alt="Palacio de Velázquez &middot; Madrid" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            
+            <div class="absolute top-4 left-4 flex gap-2">
+              <span class="bg-lumen-graphite/80 backdrop-blur-md text-lumen-bronzeLight text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-lumen-bronze/30">Ático Señorial</span>
+              <span class="bg-stone-900/80 backdrop-blur-md text-stone-300 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-stone-500/30">Finca Clásica</span>
+            </div>
+
+            <button onclick="toggleFav(this, 'Ático Velázquez &middot; Madrid', '$4,100,000 USD')" class="fav-btn absolute top-4 right-4 w-9 h-9 bg-white/80 hover:bg-white backdrop-blur-md rounded-full flex items-center justify-center text-lumen-graphite transition-all shadow-md">
+              <i data-lucide="heart" class="w-4 h-4"></i>
+            </button>
+
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white">
+              <div>
+                <p class="text-xs text-neutral-300 flex items-center gap-1 font-medium">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-lumen-bronzeLight"></i> Barrio Salamanca, Madrid
+                </p>
+                <h3 class="font-serif text-2xl font-bold leading-tight mt-0.5">Ático Velázquez</h3>
+              </div>
+              <p class="font-serif text-xl font-bold text-lumen-bronzeLight">$4,100,000 <span class="text-xs font-sans text-white/80">USD</span></p>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="grid grid-cols-3 gap-3 py-3 border-b border-lumen-border text-center text-xs text-lumen-muted">
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">380 m²</strong> + 90 m² Terraza</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">4 Suites</strong> 5 Baños</div>
+              <div><strong class="text-lumen-graphite block text-sm font-semibold">Garaje x2</strong> Finca 1920</div>
+            </div>
+
+            <p class="text-xs text-lumen-muted mt-4 line-clamp-2 leading-relaxed">
+              Rehabilitación integral de lujo en edificio señorial. Molduras restauradas a mano, cocina Poliform y terraza privada orientada al sur.
+            </p>
+
+            <div class="mt-6 flex items-center justify-between gap-3">
+              <button onclick="openDossier('Ático Velázquez', '$4,100,000 USD', 'Barrio Salamanca, Madrid', '380 m² + 90 m² Terraza', '4 Suites · 5 Baños', 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1200&q=80&auto=format&fit=crop', 'Proyecto de interiorismo firmado por estudio de alta costura inmobiliaria. Suelos de roble espigado francés, climatización invisible por aerotermia y domótica integral KNX.')" 
+                      class="w-full bg-lumen-sand hover:bg-lumen-graphite hover:text-white text-lumen-graphite text-xs font-bold uppercase tracking-wider py-3 rounded-xl border border-lumen-border transition-all duration-300 flex items-center justify-center gap-2">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-lumen-bronze"></i>
+                <span>Ver Dossier &amp; Planos</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       4. CALCULADORA FINANCIERA DE INVERSIÓN & HIPOTECA EN TIEMPO REAL
+       ========================================================================= -->
+  <section id="calculadora" class="py-24 px-4 sm:px-8 bg-lumen-graphite text-white relative overflow-hidden">
+    <!-- Ambient Lighting Glows -->
+    <div class="absolute -top-40 -right-40 w-96 h-96 glow-bronze pointer-events-none"></div>
+    <div class="absolute -bottom-40 -left-40 w-96 h-96 glow-bronze pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-lumen-bronzeLight font-semibold text-xs uppercase tracking-[0.25em] mb-3 bg-white/5 border border-lumen-bronze/30 px-4 py-1.5 rounded-full">
+          <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+          <span>Herramienta de Simulación Financiera</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-5xl font-light tracking-tight">
+          Calculadora de <span class="italic text-lumen-bronzeLight font-normal">Inversión &amp; Amortización</span>
+        </h2>
+        <p class="text-neutral-400 text-sm sm:text-base mt-4 font-light leading-relaxed">
+          Modela en tiempo real tu estructura de financiamiento privado, cuotas estimadas y proyección patrimonial para activos de alta gama.
+        </p>
+      </div>
+
+      <!-- Main Calculator Interactive Container -->
+      <div class="bg-lumen-charcoal/90 backdrop-blur-xl border border-lumen-bronze/30 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          
+          <!-- Controls Column (Sliders) -->
+          <div class="lg:col-span-7 space-y-8">
+            
+            <!-- Slider 1: Property Value -->
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <label for="slider-price" class="text-xs uppercase tracking-widest text-neutral-300 font-semibold flex items-center gap-2">
+                  <i data-lucide="home" class="w-4 h-4 text-lumen-bronze"></i> Valor del Activo
+                </label>
+                <span id="label-price" class="font-serif text-2xl font-bold text-lumen-bronzeLight">$4,850,000 USD</span>
+              </div>
+              <input type="range" id="slider-price" min="1000000" max="15000000" step="50000" value="4850000" class="w-full">
+              <div class="flex justify-between text-[11px] text-neutral-500 mt-1 font-mono">
+                <span>$1.0M</span>
+                <span>$7.5M</span>
+                <span>$15.0M+</span>
+              </div>
+            </div>
+
+            <!-- Slider 2: Down Payment Percentage -->
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <label for="slider-down" class="text-xs uppercase tracking-widest text-neutral-300 font-semibold flex items-center gap-2">
+                  <i data-lucide="wallet" class="w-4 h-4 text-lumen-bronze"></i> Enganche / Cuota Inicial
+                </label>
+                <span id="label-down" class="font-serif text-xl font-bold text-white">30% <span id="label-down-usd" class="text-xs font-sans text-neutral-400">($1,455,000 USD)</span></span>
+              </div>
+              <input type="range" id="slider-down" min="10" max="60" step="5" value="30" class="w-full">
+              <div class="flex justify-between text-[11px] text-neutral-500 mt-1 font-mono">
+                <span>10% (Mínimo)</span>
+                <span>30% (Recomendado)</span>
+                <span>60%</span>
+              </div>
+            </div>
+
+            <!-- Slider 3: Term in Years -->
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <label class="text-xs uppercase tracking-widest text-neutral-300 font-semibold flex items-center gap-2">
+                  <i data-lucide="calendar" class="w-4 h-4 text-lumen-bronze"></i> Plazo de Amortización
+                </label>
+                <div class="flex gap-2">
+                  <button type="button" onclick="setLoanTerm(15)" class="term-btn px-3 py-1 rounded-lg text-xs font-bold border border-white/20 text-neutral-300 hover:border-lumen-bronze" data-term="15">15 Años</button>
+                  <button type="button" onclick="setLoanTerm(20)" class="term-btn active px-3 py-1 rounded-lg text-xs font-bold border border-lumen-bronze bg-lumen-bronze text-lumen-graphite" data-term="20">20 Años</button>
+                  <button type="button" onclick="setLoanTerm(30)" class="term-btn px-3 py-1 rounded-lg text-xs font-bold border border-white/20 text-neutral-300 hover:border-lumen-bronze" data-term="30">30 Años</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slider 4: Interest Rate -->
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <label for="slider-rate" class="text-xs uppercase tracking-widest text-neutral-300 font-semibold flex items-center gap-2">
+                  <i data-lucide="percent" class="w-4 h-4 text-lumen-bronze"></i> Tasa de Interés Anual Fija
+                </label>
+                <span id="label-rate" class="font-serif text-xl font-bold text-white">5.75%</span>
+              </div>
+              <input type="range" id="slider-rate" min="3.5" max="10.0" step="0.25" value="5.75" class="w-full">
+              <div class="flex justify-between text-[11px] text-neutral-500 mt-1 font-mono">
+                <span>3.5% (Banca Privada)</span>
+                <span>6.0%</span>
+                <span>10.0%</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Dynamic Output Card Column -->
+          <div class="lg:col-span-5 bg-gradient-to-b from-white/10 to-white/5 rounded-2xl p-6 sm:p-8 border border-white/15 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] uppercase tracking-[0.25em] text-lumen-bronzeLight font-bold block mb-1">Resultado de la Simulación</span>
+              <p class="text-xs text-neutral-400 mb-6">Basado en amortización estándar de banca patrimonial internacional.</p>
+
+              <!-- Monthly Payment Big Display -->
+              <div class="bg-lumen-graphite/80 p-5 rounded-2xl border border-lumen-bronze/30 mb-6">
+                <span class="text-xs uppercase tracking-wider text-neutral-400 block mb-1">Pago Mensual Estimado (P&amp;I)</span>
+                <p id="calc-monthly-payment" class="font-serif text-3xl sm:text-4xl font-bold text-lumen-bronzeLight">$23,803 <span class="text-sm font-sans text-neutral-400 font-normal">/ mes</span></p>
+              </div>
+
+              <!-- Breakdown Grid -->
+              <div class="space-y-3 text-xs">
+                <div class="flex justify-between py-2 border-b border-white/10">
+                  <span class="text-neutral-400">Monto del Préstamo</span>
+                  <span id="calc-loan-amount" class="font-semibold text-white font-mono">$3,395,000 USD</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-white/10">
+                  <span class="text-neutral-400">Enganche Inicial Total</span>
+                  <span id="calc-down-payment" class="font-semibold text-white font-mono">$1,455,000 USD</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-white/10">
+                  <span class="text-neutral-400">Intereses Amortizados</span>
+                  <span id="calc-total-interest" class="font-semibold text-neutral-300 font-mono">$2,317,720 USD</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-white/10 bg-emerald-950/40 px-3 rounded-lg border-emerald-500/20">
+                  <span class="text-emerald-300 flex items-center gap-1.5 font-medium">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Plusvalía Estimada (5 Años al 7.5%)
+                  </span>
+                  <span id="calc-appreciation" class="font-bold text-emerald-400 font-mono">+$2,112,800 USD</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 pt-4 border-t border-white/10">
+              <a href="#contacto" class="w-full bg-lumen-bronze hover:bg-lumen-bronzeLight text-lumen-graphite font-bold text-xs uppercase tracking-widest py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-lumen-bronze/30">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                <span>Solicitar Estudio de Viabilidad VIP</span>
+              </a>
+              <p class="text-[10px] text-center text-neutral-500 mt-2.5">
+                Simulación no vinculante. Sujeta a aprobación de estructuración patrimonial y banca privada.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. BENTO GRID DE SERVICIOS EXCLUSIVOS (BUYERS & SELLERS)
+       ========================================================================= -->
+  <section id="servicios" class="py-24 px-4 sm:px-8 bg-lumen-sand border-b border-lumen-border">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-lumen-bronze font-semibold text-xs uppercase tracking-[0.25em] mb-3">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>
+          <span>Servicios Inmobiliarios Privados</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-5xl font-normal text-lumen-graphite tracking-tight">
+          Asesoría Estratégica de <span class="italic font-normal">Nivel Patrimonial</span>
+        </h2>
+        <p class="text-lumen-muted text-sm sm:text-base mt-4 font-normal leading-relaxed">
+          Más que una agencia de bienes raíces: somos sus consultores de confianza para la adquisición, venta y maximización de activos singulares.
+        </p>
+      </div>
+
+      <!-- Bento Grid (4 Cards) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Bento Card 1: Private Brokerage (Span 2 cols on lg) -->
+        <div class="lg:col-span-2 bg-white rounded-3xl p-8 sm:p-10 border border-lumen-border shadow-sm flex flex-col justify-between group hover:border-lumen-bronze transition-all duration-300">
+          <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-6">
+            <div class="w-12 h-12 rounded-2xl bg-lumen-sand flex items-center justify-center text-lumen-bronze group-hover:bg-lumen-graphite group-hover:text-lumen-bronzeLight transition-colors">
+              <i data-lucide="eye-off" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[11px] uppercase tracking-widest font-bold text-lumen-bronze bg-lumen-sand px-3.5 py-1 rounded-full border border-lumen-border">Máxima Discreción</span>
+          </div>
+
+          <div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-bold text-lumen-graphite mb-3">
+              Private Brokerage &amp; Venta Off-Market
+            </h3>
+            <p class="text-sm text-lumen-muted leading-relaxed max-w-2xl">
+              Comercialización confidencial de propiedades de alto perfil sin difusión pública en portales web ni redes sociales. Conectamos directamente a vendedores con nuestra red exclusiva de compradores verificados, family offices e inversionistas institucionales mediante estrictos acuerdos de confidencialidad (NDA).
+            </p>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-lumen-border/80 flex flex-wrap items-center gap-6 text-xs text-lumen-muted font-medium">
+            <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Verificación previa de solvencia</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Cero huella digital pública</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Negociación directa C-Level</span>
+          </div>
+        </div>
+
+        <!-- Bento Card 2: Asesoría Legal & Golden Visa -->
+        <div class="bg-lumen-graphite text-white rounded-3xl p-8 sm:p-10 border border-lumen-borderDark shadow-xl flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-lumen-bronzeLight mb-6">
+              <i data-lucide="scale" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] uppercase tracking-widest font-bold text-lumen-bronzeLight block mb-2">Estructuración Fiscal</span>
+            <h3 class="font-serif text-2xl font-bold text-white mb-3">
+              Golden Visa &amp; Asesoría Internacional
+            </h3>
+            <p class="text-xs text-neutral-300 leading-relaxed">
+              Acompañamiento legal completo para la obtención de residencias por inversión, creación de fideicomisos offshore y optimización fiscal transfronteriza con los mejores bufetes de abogados asociados.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-lumen-bronzeLight font-semibold">
+            <span>Costa Rica &middot; España &middot; EE.UU.</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- Bento Card 3: Staging Arquitectónico & Render 3D -->
+        <div class="bg-white rounded-3xl p-8 border border-lumen-border shadow-sm flex flex-col justify-between group hover:border-lumen-bronze transition-all duration-300">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-lumen-sand flex items-center justify-center text-lumen-bronze mb-6">
+              <i data-lucide="video" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] uppercase tracking-widest font-bold text-lumen-bronze block mb-2">Producción Cinematográfica</span>
+            <h3 class="font-serif text-2xl font-bold text-lumen-graphite mb-3">
+              Home Staging &amp; Audiovisual 4K
+            </h3>
+            <p class="text-xs text-lumen-muted leading-relaxed">
+              Producción de vídeo con drones FPV, estilismo de interiores de alta gama y modelos 3D interactivos para maximizar el valor percibido del activo hasta en un 18% antes de su salida al mercado.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-lumen-border text-xs font-bold text-lumen-graphite flex items-center gap-1">
+            <span>Incremento de valor comprobado</span>
+          </div>
+        </div>
+
+        <!-- Bento Card 4: Gestión de Portafolio & Rentas de Lujo (Span 2 cols on lg) -->
+        <div class="lg:col-span-2 bg-white rounded-3xl p-8 sm:p-10 border border-lumen-border shadow-sm flex flex-col justify-between group hover:border-lumen-bronze transition-all duration-300">
+          <div class="flex justify-between items-start mb-6">
+            <div class="w-12 h-12 rounded-2xl bg-lumen-sand flex items-center justify-center text-lumen-bronze">
+              <i data-lucide="briefcase" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[11px] uppercase tracking-widest font-bold text-emerald-800 bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200">Rentabilidad Pasiva</span>
+          </div>
+
+          <div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-bold text-lumen-graphite mb-3">
+              Gestión Patrimonial de Rentas Ultra-Luxury
+            </h3>
+            <p class="text-sm text-lumen-muted leading-relaxed">
+              Administración llave en mano de sus propiedades residenciales para alquileres vacacionales de lujo o corporativos diplomáticos. Nuestro equipo se encarga de la selección de huéspedes VIP, mantenimiento de instalaciones de alta tecnología, servicio de mayordomía y liquidaciones mensuales auditadas.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-lumen-border/80 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
+            <div><strong class="text-lumen-graphite block text-sm">11% - 16%</strong> Yield promedio estimado</div>
+            <div><strong class="text-lumen-graphite block text-sm">Concierge 24/7</strong> Mayordomía dedicada</div>
+            <div><strong class="text-lumen-graphite block text-sm">Cero Preocupaciones</strong> Gestión integral</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. TESTIMONIOS VIP & PRENSA / MENCIONES EDITORIALES
+       ========================================================================= -->
+  <section class="py-24 px-4 sm:px-8 bg-lumen-cream">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Editorial Press Bar -->
+      <div class="mb-20 pb-12 border-b border-lumen-border text-center">
+        <p class="text-[10px] uppercase tracking-[0.3em] text-lumen-muted font-bold mb-8">Nuestras operaciones han sido destacadas en</p>
+        <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-300">
+          <span class="font-serif text-xl sm:text-2xl font-bold tracking-widest text-lumen-graphite">ARCHITECTURAL DIGEST</span>
+          <span class="font-serif text-xl sm:text-2xl font-bold tracking-wider text-lumen-graphite">Forbes <span class="text-xs font-sans">REAL ESTATE</span></span>
+          <span class="font-serif text-xl sm:text-2xl font-semibold tracking-tight text-lumen-graphite">Bloomberg <span class="italic font-light">Línea</span></span>
+          <span class="font-serif text-xl sm:text-2xl font-bold tracking-widest text-lumen-graphite">RobbReport</span>
+        </div>
+      </div>
+
+      <!-- Testimonials Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-lumen-bronze font-semibold text-xs uppercase tracking-[0.25em] mb-3">
+          <i data-lucide="quote" class="w-3.5 h-3.5"></i>
+          <span>La Confianza de Nuestros Clientes</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl font-normal text-lumen-graphite">
+          Experiencias de <span class="italic font-normal">Alto Nivel</span>
+        </h2>
+      </div>
+
+      <!-- Testimonials Grid (3 Cards) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="bg-white p-8 rounded-3xl border border-lumen-border shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex text-lumen-bronze mb-4 gap-1">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="font-serif italic text-sm text-lumen-graphite leading-relaxed mb-6">
+              "La discreción de LUMEN durante la venta de nuestra villa en Papagayo fue impecable. Cerraron la operación en menos de 3 semanas sin que la propiedad estuviese expuesta en internet. Simplemente extraordinario."
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-4 border-t border-lumen-border">
+            <div class="w-10 h-10 rounded-full bg-lumen-sand flex items-center justify-center font-bold text-xs text-lumen-graphite">
+              AL
+            </div>
+            <div>
+              <p class="font-serif font-bold text-xs text-lumen-graphite">Alejandro Larraín</p>
+              <p class="text-[10px] text-lumen-muted uppercase tracking-wider">Family Office Director &middot; Chile</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-lumen-border shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex text-lumen-bronze mb-4 gap-1">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="font-serif italic text-sm text-lumen-graphite leading-relaxed mb-6">
+              "Buscábamos un ático específico en Tribeca con características arquitectónicas muy singulares. Nos consiguieron acceso a una propiedad antes de su lanzamiento. Su rigor legal nos ahorró meses de trámites."
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-4 border-t border-lumen-border">
+            <div class="w-10 h-10 rounded-full bg-lumen-sand flex items-center justify-center font-bold text-xs text-lumen-graphite">
+              SM
+            </div>
+            <div>
+              <p class="font-serif font-bold text-xs text-lumen-graphite">Sophie Müller</p>
+              <p class="text-[10px] text-lumen-muted uppercase tracking-wider">Inversionista Privada &middot; Suiza</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-lumen-border shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex text-lumen-bronze mb-4 gap-1">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="font-serif italic text-sm text-lumen-graphite leading-relaxed mb-6">
+              "El análisis de rentabilidad y la gestión de la Golden Visa en Madrid fue de una precisión matemática. Hoy nuestra propiedad genera un retorno neto constante con cero dolores de cabeza."
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-4 border-t border-lumen-border">
+            <div class="w-10 h-10 rounded-full bg-lumen-sand flex items-center justify-center font-bold text-xs text-lumen-graphite">
+              RE
+            </div>
+            <div>
+              <p class="font-serif font-bold text-xs text-lumen-graphite">Roberto Escalante</p>
+              <p class="text-[10px] text-lumen-muted uppercase tracking-wider">Empresario Tech &middot; México</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. FORMULARIO DE CONSERJERÍA VIP, AGENDAR VISITA & MEGA FOOTER
+       ========================================================================= -->
+  <section id="contacto" class="py-24 px-4 sm:px-8 bg-lumen-graphite text-white relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Column: Private Concierge Briefing -->
+        <div class="lg:col-span-5">
+          <div class="inline-flex items-center gap-2 text-lumen-bronzeLight font-semibold text-xs uppercase tracking-[0.25em] mb-4 bg-white/5 border border-lumen-bronze/30 px-4 py-1.5 rounded-full">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Atención Personalizada</span>
+          </div>
+
+          <h2 class="font-serif text-3xl sm:text-5xl font-light tracking-tight leading-tight mb-6">
+            Agende una <span class="italic text-lumen-bronzeLight font-normal">Visita Privada</span> o Dossier Confidencial
+          </h2>
+
+          <p class="text-neutral-300 text-sm leading-relaxed mb-8">
+            Nuestro equipo de directores de brokerage está disponible para coordinar recorridos presenciales VIP con chófer privado, vuelos de reconocimiento en helicóptero o presentaciones virtuales cifradas en alta definición.
+          </p>
+
+          <div class="space-y-4 text-xs text-neutral-300">
+            <div class="flex items-center gap-3 p-3.5 bg-white/5 rounded-2xl border border-white/10">
+              <div class="w-8 h-8 rounded-xl bg-lumen-bronze/20 flex items-center justify-center text-lumen-bronzeLight shrink-0">
+                <i data-lucide="shield" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <strong class="text-white block">Protocolo Estricto de Confidencialidad</strong>
+                <span>Todos los datos y recorridos están protegidos bajo acuerdo NDA.</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 p-3.5 bg-white/5 rounded-2xl border border-white/10">
+              <div class="w-8 h-8 rounded-xl bg-lumen-bronze/20 flex items-center justify-center text-lumen-bronzeLight shrink-0">
+                <i data-lucide="plane" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <strong class="text-white block">Logística VIP Llave en Mano</strong>
+                <span>Coordinación de traslados aéreos y terrestres para visitas internacionales.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Booking Form -->
+        <div class="lg:col-span-7 bg-lumen-charcoal p-8 sm:p-10 rounded-3xl border border-lumen-bronze/30 shadow-2xl">
+          <form id="vip-contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-neutral-300 font-semibold mb-2">Nombre y Apellidos *</label>
+                <input type="text" required placeholder="Ej. Guillermo de la Mora" class="w-full bg-white/5 border border-white/15 focus:border-lumen-bronze rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors">
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-neutral-300 font-semibold mb-2">Correo Electrónico VIP *</label>
+                <input type="email" required placeholder="contacto@familyoffice.com" class="w-full bg-white/5 border border-white/15 focus:border-lumen-bronze rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-neutral-300 font-semibold mb-2">Teléfono / WhatsApp *</label>
+                <input type="tel" required placeholder="+1 (555) 019-2834" class="w-full bg-white/5 border border-white/15 focus:border-lumen-bronze rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors">
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-neutral-300 font-semibold mb-2">Tipo de Solicitud</label>
+                <select class="w-full bg-lumen-graphite border border-white/15 focus:border-lumen-bronze rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors cursor-pointer">
+                  <option>Agendar Visita Presencial VIP</option>
+                  <option>Solicitar Dossier Off-Market</option>
+                  <option>Vender Propiedad Exclusiva</option>
+                  <option>Asesoría Legal &amp; Golden Visa</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-neutral-300 font-semibold mb-2">Propiedad o Destino de Interés</label>
+                <input type="text" placeholder="Ej. Villa Oceana o Penthouses NY" class="w-full bg-white/5 border border-white/15 focus:border-lumen-bronze rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors">
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase tracking-wider text-neutral-300 font-semibold mb-2">Rango de Inversión Previsto</label>
+                <select class="w-full bg-lumen-graphite border border-white/15 focus:border-lumen-bronze rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors cursor-pointer">
+                  <option>$1.5M &ndash; $3.5M USD</option>
+                  <option>$3.5M &ndash; $7.0M USD</option>
+                  <option>$7.0M+ USD (Trophy Asset)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-neutral-300 font-semibold mb-2">Notas Privadas / Requerimientos Específicos</label>
+              <textarea rows="3" placeholder="Requerimientos de helipuerto, número de suites o fecha estimada de visita..." class="w-full bg-white/5 border border-white/15 focus:border-lumen-bronze rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-lumen-bronze hover:bg-lumen-bronzeLight text-lumen-graphite font-bold text-xs uppercase tracking-widest py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-lumen-bronze/30 hover:scale-[1.01]">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Enviar Solicitud a Conserjería Privada</span>
+            </button>
+            <p id="form-success-msg" class="hidden text-center text-xs text-emerald-400 font-semibold pt-2">
+              ✓ Solicitud recibida con éxito. Un director de brokerage se pondrá en contacto confidencial en menos de 2 horas.
+            </p>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Architectural Mega Footer -->
+      <footer class="mt-24 pt-12 border-t border-white/10 text-neutral-400 text-xs">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          
+          <!-- Col 1: Brand Info -->
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 bg-lumen-bronze rounded-full flex items-center justify-center text-lumen-graphite font-serif font-bold text-base">L</div>
+              <span class="font-serif tracking-[0.2em] text-white font-bold text-base">LUMEN</span>
+            </div>
+            <p class="text-neutral-400 text-xs leading-relaxed mb-4">
+              Agencia boutique internacional especializada en inmuebles singulares, arquitectura de autor y transacciones patrimoniales de ultra-lujo.
+            </p>
+            <p class="text-[11px] text-lumen-bronzeLight font-mono">&copy; 2026 LUMEN Private Estates. All rights reserved.</p>
+          </div>
+
+          <!-- Col 2: Hubs & Destinos -->
+          <div>
+            <h4 class="text-white uppercase tracking-widest text-[11px] font-bold mb-4">Hubs Principales</h4>
+            <ul class="space-y-2.5 text-xs text-neutral-400">
+              <li><strong>Península Papagayo:</strong> Marina Village, Guanacaste</li>
+              <li><strong>New York:</strong> 56 Leonard St, Tribeca, NYC</li>
+              <li><strong>Madrid:</strong> Calle de Serrano 48, Salamanca</li>
+              <li><strong>Riviera Maya:</strong> Aldea Zama, Tulum</li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Enlaces Rápidos -->
+          <div>
+            <h4 class="text-white uppercase tracking-widest text-[11px] font-bold mb-4">Colección &amp; Servicios</h4>
+            <ul class="space-y-2 text-xs">
+              <li><a href="#propiedades" class="hover:text-lumen-bronzeLight transition-colors">Villas Costeras</a></li>
+              <li><a href="#propiedades" class="hover:text-lumen-bronzeLight transition-colors">Penthouses en Altura</a></li>
+              <li><a href="#propiedades" class="hover:text-lumen-bronzeLight transition-colors">Portafolio Off-Market</a></li>
+              <li><a href="#calculadora" class="hover:text-lumen-bronzeLight transition-colors">Simulador Financiero</a></li>
+              <li><a href="#servicios" class="hover:text-lumen-bronzeLight transition-colors">Asesoría Golden Visa</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 4: Newsletter Off-Market -->
+          <div>
+            <h4 class="text-white uppercase tracking-widest text-[11px] font-bold mb-4">The Private Gazette</h4>
+            <p class="text-xs text-neutral-400 leading-relaxed mb-3">
+              Reciba en su bandeja semanal las nuevas propiedades exclusivas antes de su difusión pública.
+            </p>
+            <form onsubmit="event.preventDefault(); alert('Suscrito a The Private Gazette.');" class="flex gap-2">
+              <input type="email" placeholder="su@correo.com" required class="bg-white/5 border border-white/15 focus:border-lumen-bronze rounded-lg px-3 py-2 text-white text-xs w-full outline-none">
+              <button type="submit" class="bg-lumen-bronze hover:bg-lumen-bronzeLight text-lumen-graphite font-bold px-4 py-2 rounded-lg text-xs uppercase tracking-wider">Unirse</button>
+            </form>
+          </div>
+
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MODAL DE DOSSIER Y FICHA ARQUITECTÓNICA COMPLETA
+       ========================================================================= -->
+  <div id="dossier-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md">
+    <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-lumen-border relative flex flex-col">
+      
+      <!-- Close Button -->
+      <button onclick="closeDossier()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-black/60 hover:bg-black text-white rounded-full flex items-center justify-center transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Modal Image Cover -->
+      <div class="relative h-64 sm:h-80 w-full shrink-0">
+        <img id="modal-img" src="" alt="Propiedad Ficha" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        <div class="absolute bottom-5 left-6 right-6 text-white">
+          <p id="modal-loc" class="text-xs text-lumen-bronzeLight flex items-center gap-1 font-semibold uppercase tracking-wider"></p>
+          <h3 id="modal-title" class="font-serif text-2xl sm:text-4xl font-bold mt-1"></h3>
+          <p id="modal-price" class="font-serif text-xl font-bold text-lumen-bronzeLight mt-1"></p>
+        </div>
+      </div>
+
+      <!-- Modal Content Body -->
+      <div class="p-6 sm:p-8 space-y-6 text-lumen-graphite">
+        
+        <!-- Specs Bar -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-lumen-sand rounded-2xl border border-lumen-border text-center text-xs">
+          <div><span class="text-lumen-muted block text-[10px] uppercase tracking-wider font-semibold">Superficie</span><strong id="modal-area" class="text-sm font-bold text-lumen-graphite"></strong></div>
+          <div><span class="text-lumen-muted block text-[10px] uppercase tracking-wider font-semibold">Distribución</span><strong id="modal-rooms" class="text-sm font-bold text-lumen-graphite"></strong></div>
+          <div><span class="text-lumen-muted block text-[10px] uppercase tracking-wider font-semibold">Estado</span><strong class="text-sm font-bold text-emerald-700">Disponible</strong></div>
+          <div><span class="text-lumen-muted block text-[10px] uppercase tracking-wider font-semibold">Inspección</span><strong class="text-sm font-bold text-lumen-graphite">Certificada A+</strong></div>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase tracking-widest text-lumen-bronze font-bold mb-2">Memoria de Calidades &amp; Arquitectura</h4>
+          <p id="modal-desc" class="text-sm text-lumen-muted leading-relaxed"></p>
+        </div>
+
+        <!-- Action inside Modal -->
+        <div class="pt-4 border-t border-lumen-border flex flex-col sm:flex-row gap-3">
+          <a id="modal-wa-btn" href="#" target="_blank" class="flex-1 bg-lumen-bronze hover:bg-lumen-bronzeLight text-lumen-graphite font-bold text-xs uppercase tracking-widest py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Solicitar Visita por WhatsApp</span>
+          </a>
+          <button onclick="alert('Dossier confidencial en PDF enviado a su correo.'); closeDossier();" class="flex-1 bg-lumen-sand hover:bg-lumen-border text-lumen-graphite font-bold text-xs uppercase tracking-widest py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all border border-lumen-border">
+            <i data-lucide="download" class="w-4 h-4 text-lumen-bronze"></i>
+            <span>Descargar Planos (PDF)</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       DRAWER DE FAVORITOS GUARDADOS
+       ========================================================================= -->
+  <aside id="fav-drawer" class="hidden fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white shadow-2xl border-l border-lumen-border p-6 flex flex-col justify-between">
+    <div>
+      <div class="flex items-center justify-between pb-4 border-b border-lumen-border mb-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="bookmark" class="w-5 h-5 text-lumen-bronze"></i>
+          <h3 class="font-serif font-bold text-lg text-lumen-graphite">Propiedades Guardadas</h3>
+        </div>
+        <button onclick="toggleFavoritesDrawer()" class="p-1.5 text-lumen-muted hover:text-lumen-graphite">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="fav-list-container" class="space-y-3 max-h-[65vh] overflow-y-auto pr-1 text-xs">
+        <p id="fav-empty-msg" class="text-lumen-muted italic text-center py-8">Aún no has guardado ninguna propiedad. Haz clic en el corazón de cualquier tarjeta.</p>
+      </div>
+    </div>
+
+    <div class="pt-4 border-t border-lumen-border">
+      <a href="https://wa.me/50600000000?text=Hola%2C%20quiero%20consultar%20por%20mis%20propiedades%20guardadas%20en%20LUMEN" target="_blank" class="w-full bg-lumen-graphite hover:bg-lumen-bronze text-white font-bold text-xs uppercase tracking-widest py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors">
+        <i data-lucide="message-square" class="w-4 h-4 text-lumen-bronzeLight"></i>
+        <span>Consultar Selección por WhatsApp</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       JAVASCRIPT AUTÓNOMO (CALCULADORA, FILTROS, MODAL, FAVORITOS)
+       ========================================================================= -->
+  <script>
+    // Inicializar Iconos Lucide
+    lucide.createIcons();
+
+    // -------------------------------------------------------------------------
+    // 1. MOBILE MENU TOGGLE
+    // -------------------------------------------------------------------------
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('hidden');
+    }
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', toggleMobileMenu);
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. FILTRADO DINÁMICO DE PROPIEDADES
+    // -------------------------------------------------------------------------
+    function filterProperties(category) {
+      // Update active tab buttons
+      const tabs = document.querySelectorAll('.filter-tab');
+      tabs.forEach(tab => {
+        if (tab.getAttribute('data-category') === category) {
+          tab.classList.remove('text-lumen-muted', 'bg-transparent');
+          tab.classList.add('bg-lumen-graphite', 'text-white', 'shadow-md');
+        } else {
+          tab.classList.remove('bg-lumen-graphite', 'text-white', 'shadow-md');
+          tab.classList.add('text-lumen-muted');
+        }
+      });
+
+      // Filter Cards
+      const cards = document.querySelectorAll('.property-card');
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        if (category === 'all' || cardCat === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Quick Hero Search Filter Action
+    function applyHeroFilter() {
+      const type = document.getElementById('hero-type-filter').value;
+      const targetCategory = type === 'all' ? 'all' : type;
+      filterProperties(targetCategory);
+      
+      const propSection = document.getElementById('propiedades');
+      if (propSection) {
+        propSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 3. CALCULADORA HIPOTECARIA EN TIEMPO REAL
+    // -------------------------------------------------------------------------
+    const sliderPrice = document.getElementById('slider-price');
+    const sliderDown = document.getElementById('slider-down');
+    const sliderRate = document.getElementById('slider-rate');
+
+    const labelPrice = document.getElementById('label-price');
+    const labelDown = document.getElementById('label-down');
+    const labelDownUsd = document.getElementById('label-down-usd');
+    const labelRate = document.getElementById('label-rate');
+
+    const calcMonthlyPayment = document.getElementById('calc-monthly-payment');
+    const calcLoanAmount = document.getElementById('calc-loan-amount');
+    const calcDownPayment = document.getElementById('calc-down-payment');
+    const calcTotalInterest = document.getElementById('calc-total-interest');
+    const calcAppreciation = document.getElementById('calc-appreciation');
+
+    let currentTermYears = 20;
+
+    function setLoanTerm(years) {
+      currentTermYears = years;
+      document.querySelectorAll('.term-btn').forEach(btn => {
+        if (parseInt(btn.getAttribute('data-term')) === years) {
+          btn.classList.add('active', 'border-lumen-bronze', 'bg-lumen-bronze', 'text-lumen-graphite');
+          btn.classList.remove('border-white/20', 'text-neutral-300');
+        } else {
+          btn.classList.remove('active', 'border-lumen-bronze', 'bg-lumen-bronze', 'text-lumen-graphite');
+          btn.classList.add('border-white/20', 'text-neutral-300');
+        }
+      });
+      calculateMortgage();
+    }
+
+    function formatUSD(num) {
+      return '$' + Math.round(num).toLocaleString('en-US') + ' USD';
+    }
+
+    function calculateMortgage() {
+      const price = parseFloat(sliderPrice.value);
+      const downPercent = parseFloat(sliderDown.value);
+      const annualRate = parseFloat(sliderRate.value) / 100;
+      const years = currentTermYears;
+
+      const downAmount = price * (downPercent / 100);
+      const loanAmount = price - downAmount;
+
+      // Monthly Interest Formula
+      const monthlyRate = annualRate / 12;
+      const totalMonths = years * 12;
+
+      let monthlyPayment = 0;
+      if (monthlyRate > 0) {
+        monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+      } else {
+        monthlyPayment = loanAmount / totalMonths;
+      }
+
+      const totalPaid = monthlyPayment * totalMonths;
+      const totalInterest = Math.max(0, totalPaid - loanAmount);
+
+      // Appreciation over 5 years estimated at 7.5% annual compounded
+      const appreciation = price * (Math.pow(1 + 0.075, 5) - 1);
+
+      // Update Labels
+      labelPrice.textContent = formatUSD(price);
+      labelDown.innerHTML = `${downPercent}% <span class="text-xs font-sans text-neutral-400">(${formatUSD(downAmount)})</span>`;
+      labelRate.textContent = `${(annualRate * 100).toFixed(2)}%`;
+
+      // Update Output Card
+      calcMonthlyPayment.innerHTML = `$${Math.round(monthlyPayment).toLocaleString('en-US')} <span class="text-sm font-sans text-neutral-400 font-normal">/ mes</span>`;
+      calcLoanAmount.textContent = formatUSD(loanAmount);
+      calcDownPayment.textContent = formatUSD(downAmount);
+      calcTotalInterest.textContent = formatUSD(totalInterest);
+      calcAppreciation.textContent = `+${formatUSD(appreciation)}`;
+    }
+
+    if (sliderPrice && sliderDown && sliderRate) {
+      sliderPrice.addEventListener('input', calculateMortgage);
+      sliderDown.addEventListener('input', calculateMortgage);
+      sliderRate.addEventListener('input', calculateMortgage);
+      calculateMortgage(); // Initial run
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. MODAL DE DOSSIER ARQUITECTÓNICO
+    // -------------------------------------------------------------------------
+    const dossierModal = document.getElementById('dossier-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalLoc = document.getElementById('modal-loc');
+    const modalTitle = document.getElementById('modal-title');
+    const modalPrice = document.getElementById('modal-price');
+    const modalArea = document.getElementById('modal-area');
+    const modalRooms = document.getElementById('modal-rooms');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalWaBtn = document.getElementById('modal-wa-btn');
+
+    function openDossier(title, price, loc, area, rooms, imgSrc, desc) {
+      modalTitle.textContent = title;
+      modalPrice.textContent = price;
+      modalLoc.innerHTML = `<i data-lucide="map-pin" class="w-3.5 h-3.5 inline"></i> ${loc}`;
+      modalArea.textContent = area;
+      modalRooms.textContent = rooms;
+      modalImg.src = imgSrc;
+      modalDesc.textContent = desc;
+
+      const waMsg = encodeURIComponent(`Hola, deseo solicitar el dossier completo y coordinar una visita para ${title} (${price}).`);
+      modalWaBtn.href = `https://wa.me/50600000000?text=${waMsg}`;
+
+      dossierModal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeDossier() {
+      dossierModal.classList.add('hidden');
+    }
+
+    // Close modal on click outside
+    if (dossierModal) {
+      dossierModal.addEventListener('click', (e) => {
+        if (e.target === dossierModal) {
+          closeDossier();
+        }
+      });
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. SISTEMA DE FAVORITOS & DRAWER
+    // -------------------------------------------------------------------------
+    let favoritesList = [];
+    const favCountBadge = document.getElementById('fav-count-badge');
+    const favDrawer = document.getElementById('fav-drawer');
+    const favListContainer = document.getElementById('fav-list-container');
+    const favEmptyMsg = document.getElementById('fav-empty-msg');
+
+    function toggleFav(btn, title, price) {
+      const idx = favoritesList.findIndex(item => item.title === title);
+      const icon = btn.querySelector('svg');
+
+      if (idx > -1) {
+        favoritesList.splice(idx, 1);
+        btn.classList.remove('bg-rose-500', 'text-white');
+        btn.classList.add('bg-white/80', 'text-lumen-graphite');
+      } else {
+        favoritesList.push({ title, price });
+        btn.classList.remove('bg-white/80', 'text-lumen-graphite');
+        btn.classList.add('bg-rose-500', 'text-white');
+      }
+
+      updateFavoritesUI();
+    }
+
+    function updateFavoritesUI() {
+      favCountBadge.textContent = favoritesList.length;
+
+      if (favoritesList.length === 0) {
+        favListContainer.innerHTML = '<p class="text-lumen-muted italic text-center py-8">Aún no has guardado ninguna propiedad. Haz clic en el corazón de cualquier tarjeta.</p>';
+      } else {
+        favListContainer.innerHTML = favoritesList.map((item, index) => `
+          <div class="flex items-center justify-between p-3 bg-lumen-sand rounded-xl border border-lumen-border">
+            <div>
+              <p class="font-serif font-bold text-lumen-graphite">${item.title}</p>
+              <p class="text-[11px] font-mono text-lumen-bronze font-semibold">${item.price}</p>
+            </div>
+            <button onclick="removeFavorite(${index})" class="text-lumen-muted hover:text-rose-500 p-1">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        `).join('');
+        lucide.createIcons();
+      }
+    }
+
+    function removeFavorite(index) {
+      favoritesList.splice(index, 1);
+      updateFavoritesUI();
+    }
+
+    function toggleFavoritesDrawer() {
+      favDrawer.classList.toggle('hidden');
+    }
+
+    // -------------------------------------------------------------------------
+    // 6. VIP CONTACT FORM SUBMISSION
+    // -------------------------------------------------------------------------
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const successMsg = document.getElementById('form-success-msg');
+      if (successMsg) {
+        successMsg.classList.remove('hidden');
+      }
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>

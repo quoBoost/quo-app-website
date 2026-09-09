@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VALLEJO &amp; MONTERO &mdash; Abogados &amp; Legal Partners</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cinzel + Playfair Display + EB Garamond + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            legal: {
+              parchment: '#FAF8F5', // Crema pergamino
+              linen:     '#F3EFE8', // Lino marfil
+              surface:   '#FFFFFF',
+              border:    '#E2DDD4',
+              borderDark:'#223048',
+              navy:      '#0A192F', // Azul marino Oxford profundo
+              navyDark:  '#071324', // Medianoche
+              gold:      '#C5A059', // Dorado noble envejecido
+              goldLight: '#E2C78E',
+              goldDark:  '#8A6D3B',
+              charcoal:  '#1A1D20', // Texto carbón
+              muted:     '#5A626A',
+            }
+          },
+          fontFamily: {
+            cinzel:  ['"Cinzel"', 'Georgia', 'serif'],
+            serif:   ['"Playfair Display"', 'Georgia', 'serif'],
+            body:    ['"EB Garamond"', 'Georgia', 'serif'],
+            sans:    ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Executive Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #FAF8F5; }
+    ::-webkit-scrollbar-thumb { background: #C5A059; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #8A6D3B; }
+
+    /* Amber / Gold Glow */
+    .glow-gold {
+      background: radial-gradient(circle, rgba(197, 160, 89, 0.18) 0%, rgba(10, 25, 47, 0) 70%);
+    }
+
+    /* Modal transition */
+    #triage-modal {
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    #triage-modal.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #triage-modal:not(.hidden) {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body class="bg-legal-parchment text-legal-charcoal font-sans antialiased selection:bg-legal-gold selection:text-legal-navyDark">
+
+  <!-- =========================================================================
+       BOTÓN FLOTANTE WHATSAPP PRIVILEGIADO & GUARDA 24/7
+       ========================================================================= -->
+  <aside aria-label="Contacto Jurídico Directo" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <!-- Privilege Confidentiality Badge -->
+    <div class="hidden sm:flex items-center gap-2.5 bg-legal-navyDark text-white px-4 py-2 rounded-full border border-legal-gold/40 shadow-2xl text-xs font-sans">
+      <span class="w-2 h-2 rounded-full bg-legal-gold animate-ping"></span>
+      <span class="text-legal-goldLight font-semibold">SECRETO PROFESIONAL:</span>
+      <span class="text-neutral-300">Canal Cifrado 256-Bit</span>
+    </div>
+
+    <!-- WhatsApp Senior Associate Direct -->
+    <a href="https://wa.me/50600000000?text=Estimados%20abogados%20de%20VALLEJO%20%26%20MONTERO%2C%20solicito%20consulta%20jur%C3%ADdica%20confidencial." 
+       target="_blank" 
+       rel="noopener"
+       aria-label="Contactar Despacho de Guardia por WhatsApp" 
+       class="group flex items-center gap-3 bg-legal-navy hover:bg-legal-gold text-white hover:text-legal-navyDark px-5 py-3.5 rounded-full shadow-2xl border border-legal-gold/40 transition-all duration-300 hover:scale-105">
+      <div class="relative flex items-center justify-center">
+        <i data-lucide="shield-check" class="w-5 h-5 text-legal-goldLight group-hover:text-legal-navyDark transition-colors"></i>
+      </div>
+      <div class="text-left leading-tight hidden sm:block">
+        <p class="text-[10px] uppercase font-cinzel tracking-widest text-legal-goldLight group-hover:text-legal-navyDark font-semibold">Despacho de Guardia</p>
+        <p class="text-xs font-bold font-serif tracking-tight">Atención Confidencial</p>
+      </div>
+    </a>
+  </aside>
+
+  <!-- =========================================================================
+       1. HEADER & NAVBAR INSTITUCIONAL
+       ========================================================================= -->
+  <header class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-4 transition-all duration-300">
+    <div class="max-w-7xl mx-auto bg-legal-navyDark/95 backdrop-blur-md text-white rounded-2xl px-5 sm:px-8 py-3.5 flex items-center justify-between border border-legal-gold/30 shadow-2xl">
+      
+      <!-- Brand Crest & Monogram -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 border-2 border-legal-gold rounded-lg flex items-center justify-center text-legal-gold font-cinzel font-bold text-lg tracking-tighter shadow-inner group-hover:bg-legal-gold group-hover:text-legal-navy transition-all duration-300">
+          VM
+        </div>
+        <div class="flex flex-col">
+          <span class="font-cinzel tracking-[0.18em] text-base sm:text-lg font-bold uppercase leading-none text-white">VALLEJO &amp; MONTERO</span>
+          <span class="text-[9px] uppercase tracking-[0.3em] text-legal-gold font-sans font-semibold mt-0.5">Abogados &bull; Fundada en 1989</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7 text-xs uppercase tracking-widest text-neutral-300 font-semibold font-sans">
+        <a href="#practica" class="hover:text-legal-goldLight transition-colors">Áreas de Práctica</a>
+        <a href="#diagnostico" class="hover:text-legal-goldLight transition-colors">Diagnóstico Legal</a>
+        <a href="#socios" class="hover:text-legal-goldLight transition-colors">Socios Directores</a>
+        <a href="#trayectoria" class="hover:text-legal-goldLight transition-colors">Reconocimientos</a>
+        <a href="#contacto" class="hover:text-legal-goldLight transition-colors">Contacto VIP</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <a href="#diagnostico" class="hidden sm:inline-flex items-center gap-2 bg-legal-gold hover:bg-legal-goldLight text-legal-navyDark text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-xl transition-all duration-300 shadow-md">
+          <i data-lucide="scale" class="w-3.5 h-3.5"></i>
+          <span>Consulta Preliminar</span>
+        </a>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobile-menu-btn" class="md:hidden p-1.5 text-neutral-300 hover:text-white" aria-label="Menú">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden max-w-7xl mx-auto mt-2 bg-legal-navyDark/98 backdrop-blur-xl border border-legal-gold/30 rounded-2xl p-5 text-white shadow-2xl">
+      <nav class="flex flex-col gap-3 text-sm font-sans uppercase tracking-wider">
+        <a href="#practica" class="py-2 border-b border-white/10 hover:text-legal-goldLight" onclick="toggleMobileMenu()">Áreas de Práctica Jurídica</a>
+        <a href="#diagnostico" class="py-2 border-b border-white/10 hover:text-legal-goldLight" onclick="toggleMobileMenu()">Asistente de Diagnóstico</a>
+        <a href="#socios" class="py-2 border-b border-white/10 hover:text-legal-goldLight" onclick="toggleMobileMenu()">Socios Directores</a>
+        <a href="#trayectoria" class="py-2 border-b border-white/10 hover:text-legal-goldLight" onclick="toggleMobileMenu()">Trayectoria &amp; Rankings</a>
+        <a href="#contacto" class="py-2 text-legal-goldLight font-bold" onclick="toggleMobileMenu()">Agendar Consulta Confidencial &rarr;</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO SECTION EJECUTIVO OLD MONEY
+       ========================================================================= -->
+  <section class="relative min-h-screen flex flex-col justify-between pt-28 pb-14 px-4 sm:px-8 bg-legal-navyDark text-white overflow-hidden">
+    <!-- Cinematic Background Image -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600&q=80&auto=format&fit=crop" 
+           alt="Sede Central de Vallejo y Montero" 
+           class="w-full h-full object-cover object-center opacity-30 filter contrast-125">
+      <div class="absolute inset-0 bg-gradient-to-t from-legal-navyDark via-legal-navyDark/85 to-legal-navyDark/60"></div>
+    </div>
+
+    <!-- Ambient Gold Glow -->
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] glow-gold pointer-events-none"></div>
+
+    <!-- Hero Content Container -->
+    <div class="relative z-10 max-w-7xl mx-auto w-full pt-16 sm:pt-24 flex-1 flex flex-col justify-center">
+      
+      <!-- Top Crest Tag -->
+      <div class="inline-flex items-center gap-2.5 bg-white/5 backdrop-blur-md border border-legal-gold/40 px-4 py-1.5 rounded-full mb-6 self-start">
+        <span class="w-2 h-2 rounded-full bg-legal-gold animate-ping"></span>
+        <span class="text-xs uppercase tracking-[0.25em] text-legal-goldLight font-cinzel font-semibold">Firma Fundada en 1989 &bull; Práctica Corporativa &amp; Litigio de Élite</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="font-cinzel text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] max-w-4xl text-white mb-6">
+        La certeza jurídica que protege su legado y <span class="italic font-serif font-normal text-legal-goldLight">multiplica su valor empresarial.</span>
+      </h1>
+
+      <p class="font-body text-neutral-300 text-lg sm:text-2xl max-w-3xl leading-relaxed mb-10 font-normal">
+        Más de tres décadas representando a family offices, grupos multinacionales y altos patrimonios en operaciones corporativas de alta complejidad, arbitraje internacional y planificación fiscal transfronteriza.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center gap-4 mb-16">
+        <a href="#diagnostico" class="inline-flex items-center gap-3 bg-legal-gold hover:bg-legal-goldLight text-legal-navyDark px-8 py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-xl shadow-legal-gold/20 hover:-translate-y-0.5 font-sans">
+          <i data-lucide="file-search" class="w-4 h-4"></i>
+          <span>Iniciar Diagnóstico Preliminar</span>
+        </a>
+        <a href="#practica" class="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl font-semibold text-xs uppercase tracking-widest transition-all duration-300 font-sans">
+          <i data-lucide="book-open" class="w-4 h-4 text-legal-goldLight"></i>
+          <span>Explorar Áreas de Práctica</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Bottom Chambers Accreditation Banner -->
+    <div class="relative z-10 max-w-7xl mx-auto w-full pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-6 text-xs text-neutral-400 font-sans">
+      <div class="flex items-center gap-3">
+        <i data-lucide="award" class="w-5 h-5 text-legal-gold"></i>
+        <span>Reconocidos de forma consecutiva por <strong>Chambers &amp; Partners</strong> (Band 1) y <strong>The Legal 500</strong>.</span>
+      </div>
+      <div class="flex items-center gap-6 font-cinzel text-neutral-300 text-[11px] tracking-widest">
+        <span>MADRID</span>
+        <span>&bull;</span>
+        <span>SAN JOSÉ</span>
+        <span>&bull;</span>
+        <span>NEW YORK</span>
+        <span>&bull;</span>
+        <span>MIAMI</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       2. TRUST BAR & AUTORIDAD INSTITUCIONAL
+       ========================================================================= -->
+  <section id="trayectoria" class="py-14 bg-legal-linen border-b border-legal-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+          <span class="text-[10px] uppercase font-cinzel tracking-[0.2em] text-legal-muted font-bold mb-1">Volumen Asesorado</span>
+          <p class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-legal-navy tracking-tight">+$1.2B <span class="text-legal-gold text-2xl font-sans font-light">USD</span></p>
+          <p class="text-xs text-legal-muted mt-1 font-body text-base">En operaciones M&amp;A y litigios mercantiles</p>
+        </div>
+
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left border-l-0 sm:border-l border-legal-border sm:pl-8">
+          <span class="text-[10px] uppercase font-cinzel tracking-[0.2em] text-legal-muted font-bold mb-1">Éxito en Cortes &amp; Arbitraje</span>
+          <p class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-legal-navy tracking-tight">96.4<span class="text-legal-gold text-2xl font-sans font-light">%</span></p>
+          <p class="text-xs text-legal-muted mt-1 font-body text-base">Tasa histórica de resoluciones favorables</p>
+        </div>
+
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left border-l-0 lg:border-l border-legal-border lg:pl-8">
+          <span class="text-[10px] uppercase font-cinzel tracking-[0.2em] text-legal-muted font-bold mb-1">Tradición Jurídica</span>
+          <p class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-legal-navy tracking-tight">+35 <span class="text-legal-gold text-2xl font-sans font-light">Años</span></p>
+          <p class="text-xs text-legal-muted mt-1 font-body text-base">De práctica ininterrumpida y rigor deontológico</p>
+        </div>
+
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left border-l-0 sm:border-l border-legal-border sm:pl-8">
+          <span class="text-[10px] uppercase font-cinzel tracking-[0.2em] text-legal-muted font-bold mb-1">Distinción Global</span>
+          <p class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-legal-navy tracking-tight">BAND 1</p>
+          <p class="text-xs text-legal-muted mt-1 font-body text-base">Ranked by Chambers Global &amp; Leaders League</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       3. ÁREAS DE PRÁCTICA JURÍDICA DE ÉLITE (BENTO GRID)
+       ========================================================================= -->
+  <section id="practica" class="py-24 px-4 sm:px-8 bg-legal-parchment">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-legal-gold font-bold text-xs uppercase font-cinzel tracking-[0.25em] mb-3">
+          <i data-lucide="balance" class="w-3.5 h-3.5"></i>
+          <span>Excelencia Jurisprudencial</span>
+        </div>
+        <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-legal-navy tracking-tight">
+          Áreas de <span class="italic font-serif font-normal text-legal-gold">Práctica Estratégica</span>
+        </h2>
+        <p class="text-legal-muted text-base font-body text-lg mt-3">
+          Soluciones jurídicas de vanguardia adaptadas a las exigencias regulatorias y corporativas más estrictas.
+        </p>
+      </div>
+
+      <!-- Bento Grid (4 Cards) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Area 1: Derecho Corporativo & M&A -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 border border-legal-border shadow-sm flex flex-col justify-between group hover:border-legal-gold transition-all duration-300">
+          <div>
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-legal-linen flex items-center justify-center text-legal-gold group-hover:bg-legal-navy group-hover:text-legal-goldLight transition-colors">
+                <i data-lucide="briefcase" class="w-6 h-6"></i>
+              </div>
+              <span class="text-[10px] uppercase font-cinzel tracking-widest font-bold text-legal-gold bg-legal-linen px-3 py-1 rounded-full border border-legal-border">Corporativo</span>
+            </div>
+
+            <h3 class="font-cinzel text-2xl font-bold text-legal-navy mb-3">
+              Derecho Corporativo, Fusiones &amp; Adquisiciones (M&amp;A)
+            </h3>
+            <p class="font-body text-lg text-legal-muted leading-relaxed">
+              Auditorías legales integrales (due diligence), estructuración de fusiones, adquisiciones transfronterizas, pactos de socios, gobierno corporativo y financiamiento de proyectos complejos.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-legal-border flex items-center justify-between text-xs font-sans text-legal-navy font-semibold">
+            <span>Asesoría en compraventas superiores a $50M</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-legal-gold group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- Area 2: Litigio Estratégico & Arbitraje -->
+        <div class="bg-legal-navy text-white rounded-3xl p-8 sm:p-10 border border-legal-borderDark shadow-xl flex flex-col justify-between group">
+          <div>
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-legal-goldLight">
+                <i data-lucide="gavel" class="w-6 h-6"></i>
+              </div>
+              <span class="text-[10px] uppercase font-cinzel tracking-widest font-bold text-legal-goldLight bg-white/5 px-3 py-1 rounded-full border border-white/10">Cortes &amp; Arbitraje</span>
+            </div>
+
+            <h3 class="font-cinzel text-2xl font-bold text-white mb-3">
+              Litigio Estratégico &amp; Arbitraje Internacional
+            </h3>
+            <p class="font-body text-lg text-neutral-300 leading-relaxed">
+              Defensa de alta intensidad en disputas contractuales, conflictos societarios entre accionistas y representación arbitral bajo reglamentos de la CCI (Cámara de Comercio Internacional) y CIADI.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between text-xs font-sans text-legal-goldLight font-semibold">
+            <span>Tribunales Superiores &amp; Cortes Arbitrales</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- Area 3: Fiscalidad Internacional -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 border border-legal-border shadow-sm flex flex-col justify-between group hover:border-legal-gold transition-all duration-300">
+          <div>
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-legal-linen flex items-center justify-center text-legal-gold group-hover:bg-legal-navy group-hover:text-legal-goldLight transition-colors">
+                <i data-lucide="landmark" class="w-6 h-6"></i>
+              </div>
+              <span class="text-[10px] uppercase font-cinzel tracking-widest font-bold text-legal-gold bg-legal-linen px-3 py-1 rounded-full border border-legal-border">Tributario</span>
+            </div>
+
+            <h3 class="font-cinzel text-2xl font-bold text-legal-navy mb-3">
+              Planificación Fiscal &amp; Tributación Internacional
+            </h3>
+            <p class="font-body text-lg text-legal-muted leading-relaxed">
+              Optimización de estructuras patrimoniales, aplicación de convenios para evitar la doble imposición, precios de transferencia y defensa técnica ante inspecciones tributarias de alta cuantía.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-legal-border flex items-center justify-between text-xs font-sans text-legal-navy font-semibold">
+            <span>Cumplimiento BEPS &amp; Estándares OCDE</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-legal-gold group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- Area 4: Family Office & Sucesiones -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 border border-legal-border shadow-sm flex flex-col justify-between group hover:border-legal-gold transition-all duration-300">
+          <div>
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-legal-linen flex items-center justify-center text-legal-gold group-hover:bg-legal-navy group-hover:text-legal-goldLight transition-colors">
+                <i data-lucide="shield" class="w-6 h-6"></i>
+              </div>
+              <span class="text-[10px] uppercase font-cinzel tracking-widest font-bold text-legal-gold bg-legal-linen px-3 py-1 rounded-full border border-legal-border">Patrimonial</span>
+            </div>
+
+            <h3 class="font-cinzel text-2xl font-bold text-legal-navy mb-3">
+              Gestión Patrimonial, Sucesiones &amp; Family Office
+            </h3>
+            <p class="font-body text-lg text-legal-muted leading-relaxed">
+              Diseño de protocolos familiares para la sucesión pacífica del patrimonio empresarial, creación de fideicomisos (trusts) y blindaje jurídico de activos frente a contingencias de terceros.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-legal-border flex items-center justify-between text-xs font-sans text-legal-navy font-semibold">
+            <span>Garantía de preservación intergeneracional</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 text-legal-gold group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       4. ASISTENTE INTERACTIVO DE DIAGNÓSTICO LEGAL PRELIMINAR (CASE TRIAGE)
+       ========================================================================= -->
+  <section id="diagnostico" class="py-24 px-4 sm:px-8 bg-legal-navy text-white relative overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-96 h-96 glow-gold pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto relative z-10">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-2 text-legal-goldLight font-bold text-xs uppercase font-cinzel tracking-[0.25em] mb-3 bg-white/5 border border-legal-gold/30 px-4 py-1.5 rounded-full">
+          <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+          <span>Asistente de Triaje Jurídico</span>
+        </div>
+        <h2 class="font-cinzel text-3xl sm:text-5xl font-bold tracking-tight">
+          Diagnóstico Preliminar de <span class="italic font-serif font-normal text-legal-goldLight">Viabilidad Legal</span>
+        </h2>
+        <p class="font-body text-lg text-neutral-300 mt-3">
+          Clasifique su caso en menos de 2 minutos para recibir un dictamen orientativo y la asignación del Socio Director idóneo.
+        </p>
+      </div>
+
+      <!-- Interactive Wizard Container -->
+      <div class="bg-legal-navyDark/90 backdrop-blur-xl border border-legal-gold/40 rounded-3xl p-6 sm:p-10 shadow-2xl">
+        
+        <!-- Step Indicators -->
+        <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4 text-xs font-sans">
+          <div class="flex items-center gap-2" id="step-ind-1">
+            <span class="w-6 h-6 rounded-full bg-legal-gold text-legal-navy font-bold flex items-center justify-center">1</span>
+            <span class="text-legal-gold font-semibold">Materia</span>
+          </div>
+          <div class="w-8 h-px bg-white/20"></div>
+          <div class="flex items-center gap-2 opacity-50" id="step-ind-2">
+            <span class="w-6 h-6 rounded-full bg-white/10 text-white font-bold flex items-center justify-center">2</span>
+            <span>Urgencia</span>
+          </div>
+          <div class="w-8 h-px bg-white/20"></div>
+          <div class="flex items-center gap-2 opacity-50" id="step-ind-3">
+            <span class="w-6 h-6 rounded-full bg-white/10 text-white font-bold flex items-center justify-center">3</span>
+            <span>Complejidad</span>
+          </div>
+          <div class="w-8 h-px bg-white/20"></div>
+          <div class="flex items-center gap-2 opacity-50" id="step-ind-4">
+            <span class="w-6 h-6 rounded-full bg-white/10 text-white font-bold flex items-center justify-center">4</span>
+            <span>Dictamen</span>
+          </div>
+        </div>
+
+        <!-- Wizard Step 1: Legal Area -->
+        <div id="wizard-step-1" class="space-y-6">
+          <h3 class="font-cinzel text-xl font-bold text-white">Paso 1: ¿Cuál es la naturaleza principal del asunto jurídico?</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans text-xs">
+            <button onclick="selectMateria('M&A & Corporativo', 'Don Ignacio Vallejo', 'Socio Director M&A')" class="materia-btn p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-legal-gold hover:bg-white/10 text-left transition-all flex items-start gap-4">
+              <i data-lucide="briefcase" class="w-6 h-6 text-legal-gold shrink-0"></i>
+              <div>
+                <strong class="text-sm text-white block mb-1 font-cinzel">Corporativo, Fusiones o Contratos</strong>
+                <span class="text-neutral-400">Adquisición de empresas, rondas de capital, pactos de socios o gobierno corporativo.</span>
+              </div>
+            </button>
+
+            <button onclick="selectMateria('Litigio Comercial & Arbitraje', 'Dra. Beatriz Montero', 'Socia Directora de Litigios')" class="materia-btn p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-legal-gold hover:bg-white/10 text-left transition-all flex items-start gap-4">
+              <i data-lucide="gavel" class="w-6 h-6 text-legal-gold shrink-0"></i>
+              <div>
+                <strong class="text-sm text-white block mb-1 font-cinzel">Litigio Comercial o Disputa Arbitral</strong>
+                <span class="text-neutral-400">Incumplimiento de contrato, conflicto entre accionistas o proceso judicial en curso.</span>
+              </div>
+            </button>
+
+            <button onclick="selectMateria('Sucesión & Family Office', 'Don Ignacio Vallejo', 'Socio Director de Gestión Patrimonial')" class="materia-btn p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-legal-gold hover:bg-white/10 text-left transition-all flex items-start gap-4">
+              <i data-lucide="shield" class="w-6 h-6 text-legal-gold shrink-0"></i>
+              <div>
+                <strong class="text-sm text-white block mb-1 font-cinzel">Herencias Complejas &amp; Sucesión</strong>
+                <span class="text-neutral-400">Protocolo de empresa familiar, fideicomisos o reparto sucesorio de alto patrimonio.</span>
+              </div>
+            </button>
+
+            <button onclick="selectMateria('Fiscalidad Internacional', 'Dr. Rodrigo San Martín', 'Socio Director Tributario')" class="materia-btn p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-legal-gold hover:bg-white/10 text-left transition-all flex items-start gap-4">
+              <i data-lucide="landmark" class="w-6 h-6 text-legal-gold shrink-0"></i>
+              <div>
+                <strong class="text-sm text-white block mb-1 font-cinzel">Planificación Fiscal &amp; Tributario</strong>
+                <span class="text-neutral-400">Inspecciones de Hacienda, estructuración offshore o convenios de doble imposición.</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Wizard Step 2: Urgency -->
+        <div id="wizard-step-2" class="hidden space-y-6">
+          <h3 class="font-cinzel text-xl font-bold text-white">Paso 2: ¿Cuál es el nivel de apremio temporal o procesal?</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-sans text-xs">
+            <button onclick="selectUrgencia('Urgencia Inmediata (Medidas Cautelares)')" class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-rose-400 hover:bg-white/10 text-left transition-all">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block mb-2"></span>
+              <strong class="text-sm text-white block mb-1 font-cinzel">Urgencia Inmediata</strong>
+              <span class="text-neutral-400">Requerimiento judicial con plazo improrrogable &lt;48 horas o medida cautelar urgente.</span>
+            </button>
+
+            <button onclick="selectUrgencia('Proceso en Curso / Negociación')" class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-legal-gold hover:bg-white/10 text-left transition-all">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block mb-2"></span>
+              <strong class="text-sm text-white block mb-1 font-cinzel">En Curso / Negociación</strong>
+              <span class="text-neutral-400">Negociación de contrato activa o proceso en fase de alegaciones preliminares.</span>
+            </button>
+
+            <button onclick="selectUrgencia('Asesoría Preventiva y Estratégica')" class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-400 hover:bg-white/10 text-left transition-all">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block mb-2"></span>
+              <strong class="text-sm text-white block mb-1 font-cinzel">Preventiva / Planificación</strong>
+              <span class="text-neutral-400">Diseño estructural preventivo para mitigar riesgos futuros sin apremio de plazos.</span>
+            </button>
+          </div>
+
+          <button onclick="goToStep(1)" class="text-xs text-legal-gold font-sans font-semibold hover:underline flex items-center gap-1">
+            &larr; Volver al paso anterior
+          </button>
+        </div>
+
+        <!-- Wizard Step 3: Quantia / Complexity -->
+        <div id="wizard-step-3" class="hidden space-y-6">
+          <h3 class="font-cinzel text-xl font-bold text-white">Paso 3: Rango de cuantía patrimonial o complejidad estimada</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-sans text-xs">
+            <button onclick="selectCuantia('$250,000 &ndash; $1,000,000 USD')" class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-legal-gold hover:bg-white/10 text-center transition-all">
+              <p class="font-cinzel text-xl font-bold text-legal-gold mb-1">$250k &ndash; $1M</p>
+              <span class="text-neutral-400 text-[11px]">Asunto de Pyme o Patrimonio Mediano</span>
+            </button>
+
+            <button onclick="selectCuantia('$1,000,000 &ndash; $10,000,000 USD')" class="p-5 rounded-2xl bg-white/5 border border-legal-gold hover:bg-white/10 text-center transition-all shadow-md">
+              <p class="font-cinzel text-xl font-bold text-legal-gold mb-1">$1M &ndash; $10M</p>
+              <span class="text-neutral-400 text-[11px]">Empresarial / Family Office Principal</span>
+            </button>
+
+            <button onclick="selectCuantia('+$10,000,000 USD (Gran Complejidad)')" class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-legal-gold hover:bg-white/10 text-center transition-all">
+              <p class="font-cinzel text-xl font-bold text-legal-gold mb-1">+$10M USD</p>
+              <span class="text-neutral-400 text-[11px]">Transacción Estratégica Transfronteriza</span>
+            </button>
+          </div>
+
+          <button onclick="goToStep(2)" class="text-xs text-legal-gold font-sans font-semibold hover:underline flex items-center gap-1">
+            &larr; Volver al paso anterior
+          </button>
+        </div>
+
+        <!-- Wizard Step 4: Result Card -->
+        <div id="wizard-step-4" class="hidden space-y-6">
+          <div class="p-6 sm:p-8 bg-white/5 rounded-2xl border border-legal-gold/40">
+            <span class="text-[10px] uppercase font-cinzel tracking-widest text-legal-gold block mb-1">Dictamen Preliminar Generado</span>
+            <h4 class="font-cinzel text-2xl font-bold text-white mb-4">Caso Apto para Defensa &amp; Estructuración de Élite</h4>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 py-4 border-y border-white/10 text-xs font-sans mb-6">
+              <div>
+                <span class="text-neutral-400 block text-[10px] uppercase font-cinzel">Materia Asignada</span>
+                <strong id="res-materia" class="text-white text-sm"></strong>
+              </div>
+              <div>
+                <span class="text-neutral-400 block text-[10px] uppercase font-cinzel">Prioridad</span>
+                <strong id="res-urgencia" class="text-legal-gold text-sm"></strong>
+              </div>
+              <div>
+                <span class="text-neutral-400 block text-[10px] uppercase font-cinzel">Socio Asignado</span>
+                <strong id="res-socio" class="text-white text-sm"></strong>
+              </div>
+            </div>
+
+            <p class="font-body text-neutral-300 text-base leading-relaxed mb-6">
+              Conforme a los parámetros aportados, su expediente requiere intervención estratégica directa de nuestro socio especialista bajo acuerdo de confidencialidad reforzado (NDA).
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a id="triage-wa-btn" href="#" target="_blank" class="flex-1 bg-legal-gold hover:bg-legal-goldLight text-legal-navyDark font-bold text-xs uppercase tracking-widest py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all font-sans">
+                <i data-lucide="calendar-check" class="w-4 h-4"></i>
+                <span>Agendar Sesión Privada (30 Min)</span>
+              </a>
+              <button onclick="goToStep(1)" class="bg-white/10 hover:bg-white/20 text-white font-sans text-xs font-semibold py-4 px-6 rounded-xl transition-colors">
+                Reiniciar Triaje
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. SOCIOS DIRECTORES & CONSEJO ASESOR (SENIOR PARTNERS)
+       ========================================================================= -->
+  <section id="socios" class="py-24 px-4 sm:px-8 bg-legal-parchment">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-legal-gold font-bold text-xs uppercase font-cinzel tracking-[0.25em] mb-3">
+          <i data-lucide="users" class="w-3.5 h-3.5"></i>
+          <span>Liderazgo Jurídico</span>
+        </div>
+        <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-legal-navy tracking-tight">
+          Socios <span class="italic font-serif font-normal text-legal-gold">Directores</span>
+        </h2>
+        <p class="text-legal-muted text-base font-body text-lg mt-3">
+          Juristas de contrastada reputación académica y forense al frente de cada mandato.
+        </p>
+      </div>
+
+      <!-- Partners Grid (3 Columns) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Partner 1 -->
+        <div class="bg-white rounded-3xl overflow-hidden border border-legal-border shadow-sm group hover:border-legal-gold transition-all duration-300">
+          <div class="h-80 relative overflow-hidden bg-legal-navy">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80&auto=format&fit=crop" 
+                 alt="Don Ignacio Vallejo Socio Fundador" 
+                 class="w-full h-full object-cover object-top filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-legal-navy via-transparent to-transparent"></div>
+            <div class="absolute top-4 right-4 bg-legal-gold text-legal-navyDark font-cinzel text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+              Managing Partner
+            </div>
+          </div>
+          <div class="p-6 sm:p-8">
+            <h3 class="font-cinzel text-2xl font-bold text-legal-navy mb-1">Don Ignacio Vallejo</h3>
+            <p class="text-xs text-legal-gold font-cinzel font-semibold mb-4">Socio Fundador &bull; M&amp;A y Patrimonios</p>
+            <p class="font-body text-base text-legal-muted leading-relaxed mb-6">
+              Ex-magistrado de la Sala Mercantil y LL.M. por Harvard Law School. Ha liderado más de un centenar de adquisiciones corporativas transfronterizas en Europa y Latinoamérica.
+            </p>
+            <div class="pt-4 border-t border-legal-border flex items-center justify-between text-xs font-sans text-legal-muted">
+              <span>Colegiado ICAM #14.820</span>
+              <a href="#contacto" class="text-legal-navy font-bold hover:text-legal-gold">Consultar &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partner 2 -->
+        <div class="bg-white rounded-3xl overflow-hidden border border-legal-border shadow-sm group hover:border-legal-gold transition-all duration-300">
+          <div class="h-80 relative overflow-hidden bg-legal-navy">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80&auto=format&fit=crop" 
+                 alt="Dra. Beatriz Montero Socia Litigio" 
+                 class="w-full h-full object-cover object-top filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-legal-navy via-transparent to-transparent"></div>
+            <div class="absolute top-4 right-4 bg-legal-gold text-legal-navyDark font-cinzel text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+              Head of Litigation
+            </div>
+          </div>
+          <div class="p-6 sm:p-8">
+            <h3 class="font-cinzel text-2xl font-bold text-legal-navy mb-1">Dra. Beatriz Montero</h3>
+            <p class="text-xs text-legal-gold font-cinzel font-semibold mb-4">Socia Directora &bull; Arbitraje &amp; Litigios</p>
+            <p class="font-body text-base text-legal-muted leading-relaxed mb-6">
+              Doctora en Derecho por la Universidad Complutense con mención cum laude. Árbitro oficial de la Corte de Arbitraje de Madrid y experta en litigio de accionistas.
+            </p>
+            <div class="pt-4 border-t border-legal-border flex items-center justify-between text-xs font-sans text-legal-muted">
+              <span>Árbitro Certificada CCI</span>
+              <a href="#contacto" class="text-legal-navy font-bold hover:text-legal-gold">Consultar &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partner 3 -->
+        <div class="bg-white rounded-3xl overflow-hidden border border-legal-border shadow-sm group hover:border-legal-gold transition-all duration-300">
+          <div class="h-80 relative overflow-hidden bg-legal-navy">
+            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80&auto=format&fit=crop" 
+                 alt="Dr. Rodrigo San Martín Socio Tributario" 
+                 class="w-full h-full object-cover object-top filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-legal-navy via-transparent to-transparent"></div>
+            <div class="absolute top-4 right-4 bg-legal-gold text-legal-navyDark font-cinzel text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+              Tax &amp; Wealth
+            </div>
+          </div>
+          <div class="p-6 sm:p-8">
+            <h3 class="font-cinzel text-2xl font-bold text-legal-navy mb-1">Dr. Rodrigo San Martín</h3>
+            <p class="text-xs text-legal-gold font-cinzel font-semibold mb-4">Socio Director &bull; Fiscalidad Internacional</p>
+            <p class="font-body text-base text-legal-muted leading-relaxed mb-6">
+              Catedrático de Derecho Financiero y Tributario. Asesor de estructuras fiduciarias internacionales y family offices en reubicación patrimonial e inversiones globales.
+            </p>
+            <div class="pt-4 border-t border-legal-border flex items-center justify-between text-xs font-sans text-legal-muted">
+              <span>Consejo Fiscal Internacional</span>
+              <a href="#contacto" class="text-legal-navy font-bold hover:text-legal-gold">Consultar &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. DICTÁMENES DOCTRINALES & CASOS DE ÉXITO
+       ========================================================================= -->
+  <section class="py-20 px-4 sm:px-8 bg-legal-linen border-y border-legal-border">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Recognition Badges -->
+      <div class="text-center mb-16">
+        <p class="text-[10px] uppercase font-cinzel tracking-[0.3em] text-legal-muted font-bold mb-8">Reconocimientos y Membresías Internacionales</p>
+        <div class="flex flex-wrap items-center justify-center gap-10 sm:gap-16 opacity-70">
+          <span class="font-cinzel text-lg sm:text-xl font-bold text-legal-navy">CHAMBERS &amp; PARTNERS</span>
+          <span class="font-cinzel text-lg sm:text-xl font-bold text-legal-navy">THE LEGAL 500</span>
+          <span class="font-cinzel text-lg sm:text-xl font-bold text-legal-navy">LEADERS LEAGUE</span>
+          <span class="font-cinzel text-lg sm:text-xl font-bold text-legal-navy">IFLR 1000</span>
+        </div>
+      </div>
+
+      <!-- Landmark Cases Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div class="bg-white p-8 rounded-3xl border border-legal-border flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] uppercase font-cinzel text-legal-gold font-bold block mb-2">Operación M&amp;A &bull; Sector Energético</span>
+            <h4 class="font-cinzel text-xl font-bold text-legal-navy mb-3">Adquisición Hostil Bloqueada</h4>
+            <p class="font-body text-base text-legal-muted leading-relaxed">
+              Defensa exitosa de un consorcio de energías renovables ante una OPA no solicitada de $240M USD, asegurando el control mayoritario del consejo de administración.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-legal-border text-xs font-sans text-legal-navy font-semibold mt-4">
+            Resultado: 100% Retención de Control
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-legal-border flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] uppercase font-cinzel text-legal-gold font-bold block mb-2">Arbitraje Internacional &bull; CCI París</span>
+            <h4 class="font-cinzel text-xl font-bold text-legal-navy mb-3">Laudo Favorable por $85M USD</h4>
+            <p class="font-body text-base text-legal-muted leading-relaxed">
+              Representación de una firma de infraestructura en disputa contractual sobre una concesión portuaria en Centroamérica con estimación íntegra de la demanda.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-legal-border text-xs font-sans text-legal-navy font-semibold mt-4">
+            Resultado: Estimación Total de Costas
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-legal-border flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] uppercase font-cinzel text-legal-gold font-bold block mb-2">Sucesión Patrimonial &bull; Family Office</span>
+            <h4 class="font-cinzel text-xl font-bold text-legal-navy mb-3">Reestructuración Fiduciaria</h4>
+            <p class="font-body text-base text-legal-muted leading-relaxed">
+              Implementación de protocolo sucesorio de 3ª generación para grupo industrial con 1,200 empleados, con cero impacto fiscal negativo y blindaje ante contingencias.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-legal-border text-xs font-sans text-legal-navy font-semibold mt-4">
+            Resultado: Continuidad Corporativa Plena
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. FORMULARIO DE CONSULTA CONFIDENCIAL & MEGA FOOTER INSTITUCIONAL
+       ========================================================================= -->
+  <section id="contacto" class="py-24 px-4 sm:px-8 bg-legal-navyDark text-white relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Column: Manifesto -->
+        <div class="lg:col-span-5">
+          <div class="inline-flex items-center gap-2 text-legal-goldLight font-bold text-xs uppercase font-cinzel tracking-[0.25em] mb-4 bg-white/5 border border-legal-gold/30 px-4 py-1.5 rounded-full">
+            <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+            <span>Secreto Profesional Garantizado</span>
+          </div>
+
+          <h2 class="font-cinzel text-3xl sm:text-5xl font-bold tracking-tight leading-tight mb-6">
+            Solicite una <span class="italic font-serif font-normal text-legal-goldLight">Consulta Jurídica Privada</span>
+          </h2>
+
+          <p class="font-body text-neutral-300 text-lg leading-relaxed mb-8">
+            Nuestros directores de práctica atenderán su requerimiento con la máxima reserva legal. Toda comunicación previa está amparada por el secreto profesional y el deber deontológico de confidencialidad.
+          </p>
+
+          <div class="space-y-4 text-xs font-sans text-neutral-300">
+            <div class="flex items-center gap-3 p-3.5 bg-white/5 rounded-2xl border border-white/10">
+              <i data-lucide="shield-alert" class="w-5 h-5 text-legal-gold shrink-0"></i>
+              <span>Verificación previa de ausencia de conflicto de interés institucional.</span>
+            </div>
+            <div class="flex items-center gap-3 p-3.5 bg-white/5 rounded-2xl border border-white/10">
+              <i data-lucide="file-key" class="w-5 h-5 text-legal-gold shrink-0"></i>
+              <span>Cifrado punto a punto en el almacenamiento de documentación preliminar.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Encrypted Form -->
+        <div class="lg:col-span-7 bg-legal-navy p-8 sm:p-10 rounded-3xl border border-legal-gold/40 shadow-2xl">
+          <form id="legal-contact-form" onsubmit="handleLegalSubmit(event)" class="space-y-6 font-sans">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-[11px] uppercase font-cinzel tracking-wider text-neutral-300 font-semibold mb-2">Nombre y Apellidos *</label>
+                <input type="text" required placeholder="D. Fernando Almansa" class="w-full bg-white/5 border border-white/15 focus:border-legal-gold rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors">
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase font-cinzel tracking-wider text-neutral-300 font-semibold mb-2">Empresa / Family Office</label>
+                <input type="text" placeholder="Inversiones Almansa S.A." class="w-full bg-white/5 border border-white/15 focus:border-legal-gold rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-[11px] uppercase font-cinzel tracking-wider text-neutral-300 font-semibold mb-2">Correo Confidencial *</label>
+                <input type="email" required placeholder="direccion@holding.com" class="w-full bg-white/5 border border-white/15 focus:border-legal-gold rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors">
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase font-cinzel tracking-wider text-neutral-300 font-semibold mb-2">Teléfono Seguro *</label>
+                <input type="tel" required placeholder="+34 600 000 000" class="w-full bg-white/5 border border-white/15 focus:border-legal-gold rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-[11px] uppercase font-cinzel tracking-wider text-neutral-300 font-semibold mb-2">Sede de Preferencia</label>
+                <select class="w-full bg-legal-navyDark border border-white/15 focus:border-legal-gold rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors cursor-pointer">
+                  <option>Madrid &bull; Calle de Alcalá 42</option>
+                  <option>San José &bull; Centro Corporativo El Cedral</option>
+                  <option>New York &bull; 375 Park Avenue</option>
+                  <option>Miami &bull; Brickell Avenue 1200</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase font-cinzel tracking-wider text-neutral-300 font-semibold mb-2">Área Jurídica Principal</label>
+                <select class="w-full bg-legal-navyDark border border-white/15 focus:border-legal-gold rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors cursor-pointer">
+                  <option>M&amp;A &bull; Derecho Corporativo</option>
+                  <option>Litigio &bull; Arbitraje Internacional</option>
+                  <option>Sucesiones &bull; Protocolo Familiar</option>
+                  <option>Fiscalidad &bull; Blindaje Tributario</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase font-cinzel tracking-wider text-neutral-300 font-semibold mb-2">Descripción Sucinta del Asunto</label>
+              <textarea rows="3" placeholder="Resumen del conflicto, cuantía involucrada o plazos procesales inminentes..." class="w-full bg-white/5 border border-white/15 focus:border-legal-gold rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-legal-gold hover:bg-legal-goldLight text-legal-navyDark font-cinzel font-bold text-xs uppercase tracking-widest py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-legal-gold/20 hover:scale-[1.01]">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Enviar Expediente a Socio Director</span>
+            </button>
+            <p id="legal-success-msg" class="hidden text-center text-xs text-emerald-400 font-sans font-semibold pt-2">
+              ✓ Solicitud recibida bajo secreto profesional. Un Socio Director le contactará confidencialmente en un plazo inferior a 2 horas laborables.
+            </p>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Mega Footer -->
+      <footer class="mt-24 pt-12 border-t border-white/10 text-neutral-400 text-xs font-sans">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 border border-legal-gold rounded flex items-center justify-center text-legal-gold font-cinzel font-bold text-sm">VM</div>
+              <span class="font-cinzel text-white font-bold text-base tracking-wider">VALLEJO &amp; MONTERO</span>
+            </div>
+            <p class="text-neutral-400 text-xs leading-relaxed mb-4 font-body text-base">
+              Firma de abogados de élite especializada en derecho corporativo de alta complejidad y litigio estratégico transfronterizo.
+            </p>
+            <p class="font-cinzel text-[11px] text-legal-gold">&copy; 2026 Vallejo &amp; Montero Abogados. Todos los derechos reservados.</p>
+          </div>
+
+          <div>
+            <h4 class="font-cinzel uppercase tracking-widest text-[11px] font-bold text-white mb-4">Sedes Internacionales</h4>
+            <ul class="space-y-2 text-xs text-neutral-300 font-sans">
+              <li><strong>Madrid:</strong> Calle de Alcalá 42, 28014</li>
+              <li><strong>San José:</strong> El Cedral, Escazú, Costa Rica</li>
+              <li><strong>New York:</strong> 375 Park Ave, Manhattan, NY</li>
+              <li><strong>Miami:</strong> 1200 Brickell Ave, Miami, FL</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-cinzel uppercase tracking-widest text-[11px] font-bold text-white mb-4">Prácticas</h4>
+            <ul class="space-y-2 text-xs font-sans">
+              <li><a href="#practica" class="hover:text-legal-goldLight transition-colors">Fusiones y Adquisiciones (M&amp;A)</a></li>
+              <li><a href="#practica" class="hover:text-legal-goldLight transition-colors">Arbitraje Internacional CCI / CIADI</a></li>
+              <li><a href="#practica" class="hover:text-legal-goldLight transition-colors">Fiscalidad y Holdings Transfronterizos</a></li>
+              <li><a href="#practica" class="hover:text-legal-goldLight transition-colors">Sucesiones y Protocolo Familiar</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-cinzel uppercase tracking-widest text-[11px] font-bold text-white mb-4">Avisos Deontológicos</h4>
+            <p class="text-xs text-neutral-400 leading-relaxed mb-3">
+              Inscritos en el Ilustre Colegio de Abogados de Madrid (ICAM) y Colegio de Abogados de Costa Rica. Sujetos al Código Deontológico de la Abogacía Española y del CCBE.
+            </p>
+            <span class="text-legal-gold text-[11px] font-cinzel">Conflicto de Interés Verificado</span>
+          </div>
+
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       JAVASCRIPT AUTÓNOMO (WIZARD DE TRIAJE, MOBILE MENU, FORMULARIOS)
+       ========================================================================= -->
+  <script>
+    // Inicializar Iconos Lucide
+    lucide.createIcons();
+
+    // -------------------------------------------------------------------------
+    // 1. MOBILE MENU TOGGLE
+    // -------------------------------------------------------------------------
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('hidden');
+    }
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', toggleMobileMenu);
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. WIZARD INTERACTIVO DE DIAGNÓSTICO LEGAL (CASE TRIAGE)
+    // -------------------------------------------------------------------------
+    let triageData = {
+      materia: '',
+      socio: '',
+      socioRol: '',
+      urgencia: '',
+      cuantia: ''
+    };
+
+    function goToStep(stepNumber) {
+      document.getElementById('wizard-step-1').classList.add('hidden');
+      document.getElementById('wizard-step-2').classList.add('hidden');
+      document.getElementById('wizard-step-3').classList.add('hidden');
+      document.getElementById('wizard-step-4').classList.add('hidden');
+
+      document.getElementById(`wizard-step-${stepNumber}`).classList.remove('hidden');
+
+      // Update step indicators
+      for (let i = 1; i <= 4; i++) {
+        const ind = document.getElementById(`step-ind-${i}`);
+        if (i === stepNumber) {
+          ind.classList.remove('opacity-50');
+          ind.querySelector('span:first-child').classList.add('bg-legal-gold', 'text-legal-navy');
+          ind.querySelector('span:first-child').classList.remove('bg-white/10', 'text-white');
+        } else if (i < stepNumber) {
+          ind.classList.remove('opacity-50');
+          ind.querySelector('span:first-child').classList.add('bg-emerald-500', 'text-white');
+          ind.querySelector('span:first-child').classList.remove('bg-legal-gold', 'text-legal-navy', 'bg-white/10');
+        } else {
+          ind.classList.add('opacity-50');
+          ind.querySelector('span:first-child').classList.remove('bg-legal-gold', 'text-legal-navy', 'bg-emerald-500');
+          ind.querySelector('span:first-child').classList.add('bg-white/10', 'text-white');
+        }
+      }
+    }
+
+    function selectMateria(materiaName, socioName, socioRol) {
+      triageData.materia = materiaName;
+      triageData.socio = socioName;
+      triageData.socioRol = socioRol;
+      goToStep(2);
+    }
+
+    function selectUrgencia(urgenciaText) {
+      triageData.urgencia = urgenciaText;
+      goToStep(3);
+    }
+
+    function selectCuantia(cuantiaText) {
+      triageData.cuantia = cuantiaText;
+      
+      // Populate results
+      document.getElementById('res-materia').textContent = triageData.materia;
+      document.getElementById('res-urgencia').textContent = triageData.urgencia;
+      document.getElementById('res-socio').textContent = `${triageData.socio} (${triageData.socioRol})`;
+
+      const waMsg = encodeURIComponent(`Hola, he completado el triaje legal preliminar en Vallejo & Montero para un asunto de ${triageData.materia} (${triageData.urgencia}, Cuantía: ${triageData.cuantia}) asignado a ${triageData.socio}. Deseo agendar sesión privada.`);
+      document.getElementById('triage-wa-btn').href = `https://wa.me/50600000000?text=${waMsg}`;
+
+      goToStep(4);
+    }
+
+    // -------------------------------------------------------------------------
+    // 3. CONTACT FORM HANDLER
+    // -------------------------------------------------------------------------
+    function handleLegalSubmit(e) {
+      e.preventDefault();
+      const successMsg = document.getElementById('legal-success-msg');
+      if (successMsg) {
+        successMsg.classList.remove('hidden');
+      }
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>

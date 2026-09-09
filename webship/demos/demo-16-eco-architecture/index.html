@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRAFT | Taller de Arquitectura Bioclimática &amp; Paisaje</title>
+  <meta name="description" content="Estudio de arquitectura regenerativa y brutalismo cálido especializado en edificaciones pasivas de huella de carbono negativa y materiales vernáculos." />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            kraft: {
+              bone: '#F3EFEA',
+              stone: '#E5DFD5',
+              clay: '#A8482E',
+              basalt: '#181918',
+              ash: '#2B2B28',
+              ochre: '#C99E5C'
+            }
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    body {
+      background-color: #F3EFEA;
+      color: #181918;
+      font-family: 'Inter', sans-serif;
+    }
+    .grid-border {
+      border-color: rgba(24, 25, 24, 0.15);
+    }
+  </style>
+</head>
+<body class="bg-kraft-bone text-kraft-basalt selection:bg-kraft-clay selection:text-white">
+
+  <!-- TOP EDITORIAL BAR -->
+  <div class="border-b grid-border text-[11px] font-mono py-2.5 px-6 uppercase tracking-widest bg-kraft-bone sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <span>KRAFT / ARCHITECTURE &amp; BIOCLIMATIC LAB</span>
+        <span class="text-kraft-clay">● HUELI DE CARBONO NETA CERO</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <span>LAT 09°56'N &middot; LON 84°05'W</span>
+        <span class="hidden sm:inline text-kraft-clay font-bold">MONOGRAFÍA VOL. IV</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: MONOLITHIC HEADER -->
+  <header class="border-b grid-border bg-kraft-bone/90 backdrop-blur-md sticky top-9 z-40">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <span class="text-2xl font-extrabold font-display tracking-tighter text-kraft-basalt">KRAFT<span class="text-kraft-clay">.</span></span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider">
+        <a href="#proyectos" class="hover:text-kraft-clay transition-colors">[ 01. OBRAS ]</a>
+        <a href="#materiales" class="hover:text-kraft-clay transition-colors">[ 02. MATERIALIDAD ]</a>
+        <a href="#estrategias" class="hover:text-kraft-clay transition-colors">[ 03. BIOCLIMÁTICA ]</a>
+        <a href="#manifiesto" class="hover:text-kraft-clay transition-colors">[ 04. MANIFIESTO ]</a>
+      </nav>
+
+      <a href="#contacto" class="px-5 py-2.5 bg-kraft-basalt hover:bg-kraft-clay text-white font-mono text-xs uppercase tracking-wider transition-colors">
+        Encargar Proyecto
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 2: HERO ARCHITECTURAL MONOGRAPH -->
+    <section class="border-b grid-border py-16 lg:py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="space-y-6 max-w-5xl mb-16">
+          <span class="font-mono text-xs uppercase text-kraft-clay tracking-widest">[ MANIFIESTO REGIONAL ]</span>
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight leading-[1.05] text-kraft-basalt uppercase">
+            Estructuras que emergen del territorio y <span class="text-kraft-clay italic font-normal">respiran con el viento.</span>
+          </h1>
+          <p class="text-kraft-ash/80 text-lg sm:text-xl max-w-2xl font-light leading-relaxed">
+            Fusionamos la honestidad del hormigón ciclópeo y el tapial compactado con física termodinámica pasiva para crear espacios que no necesitan climatización artificial.
+          </p>
+        </div>
+
+        <!-- Big Hero Visual Grid -->
+        <div class="grid lg:grid-cols-12 gap-6 items-stretch">
+          <div class="lg:col-span-8 relative aspect-[16/10] overflow-hidden rounded-none border grid-border">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&auto=format&fit=crop&q=80" alt="Residencia Bruma" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700" />
+            <div class="absolute bottom-4 left-4 bg-kraft-basalt text-white font-mono text-xs px-3 py-1.5 uppercase">
+              OBRA 08 &mdash; RESIDENCIA BRUMA, GUANACASTE &middot; 480 M²
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 p-8 bg-kraft-stone/50 border grid-border flex flex-col justify-between">
+            <div class="space-y-4">
+              <span class="font-mono text-xs text-kraft-clay uppercase tracking-widest">[ INDICADORES CLAVE ]</span>
+              <div class="border-b grid-border pb-4">
+                <div class="text-3xl font-display font-bold text-kraft-basalt">-82%</div>
+                <div class="text-xs font-mono text-kraft-ash uppercase mt-1">Consumo Energético Climatización</div>
+              </div>
+              <div class="border-b grid-border pb-4">
+                <div class="text-3xl font-display font-bold text-kraft-basalt">100%</div>
+                <div class="text-xs font-mono text-kraft-ash uppercase mt-1">Materiales de Cantera Local (&lt;50km)</div>
+              </div>
+              <div>
+                <div class="text-3xl font-display font-bold text-kraft-basalt">320T</div>
+                <div class="text-xs font-mono text-kraft-ash uppercase mt-1">Carbono Secuestrado en Maderas CLT</div>
+              </div>
+            </div>
+
+            <a href="#proyectos" class="mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-kraft-basalt font-bold hover:text-kraft-clay transition-colors">
+              Explorar Colección de Obras <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE CARBON & MATERIAL MATRIX -->
+    <section id="materiales" class="py-24 border-b grid-border bg-kraft-stone/30">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-3xl mb-16">
+          <span class="font-mono text-xs uppercase text-kraft-clay tracking-widest">[ LABORATORIO MATÉRICO ]</span>
+          <h2 class="text-3xl sm:text-5xl font-display font-bold uppercase text-kraft-basalt mt-2">Matriz de Rendimiento Termodinámico</h2>
+          <p class="text-kraft-ash/80 text-sm mt-3 font-light">
+            Selecciona el material vernáculo para visualizar su reducción de huella de carbono, inercia térmica y resistencia climática.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8">
+          <!-- Material Selector Tabs -->
+          <div class="lg:col-span-4 space-y-3">
+            <button type="button" onclick="setMaterial('tapial')" id="tab-tapial" class="mat-tab w-full p-5 text-left border grid-border bg-kraft-basalt text-white transition-all">
+              <span class="font-mono text-xs text-kraft-clay">01 // TIERRA VIVA</span>
+              <div class="text-lg font-display font-bold mt-1">Tapial Compactado de Cantera</div>
+            </button>
+
+            <button type="button" onclick="setMaterial('clt')" id="tab-clt" class="mat-tab w-full p-5 text-left border grid-border bg-kraft-bone hover:bg-kraft-stone text-kraft-basalt transition-all">
+              <span class="font-mono text-xs text-kraft-clay">02 // MADERA INGENIERIL</span>
+              <div class="text-lg font-display font-bold mt-1">Madera Laminada Cruzada (CLT)</div>
+            </button>
+
+            <button type="button" onclick="setMaterial('basalto')" id="tab-basalto" class="mat-tab w-full p-5 text-left border grid-border bg-kraft-bone hover:bg-kraft-stone text-kraft-basalt transition-all">
+              <span class="font-mono text-xs text-kraft-clay">03 // PIEDRA VOLCÁNICA</span>
+              <div class="text-lg font-display font-bold mt-1">Concreto Ciclópeo Basáltico</div>
+            </button>
+          </div>
+
+          <!-- Dynamic Material Inspector -->
+          <div class="lg:col-span-8 p-8 sm:p-12 border grid-border bg-kraft-bone flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start border-b grid-border pb-6">
+                <div>
+                  <span class="font-mono text-xs text-kraft-clay uppercase" id="mat-code">MAT-01 / BIOMASAS</span>
+                  <h3 class="text-2xl sm:text-3xl font-display font-bold uppercase text-kraft-basalt mt-1" id="mat-name">Tapial Compactado de Suelo Residual</h3>
+                </div>
+                <div class="text-right font-mono">
+                  <div class="text-2xl font-bold text-kraft-clay" id="mat-co2">-94%</div>
+                  <div class="text-[10px] text-kraft-ash uppercase">CO2 Embebido</div>
+                </div>
+              </div>
+
+              <p class="text-kraft-ash/80 text-sm sm:text-base leading-relaxed mt-6 font-light" id="mat-desc">
+                Muros masivos de tierra cruda estabilizada de 45cm de espesor. Actúa como acumulador de calor diurno liberando frescura durante la noche por radiación térmica pasiva sin maquinaria.
+              </p>
+
+              <div class="grid grid-cols-3 gap-6 mt-8 pt-6 border-t grid-border font-mono text-xs">
+                <div>
+                  <span class="text-kraft-ash/60 block">INERCIA TÉRMICA:</span>
+                  <strong class="text-kraft-basalt text-sm" id="mat-inertia">12 Horas de Retardo</strong>
+                </div>
+                <div>
+                  <span class="text-kraft-ash/60 block">VIDA ÚTIL:</span>
+                  <strong class="text-kraft-basalt text-sm" id="mat-life">&gt; 150 Años</strong>
+                </div>
+                <div>
+                  <span class="text-kraft-ash/60 block">REUTILIZACIÓN:</span>
+                  <strong class="text-kraft-basalt text-sm" id="mat-recycle">100% Biodegradable</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t grid-border flex items-center justify-between text-xs font-mono text-kraft-clay">
+              <span>ESTUDIO DE IMPACTO AMBIENTAL DISPONIBLE</span>
+              <a href="#contacto" class="underline hover:text-kraft-basalt">Especificar en tu anteproyecto &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: SELECTED MONOGRAPHIC WORKS -->
+    <section id="proyectos" class="py-24 border-b grid-border">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div>
+            <span class="font-mono text-xs uppercase text-kraft-clay tracking-widest">[ CATÁLOGO MONOGRÁFICO ]</span>
+            <h2 class="text-3xl sm:text-5xl font-display font-bold uppercase text-kraft-basalt mt-2">Obras Seleccionadas</h2>
+          </div>
+          <div class="font-mono text-xs text-kraft-ash">
+            PROYECTOS RESIDENCIALES &amp; EQUIPAMIENTOS REGENERATIVOS
+          </div>
+        </div>
+
+        <div class="space-y-12">
+          <!-- Project 01 -->
+          <div class="grid lg:grid-cols-12 gap-8 items-center border-t grid-border pt-8">
+            <div class="lg:col-span-4 space-y-4">
+              <span class="font-mono text-xs text-kraft-clay">OBRA 01 &middot; 2024</span>
+              <h3 class="text-2xl font-display font-bold uppercase text-kraft-basalt">Pabellón de los Volcanes</h3>
+              <p class="text-kraft-ash/80 text-xs sm:text-sm leading-relaxed font-light">
+                Vivienda unifamiliar enterrada semipasiva construida con roca volcánica del sitio y madera quemada bajo técnica Shou Sugi Ban.
+              </p>
+              <div class="font-mono text-xs text-kraft-ash space-y-1 pt-2">
+                <div>UBICACIÓN: Poás, Alajuela</div>
+                <div>ÁREA: 540 M²</div>
+                <div>AUTONOMÍA ENERGÉTICA: 100%</div>
+              </div>
+            </div>
+            <div class="lg:col-span-8 aspect-[16/9] overflow-hidden border grid-border">
+              <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&auto=format&fit=crop&q=80" alt="Pabellon Volcanes" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500" />
+            </div>
+          </div>
+
+          <!-- Project 02 -->
+          <div class="grid lg:grid-cols-12 gap-8 items-center border-t grid-border pt-8">
+            <div class="lg:col-span-4 space-y-4">
+              <span class="font-mono text-xs text-kraft-clay">OBRA 02 &middot; 2023</span>
+              <h3 class="text-2xl font-display font-display font-bold uppercase text-kraft-basalt">Sede Botánica Manglar</h3>
+              <p class="text-kraft-ash/80 text-xs sm:text-sm leading-relaxed font-light">
+                Laboratorio costero elevado sobre pilotes de teca para permitir el flujo natural de las mareas y ventilación cruzada cenital.
+              </p>
+              <div class="font-mono text-xs text-kraft-ash space-y-1 pt-2">
+                <div>UBICACIÓN: Golfo Dulce, Osa</div>
+                <div>ÁREA: 820 M²</div>
+                <div>PREMIO BIENAL INTERNACIONAL 2023</div>
+              </div>
+            </div>
+            <div class="lg:col-span-8 aspect-[16/9] overflow-hidden border grid-border">
+              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&auto=format&fit=crop&q=80" alt="Sede Manglar" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: BIOCLIMATIC PASSIVE STRATEGIES -->
+    <section id="estrategias" class="py-24 border-b grid-border bg-kraft-stone/20">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="font-mono text-xs uppercase text-kraft-clay tracking-widest">[ FÍSICA APLICADA ]</span>
+          <h2 class="text-3xl sm:text-5xl font-display font-bold uppercase text-kraft-basalt mt-2">Estrategias Bioclimáticas</h2>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-8">
+          <div class="p-8 border grid-border bg-kraft-bone">
+            <span class="font-mono text-2xl font-bold text-kraft-clay">01</span>
+            <h4 class="text-lg font-display font-bold uppercase text-kraft-basalt mt-4 mb-2">Efecto Chimenea Solar</h4>
+            <p class="text-kraft-ash/80 text-xs leading-relaxed font-light">
+              Claroyas cenitales de succión térmica que expulsan el aire caliente por flotabilidad natural, induciendo brisas frescas constantes.
+            </p>
+          </div>
+
+          <div class="p-8 border grid-border bg-kraft-bone">
+            <span class="font-mono text-2xl font-bold text-kraft-clay">02</span>
+            <h4 class="text-lg font-display font-bold uppercase text-kraft-basalt mt-4 mb-2">Captación Pluvial Integrada</h4>
+            <p class="text-kraft-ash/80 text-xs leading-relaxed font-light">
+              Cubiertas invertidas canalizadas a aljibes de biofiltración de grava volcánica para 100% de uso sanitario y riego.
+            </p>
+          </div>
+
+          <div class="p-8 border grid-border bg-kraft-bone">
+            <span class="font-mono text-2xl font-bold text-kraft-clay">03</span>
+            <h4 class="text-lg font-display font-bold uppercase text-kraft-basalt mt-4 mb-2">Aleros y Celosías de Sombra</h4>
+            <p class="text-kraft-ash/80 text-xs leading-relaxed font-light">
+              Cálculo solar trigonométrico para impedir la radiación solar directa en ventanales sin restar luminosidad difusa.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: STUDIO MANIFESTO -->
+    <section id="manifiesto" class="py-24 border-b grid-border">
+      <div class="max-w-4xl mx-auto px-6 text-center space-y-6">
+        <span class="font-mono text-xs uppercase text-kraft-clay tracking-widest">[ EL MANIFIESTO ]</span>
+        <blockquote class="text-2xl sm:text-4xl font-display font-bold text-kraft-basalt leading-snug uppercase">
+          &ldquo;No diseñamos edificios para imponerlos sobre el paisaje; excavamos en la memoria geológica de la tierra para que la obra parezca haber estado allí siempre.&rdquo;
+        </blockquote>
+        <div class="font-mono text-xs text-kraft-ash pt-4">
+          ARQ. MATEO KRAFT &amp; ARQ. SOFIA VARELA &mdash; DIRECTORES ASOCIADOS
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: COMMISSION & PROJECT INQUIRY -->
+    <section id="contacto" class="py-24 bg-kraft-basalt text-white">
+      <div class="max-w-3xl mx-auto px-6">
+        <div class="text-center mb-12">
+          <span class="font-mono text-xs uppercase text-kraft-clay tracking-widest">[ COMISIÓN DE ENCARGOS ]</span>
+          <h2 class="text-3xl sm:text-5xl font-display font-bold uppercase mt-2">Iniciar Conversación Arquitectónica</h2>
+          <p class="text-kraft-stone/60 font-mono text-xs mt-3">Aceptamos 6 comisiones residenciales y de equipamiento al año.</p>
+        </div>
+
+        <form class="space-y-6" onsubmit="event.preventDefault(); alert('Solicitud de comisión recibida. Nuestro taller se comunicará para revisar la topografía del terreno.');">
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-mono text-xs uppercase text-kraft-stone/80 mb-2">Nombre / Organización *</label>
+              <input type="text" required placeholder="Mateo Calderón" class="w-full bg-kraft-ash border border-kraft-stone/20 p-4 text-sm text-white focus:outline-none focus:border-kraft-clay font-sans" />
+            </div>
+            <div>
+              <label class="block font-mono text-xs uppercase text-kraft-stone/80 mb-2">Correo Electrónico *</label>
+              <input type="email" required placeholder="mateo@empresa.com" class="w-full bg-kraft-ash border border-kraft-stone/20 p-4 text-sm text-white focus:outline-none focus:border-kraft-clay font-sans" />
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-mono text-xs uppercase text-kraft-stone/80 mb-2">Ubicación del Terreno</label>
+              <input type="text" placeholder="Ej. Santa Teresa, Nosara, Escalante" class="w-full bg-kraft-ash border border-kraft-stone/20 p-4 text-sm text-white focus:outline-none focus:border-kraft-clay font-sans" />
+            </div>
+            <div>
+              <label class="block font-mono text-xs uppercase text-kraft-stone/80 mb-2">Escala Estimada (M²)</label>
+              <select class="w-full bg-kraft-ash border border-kraft-stone/20 p-4 text-sm text-white focus:outline-none focus:border-kraft-clay font-sans">
+                <option>200 m² - 450 m² (Residencial)</option>
+                <option>450 m² - 900 m² (Pabellón / Villa)</option>
+                <option>&gt; 1,000 m² (Hotel / Equipamiento)</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-5 bg-kraft-clay hover:bg-kraft-clay/90 text-white font-mono text-xs uppercase tracking-widest font-bold transition-colors">
+            Enviar Solicitud de Comisión &rarr;
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t grid-border py-12 font-mono text-xs bg-kraft-bone text-kraft-ash">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>KRAFT BIOCLIMATIC ARCHITECTURE LAB &middot; © 2026</div>
+      <div>MONOGRAFÍA EDITORIAL N° 4 &middot; TODOS LOS DERECHOS RESERVADOS</div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    const materials = {
+      tapial: {
+        code: 'MAT-01 / BIOMASAS',
+        name: 'Tapial Compactado de Suelo Residual',
+        co2: '-94%',
+        desc: 'Muros masivos de tierra cruda estabilizada de 45cm de espesor. Actúa como acumulador de calor diurno liberando frescura durante la noche por radiación térmica pasiva sin maquinaria.',
+        inertia: '12 Horas de Retardo',
+        life: '> 150 Años',
+        recycle: '100% Biodegradable'
+      },
+      clt: {
+        code: 'MAT-02 / MADERA INGENIERIL',
+        name: 'Madera Laminada Cruzada (CLT FSC)',
+        co2: '-110%',
+        desc: 'Paneles estructurales de madera certificada que secuestran carbono atmosférico. Permiten montaje en seco ultra veloz con aislamiento acústico natural.',
+        inertia: '6 Horas de Retardo',
+        life: '> 100 Años',
+        recycle: 'Reutilización Estructural Directa'
+      },
+      basalto: {
+        code: 'MAT-03 / PIEDRA VOLCÁNICA',
+        name: 'Concreto Ciclópeo Basáltico de Cantera',
+        co2: '-65%',
+        desc: 'Matriz de rocas basálticas sin triturar aglomeradas con cemento puzolánico de bajo clinker. Resistencia infinita frente a salinidad marina e intemperie.',
+        inertia: '16 Horas de Retardo',
+        life: '> 250 Años',
+        recycle: 'Relleno de Estructura Permanente'
+      }
+    };
+
+    function setMaterial(key) {
+      const data = materials[key];
+      if(!data) return;
+
+      document.getElementById('mat-code').textContent = data.code;
+      document.getElementById('mat-name').textContent = data.name;
+      document.getElementById('mat-co2').textContent = data.co2;
+      document.getElementById('mat-desc').textContent = data.desc;
+      document.getElementById('mat-inertia').textContent = data.inertia;
+      document.getElementById('mat-life').textContent = data.life;
+      document.getElementById('mat-recycle').textContent = data.recycle;
+
+      document.querySelectorAll('.mat-tab').forEach(b => {
+        b.classList.remove('bg-kraft-basalt', 'text-white');
+        b.classList.add('bg-kraft-bone', 'text-kraft-basalt');
+      });
+
+      const activeBtn = document.getElementById('tab-' + key);
+      if(activeBtn) {
+        activeBtn.classList.remove('bg-kraft-bone', 'text-kraft-basalt');
+        activeBtn.classList.add('bg-kraft-basalt', 'text-white');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cl&iacute;nica Metropolitana &mdash; Centro M&eacute;dico Integral &amp; Urgencias 24/7</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            med: {
+              navy:     '#0A2540', // Deep Clinical Navy
+              blue:     '#0066CC', // Primary Hospital Blue
+              blueDark: '#004C99',
+              blueLight:'#EBF5FF',
+              cyan:     '#00A3C4', // High-tech medical cyan
+              teal:     '#0D9488', // Sterile teal
+              emerald:  '#059669', // Health green
+              slate:    '#334155', // Body slate
+              border:   '#E2E8F0', // Crisp clinical border
+              bg:       '#F8FAFC', // Crisp hospital background
+            }
+          },
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            sans:    ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Smooth Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #F8FAFC; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #0066CC; }
+
+    /* Clean Subtle Grid */
+    .med-grid {
+      background-image: linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Pulse Glow */
+    @keyframes med-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+      50%      { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    }
+    .pulse-live {
+      animation: med-pulse 2s infinite;
+    }
+
+    /* Smooth Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Card Hover Lift */
+    .med-card {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .med-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 30px -10px rgba(10, 37, 64, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-med-bg text-med-slate font-sans antialiased overflow-x-hidden selection:bg-med-blueLight selection:text-med-blueDark">
+
+  <!-- ============================================================
+       TOP HOSPITAL LIVE STATUS BAR
+       ============================================================ -->
+  <div class="bg-med-navy text-white text-[12px] font-sans py-2.5 px-4 sm:px-6 border-b border-med-navy/50">
+    <div class="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-3">
+      
+      <!-- Emergency Status -->
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 pulse-live"></span>
+          <span class="font-bold text-white tracking-wide">Urgencias 24/7 Abiertas</span>
+        </div>
+        <span class="text-slate-400 hidden sm:inline">&bull;</span>
+        <div class="hidden sm:flex items-center gap-1.5 text-slate-300">
+          <i data-lucide="clock" class="w-3.5 h-3.5 text-med-cyan"></i>
+          <span>Tiempo estimado de espera: <strong class="text-white font-bold" id="wait-time">6 minutos</strong></span>
+        </div>
+      </div>
+
+      <!-- Quick Action Contacts -->
+      <div class="flex items-center gap-5 text-slate-300 text-[11.5px]">
+        <a href="tel:+50622220000" class="hover:text-white flex items-center gap-1 font-semibold transition-colors">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5 text-emerald-400"></i> Central: 2222-9000
+        </a>
+        <span class="text-slate-600 hidden md:inline">|</span>
+        <a href="#laboratorio" class="hover:text-white hidden md:flex items-center gap-1 transition-colors">
+          <i data-lucide="file-text" class="w-3.5 h-3.5 text-med-cyan"></i> Resultados en L&iacute;nea
+        </a>
+        <span class="text-slate-600 hidden lg:inline">|</span>
+        <span class="hidden lg:inline text-slate-400">Torre M&eacute;dica &bull; San Jos&eacute;, CR</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CLINICAL NAVIGATION
+       ============================================================ -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-med-border shadow-sm">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 h-20 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 bg-med-blue rounded-xl flex items-center justify-center text-white shadow-md group-hover:bg-med-blueDark transition-colors">
+          <i data-lucide="activity" class="w-6 h-6"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-heading font-extrabold text-xl tracking-tight text-med-navy leading-tight">
+            Metropolitana<span class="text-med-blue">.</span>
+          </span>
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Centro M&eacute;dico Integral</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden lg:flex items-center gap-8 text-[13.5px] font-semibold text-slate-600">
+        <a href="#especialidades" class="hover:text-med-blue transition-colors">Especialidades</a>
+        <a href="#triaje" class="hover:text-med-blue transition-colors">Triaje &amp; Urgencias</a>
+        <a href="#laboratorio" class="hover:text-med-blue transition-colors">Laboratorio &amp; Im&aacute;genes</a>
+        <a href="#medicos" class="hover:text-med-blue transition-colors">Cuerpo M&eacute;dico</a>
+        <a href="#seguros" class="hover:text-med-blue transition-colors">Seguros &amp; Cobertura</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <button onclick="openPortalModal()" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold text-xs transition-colors">
+          <i data-lucide="lock" class="w-3.5 h-3.5 text-med-blue"></i>
+          <span>Portal Paciente</span>
+        </button>
+
+        <a href="#citas" class="inline-flex items-center gap-2 bg-med-blue hover:bg-med-blueDark text-white px-5 py-2.5 rounded-lg font-bold text-xs shadow-md shadow-med-blue/20 hover:shadow-lg transition-all">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+          <span>Agendar Cita</span>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button id="mob-btn" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mob-menu" class="hidden lg:hidden border-t border-slate-100 bg-white px-6 py-6 space-y-3 font-semibold text-sm">
+      <a href="#especialidades" class="block py-2 text-slate-700 hover:text-med-blue border-b border-slate-100">Especialidades M&eacute;dicas</a>
+      <a href="#triaje" class="block py-2 text-slate-700 hover:text-med-blue border-b border-slate-100">Triaje &amp; Urgencias 24/7</a>
+      <a href="#laboratorio" class="block py-2 text-slate-700 hover:text-med-blue border-b border-slate-100">Laboratorio &amp; Diagn&oacute;stico</a>
+      <a href="#medicos" class="block py-2 text-slate-700 hover:text-med-blue border-b border-slate-100">Cuerpo M&eacute;dico</a>
+      <a href="#seguros" class="block py-2 text-slate-700 hover:text-med-blue border-b border-slate-100">Seguros M&eacute;dicos</a>
+      <a href="#citas" class="block py-3 text-center bg-med-blue text-white rounded-lg font-bold mt-2">Agendar Consulta</a>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       SECTION 1: HERO (Clinical Authority & Fast Actions)
+       ============================================================ -->
+  <section class="relative pt-12 pb-20 overflow-hidden bg-white med-grid border-b border-med-border">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Content (7 cols) -->
+        <div class="lg:col-span-7 reveal">
+          
+          <!-- Trust Badge -->
+          <div class="inline-flex items-center gap-2 bg-med-blueLight border border-blue-200/80 px-3.5 py-1.5 rounded-full mb-6 text-med-blueDark font-bold text-xs">
+            <i data-lucide="shield-check" class="w-4 h-4 text-med-blue"></i>
+            <span>Acreditaci&oacute;n Hospitalaria Internacional ISO 9001:2025</span>
+          </div>
+
+          <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl text-med-navy leading-[1.1] tracking-tight mb-6">
+            Atenci&oacute;n m&eacute;dica de precisi&oacute;n, <br>
+            <span class="text-med-blue">cuando cada segundo cuenta.</span>
+          </h1>
+
+          <p class="text-slate-600 text-base sm:text-lg leading-relaxed mb-8 max-w-2xl font-normal">
+            Red hospitalaria integral con m&aacute;s de 35 especialidades m&eacute;dicas, laboratorio cl&iacute;nico automatizado con entrega de resultados en 2 horas y servicio de urgencias m&eacute;dicas sin tiempos de espera excesivos.
+          </p>
+
+          <!-- Quick Action Group -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-10">
+            <a href="#citas" class="inline-flex items-center justify-center gap-2 bg-med-blue hover:bg-med-blueDark text-white px-7 py-4 rounded-xl font-bold text-sm shadow-lg shadow-med-blue/25 hover:shadow-xl transition-all">
+              <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+              <span>Agendar Consulta M&eacute;dica</span>
+            </a>
+            <a href="https://wa.me/50600000000" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-6 py-4 rounded-xl font-bold text-sm shadow-sm transition-colors">
+              <i data-lucide="message-circle" class="w-4 h-4 text-emerald-500"></i>
+              <span>Urgencias por WhatsApp</span>
+            </a>
+          </div>
+
+          <!-- Clinical Stats Counter -->
+          <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-200/80">
+            <div>
+              <p class="font-heading font-black text-3xl text-med-navy">+40</p>
+              <p class="text-xs font-semibold text-slate-500 mt-1">Especialistas Colegiados</p>
+            </div>
+            <div>
+              <p class="font-heading font-black text-3xl text-med-navy">2 Horas</p>
+              <p class="text-xs font-semibold text-slate-500 mt-1">Resultados de Laboratorio</p>
+            </div>
+            <div>
+              <p class="font-heading font-black text-3xl text-med-navy">24/7</p>
+              <p class="text-xs font-semibold text-slate-500 mt-1">Farmacia &amp; Urgencias</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Visual Showcase (5 cols) -->
+        <div class="lg:col-span-5 relative reveal reveal-delay-1">
+          <div class="relative max-w-lg mx-auto">
+            
+            <!-- Main Medical Photo -->
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              <img 
+                src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=1000&q=80" 
+                alt="Doctor Especialista Clínica Metropolitana" 
+                class="w-full h-[480px] object-cover"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-med-navy/80 via-transparent to-transparent"></div>
+              
+              <!-- Bottom Doctor Info Badge -->
+              <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-slate-100 flex items-center justify-between">
+                <div>
+                  <p class="font-heading font-bold text-med-navy text-sm">Dr. Alejandro Morales</p>
+                  <p class="text-xs text-slate-500 font-medium">Jefe de Medicina Interna &bull; #MED-7432</p>
+                </div>
+                <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> En Guardia
+                </span>
+              </div>
+            </div>
+
+            <!-- Floating Card Top Left -->
+            <div class="absolute -top-4 -left-4 sm:-left-8 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-med-blueLight flex items-center justify-center text-med-blue">
+                <i data-lucide="check-circle" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-med-navy">Triaje Inmediato</p>
+                <p class="text-[11px] text-slate-400">Sin filas prolongadas</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: LIVE EMERGENCY & SMART TRIAGE NAVIGATOR
+       ============================================================ -->
+  <section id="triaje" class="py-20 bg-med-bg border-b border-med-border">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+      
+      <div class="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Triage Info (5 cols) -->
+          <div class="lg:col-span-5">
+            <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold mb-4">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i> Sistema de Triaje R&aacute;pido
+            </div>
+            <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-med-navy mb-4">
+              &iquest;Qu&eacute; nivel de atenci&oacute;n requieres?
+            </h2>
+            <p class="text-slate-500 text-sm leading-relaxed mb-6">
+              Selecciona tu situaci&oacute;n actual para indicarte de inmediato el &aacute;rea cl&iacute;nica adecuada, tiempo de atenci&oacute;n y requisitos de ingreso.
+            </p>
+            <div class="flex items-center gap-3 text-xs font-bold text-slate-700">
+              <i data-lucide="ambulance" class="w-4 h-4 text-red-500"></i>
+              <span>Servicio de Ambulancia de Soporte Avanzado: <strong>2222-9111</strong></span>
+            </div>
+          </div>
+
+          <!-- Triage Interactive Selector (7 cols) -->
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            
+            <!-- Option 1: Urgencia Inmediata -->
+            <button onclick="setTriage('urgencia')" class="triage-btn text-left p-6 rounded-2xl border-2 border-red-200 bg-red-50/40 hover:bg-red-50 transition-all group">
+              <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-heading font-bold text-base text-med-navy mb-1">Urgencia Mayor</h3>
+              <p class="text-xs text-slate-500 leading-relaxed mb-3">Dolor en pecho, dificultad respiratoria severa, traumatismos graves.</p>
+              <span class="text-[11px] font-bold text-red-600 uppercase tracking-wider">Atenci&oacute;n Inmediata (0 min) &rarr;</span>
+            </button>
+
+            <!-- Option 2: Pediatría & Fiebre -->
+            <button onclick="setTriage('pediatria')" class="triage-btn text-left p-6 rounded-2xl border-2 border-blue-200 bg-med-blueLight/40 hover:bg-med-blueLight transition-all group">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-med-blue flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <i data-lucide="baby" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-heading font-bold text-base text-med-navy mb-1">Urgencia Pedi&aacute;trica</h3>
+              <p class="text-xs text-slate-500 leading-relaxed mb-3">Fiebre s&uacute;bita, v&oacute;mitos, ca&iacute;das o deshidrataci&oacute;n en ni&ntilde;os.</p>
+              <span class="text-[11px] font-bold text-med-blue uppercase tracking-wider">Pediatra en Guardia &rarr;</span>
+            </button>
+
+            <!-- Option 3: Consulta & Chequeo -->
+            <button onclick="setTriage('general')" class="triage-btn text-left p-6 rounded-2xl border-2 border-slate-200 bg-white hover:border-med-blue transition-all group">
+              <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <i data-lucide="stethoscope" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-heading font-bold text-base text-med-navy mb-1">Consulta General</h3>
+              <p class="text-xs text-slate-500 leading-relaxed mb-3">S&iacute;ntomas leves, recetas, dict&aacute;menes y chequeos preventivos.</p>
+              <span class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Agendar Cita Hoy &rarr;</span>
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: MEDICAL SPECIALTIES (Filterable Directory)
+       ============================================================ -->
+  <section id="especialidades" class="py-24 bg-white border-b border-med-border">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+      
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6 reveal">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-med-blue mb-2 block">Unidades M&eacute;dicas Especializadas</span>
+          <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-med-navy">
+            Especialidades de Vanguardia.
+          </h2>
+        </div>
+
+        <!-- Quick Specialty Search -->
+        <div class="relative w-full md:w-80">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input 
+            type="text" 
+            id="spec-search" 
+            oninput="searchSpecialty()" 
+            placeholder="Buscar especialidad o síntoma..." 
+            class="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-2.5 rounded-xl text-xs font-medium focus:outline-none focus:border-med-blue focus:bg-white"
+          >
+        </div>
+      </div>
+
+      <!-- Specialties Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="specialties-container">
+        
+        <!-- Specialty 1: Medicina General & Familiar -->
+        <div class="spec-card med-card bg-white border border-slate-200 p-8 rounded-2xl hover:border-med-blue group">
+          <div class="w-12 h-12 rounded-xl bg-med-blueLight text-med-blue flex items-center justify-center mb-6 group-hover:bg-med-blue group-hover:text-white transition-colors">
+            <i data-lucide="heart-pulse" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-heading font-bold text-xl text-med-navy mb-2 spec-name">Medicina General &amp; Familiar</h3>
+          <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-6">
+            Diagn&oacute;stico primario, control de enfermedades cr&oacute;nicas (hipertensi&oacute;n, diabetes) y planes preventivos familiares.
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+            <span class="text-emerald-600 flex items-center gap-1"><i data-lucide="check" class="w-3.5 h-3.5"></i> Citas hoy disponibles</span>
+            <a href="#citas" class="text-med-blue hover:underline">Agendar &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Specialty 2: Pediatría -->
+        <div class="spec-card med-card bg-white border border-slate-200 p-8 rounded-2xl hover:border-med-blue group">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+            <i data-lucide="baby" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-heading font-bold text-xl text-med-navy mb-2 spec-name">Pediatr&iacute;a &amp; Neonatolog&iacute;a</h3>
+          <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-6">
+            Seguimiento del desarrollo infantil, esquema completo de vacunaci&oacute;n, urgencias respiratorias y control de ni&ntilde;o sano.
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+            <span class="text-emerald-600 flex items-center gap-1"><i data-lucide="check" class="w-3.5 h-3.5"></i> Especialistas de guardia</span>
+            <a href="#citas" class="text-med-blue hover:underline">Agendar &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Specialty 3: Cardiología -->
+        <div class="spec-card med-card bg-white border border-slate-200 p-8 rounded-2xl hover:border-med-blue group">
+          <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors">
+            <i data-lucide="activity" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-heading font-bold text-xl text-med-navy mb-2 spec-name">Cardiolog&iacute;a &amp; EKG</h3>
+          <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-6">
+            Electrocardiograma digital, ecocardiograma doppler, pruebas de esfuerzo y monitoreo Holter con reporte el mismo d&iacute;a.
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+            <span class="text-slate-500 font-medium">Equipos Siemens 2025</span>
+            <a href="#citas" class="text-med-blue hover:underline">Agendar &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Specialty 4: Ginecología & Obstetricia -->
+        <div class="spec-card med-card bg-white border border-slate-200 p-8 rounded-2xl hover:border-med-blue group">
+          <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+            <i data-lucide="user-check" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-heading font-bold text-xl text-med-navy mb-2 spec-name">Ginecolog&iacute;a &amp; Obstetricia</h3>
+          <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-6">
+            Control prenatal de alta resoluci&oacute;n con ultrasonido 4D/5D, papanicolaou, colposcop&iacute;a y salud hormonal femenina.
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+            <span class="text-emerald-600 flex items-center gap-1"><i data-lucide="check" class="w-3.5 h-3.5"></i> Doctoras especialistas</span>
+            <a href="#citas" class="text-med-blue hover:underline">Agendar &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Specialty 5: Traumatología & Rayos X -->
+        <div class="spec-card med-card bg-white border border-slate-200 p-8 rounded-2xl hover:border-med-blue group">
+          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+            <i data-lucide="bone" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-heading font-bold text-xl text-med-navy mb-2 spec-name">Traumatolog&iacute;a &amp; Ortopedia</h3>
+          <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-6">
+            Atenci&oacute;n de fracturas, esguinces, lesiones deportivas, inmovilizaciones r&aacute;pidas y cirug&iacute;a artrosc&oacute;pica.
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+            <span class="text-slate-500 font-medium">Rayos X en sala contigua</span>
+            <a href="#citas" class="text-med-blue hover:underline">Agendar &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Specialty 6: Dermatología Clínica -->
+        <div class="spec-card med-card bg-white border border-slate-200 p-8 rounded-2xl hover:border-med-blue group">
+          <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-colors">
+            <i data-lucide="sparkles" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-heading font-bold text-xl text-med-navy mb-2 spec-name">Dermatolog&iacute;a Cl&iacute;nica &amp; Quir&uacute;rgica</h3>
+          <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-6">
+            Dermatoscop&iacute;a digital para revisi&oacute;n de lunares, tratamiento de acn&eacute; severo, dermatitis, psoriasis y biopsias cut&aacute;neas.
+          </p>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+            <span class="text-emerald-600 flex items-center gap-1"><i data-lucide="check" class="w-3.5 h-3.5"></i> Biopsia en 48h</span>
+            <a href="#citas" class="text-med-blue hover:underline">Agendar &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: CLINICAL LABORATORY & DIGITAL IMAGING (2h Results)
+       ============================================================ -->
+  <section id="laboratorio" class="py-24 bg-med-bg border-b border-med-border">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Laboratory Image (5 cols) -->
+        <div class="lg:col-span-5 reveal">
+          <div class="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white">
+            <img 
+              src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80" 
+              alt="Laboratorio Automatizado Clínica Metropolitana" 
+              class="w-full h-[460px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-med-navy/80 via-transparent to-transparent"></div>
+            
+            <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-5 rounded-2xl shadow-lg border border-slate-100">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                  <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <p class="font-heading font-bold text-med-navy text-sm">Control de Calidad RIQAS</p>
+                  <p class="text-[11px] text-slate-500">Certificaci&oacute;n Internacional Reino Unido</p>
+                </div>
+              </div>
+              <p class="text-xs text-slate-600 font-medium">M&aacute;s de 350 tipos de pruebas procesadas en sitio sin intermediarios.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Laboratory Specs (7 cols) -->
+        <div class="lg:col-span-7 reveal reveal-delay-1">
+          <span class="text-xs font-bold uppercase tracking-wider text-med-blue mb-2 block">Diagn&oacute;stico de Alta Complejidad</span>
+          <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-med-navy mb-6">
+            Laboratorio automatizado con resultados en 2 horas.
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-8">
+            Contamos con analizadores rob&oacute;ticos de &uacute;ltima generaci&oacute;n. Todos tus ex&aacute;menes de sangre, perfiles bioqu&iacute;micos y paneles hormonales se env&iacute;an autom&aacute;ticamente a tu correo electr&oacute;nico y WhatsApp con firma digital m&eacute;dica.
+          </p>
+
+          <!-- Checkup Packages Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            
+            <div class="bg-white p-5 rounded-2xl border border-slate-200">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="font-heading font-bold text-med-navy text-base">Perfil Preventivo 20+</h4>
+                <span class="text-xs font-bold text-med-blue bg-blue-50 px-2 py-0.5 rounded">&cent;24.000</span>
+              </div>
+              <p class="text-xs text-slate-500 leading-relaxed">Hemograma completo, glucosa, perfil lip&iacute;dico, funci&oacute;n renal y hep&aacute;tica.</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="font-heading font-bold text-med-navy text-base">Panel Cardiovascular</h4>
+                <span class="text-xs font-bold text-med-blue bg-blue-50 px-2 py-0.5 rounded">&cent;38.000</span>
+              </div>
+              <p class="text-xs text-slate-500 leading-relaxed">Troponina de alta sensibilidad, d&iacute;mero D, EKG digital y perfil lip&iacute;dico avanzado.</p>
+            </div>
+
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <button onclick="openPortalModal()" class="inline-flex items-center gap-2 bg-med-navy hover:bg-slate-800 text-white px-6 py-3.5 rounded-xl font-bold text-xs shadow-md transition-colors">
+              <i data-lucide="download" class="w-4 h-4 text-med-cyan"></i>
+              <span>Consultar Mis Resultados</span>
+            </button>
+            <span class="text-xs text-slate-500 font-medium">Toma de muestras sin cita de Lun a S&aacute;b desde las 6:30 AM.</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: MEDICAL DIRECTORS & ON-DUTY TEAM
+       ============================================================ -->
+  <section id="medicos" class="py-24 bg-white border-b border-med-border">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <span class="text-xs font-bold uppercase tracking-wider text-med-blue mb-2 block">Cuerpo M&eacute;dico Calificado</span>
+        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-med-navy mb-4">
+          Especialistas de Primer Nivel.
+        </h2>
+        <p class="text-slate-500 text-sm leading-relaxed">
+          M&eacute;dicos egresados de las mejores facultades con posgrados internacionales, dedicados a tu bienestar integral.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Doctor 1 -->
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden group hover:border-med-blue transition-all med-card">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80" alt="Dra. Marcela Jimenez" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-med-navy">
+              Pediatr&iacute;a
+            </span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-bold text-lg text-med-navy mb-1">Dra. Marcela Jim&eacute;nez</h3>
+            <p class="text-xs text-med-blue font-semibold mb-3">Especialista en Pediatr&iacute;a &bull; UCR / Hospital Infantil M&eacute;xico</p>
+            <p class="text-xs text-slate-500 leading-relaxed mb-5">Colegiada #09124. M&aacute;s de 12 a&ntilde;os de experiencia en atenci&oacute;n de urgencias respiratorias e inmunolog&iacute;a pedi&aacute;trica.</p>
+            <a href="#citas" class="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-med-blue hover:text-white border border-slate-200 py-2.5 rounded-lg text-xs font-bold text-slate-700 transition-colors">
+              <span>Agendar con Dra. Jim&eacute;nez</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Doctor 2 -->
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden group hover:border-med-blue transition-all med-card">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80" alt="Dr. Roberto Campos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-med-navy">
+              Cardiolog&iacute;a
+            </span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-bold text-lg text-med-navy mb-1">Dr. Roberto Campos</h3>
+            <p class="text-xs text-med-blue font-semibold mb-3">Cardi&oacute;logo &bull; Hospital Cl&iacute;nic Barcelona</p>
+            <p class="text-xs text-slate-500 leading-relaxed mb-5">Colegiado #07842. Experto en prevenci&oacute;n cardiovascular, evaluaci&oacute;n pre-competitiva y manejo de hipertensi&oacute;n resistente.</p>
+            <a href="#citas" class="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-med-blue hover:text-white border border-slate-200 py-2.5 rounded-lg text-xs font-bold text-slate-700 transition-colors">
+              <span>Agendar con Dr. Campos</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Doctor 3 -->
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden group hover:border-med-blue transition-all med-card">
+          <div class="relative h-64 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80" alt="Dr. Alejandro Morales" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-med-navy">
+              Medicina Interna
+            </span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-bold text-lg text-med-navy mb-1">Dr. Alejandro Morales</h3>
+            <p class="text-xs text-med-blue font-semibold mb-3">Director M&eacute;dico &bull; Johns Hopkins Medicine Fellow</p>
+            <p class="text-xs text-slate-500 leading-relaxed mb-5">Colegiado #07432. Jefe de Medicina Interna y coordinador de la unidad de cuidados cr&oacute;nicos y chequeos ejecutivos.</p>
+            <a href="#citas" class="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-med-blue hover:text-white border border-slate-200 py-2.5 rounded-lg text-xs font-bold text-slate-700 transition-colors">
+              <span>Agendar con Dr. Morales</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6: INSURANCE & DIRECT BILLING CHECKER
+       ============================================================ -->
+  <section id="seguros" class="py-20 bg-med-bg border-b border-med-border">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+      
+      <div class="bg-med-navy text-white rounded-3xl p-8 sm:p-12 shadow-xl relative overflow-hidden reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          
+          <div class="lg:col-span-6">
+            <div class="inline-flex items-center gap-2 bg-white/10 text-med-cyan px-3 py-1 rounded-full text-xs font-bold mb-4">
+              <i data-lucide="shield" class="w-3.5 h-3.5"></i> Cobertura Sin Tr&aacute;mites Engorrosos
+            </div>
+            <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white mb-4">
+              Aceptamos los principales seguros m&eacute;dicos.
+            </h2>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              Convenio de cobro directo sin desembolso inicial para emergencias, hospitalizaci&oacute;n y consultas especializadas. Solo pagas tu deducible o copago aplicable.
+            </p>
+
+            <div class="flex flex-wrap gap-6 font-bold text-xs text-slate-300">
+              <span class="flex items-center gap-1.5"><i data-lucide="check" class="text-emerald-400 w-4 h-4"></i> Facturaci&oacute;n Directa</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="check" class="text-emerald-400 w-4 h-4"></i> Tr&aacute;mite en 10 minutos</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="check" class="text-emerald-400 w-4 h-4"></i> Tasa Cero BAC Credomatic</span>
+            </div>
+          </div>
+
+          <!-- Interactive Insurance Eligibility Checker (6 cols) -->
+          <div class="lg:col-span-6 bg-white/10 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-white/15">
+            <h3 class="font-heading font-bold text-lg text-white mb-4">Verificador R&aacute;pido de Cobertura</h3>
+            
+            <div class="space-y-4 text-xs font-medium">
+              <div>
+                <label class="block text-slate-300 mb-1.5">Selecciona tu Aseguradora:</label>
+                <select id="insurance-select" onchange="checkInsurance()" class="w-full bg-white text-slate-800 p-3 rounded-xl font-bold focus:outline-none focus:ring-2 focus:ring-med-blue">
+                  <option value="ins">INS M&eacute;dica Internacional</option>
+                  <option value="sagicor">Sagicor Health Plus</option>
+                  <option value="palig">Pan-American Life (PALIG)</option>
+                  <option value="bluecross">BlueCross BlueShield International</option>
+                  <option value="medismart">Red Privada / Tarjeta de Salud</option>
+                </select>
+              </div>
+
+              <!-- Realtime Verification Badge -->
+              <div id="insurance-result" class="bg-emerald-500/20 border border-emerald-400/40 p-4 rounded-xl flex items-start gap-3 text-white">
+                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                <div>
+                  <p class="font-bold text-sm" id="ins-title">Convenio Directo 100% Activo</p>
+                  <p class="text-[11.5px] text-slate-200 mt-0.5" id="ins-desc">Aprobaci&oacute;n instant&aacute;nea en ventanilla para consultas, ex&aacute;menes y urgencias.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 7: FAST ONLINE APPOINTMENT SCHEDULER & MEGA FOOTER
+       ============================================================ -->
+  <section id="citas" class="py-24 bg-white relative">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
+        
+        <!-- Left: Clinic Info & Location (5 cols) -->
+        <div class="lg:col-span-5 reveal">
+          <span class="text-xs font-bold uppercase tracking-wider text-med-blue mb-2 block">Atenci&oacute;n Personalizada</span>
+          <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-med-navy mb-6">
+            Programa tu cita m&eacute;dica en 60 segundos.
+          </h2>
+          <p class="text-slate-600 text-sm leading-relaxed mb-8">
+            Elige la especialidad, el m&eacute;dico y el horario que mejor se adapte a tu agenda. Recibir&aacute;s confirmaci&oacute;n y recordatorio directo a tu WhatsApp.
+          </p>
+
+          <div class="space-y-4 text-xs font-medium">
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex items-start gap-3.5">
+              <i data-lucide="map-pin" class="w-5 h-5 text-med-blue shrink-0 mt-0.5"></i>
+              <div>
+                <p class="font-bold text-med-navy text-sm mb-0.5">Sede Central San Jos&eacute;</p>
+                <p class="text-slate-500">Torre M&eacute;dica Metropolitana, Costado Oeste Parque La Sabana</p>
+                <p class="text-[11px] text-slate-400 mt-1">Parqueo bajo techo con 200 espacios &bull; Valet parking gratuito</p>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex items-start gap-3.5">
+              <i data-lucide="video" class="w-5 h-5 text-med-cyan shrink-0 mt-0.5"></i>
+              <div>
+                <p class="font-bold text-med-navy text-sm mb-0.5">Telemedicina en Alta Definici&oacute;n</p>
+                <p class="text-slate-500">&iquest;No puedes desplazarte? Agenda tu consulta virtual con receta digital oficial.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Online Scheduler Wizard (7 cols) -->
+        <div class="lg:col-span-7 bg-slate-50 border border-slate-200 rounded-3xl p-8 sm:p-10 shadow-sm reveal reveal-delay-1">
+          <div class="flex justify-between items-center border-b border-slate-200 pb-4 mb-6">
+            <h3 class="font-heading font-bold text-lg text-med-navy">Agendamiento Inmediato</h3>
+            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Sin dep&oacute;sito previo</span>
+          </div>
+
+          <form id="booking-form" onsubmit="handleMedicalBooking(event)" class="space-y-5 text-xs font-medium">
+            
+            <!-- Step 1: Specialty & Modality -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-slate-700 font-bold mb-1.5">Especialidad Requerida *</label>
+                <select id="book-spec" class="w-full bg-white border border-slate-300 p-3 rounded-xl text-slate-800 font-semibold focus:outline-none focus:border-med-blue">
+                  <option>Medicina General</option>
+                  <option>Pediatr&iacute;a</option>
+                  <option>Cardiolog&iacute;a</option>
+                  <option>Ginecolog&iacute;a &amp; Obstetricia</option>
+                  <option>Traumatolog&iacute;a</option>
+                  <option>Dermatolog&iacute;a</option>
+                  <option>Laboratorio Cl&iacute;nico</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-slate-700 font-bold mb-1.5">Modalidad de Consulta *</label>
+                <select class="w-full bg-white border border-slate-300 p-3 rounded-xl text-slate-800 font-semibold focus:outline-none focus:border-med-blue">
+                  <option>Presencial (Sede Sabana)</option>
+                  <option>Telemedicina (Videollamada)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Step 2: Patient Info -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-slate-700 font-bold mb-1.5">Nombre del Paciente *</label>
+                <input type="text" required placeholder="Nombre y Apellidos" class="w-full bg-white border border-slate-300 p-3 rounded-xl text-slate-800 font-medium focus:outline-none focus:border-med-blue">
+              </div>
+              <div>
+                <label class="block text-slate-700 font-bold mb-1.5">WhatsApp / Celular *</label>
+                <input type="tel" required placeholder="+506 8888-0000" class="w-full bg-white border border-slate-300 p-3 rounded-xl text-slate-800 font-medium focus:outline-none focus:border-med-blue">
+              </div>
+            </div>
+
+            <!-- Step 3: Date & Preferred Time -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-slate-700 font-bold mb-1.5">Fecha de la Cita *</label>
+                <input type="date" required class="w-full bg-white border border-slate-300 p-3 rounded-xl text-slate-800 font-medium focus:outline-none focus:border-med-blue">
+              </div>
+              <div>
+                <label class="block text-slate-700 font-bold mb-1.5">Horario Preferido *</label>
+                <select class="w-full bg-white border border-slate-300 p-3 rounded-xl text-slate-800 font-semibold focus:outline-none focus:border-med-blue">
+                  <option>Ma&ntilde;ana (8:00 AM - 12:00 PM)</option>
+                  <option>Tarde (1:00 PM - 5:00 PM)</option>
+                  <option>Noche (5:00 PM - 8:00 PM)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full bg-med-blue hover:bg-med-blueDark text-white py-4 rounded-xl font-bold text-sm shadow-md transition-colors flex items-center justify-center gap-2">
+              <i data-lucide="check" class="w-4 h-4"></i>
+              <span>Confirmar y Reservar Cita M&eacute;dica</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- HOSPITAL MEGA FOOTER -->
+      <footer class="border-t border-slate-200 pt-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16 text-xs">
+          
+          <div>
+            <div class="flex items-center gap-2.5 mb-4">
+              <div class="w-8 h-8 bg-med-blue text-white rounded-lg flex items-center justify-center font-bold">
+                <i data-lucide="activity" class="w-5 h-5"></i>
+              </div>
+              <span class="font-heading font-extrabold text-lg text-med-navy">Metropolitana</span>
+            </div>
+            <p class="text-slate-500 leading-relaxed mb-4">
+              Centro m&eacute;dico hospitalario enfocado en la excelencia cl&iacute;nica, seguridad del paciente y tecnolog&iacute;a de diagn&oacute;stico r&aacute;pido.
+            </p>
+            <span class="inline-flex items-center gap-1.5 text-emerald-600 font-bold">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Urgencias 24h &bull; Farmacia Abierta
+            </span>
+          </div>
+
+          <div>
+            <p class="font-heading font-bold text-med-navy uppercase text-xs mb-4">Servicios Cl&iacute;nicos</p>
+            <ul class="space-y-2 text-slate-500">
+              <li><a href="#especialidades" class="hover:text-med-blue">Consultas de Especialidad</a></li>
+              <li><a href="#laboratorio" class="hover:text-med-blue">Laboratorio Cl&iacute;nico</a></li>
+              <li><a href="#especialidades" class="hover:text-med-blue">Rayos X &amp; Ultrasonido</a></li>
+              <li><a href="#triaje" class="hover:text-med-blue">Urgencias Pedi&aacute;tricas</a></li>
+              <li><a href="#seguros" class="hover:text-med-blue">Atenci&oacute;n por Seguro</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <p class="font-heading font-bold text-med-navy uppercase text-xs mb-4">Contacto de Emergencias</p>
+            <ul class="space-y-2.5 text-slate-500">
+              <li class="flex items-center gap-2 text-slate-700 font-bold"><i data-lucide="phone" class="w-3.5 h-3.5 text-red-500"></i> Ambulancias: 2222-9111</li>
+              <li class="flex items-center gap-2"><i data-lucide="phone-call" class="w-3.5 h-3.5 text-med-blue"></i> Central: 2222-9000</li>
+              <li class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-med-blue"></i> info@clinicametropolitana.cr</li>
+              <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-med-blue"></i> Sabana Oeste, San Jos&eacute;</li>
+            </ul>
+          </div>
+
+          <div>
+            <p class="font-heading font-bold text-med-navy uppercase text-xs mb-4">Horarios de Atenci&oacute;n</p>
+            <div class="space-y-1.5 text-slate-500">
+              <p><strong>Urgencias &amp; Hospital:</strong> 24 Horas / 365 d&iacute;as</p>
+              <p><strong>Consultorios:</strong> Lun - S&aacute;b 7:00 AM - 8:00 PM</p>
+              <p><strong>Laboratorio:</strong> Lun - Dom desde 6:30 AM</p>
+              <p><strong>Farmacia:</strong> Abierta 24 Horas</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="border-t border-slate-100 pt-8 flex flex-col sm:flex-row justify-between items-center text-slate-400 text-[11px] gap-4">
+          <p>&copy; 2026 CL&Iacute;NICA METROPOLITANA. CENTRO M&Eacute;DICO AUTORIZADO POR EL MINISTERIO DE SALUD.</p>
+          <div class="flex gap-6 font-medium">
+            <a href="#" class="hover:text-slate-600">Derechos del Paciente</a>
+            <a href="#" class="hover:text-slate-600">Privacidad M&eacute;dica</a>
+            <a href="#" class="hover:text-slate-600">Consentimiento</a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PATIENT PORTAL / RESULTS LOOKUP MODAL
+       ============================================================ -->
+  <div id="portal-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative border border-slate-100">
+      <button onclick="closePortalModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="w-12 h-12 rounded-2xl bg-med-blueLight text-med-blue flex items-center justify-center mb-4">
+        <i data-lucide="file-check" class="w-6 h-6"></i>
+      </div>
+      
+      <h3 class="font-heading font-extrabold text-xl text-med-navy mb-1">Consulta de Resultados</h3>
+      <p class="text-xs text-slate-500 mb-6">Ingresa tu n&uacute;mero de c&eacute;dula o c&oacute;digo de orden entregado en laboratorio.</p>
+
+      <form onsubmit="handlePortalSearch(event)" class="space-y-4 text-xs font-medium">
+        <div>
+          <label class="block text-slate-700 font-bold mb-1">C&eacute;dula o Pasaporte</label>
+          <input type="text" required placeholder="Ej: 1-1234-0567" class="w-full bg-slate-50 border border-slate-200 p-3 rounded-xl focus:outline-none focus:border-med-blue">
+        </div>
+        <div>
+          <label class="block text-slate-700 font-bold mb-1">C&oacute;digo de Orden (PIN)</label>
+          <input type="password" required placeholder="PIN de 4 d&iacute;gitos" class="w-full bg-slate-50 border border-slate-200 p-3 rounded-xl focus:outline-none focus:border-med-blue">
+        </div>
+
+        <button type="submit" class="w-full bg-med-blue hover:bg-med-blueDark text-white py-3.5 rounded-xl font-bold transition-colors">
+          Descargar Resultados en PDF
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script>
+    // 1. Init Lucide Icons
+    lucide.createIcons();
+
+    // 2. Dynamic Emergency Wait Time Variation
+    function randomizeWait() {
+      const mins = Math.floor(Math.random() * 4) + 5; // 5 to 8 mins
+      const el = document.getElementById('wait-time');
+      if (el) el.textContent = `${mins} minutos`;
+    }
+    setInterval(randomizeWait, 30000);
+
+    // 3. Mobile Menu Toggle
+    const mobBtn = document.getElementById('mob-btn');
+    const mobMenu = document.getElementById('mob-menu');
+    if (mobBtn && mobMenu) {
+      mobBtn.addEventListener('click', () => {
+        mobMenu.classList.toggle('hidden');
+      });
+      mobMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => mobMenu.classList.add('hidden'));
+      });
+    }
+
+    // 4. Specialty Realtime Search Filter
+    function searchSpecialty() {
+      const q = document.getElementById('spec-search').value.toLowerCase();
+      const cards = document.querySelectorAll('.spec-card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    // 5. Interactive Triage Selector
+    function setTriage(type) {
+      if (type === 'urgencia') {
+        alert('Para Urgencias Mayores: Dirígete de inmediato a la rampa de emergencias o llama al 2222-9111 para despacho de ambulancia.');
+      } else if (type === 'pediatria') {
+        document.getElementById('book-spec').value = 'Pediatría';
+        window.location.hash = 'citas';
+      } else {
+        document.getElementById('book-spec').value = 'Medicina General';
+        window.location.hash = 'citas';
+      }
+    }
+
+    // 6. Insurance Selector Dynamic Feedback
+    function checkInsurance() {
+      const sel = document.getElementById('insurance-select').value;
+      const title = document.getElementById('ins-title');
+      const desc = document.getElementById('ins-desc');
+
+      if (sel === 'ins') {
+        title.textContent = "Convenio INS Médica 100% Directo";
+        desc.textContent = "Sin adelanto de dinero. Copago promedio: 10% - 20% según póliza.";
+      } else if (sel === 'sagicor') {
+        title.textContent = "Sagicor Red Preferente";
+        desc.textContent = "Autorización en línea en 8 minutos en recepción.";
+      } else if (sel === 'palig') {
+        title.textContent = "Pan-American Life Direct";
+        desc.textContent = "Cobertura integral para consultas ambulatorias y laboratorio.";
+      } else if (sel === 'bluecross') {
+        title.textContent = "BlueCross International Direct Billing";
+        desc.textContent = "Aceptación garantizada para turistas y expatriados.";
+      } else {
+        title.textContent = "Red Privada & Descuentos";
+        desc.textContent = "Tarifas institucionales preferentes con hasta 30% de ahorro.";
+      }
+    }
+
+    // 7. Booking Form Submission
+    function handleMedicalBooking(e) {
+      e.preventDefault();
+      alert('¡Cita registrada con éxito! Te hemos enviado un mensaje de confirmación a tu WhatsApp.');
+    }
+
+    // 8. Patient Portal Modal
+    function openPortalModal() {
+      document.getElementById('portal-modal').classList.remove('hidden');
+    }
+    function closePortalModal() {
+      document.getElementById('portal-modal').classList.add('hidden');
+    }
+    function handlePortalSearch(e) {
+      e.preventDefault();
+      alert('Validando credenciales... Tu archivo de resultados PDF se descargará automáticamente.');
+      closePortalModal();
+    }
+
+    // 9. Scroll Reveal Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

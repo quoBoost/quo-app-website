@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GLITCH:2000 &bull; Cyber-Streetwear &amp; Y2K Archive</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Silkscreen (Pixel Retro) + Syne + Space Grotesk + VT323 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&family=VT323&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            y2k: {
+              black:    '#0B0C10',
+              chrome:   '#C5CDD9',
+              chromeDark:'#8A94A6',
+              pink:     '#FF007A', // Fucsia cyber neón
+              pinkGlow: '#FF47A3',
+              cyan:     '#00F0FF', // Cyan eléctrico
+              lime:     '#00FF66', // Matrix Acid Lime
+              purple:   '#7928CA', // Púrpura glitch
+              window:   '#161922', // Fondo ventana OS
+              bar:      '#1F2430',
+              border:   '#363D4E',
+            }
+          },
+          fontFamily: {
+            pixel:   ['"Silkscreen"', 'monospace'],
+            retro:   ['"VT323"', 'monospace'],
+            syne:    ['"Syne"', 'sans-serif'],
+            mono:    ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Retro Y2K Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0B0C10; }
+    ::-webkit-scrollbar-thumb { background: #FF007A; border: 1px solid #00F0FF; }
+    ::-webkit-scrollbar-thumb:hover { background: #00F0FF; }
+
+    /* Scanlines Screen Overlay */
+    .scanlines {
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+      ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.03),
+        rgba(0, 255, 0, 0.01),
+        rgba(0, 0, 255, 0.03)
+      );
+      background-size: 100% 3px, 3px 100%;
+      pointer-events: none;
+    }
+
+    /* Windows 98 / Mac OS 9 Beveled Borders */
+    .y2k-box {
+      border: 2px solid;
+      border-color: #C5CDD9 #363D4E #363D4E #C5CDD9;
+      box-shadow: 4px 4px 0px #000000;
+    }
+    .y2k-box-pink {
+      border: 2px solid;
+      border-color: #FF007A #7928CA #7928CA #FF007A;
+      box-shadow: 4px 4px 0px rgba(255, 0, 122, 0.4);
+    }
+    .y2k-box-cyan {
+      border: 2px solid;
+      border-color: #00F0FF #007A80 #007A80 #00F0FF;
+      box-shadow: 4px 4px 0px rgba(0, 240, 255, 0.4);
+    }
+
+    /* Sticker Tilt */
+    .sticker-pink {
+      background: #FF007A;
+      color: #FFFFFF;
+      box-shadow: 3px 3px 0px #000;
+      transform: rotate(-3deg);
+    }
+    .sticker-lime {
+      background: #00FF66;
+      color: #0B0C10;
+      box-shadow: 3px 3px 0px #000;
+      transform: rotate(2deg);
+    }
+
+    /* Equalizer Bar Animation */
+    @keyframes eq-bounce {
+      0%, 100% { height: 4px; }
+      50% { height: 18px; }
+    }
+    .eq-bar-1 { animation: eq-bounce 0.8s ease infinite 0.1s; }
+    .eq-bar-2 { animation: eq-bounce 0.6s ease infinite 0.2s; }
+    .eq-bar-3 { animation: eq-bounce 0.9s ease infinite 0.3s; }
+    .eq-bar-4 { animation: eq-bounce 0.7s ease infinite 0.15s; }
+
+    /* Cart Drawer Slide */
+    #cart-drawer {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #cart-drawer.closed {
+      transform: translateX(100%);
+    }
+  </style>
+</head>
+<body class="bg-y2k-black text-white font-mono antialiased selection:bg-y2k-pink selection:text-white relative">
+  
+  <!-- CRT Scanlines Background Layer -->
+  <div class="fixed inset-0 scanlines z-40"></div>
+
+  <!-- =========================================================================
+       FLOTANTES TOTALMENTE DIFERENTES:
+       1. WINAMP / MP3 PLAYER CYBER DOCK (Abajo a la Izquierda)
+       2. RETRO OS TASKBAR DOCK (Abajo al Centro)
+       (CERO botones genéricos a la derecha!)
+       ========================================================================= -->
+
+  <!-- 1. Floating Cyber Winamp Player (Bottom-Left) -->
+  <aside aria-label="Cyber MP3 Player" class="fixed bottom-16 sm:bottom-6 left-4 sm:left-6 z-50">
+    <div class="y2k-box-cyan bg-y2k-window/95 backdrop-blur-md p-2.5 rounded-lg w-64 sm:w-72 text-xs">
+      <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-y2k-border">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-y2k-cyan animate-ping"></span>
+          <span class="font-pixel text-[9px] text-y2k-cyan tracking-wider">WINAMP_v2.9.EXE</span>
+        </div>
+        <div class="flex items-center gap-1 text-[9px] font-pixel text-y2k-chromeDark">
+          <span class="cursor-pointer hover:text-white">_</span>
+          <span class="cursor-pointer hover:text-white">&#9633;</span>
+          <span class="cursor-pointer hover:text-y2k-pink">X</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Cassette/CD rotating icon -->
+        <button onclick="toggleAudioTrack()" id="winamp-play-btn" class="w-8 h-8 rounded-lg bg-y2k-pink flex items-center justify-center text-white shadow-md hover:scale-105 transition-transform shrink-0">
+          <i data-lucide="play" id="winamp-icon" class="w-4 h-4 fill-current ml-0.5"></i>
+        </button>
+
+        <div class="overflow-hidden flex-1 leading-tight">
+          <p id="winamp-track" class="font-pixel text-[10px] text-white truncate">01. BREAKBEAT_2000.MP3</p>
+          <p class="text-[9px] text-y2k-lime font-mono">140 BPM &bull; CYBER STEREO [ON]</p>
+        </div>
+
+        <!-- Animated Audio Equalizer Bars -->
+        <div class="flex items-end gap-1 h-5 shrink-0 px-1">
+          <div class="w-1 bg-y2k-cyan eq-bar-1 rounded-sm"></div>
+          <div class="w-1 bg-y2k-pink eq-bar-2 rounded-sm"></div>
+          <div class="w-1 bg-y2k-lime eq-bar-3 rounded-sm"></div>
+          <div class="w-1 bg-y2k-cyan eq-bar-4 rounded-sm"></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 2. Bottom-Center Floating Y2K OS Taskbar -->
+  <nav aria-label="Taskbar OS" class="fixed bottom-0 inset-x-0 z-50 bg-y2k-bar/95 backdrop-blur-md border-t-2 border-y2k-chrome py-1.5 px-4 flex items-center justify-between shadow-2xl">
+    <div class="flex items-center gap-2">
+      <!-- Windows 98 Style [START] Button -->
+      <a href="#drop-09" class="y2k-box bg-y2k-chrome hover:bg-white text-y2k-black px-3 py-1 font-pixel text-xs font-bold flex items-center gap-1.5 cursor-pointer active:translate-y-0.5 transition-all">
+        <div class="w-3 h-3 bg-y2k-pink border border-black"></div>
+        <span>START</span>
+      </a>
+
+      <!-- Quick Toggles -->
+      <div class="hidden sm:flex items-center gap-1 text-[11px] font-pixel text-y2k-chrome px-2 border-l border-y2k-border">
+        <a href="#catalogo" class="px-2 py-0.5 hover:bg-white/10 rounded">SHOP</a>
+        <a href="#fit-lab" class="px-2 py-0.5 hover:bg-white/10 rounded">FIT-LAB</a>
+        <a href="#lookbook" class="px-2 py-0.5 hover:bg-white/10 rounded">LOOKBOOK</a>
+      </div>
+    </div>
+
+    <!-- Center Drop Countdown Ticker -->
+    <div class="hidden md:flex items-center gap-2 font-mono text-xs bg-y2k-black px-3 py-1 border border-y2k-border rounded">
+      <span class="text-y2k-lime font-pixel text-[10px]">DROP #09 TIMER:</span>
+      <span id="taskbar-timer" class="font-bold text-y2k-cyan">04d : 18h : 32m : 14s</span>
+    </div>
+
+    <!-- Right Bag Trigger & Sound FX -->
+    <div class="flex items-center gap-3">
+      <button onclick="toggleCartDrawer()" class="y2k-box-pink bg-y2k-pink text-white px-3 py-1 font-pixel text-xs font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+        <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+        <span>HAUL (<span id="cart-count-badge">0</span>)</span>
+      </button>
+
+      <div class="hidden sm:flex items-center gap-1 text-[10px] font-mono text-y2k-chromeDark bg-y2k-black px-2 py-1 border border-y2k-border">
+        <i data-lucide="volume-2" class="w-3 h-3 text-y2k-lime"></i>
+        <span id="os-clock">23:59 PM</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       RETRO MARQUEE & WINDOW TITLEBAR
+       ========================================================================= -->
+  <div class="bg-y2k-pink text-white py-1.5 px-4 font-pixel text-xs tracking-wider border-b-2 border-black overflow-hidden select-none">
+    <div class="whitespace-nowrap flex animate-marquee">
+      <span class="mx-4">★ GLITCH:2000 ARCHIVE DROP #09 IS LIVE ★</span>
+      <span class="mx-4">FREE WORLDWIDE EXPRESS DISPATCH OVER $120 ★</span>
+      <span class="mx-4">100% HEAVYWEIGHT ACID-WASHED COTTON ★</span>
+      <span class="mx-4">ZERO RESTOCKS EVER ★</span>
+      <span class="mx-4">★ GLITCH:2000 ARCHIVE DROP #09 IS LIVE ★</span>
+      <span class="mx-4">FREE WORLDWIDE EXPRESS DISPATCH OVER $120 ★</span>
+    </div>
+  </div>
+
+  <!-- Top Retro OS Window Header -->
+  <header class="border-b-2 border-y2k-chrome bg-y2k-window px-4 sm:px-8 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-7 h-7 bg-y2k-cyan text-y2k-black font-pixel font-bold flex items-center justify-center text-sm shadow-[2px_2px_0px_#000]">
+        G
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h2 class="font-syne text-xl font-black tracking-wider text-white">GLITCH<span class="text-y2k-pink">:2000</span></h2>
+          <span class="font-pixel text-[9px] text-y2k-lime bg-y2k-black px-1.5 py-0.5 border border-y2k-lime/40">SYS_OK</span>
+        </div>
+        <p class="font-pixel text-[9px] text-y2k-chromeDark tracking-widest hidden sm:block">CYBER-PUNK STREETWEAR ARCHIVE &bull; RELEASE v2.04</p>
+      </div>
+    </div>
+
+    <!-- Window Buttons -->
+    <div class="flex items-center gap-2">
+      <div class="y2k-box bg-y2k-chrome px-2 py-0.5 font-pixel text-xs text-black cursor-default">_</div>
+      <div class="y2k-box bg-y2k-chrome px-2 py-0.5 font-pixel text-xs text-black cursor-default">&#9633;</div>
+      <div class="y2k-box bg-y2k-pink px-2 py-0.5 font-pixel text-xs text-white cursor-pointer hover:bg-rose-600" onclick="alert('System alert: GLITCH:2000 cannot be terminated.')">X</div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO: RETRO CYBER-POP WORKSPACE & 3D TILT CARD
+       ========================================================================= -->
+  <main>
+  <section id="drop-09" class="p-4 sm:p-8 lg:p-12 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      
+      <!-- Left Cyber Window (7 cols) -->
+      <div class="lg:col-span-7 y2k-box bg-y2k-window p-6 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+        
+        <!-- Window Top Bar -->
+        <div class="flex items-center justify-between pb-4 border-b-2 border-y2k-border mb-6">
+          <div class="flex items-center gap-2 font-pixel text-xs text-y2k-cyan">
+            <i data-lucide="terminal" class="w-4 h-4"></i>
+            <span>C:\APPAREL\DROP_09_MANIFESTO.TXT</span>
+          </div>
+          <span class="sticker-pink font-pixel text-[10px] px-2 py-0.5 font-bold">LIMITED 300 PCS</span>
+        </div>
+
+        <div class="space-y-6">
+          <div class="inline-flex items-center gap-2 bg-black/60 border border-y2k-pink/50 px-3 py-1 text-xs font-pixel text-y2k-pink">
+            <span class="w-2 h-2 rounded-full bg-y2k-pink animate-ping"></span>
+            Y2K CYBER-NOSTALGIA &bull; HEAVYWEIGHT 480 GSM
+          </div>
+
+          <h1 class="font-syne text-4xl sm:text-6xl lg:text-7xl font-black uppercase leading-[0.95] tracking-tight text-white">
+            ROPA DE OTRO MILENIO.<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-y2k-pink via-y2k-cyan to-y2k-lime">
+              DIGITAL CHAOS.
+            </span>
+          </h1>
+
+          <p class="font-mono text-y2k-chrome text-sm sm:text-base leading-relaxed max-w-xl">
+            Prendas de siluetas boxy oversized, lavados con ácido, estampados con tinta termocrómica y estética rave de Tokio año 2000. Diseñado para no pasar desapercibido en el mundo real.
+          </p>
+        </div>
+
+        <!-- Quick Interactive Sizing Silhouette Selector -->
+        <div class="mt-8 pt-6 border-t-2 border-y2k-border/60">
+          <span class="font-pixel text-[10px] text-y2k-chromeDark uppercase tracking-wider block mb-3">SELECT FIT SILHOUETTE:</span>
+          
+          <div class="flex flex-wrap gap-3 font-pixel text-xs">
+            <button onclick="setFitStyle('boxy', this)" class="fit-btn active y2k-box-pink bg-y2k-pink text-white px-4 py-2 font-bold transition-all">
+              [1] BOXY OVERSIZE
+            </button>
+            <button onclick="setFitStyle('cropped', this)" class="fit-btn y2k-box bg-y2k-bar text-y2k-chrome hover:text-white px-4 py-2 font-bold transition-all">
+              [2] CYBER CROPPED
+            </button>
+            <button onclick="setFitStyle('flare', this)" class="fit-btn y2k-box bg-y2k-bar text-y2k-chrome hover:text-white px-4 py-2 font-bold transition-all">
+              [3] PARACHUTE FLARE
+            </button>
+          </div>
+          <p id="fit-info-text" class="text-xs text-y2k-lime font-mono mt-3">✓ Corte boxy con hombros caídos y tela rígida de 480 gramos.</p>
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="#catalogo" class="y2k-box-pink bg-y2k-pink hover:bg-white hover:text-black text-white px-8 py-4 font-pixel text-xs font-bold tracking-wider transition-all hover:scale-105">
+            EXPLORAR DROP COMPLETO &darr;
+          </a>
+          <a href="#fit-lab" class="y2k-box bg-y2k-bar hover:bg-y2k-border text-y2k-cyan px-6 py-4 font-pixel text-xs font-bold tracking-wider transition-all">
+            VIRTUAL SIZING LAB
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Cyber Showcase Card (5 cols) -->
+      <div class="lg:col-span-5 y2k-box-pink bg-gradient-to-b from-y2k-window to-black p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group">
+        
+        <!-- Stickers Overlay -->
+        <div class="absolute -top-2 -right-2 z-20">
+          <span class="sticker-lime font-pixel text-xs px-3 py-1 font-black block">
+            BEST SELLER #01
+          </span>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center pb-3 border-b border-y2k-border mb-4 text-xs font-pixel text-y2k-chromeDark">
+            <span>PREVIEW: ARCHIVE_HOODIE.JPG</span>
+            <span class="text-y2k-pink font-bold">$110 USD</span>
+          </div>
+
+          <div class="relative h-80 sm:h-96 rounded-lg overflow-hidden border border-y2k-border group-hover:border-y2k-cyan transition-colors">
+            <img id="hero-showcase-img" 
+                 src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=80&auto=format&fit=crop" 
+                 alt="Cyber Hood Streetwear" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-125">
+            
+            <div class="absolute bottom-3 left-3 bg-black/80 backdrop-blur-md px-3 py-1 rounded border border-white/20 font-pixel text-[10px] text-y2k-cyan">
+              ZOOM: 100% &bull; HEAVY WASH
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-y2k-border flex items-center justify-between">
+          <div>
+            <h3 class="font-syne font-black text-xl text-white">ACID GLITCH HOODIE</h3>
+            <p class="text-xs text-y2k-chrome font-mono">Tallas disponibles: S, M, L, XL</p>
+          </div>
+
+          <button onclick="addToCart('ACID GLITCH HOODIE', 110, 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=300&q=80&auto=format&fit=crop')" class="y2k-box bg-y2k-cyan hover:bg-white text-y2k-black font-pixel text-xs font-bold px-4 py-3 transition-transform hover:scale-105 active:scale-95">
+            + AGREGAR
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       PRODUCT CATALOG: DROP 09 CYBER ARCHIVE (FILTRABLE & CART CONNECTED)
+       ========================================================================= -->
+  <section id="catalogo" class="p-4 sm:p-8 lg:p-12 max-w-7xl mx-auto border-t-2 border-y2k-border">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+      <div>
+        <div class="inline-flex items-center gap-2 text-y2k-cyan font-pixel text-xs mb-2">
+          <i data-lucide="disc" class="w-4 h-4"></i>
+          <span>CATALOG_BROWSER.EXE</span>
+        </div>
+        <h2 class="font-syne text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">
+          COLECCIÓN <span class="text-y2k-pink">DROP #09</span>
+        </h2>
+      </div>
+
+      <!-- Retro Category Tabs -->
+      <div class="flex flex-wrap gap-2 font-pixel text-xs">
+        <button onclick="filterShop('all')" class="shop-tab active y2k-box-pink bg-y2k-pink text-white px-4 py-2 font-bold" data-cat="all">ALL</button>
+        <button onclick="filterShop('hoodie')" class="shop-tab y2k-box bg-y2k-bar text-y2k-chrome hover:text-white px-4 py-2 font-bold" data-cat="hoodie">HOODIES</button>
+        <button onclick="filterShop('pants')" class="shop-tab y2k-box bg-y2k-bar text-y2k-chrome hover:text-white px-4 py-2 font-bold" data-cat="pants">CARGOS</button>
+        <button onclick="filterShop('tees')" class="shop-tab y2k-box bg-y2k-bar text-y2k-chrome hover:text-white px-4 py-2 font-bold" data-cat="tees">BABY TEES</button>
+        <button onclick="filterShop('acc')" class="shop-tab y2k-box bg-y2k-bar text-y2k-chrome hover:text-white px-4 py-2 font-bold" data-cat="acc">ACCESORIOS</button>
+      </div>
+    </div>
+
+    <!-- Product Grid (6 Y2K Streetwear Pieces) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Product 1 -->
+      <article class="shop-item y2k-box bg-y2k-window p-4 flex flex-col justify-between group hover:border-y2k-pink transition-all" data-cat="hoodie">
+        <div>
+          <div class="relative h-72 rounded overflow-hidden border border-y2k-border mb-4">
+            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80&auto=format&fit=crop" 
+                 alt="Cyber Hood" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-2 left-2 sticker-pink font-pixel text-[10px] px-2 py-0.5">HEAVY 480GSM</span>
+          </div>
+
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-syne font-black text-lg text-white">Acid Bleach Cyber Hoodie</h3>
+            <span class="font-pixel text-sm text-y2k-lime font-bold">$110</span>
+          </div>
+          <p class="text-xs text-y2k-chromeDark font-mono mb-4">Algodón pesado cepillado, serigrafía en relieve metalizado.</p>
+        </div>
+
+        <button onclick="addToCart('Acid Bleach Cyber Hoodie', 110, 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=300&q=80&auto=format&fit=crop')" class="w-full y2k-box-pink bg-y2k-pink hover:bg-white hover:text-black text-white font-pixel text-xs py-2.5 font-bold transition-all">
+          AGREGAR A LA BOLSA +
+        </button>
+      </article>
+
+      <!-- Product 2 -->
+      <article class="shop-item y2k-box bg-y2k-window p-4 flex flex-col justify-between group hover:border-y2k-pink transition-all" data-cat="pants">
+        <div>
+          <div class="relative h-72 rounded overflow-hidden border border-y2k-border mb-4">
+            <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=800&q=80&auto=format&fit=crop" 
+                 alt="Parachute Cargo" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-2 left-2 sticker-lime font-pixel text-[10px] px-2 py-0.5">8 POCKETS</span>
+          </div>
+
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-syne font-black text-lg text-white">Multi-Pocket Parachute Cargo</h3>
+            <span class="font-pixel text-sm text-y2k-lime font-bold">$135</span>
+          </div>
+          <p class="text-xs text-y2k-chromeDark font-mono mb-4">Nylon ripstop técnico con correas ajustables y broches plateados.</p>
+        </div>
+
+        <button onclick="addToCart('Multi-Pocket Parachute Cargo', 135, 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=300&q=80&auto=format&fit=crop')" class="w-full y2k-box-pink bg-y2k-pink hover:bg-white hover:text-black text-white font-pixel text-xs py-2.5 font-bold transition-all">
+          AGREGAR A LA BOLSA +
+        </button>
+      </article>
+
+      <!-- Product 3 -->
+      <article class="shop-item y2k-box bg-y2k-window p-4 flex flex-col justify-between group hover:border-y2k-pink transition-all" data-cat="tees">
+        <div>
+          <div class="relative h-72 rounded overflow-hidden border border-y2k-border mb-4">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80&auto=format&fit=crop" 
+                 alt="Baby Tee" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-2 left-2 sticker-pink font-pixel text-[10px] px-2 py-0.5">CROPPED FIT</span>
+          </div>
+
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-syne font-black text-lg text-white">Chrome Butterfly Baby Tee</h3>
+            <span class="font-pixel text-sm text-y2k-lime font-bold">$48</span>
+          </div>
+          <p class="text-xs text-y2k-chromeDark font-mono mb-4">Corte ajustado Y2K de canalé con glitter plateado e icono tribal.</p>
+        </div>
+
+        <button onclick="addToCart('Chrome Butterfly Baby Tee', 48, 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&q=80&auto=format&fit=crop')" class="w-full y2k-box-pink bg-y2k-pink hover:bg-white hover:text-black text-white font-pixel text-xs py-2.5 font-bold transition-all">
+          AGREGAR A LA BOLSA +
+        </button>
+      </article>
+
+      <!-- Product 4 -->
+      <article class="shop-item y2k-box bg-y2k-window p-4 flex flex-col justify-between group hover:border-y2k-pink transition-all" data-cat="hoodie">
+        <div>
+          <div class="relative h-72 rounded overflow-hidden border border-y2k-border mb-4">
+            <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&q=80&auto=format&fit=crop" 
+                 alt="Matrix Puffer" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-2 left-2 sticker-lime font-pixel text-[10px] px-2 py-0.5">CYBER PUFF</span>
+          </div>
+
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-syne font-black text-lg text-white">Cyber Matrix Puffer Vest</h3>
+            <span class="font-pixel text-sm text-y2k-lime font-bold">$160</span>
+          </div>
+          <p class="text-xs text-y2k-chromeDark font-mono mb-4">Chaleco acolchado con efecto charol brillante y cuello alto brutalista.</p>
+        </div>
+
+        <button onclick="addToCart('Cyber Matrix Puffer Vest', 160, 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=300&q=80&auto=format&fit=crop')" class="w-full y2k-box-pink bg-y2k-pink hover:bg-white hover:text-black text-white font-pixel text-xs py-2.5 font-bold transition-all">
+          AGREGAR A LA BOLSA +
+        </button>
+      </article>
+
+      <!-- Product 5 -->
+      <article class="shop-item y2k-box bg-y2k-window p-4 flex flex-col justify-between group hover:border-y2k-pink transition-all" data-cat="tees">
+        <div>
+          <div class="relative h-72 rounded overflow-hidden border border-y2k-border mb-4">
+            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80&auto=format&fit=crop" 
+                 alt="Glitch Longsleeve" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-2 left-2 sticker-pink font-pixel text-[10px] px-2 py-0.5">SHEER MESH</span>
+          </div>
+
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-syne font-black text-lg text-white">Glitch Mesh Longsleeve</h3>
+            <span class="font-pixel text-sm text-y2k-lime font-bold">$65</span>
+          </div>
+          <p class="text-xs text-y2k-chromeDark font-mono mb-4">Camiseta de malla translúcida con estampado cibernético distorsionado.</p>
+        </div>
+
+        <button onclick="addToCart('Glitch Mesh Longsleeve', 65, 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=300&q=80&auto=format&fit=crop')" class="w-full y2k-box-pink bg-y2k-pink hover:bg-white hover:text-black text-white font-pixel text-xs py-2.5 font-bold transition-all">
+          AGREGAR A LA BOLSA +
+        </button>
+      </article>
+
+      <!-- Product 6 -->
+      <article class="shop-item y2k-box bg-y2k-window p-4 flex flex-col justify-between group hover:border-y2k-pink transition-all" data-cat="acc">
+        <div>
+          <div class="relative h-72 rounded overflow-hidden border border-y2k-border mb-4">
+            <img src="https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=800&q=80&auto=format&fit=crop" 
+                 alt="Cyber Shades" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-2 left-2 sticker-lime font-pixel text-[10px] px-2 py-0.5">UV-400 CHROME</span>
+          </div>
+
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-syne font-black text-lg text-white">Silver Star Cyber Wrap Shades</h3>
+            <span class="font-pixel text-sm text-y2k-lime font-bold">$42</span>
+          </div>
+          <p class="text-xs text-y2k-chromeDark font-mono mb-4">Gafas envolventes estilo alien rave con montura plateada de espejo.</p>
+        </div>
+
+        <button onclick="addToCart('Silver Star Cyber Wrap Shades', 42, 'https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=300&q=80&auto=format&fit=crop')" class="w-full y2k-box-pink bg-y2k-pink hover:bg-white hover:text-black text-white font-pixel text-xs py-2.5 font-bold transition-all">
+          AGREGAR A LA BOLSA +
+        </button>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- =========================================================================
+       INTERACTIVE VIRTUAL FIT-LAB (ESTIMADOR DE TALLA Y2K)
+       ========================================================================= -->
+  <section id="fit-lab" class="p-4 sm:p-8 lg:p-12 max-w-5xl mx-auto">
+    <div class="y2k-box-cyan bg-y2k-window p-6 sm:p-10">
+      
+      <div class="flex items-center justify-between pb-3 border-b-2 border-y2k-border mb-6">
+        <div class="flex items-center gap-2 font-pixel text-xs text-y2k-cyan">
+          <i data-lucide="scan" class="w-4 h-4"></i>
+          <span>VIRTUAL_FIT_CALCULATOR_v1.0</span>
+        </div>
+        <span class="font-pixel text-[10px] text-y2k-lime">ALGORITMO BOXY</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-7 space-y-6">
+          <h3 class="font-syne text-2xl sm:text-3xl font-black uppercase text-white">
+            CALCULA TU CAÍDA <span class="text-y2k-cyan">EXACTA</span>
+          </h3>
+          <p class="text-xs text-y2k-chrome font-mono leading-relaxed">
+            Las prendas de GLITCH:2000 están patronadas deliberadamente sobredimensionadas. Usa este simulador para encontrar tu talla perfecta según cómo te guste vestirte:
+          </p>
+
+          <div>
+            <div class="flex justify-between text-xs font-pixel text-y2k-chromeDark mb-2">
+              <span>TU ALTURA ESTIMADA:</span>
+              <strong id="label-height" class="text-y2k-cyan font-mono text-sm">178 cm</strong>
+            </div>
+            <input type="range" id="slider-height" min="150" max="205" value="178" class="w-full" oninput="updateFitRecommendation()">
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-pixel text-y2k-chromeDark mb-2">
+              <span>TU PESO ESTIMADO:</span>
+              <strong id="label-weight" class="text-y2k-pink font-mono text-sm">72 kg</strong>
+            </div>
+            <input type="range" id="slider-weight" min="45" max="120" value="72" class="w-full" oninput="updateFitRecommendation()">
+          </div>
+        </div>
+
+        <div class="md:col-span-5 y2k-box bg-y2k-black p-6 text-center space-y-4">
+          <span class="font-pixel text-[10px] text-y2k-chromeDark block uppercase">TALLA RECOMENDADA</span>
+          <p id="fit-rec-size" class="font-syne text-6xl font-black text-y2k-lime tracking-tight">SIZE L</p>
+          <p id="fit-rec-desc" class="text-xs text-y2k-cyan font-mono border-t border-y2k-border pt-3">
+            Caída Boxy Oversize clásica: hombro caído 4cm y largo a la cadera.
+          </p>
+          <button onclick="alert('Talla L preseleccionada en tu perfil.');" class="w-full y2k-box bg-y2k-cyan text-black font-pixel text-xs py-2 font-bold hover:bg-white transition-colors">
+            BLOQUEAR TALLA
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       RETRO GUESTBOOK & SECRET VAULT PASSCODE
+       ========================================================================= -->
+  <section class="p-4 sm:p-8 lg:p-12 max-w-7xl mx-auto border-t-2 border-y2k-border">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- Guestbook Feedback -->
+      <div class="y2k-box bg-y2k-window p-6 sm:p-8 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-y2k-border mb-4 font-pixel text-xs text-y2k-pink">
+            <span>PUBLIC_GUESTBOOK.TXT</span>
+            <span>(1,482 ENTRIES)</span>
+          </div>
+
+          <h3 class="font-syne text-2xl font-black uppercase text-white mb-4">RAVE COMMUNITY WORDS</h3>
+          
+          <div class="space-y-3 text-xs font-mono">
+            <div class="p-3 bg-y2k-black border border-y2k-border rounded">
+              <p class="text-y2k-lime font-pixel text-[10px] mb-1">&gt; @cyber_lucas &bull; TOKYO, JP</p>
+              <p class="text-y2k-chrome">"El algodón del Acid Hoodie es absurdamente grueso. Se siente como una armadura de club."</p>
+            </div>
+            <div class="p-3 bg-y2k-black border border-y2k-border rounded">
+              <p class="text-y2k-pink font-pixel text-[10px] mb-1">&gt; @maya_matrix &bull; BERLIN, DE</p>
+              <p class="text-y2k-chrome">"Los parachute cargos tienen el fit perfecto de los 2000s. No me los quito para pinchar."</p>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="prompt('Deja tu firma para el Guestbook de GLITCH:2000:'); alert('Firma agregada al servidor.');" class="mt-6 y2k-box bg-y2k-chrome text-black font-pixel text-xs py-2.5 font-bold hover:bg-white transition-colors">
+          FIRMAR GUESTBOOK +
+        </button>
+      </div>
+
+      <!-- Secret Password Vault -->
+      <div class="y2k-box-pink bg-y2k-window p-6 sm:p-8 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-3 border-b border-y2k-border mb-4 font-pixel text-xs text-y2k-lime">
+            <span>SECRET_VAULT_ACCESS.EXE</span>
+            <span>[ENCRYPTED]</span>
+          </div>
+
+          <h3 class="font-syne text-2xl font-black uppercase text-white mb-2">ACCESO ANTICIPADO DROP #10</h3>
+          <p class="text-xs text-y2k-chrome font-mono mb-6 leading-relaxed">
+            Introduce tu correo para recibir la clave de cifrado 24 horas antes del próximo drop público. Solo 100 piezas por prenda.
+          </p>
+
+          <form onsubmit="handleVaultUnlock(event)" class="space-y-4">
+            <input type="email" id="vault-email" required placeholder="tu_correo@rave.com" class="w-full bg-y2k-black border-2 border-y2k-border focus:border-y2k-pink p-3 font-mono text-xs text-white outline-none">
+            <button type="submit" class="w-full y2k-box-pink bg-y2k-pink hover:bg-white hover:text-black text-white font-pixel text-xs py-3 font-bold transition-all">
+              DESBLOQUEAR CLAVE VIP &rarr;
+            </button>
+          </form>
+          <p id="vault-success" class="hidden text-xs text-y2k-lime font-pixel mt-3">✓ CLAVE ASIGNADA: ACCESO CONCEDIDO A SERVIDOR PRIVADO.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       Y2K FOOTER
+       ========================================================================= -->
+  <footer class="border-t-2 border-y2k-border bg-y2k-window p-8 text-center text-xs font-mono text-y2k-chromeDark space-y-4 pb-24">
+    <div class="flex flex-wrap justify-center items-center gap-6 font-pixel text-[11px] text-y2k-chrome">
+      <a href="#drop-09" class="hover:text-y2k-pink">TOP OF PAGE</a>
+      <span>&bull;</span>
+      <a href="#catalogo" class="hover:text-y2k-cyan">ARCHIVE SHOP</a>
+      <span>&bull;</span>
+      <a href="#fit-lab" class="hover:text-y2k-lime">SIZING PROTOCOL</a>
+      <span>&bull;</span>
+      <a href="https://instagram.com" target="_blank" class="hover:text-y2k-pink">INSTAGRAM</a>
+    </div>
+    <p class="font-pixel text-[10px]">&copy; 2000&ndash;2026 GLITCH:2000 APPAREL ARCHIVE. ALL RIGHTS RESERVED. CODED IN RAW HTML/JS.</p>
+  </footer>
+  </main>
+
+  <!-- =========================================================================
+       CART DRAWER LATERAL (INTERACTIVO CON SOUND FX TOGGLE & CHECKOUT)
+       ========================================================================= -->
+  <aside id="cart-drawer" class="closed fixed inset-y-0 right-0 z-50 w-full max-w-md bg-y2k-window border-l-2 border-y2k-pink shadow-2xl p-6 flex flex-col justify-between">
+    <div>
+      <div class="flex items-center justify-between pb-3 border-b-2 border-y2k-border mb-4">
+        <div class="flex items-center gap-2 font-pixel text-sm text-y2k-pink font-bold">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span>YOUR_HAUL.ZIP</span>
+        </div>
+        <button onclick="toggleCartDrawer()" class="y2k-box bg-y2k-bar px-2 py-0.5 text-white font-pixel text-xs hover:bg-y2k-pink">
+          ✕ CLOSE
+        </button>
+      </div>
+
+      <div id="cart-items-container" class="space-y-3 max-h-[60vh] overflow-y-auto pr-1 text-xs">
+        <p id="cart-empty-msg" class="text-y2k-chromeDark font-pixel text-center py-12">
+          TU BOLSA ESTÁ VACÍA.<br>EXPLORA EL DROP Y AGREGA PIEZAS.
+        </p>
+      </div>
+    </div>
+
+    <div class="pt-4 border-t-2 border-y2k-border space-y-3">
+      <div class="flex justify-between items-center font-pixel text-sm">
+        <span class="text-y2k-chrome">SUBTOTAL:</span>
+        <strong id="cart-subtotal" class="text-y2k-lime font-mono text-lg">$0 USD</strong>
+      </div>
+      <p class="text-[10px] text-y2k-chromeDark font-mono">Envío gratis aplicado en pedidos superiores a $120.</p>
+      <button onclick="simulateCheckout()" class="w-full y2k-box-pink bg-y2k-pink hover:bg-white hover:text-black text-white font-pixel text-xs py-3.5 font-bold transition-all">
+        PROCEDER AL PAGO EXPRÉS &rarr;
+      </button>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       JAVASCRIPT AUTÓNOMO (AUDIO, FIT-LAB, CART, SIZING)
+       ========================================================================= -->
+  <script>
+    lucide.createIcons();
+
+    // -------------------------------------------------------------------------
+    // 1. AUDIO WINAMP TRACK SIMULATION
+    // -------------------------------------------------------------------------
+    let isPlayingAudio = false;
+    const winampBtn = document.getElementById('winamp-play-btn');
+    const winampTrack = document.getElementById('winamp-track');
+
+    const tracks = [
+      '01. BREAKBEAT_2000.MP3',
+      '02. CYBER_TEARS_JUNGLE.WAV',
+      '03. MATRIX_CLUB_BANGER.MP3'
+    ];
+    let trackIdx = 0;
+
+    function toggleAudioTrack() {
+      isPlayingAudio = !isPlayingAudio;
+      const icon = document.getElementById('winamp-icon');
+
+      if (isPlayingAudio) {
+        trackIdx = (trackIdx + 1) % tracks.length;
+        winampTrack.textContent = tracks[trackIdx];
+        winampBtn.classList.remove('bg-y2k-pink');
+        winampBtn.classList.add('bg-y2k-lime', 'text-black');
+      } else {
+        winampTrack.textContent = '[PAUSED] ' + tracks[trackIdx];
+        winampBtn.classList.remove('bg-y2k-lime', 'text-black');
+        winampBtn.classList.add('bg-y2k-pink', 'text-white');
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. LIVE TASKBAR CLOCK & COUNTDOWN TIMER
+    // -------------------------------------------------------------------------
+    function updateClock() {
+      const now = new Date();
+      const clockEl = document.getElementById('os-clock');
+      if (clockEl) {
+        clockEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // -------------------------------------------------------------------------
+    // 3. CART SYSTEM & DRAWER
+    // -------------------------------------------------------------------------
+    let cartItems = [];
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartContainer = document.getElementById('cart-items-container');
+    const cartBadge = document.getElementById('cart-count-badge');
+    const cartSubtotal = document.getElementById('cart-subtotal');
+
+    function toggleCartDrawer() {
+      cartDrawer.classList.toggle('closed');
+    }
+
+    function addToCart(title, price, img) {
+      cartItems.push({ title, price, img });
+      updateCartUI();
+      // Open drawer on add
+      cartDrawer.classList.remove('closed');
+    }
+
+    function removeCartItem(idx) {
+      cartItems.splice(idx, 1);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      cartBadge.textContent = cartItems.length;
+
+      if (cartItems.length === 0) {
+        cartContainer.innerHTML = '<p class="text-y2k-chromeDark font-pixel text-center py-12">TU BOLSA ESTÁ VACÍA.<br>EXPLORA EL DROP Y AGREGA PIEZAS.</p>';
+        cartSubtotal.textContent = '$0 USD';
+      } else {
+        let total = 0;
+        cartContainer.innerHTML = cartItems.map((item, i) => {
+          total += item.price;
+          return `
+            <div class="y2k-box bg-y2k-bar p-3 flex items-center justify-between gap-3">
+              <img src="${item.img}" class="w-12 h-12 object-cover rounded border border-y2k-border">
+              <div class="flex-1">
+                <p class="font-syne font-bold text-white leading-tight">${item.title}</p>
+                <p class="font-mono text-y2k-lime font-bold">$${item.price} USD</p>
+              </div>
+              <button onclick="removeCartItem(${i})" class="text-y2k-pink hover:text-white font-pixel text-xs p-1">
+                ✕
+              </button>
+            </div>
+          `;
+        }).join('');
+        cartSubtotal.textContent = `$${total} USD`;
+      }
+    }
+
+    function simulateCheckout() {
+      if (cartItems.length === 0) {
+        alert('Agrega al menos una prenda para continuar al checkout.');
+        return;
+      }
+      alert('¡Redirigiendo a pasarela de pago segura cifrada SSL 128-bit!');
+      cartItems = [];
+      updateCartUI();
+      toggleCartDrawer();
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. CATALOG FILTER
+    // -------------------------------------------------------------------------
+    function filterShop(category) {
+      document.querySelectorAll('.shop-tab').forEach(tab => {
+        if (tab.getAttribute('data-cat') === category) {
+          tab.classList.remove('bg-y2k-bar', 'text-y2k-chrome');
+          tab.classList.add('active', 'y2k-box-pink', 'bg-y2k-pink', 'text-white');
+        } else {
+          tab.classList.remove('active', 'y2k-box-pink', 'bg-y2k-pink', 'text-white');
+          tab.classList.add('bg-y2k-bar', 'text-y2k-chrome');
+        }
+      });
+
+      document.querySelectorAll('.shop-item').forEach(item => {
+        if (category === 'all' || item.getAttribute('data-cat') === category) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. FIT LAB CALCULATOR
+    // -------------------------------------------------------------------------
+    function updateFitRecommendation() {
+      const h = parseInt(document.getElementById('slider-height').value);
+      const w = parseInt(document.getElementById('slider-weight').value);
+
+      document.getElementById('label-height').textContent = h + ' cm';
+      document.getElementById('label-weight').textContent = w + ' kg';
+
+      const sizeEl = document.getElementById('fit-rec-size');
+      const descEl = document.getElementById('fit-rec-desc');
+
+      if (h < 168 && w < 62) {
+        sizeEl.textContent = 'SIZE S';
+        descEl.textContent = 'Caída boxy ligera, hombros proporcionados sin arrastre.';
+      } else if (h < 178 && w < 75) {
+        sizeEl.textContent = 'SIZE M';
+        descEl.textContent = 'Corte oversized balanceado, ideal para layering con camisetas debajo.';
+      } else if (h < 188 && w < 88) {
+        sizeEl.textContent = 'SIZE L';
+        descEl.textContent = 'Caída Boxy Oversize clásica: hombro caído 4cm y largo a la cadera.';
+      } else {
+        sizeEl.textContent = 'SIZE XL';
+        descEl.textContent = 'Extra-boxy callejero con máximo volumen y mangas anchas.';
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 6. SILHOUETTE SELECTOR IN HERO
+    // -------------------------------------------------------------------------
+    function setFitStyle(style, btn) {
+      document.querySelectorAll('.fit-btn').forEach(b => {
+        b.classList.remove('active', 'y2k-box-pink', 'bg-y2k-pink', 'text-white');
+        b.classList.add('bg-y2k-bar', 'text-y2k-chrome');
+      });
+      btn.classList.add('active', 'y2k-box-pink', 'bg-y2k-pink', 'text-white');
+      btn.classList.remove('bg-y2k-bar', 'text-y2k-chrome');
+
+      const info = document.getElementById('fit-info-text');
+      if (style === 'boxy') info.textContent = '✓ Corte boxy con hombros caídos y tela rígida de 480 gramos.';
+      if (style === 'cropped') info.textContent = '✓ Corte recortado a la cintura con elástico interno retro Y2K.';
+      if (style === 'flare') info.textContent = '✓ Pernera ancha con cordones elásticos para ajustar el bajo al calzado.';
+    }
+
+    // -------------------------------------------------------------------------
+    // 7. VAULT UNLOCK FORM
+    // -------------------------------------------------------------------------
+    function handleVaultUnlock(e) {
+      e.preventDefault();
+      document.getElementById('vault-success').classList.remove('hidden');
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Botánica | Odontología Biológica &amp; Bienestar Sensorial</title>
+  <meta name="description" content="Odontología holística libre de metales, tratamientos biocompatibles y una experiencia sensorial libre de ansiedad en un oasis botánico." />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            linen: '#FBF9F5',
+            sand: '#F3EFEA',
+            eucalyptus: '#526657',
+            'eucalyptus-light': '#E8EEE9',
+            terracotta: '#BF664F',
+            'terracotta-soft': '#F7EDE9',
+            charcoal: '#2D312E',
+            bark: '#7B6A58'
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    body {
+      background-color: #FBF9F5;
+      color: #2D312E;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .soft-shadow {
+      box-shadow: 0 20px 40px -15px rgba(82, 102, 87, 0.07);
+    }
+  </style>
+</head>
+<body class="bg-linen selection:bg-terracotta-soft selection:text-terracotta">
+
+  <!-- TOP GENTLE BANNER -->
+  <div class="bg-eucalyptus text-linen text-xs py-2 px-6 text-center font-medium tracking-wide">
+    🌿 Consulta de Primera Vez Sin Ansiedad &middot; Protocolo SMART de remoción biológica certificado
+  </div>
+
+  <!-- SECTION 1: HEADER & NAVIGATION -->
+  <header class="bg-linen/90 backdrop-blur-md sticky top-0 z-40 border-b border-sand">
+    <div class="max-w-6xl mx-auto px-6 h-24 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-eucalyptus-light flex items-center justify-center text-eucalyptus">
+          <i data-lucide="leaf" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="text-2xl font-serif tracking-tight text-charcoal font-medium">Botánica<span class="text-terracotta italic">.</span></span>
+          <span class="block text-[10px] uppercase tracking-widest text-bark">Dental &amp; Wellness Sanctuary</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-charcoal/80">
+        <a href="#filosofia" class="hover:text-terracotta transition-colors">Filosofía</a>
+        <a href="#confort" class="hover:text-terracotta transition-colors">Menú Sensorial</a>
+        <a href="#test" class="hover:text-terracotta transition-colors">Test de Ansiedad</a>
+        <a href="#tratamientos" class="hover:text-terracotta transition-colors">Tratamientos Biológicos</a>
+        <a href="#espacio" class="hover:text-terracotta transition-colors">El Santuario</a>
+      </nav>
+
+      <a href="#agendar" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-terracotta hover:bg-terracotta/90 text-white text-xs font-semibold uppercase tracking-wider transition-all shadow-md shadow-terracotta/20">
+        <i data-lucide="calendar" class="w-4 h-4"></i> Agendar Cita Serena
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 2: HERO WELLNESS BOTANICAL -->
+    <section class="py-16 md:py-24 overflow-hidden">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7 space-y-8">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-eucalyptus-light text-eucalyptus text-xs font-semibold tracking-wide">
+              <span>🌸</span> ODONTOLOGÍA SIN MIEDO, SIN DOLOR, SIN METALES
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl font-serif font-normal text-charcoal leading-[1.15]">
+              El cuidado dental pensado como una sesión de <span class="italic text-terracotta font-serif">serenidad pura.</span>
+            </h1>
+
+            <p class="text-charcoal/70 text-base sm:text-lg leading-relaxed max-w-xl font-light">
+              Reimaginamos la experiencia dental desde la raíz: ambientes con aromaterapia orgánica, música binaural relajante, mantas ponderadas y odontología biocompatible que respeta el equilibrio natural de tu cuerpo.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <a href="#test" class="px-8 py-4 rounded-full bg-eucalyptus text-white font-medium text-sm flex items-center gap-2 hover:bg-eucalyptus/90 shadow-lg shadow-eucalyptus/20 transition-all">
+                Realizar Test de Confort Sensorial <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <a href="#confort" class="px-6 py-4 rounded-full bg-sand text-charcoal font-medium text-sm hover:bg-sand/80 transition-all">
+                Ver Menú Sensorial
+              </a>
+            </div>
+
+            <div class="pt-8 border-t border-sand flex items-center gap-8 text-xs text-bark font-medium">
+              <span class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-eucalyptus"></i> 100% Cerámica Libre de Metal</span>
+              <span class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-eucalyptus"></i> Certificación IAOMT SMART</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 relative">
+            <div class="relative rounded-[2.5rem] overflow-hidden bg-sand p-3 soft-shadow">
+              <div class="rounded-[2rem] overflow-hidden aspect-[4/5]">
+                <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&auto=format&fit=crop&q=80" alt="Santuario Dental Botánica" class="w-full h-full object-cover" />
+              </div>
+              <div class="absolute -bottom-4 -left-4 bg-white p-5 rounded-2xl shadow-xl border border-sand max-w-xs">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-terracotta-soft text-terracotta flex items-center justify-center font-serif text-lg font-bold">
+                    98%
+                  </div>
+                  <p class="text-xs text-charcoal/80 leading-snug">
+                    De nuestros pacientes con fobia dental aseguran haber sentido <strong>cero ansiedad</strong> durante su cita.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: SENSORY COMFORT RITUAL MENU -->
+    <section id="confort" class="py-24 bg-sand/60 border-y border-sand">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs uppercase tracking-widest text-terracotta font-semibold">Bienestar Holístico</span>
+          <h2 class="text-3xl sm:text-4xl font-serif text-charcoal mt-2">Menú de Confort Sensorial</h2>
+          <p class="text-charcoal/70 text-sm mt-3 font-light">
+            Personaliza cada detalle antes de tu tratamiento. Todos estos servicios son gratuitos e integrados en tu visita.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="p-8 rounded-3xl bg-white border border-sand soft-shadow hover:-translate-y-1 transition-all">
+            <div class="w-12 h-12 rounded-2xl bg-eucalyptus-light text-eucalyptus flex items-center justify-center mb-6">
+              <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-serif text-xl font-medium text-charcoal mb-2">Aromaterapia Orgánica</h3>
+            <p class="text-charcoal/70 text-xs leading-relaxed">
+              Difusión suave de aceites esenciales de lavanda francesa, bergamota y cedro que reducen el pulso cardíaco de forma natural.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-white border border-sand soft-shadow hover:-translate-y-1 transition-all">
+            <div class="w-12 h-12 rounded-2xl bg-terracotta-soft text-terracotta flex items-center justify-center mb-6">
+              <i data-lucide="headphones" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-serif text-xl font-medium text-charcoal mb-2">Audio Binaural Noise-Canceling</h3>
+            <p class="text-charcoal/70 text-xs leading-relaxed">
+              Auriculares Bose con cancelación activa de sonido. Elige entre frecuencias terapéuticas de 432Hz o sonidos de lluvia en bosque.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-white border border-sand soft-shadow hover:-translate-y-1 transition-all">
+            <div class="w-12 h-12 rounded-2xl bg-eucalyptus-light text-eucalyptus flex items-center justify-center mb-6">
+              <i data-lucide="feather" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-serif text-xl font-medium text-charcoal mb-2">Mantas Ponderadas de Bambú</h3>
+            <p class="text-charcoal/70 text-xs leading-relaxed">
+              Presión táctil profunda que estimula la liberación de serotonina y calma instantáneamente el sistema nervioso simpático.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-white border border-sand soft-shadow hover:-translate-y-1 transition-all">
+            <div class="w-12 h-12 rounded-2xl bg-terracotta-soft text-terracotta flex items-center justify-center mb-6">
+              <i data-lucide="coffee" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-serif text-xl font-medium text-charcoal mb-2">Infusiones Adaptógenas</h3>
+            <p class="text-charcoal/70 text-xs leading-relaxed">
+              Barra de té botánico con manzanilla silvestre, pasiflora, melisa y ashwagandha servida en vajilla de gres artesanal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: INTERACTIVE DENTAL PHOBIA & COMFORT QUIZ -->
+    <section id="test" class="py-24 bg-linen">
+      <div class="max-w-3xl mx-auto px-6">
+        <div class="p-8 sm:p-12 rounded-3xl bg-white border border-sand soft-shadow">
+          <div class="text-center mb-8">
+            <span class="text-xs uppercase tracking-widest text-eucalyptus font-semibold">Test Rápido Interactivo</span>
+            <h2 class="text-2xl sm:text-3xl font-serif text-charcoal mt-1">¿Cómo te sientes al visitar al dentista?</h2>
+            <p class="text-charcoal/70 text-xs sm:text-sm mt-2 font-light">Responde con sinceridad. Adaptaremos todo el entorno para tu paz mental.</p>
+          </div>
+
+          <div id="quiz-box" class="space-y-6">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal mb-3">1. ¿Qué nivel de inquietud sientes al pensar en un tratamiento dental?</label>
+              <div class="grid grid-cols-3 gap-3">
+                <button type="button" onclick="setQuizAnswer(1, 'leve')" class="quiz-btn-1 py-3 px-4 rounded-xl border border-sand bg-linen hover:border-eucalyptus text-xs font-medium text-charcoal transition-all">Tranquilo/a</button>
+                <button type="button" onclick="setQuizAnswer(1, 'moderado')" class="quiz-btn-1 py-3 px-4 rounded-xl border border-sand bg-linen hover:border-eucalyptus text-xs font-medium text-charcoal transition-all">Algo nervioso/a</button>
+                <button type="button" onclick="setQuizAnswer(1, 'alto')" class="quiz-btn-1 py-3 px-4 rounded-xl border border-sand bg-linen hover:border-eucalyptus text-xs font-medium text-charcoal transition-all">Mucha ansiedad</button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal mb-3">2. ¿Qué estímulo te genera mayor incomodidad?</label>
+              <div class="grid grid-cols-3 gap-3">
+                <button type="button" onclick="setQuizAnswer(2, 'sonido')" class="quiz-btn-2 py-3 px-4 rounded-xl border border-sand bg-linen hover:border-eucalyptus text-xs font-medium text-charcoal transition-all">El sonido clínico</button>
+                <button type="button" onclick="setQuizAnswer(2, 'agujas')" class="quiz-btn-2 py-3 px-4 rounded-xl border border-sand bg-linen hover:border-eucalyptus text-xs font-medium text-charcoal transition-all">La anestesia / aguja</button>
+                <button type="button" onclick="setQuizAnswer(2, 'olor')" class="quiz-btn-2 py-3 px-4 rounded-xl border border-sand bg-linen hover:border-eucalyptus text-xs font-medium text-charcoal transition-all">El olor a hospital</button>
+              </div>
+            </div>
+
+            <div id="quiz-result" class="hidden p-6 rounded-2xl bg-eucalyptus-light/60 border border-eucalyptus/30 text-center space-y-3">
+              <span class="inline-block text-2xl">🌿</span>
+              <h4 class="font-serif text-lg font-bold text-eucalyptus" id="result-title">Recomendación Personalizada</h4>
+              <p class="text-charcoal/80 text-xs leading-relaxed" id="result-desc"></p>
+              <a href="#agendar" class="inline-block mt-2 px-6 py-2.5 rounded-full bg-eucalyptus text-white text-xs font-medium">Reservar Cita con este Protocolo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: BIOLOGICAL DENTISTRY TREATMENTS -->
+    <section id="tratamientos" class="py-24 bg-sand/40 border-t border-sand">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs uppercase tracking-widest text-terracotta font-semibold">Salud Sistémica</span>
+          <h2 class="text-3xl sm:text-4xl font-serif text-charcoal mt-2">Tratamientos Biológicos</h2>
+          <p class="text-charcoal/70 text-sm mt-3 font-light">Procedimientos biocompatibles que cuidan tu boca y benefician a todo tu organismo.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="p-8 rounded-3xl bg-white border border-sand">
+            <span class="text-terracotta font-serif text-2xl font-bold">01</span>
+            <h3 class="font-serif text-xl font-medium text-charcoal mt-4 mb-3">Extracción Segura SMART (IAOMT)</h3>
+            <p class="text-charcoal/70 text-xs leading-relaxed">
+              Retiro de amalgamas metálicas de mercurio bajo protocolo de aislamiento absoluto, aspiración con presión negativa y quelación biológica.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-white border border-sand">
+            <span class="text-terracotta font-serif text-2xl font-bold">02</span>
+            <h3 class="font-serif text-xl font-medium text-charcoal mt-4 mb-3">Coronas de Zirconia Libre de Metal</h3>
+            <p class="text-charcoal/70 text-xs leading-relaxed">
+              Restauraciones 100% cerámicas que previenen alergias galvánicas y pigmentaciones oscuras en la encía, con estética de diente natural.
+            </p>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-white border border-sand">
+            <span class="text-terracotta font-serif text-2xl font-bold">03</span>
+            <h3 class="font-serif text-xl font-medium text-charcoal mt-4 mb-3">Terapia Biológica con Ozonoterapia</h3>
+            <p class="text-charcoal/70 text-xs leading-relaxed">
+              Desinfección profunda de bolsas periodontales y conductos con ozono médico puro que regenera tejidos sin fármacos agresivos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: THE SANCTUARY SPACE -->
+    <section id="espacio" class="py-24 bg-linen">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-eucalyptus font-semibold">Arquitectura Terapéutica</span>
+            <h2 class="text-3xl sm:text-4xl font-serif text-charcoal mt-2">Un oasis botánico en medio de la ciudad</h2>
+            <p class="text-charcoal/70 text-sm sm:text-base leading-relaxed mt-4 font-light">
+              Diseñado con maderas certificadas, jardines interiores de helechos y luz solar difusa. En Botánica no hay salas de espera frías ni batas intimidantes; solo un entorno cálido que te invita a soltar las tensiones.
+            </p>
+            <div class="mt-8 space-y-3">
+              <div class="flex items-center gap-3 text-xs text-charcoal font-medium">
+                <i data-lucide="sun" class="w-4 h-4 text-terracotta"></i> Luz natural y ventilación bioclimática con filtros HEPA grado médico
+              </div>
+              <div class="flex items-center gap-3 text-xs text-charcoal font-medium">
+                <i data-lucide="heart" class="w-4 h-4 text-terracotta"></i> Sesión preliminar de respiración guiada previa a cualquier procedimiento
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&auto=format&fit=crop&q=80" alt="Consultorio Zen" class="rounded-2xl h-64 w-full object-cover" />
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&auto=format&fit=crop&q=80" alt="Jardín Interior Botánica" class="rounded-2xl h-64 w-full object-cover mt-6" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: CALM BOOKING CONCIERGE -->
+    <section id="agendar" class="py-24 bg-eucalyptus text-linen">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <span class="text-xs uppercase tracking-widest text-terracotta-soft font-semibold">Tu Momento de Paz</span>
+        <h2 class="text-3xl sm:text-4xl font-serif text-white mt-2">Permítenos cuidar de tu sonrisa</h2>
+        <p class="text-linen/80 text-xs sm:text-sm mt-3 font-light">Agenda tu cita de valoración serena. Cero juicios, cero prisas.</p>
+
+        <form class="mt-10 p-8 sm:p-12 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 text-left space-y-6" onsubmit="event.preventDefault(); alert('Cita serena solicitada. Nos contactaremos con calidez para coordinar tu llegada.');">
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs text-linen/90 mb-2">Tu Nombre Completo *</label>
+              <input type="text" required placeholder="Elena Mora" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus:border-white" />
+            </div>
+            <div>
+              <label class="block text-xs text-linen/90 mb-2">WhatsApp de Contacto *</label>
+              <input type="tel" required placeholder="+506 8800-1122" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus:border-white" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-linen/90 mb-2">Preferencia Sensorial Principal</label>
+            <select class="w-full bg-eucalyptus border border-white/20 rounded-xl px-4 py-3 text-sm text-white focus:outline-none">
+              <option>Aromaterapia de Lavanda + Manta con Peso</option>
+              <option>Audio Binaural con Cancelación de Ruido</option>
+              <option>Anestesia sin aguja con pre-sedación botánica</option>
+              <option>Solo valoración visual conversada (sin instrumental)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-full bg-terracotta hover:bg-terracotta/90 text-white font-serif font-medium text-base shadow-xl transition-all">
+            Solicitar Cita de Bienestar
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-charcoal text-sand/60 py-12 text-xs">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <span class="font-serif text-base text-linen">Botánica Odontología Biológica</span>
+        <span>&middot; © 2026</span>
+      </div>
+      <div>Barrio Dent, San José &middot; Enfoque Biológico &amp; Libre de Ansiedad</div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    let answers = { 1: null, 2: null };
+
+    function setQuizAnswer(q, val) {
+      answers[q] = val;
+      document.querySelectorAll('.quiz-btn-' + q).forEach(btn => {
+        btn.classList.remove('bg-eucalyptus', 'text-white', 'border-eucalyptus');
+        btn.classList.add('bg-linen', 'text-charcoal');
+      });
+      event.currentTarget.classList.add('bg-eucalyptus', 'text-white', 'border-eucalyptus');
+      event.currentTarget.classList.remove('bg-linen', 'text-charcoal');
+
+      if(answers[1] && answers[2]) {
+        const box = document.getElementById('quiz-result');
+        const title = document.getElementById('result-title');
+        const desc = document.getElementById('result-desc');
+        box.classList.remove('hidden');
+
+        if(answers[1] === 'alto') {
+          title.textContent = 'Protocolo Calm Profundo Activado';
+          desc.textContent = 'Recomendamos iniciar con infusión calmante de pasiflora, manta ponderada de 7kg y sesión previa de aromaterapia antes de sentarte en el sillón.';
+        } else {
+          title.textContent = 'Protocolo Bienestar Botánico';
+          desc.textContent = 'Tu experiencia incluirá auriculares noise-canceling con frecuencias armónicas de 432Hz y odontología bio-mínimamente invasiva.';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

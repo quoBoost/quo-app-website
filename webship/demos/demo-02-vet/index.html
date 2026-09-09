@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetCare | Clínica Veterinaria & Spa</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316', // Orange
+              600: '#ea580c',
+              900: '#431407', 
+              purple: '#6366f1', // Purple
+              purpleDark: '#4f46e5',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Nunito', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    
+    .capsule-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 237, 213, 0.5);
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+    }
+    
+    .bento-img { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .bento-card:hover .bento-img { transform: scale(1.05); }
+    
+    
+    @keyframes bounce-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float { animation: bounce-slow 4s ease-in-out infinite; }
+    
+    @keyframes wag {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(15deg); }
+      75% { transform: rotate(-15deg); }
+    }
+    .wag-hover:hover i { animation: wag 0.5s ease-in-out infinite; }
+
+    /* FAQ Accordion dynamic styles */
+    details > summary { list-style: none; cursor: pointer; }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open] summary ~ * { animation: slideDown 0.3s ease-in-out; }
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Gallery Hover */
+    .gallery-img { transition: transform 0.6s ease; }
+    .gallery-item:hover .gallery-img { transform: scale(1.1); }
+  </style>
+</head>
+<body class="font-sans text-slate-600 bg-white antialiased selection:bg-brand-100 selection:text-brand-900 overflow-x-hidden">
+
+  <!-- CAPSULE NAVBAR -->
+  <div class="fixed top-4 left-0 w-full z-50 px-4 md:px-8 pointer-events-none flex justify-center">
+    <header class="capsule-nav pointer-events-auto w-full max-w-5xl h-16 px-2 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 wag-hover ml-2">
+        <div class="w-10 h-10 bg-brand-500 text-white rounded-full flex items-center justify-center transform -rotate-12 shadow-sm">
+          <i data-lucide="paw-print" class="w-5 h-5"></i>
+        </div>
+        <span class="font-heading font-black text-xl text-slate-800 tracking-tight hidden sm:block">Pet<span class="text-brand-500">Care</span></span>
+      </a>
+      
+      <nav class="hidden md:flex items-center bg-slate-50/50 rounded-full px-6 py-2 border border-slate-100">
+        <a href="#filosofia" class="text-xs uppercase tracking-widest font-black text-slate-500 hover:text-brand-500 transition-colors mx-4">Nosotros</a>
+        <a href="#servicios" class="text-xs uppercase tracking-widest font-black text-slate-500 hover:text-brand-500 transition-colors mx-4">Servicios</a>
+        <a href="#planes" class="text-xs uppercase tracking-widest font-black text-slate-500 hover:text-brand-500 transition-colors mx-4">Planes</a>
+        <a href="#faq" class="text-xs uppercase tracking-widest font-black text-slate-500 hover:text-brand-500 transition-colors mx-4">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href="#contacto" class="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-full text-sm font-black transition-transform hover:scale-105 shadow-md">
+          Agendar <span class="hidden sm:inline">Cita</span>
+        </a>
+      </div>
+    </header>
+  </div>
+
+  <main>
+    <!-- 1. HERO -->
+    <section class="pt-40 pb-16 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmVkZDUiLz48L3N2Zz4=')]">
+      <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-brand-100 text-brand-600 font-black text-xs uppercase tracking-wider mb-6 shadow-sm border border-brand-200 animate-float">
+          <i data-lucide="award" class="w-4 h-4"></i> Cl&iacute;nica Top Rated 2025
+        </div>
+        <h1 class="font-heading text-5xl md:text-[5rem] font-black text-slate-800 leading-[1.05] mb-6 tracking-tight">
+          La salud de tu mascota, <span class="text-brand-500 relative inline-block">nuestra pasi&oacute;n.<svg class="absolute -bottom-2 left-0 w-full text-brand-purple" viewBox="0 0 100 20" preserveAspectRatio="none" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round"><path d="M0 10 Q 50 20 100 5"></path></svg></span>
+        </h1>
+        <p class="text-xl text-slate-600 mb-10 leading-relaxed font-medium max-w-2xl mx-auto">
+          Atenci&oacute;n veterinaria premium 24/7 sin estr&eacute;s, sin jaulas fr&iacute;as y con toneladas de amor, premios y profesionalismo.
+        </p>
+        <div class="flex flex-wrap justify-center items-center gap-4">
+          <a href="https://wa.me/50600000000" class="bg-brand-500 text-white px-8 py-4 rounded-full font-black text-lg shadow-[0_10px_25px_rgba(249,115,22,0.4)] hover:bg-brand-600 hover:-translate-y-1 transition-all duration-300 flex items-center gap-2">
+            Mensaje al WhatsApp <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Bento Grid Visuals -->
+      <div class="max-w-7xl mx-auto px-6 mt-20 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[450px]">
+          <div class="md:col-span-8 bg-brand-100 rounded-[2.5rem] overflow-hidden bento-card relative shadow-lg h-[300px] md:h-full">
+            <img src="https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover bento-img" alt="Veterinaria con Perro">
+            <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-sm p-3 rounded-2xl flex items-center gap-3 shadow-lg transform -rotate-3">
+              <span class="text-2xl">&hearts;</span>
+              <div>
+                <p class="font-black text-slate-800 text-sm leading-tight">Manejo</p>
+                <p class="text-xs text-brand-500 font-bold">Cat-friendly</p>
+              </div>
+            </div>
+          </div>
+          <div class="md:col-span-4 flex flex-col gap-6 h-[500px] md:h-full">
+            <div class="h-1/2 bg-purple-100 rounded-[2.5rem] overflow-hidden bento-card relative shadow-lg">
+              <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover bento-img" alt="Perrito en Spa">
+            </div>
+            <div class="h-1/2 bg-brand-purple text-white rounded-[2.5rem] p-8 flex flex-col justify-center items-start shadow-lg relative overflow-hidden group">
+              <i data-lucide="ambulance" class="absolute -right-4 -bottom-4 w-32 h-32 text-white opacity-10 transform group-hover:scale-110 transition-transform duration-500"></i>
+              <div class="w-12 h-12 bg-white text-brand-purple rounded-full flex items-center justify-center mb-4"><i data-lucide="phone-call" class="w-6 h-6"></i></div>
+              <h3 class="font-heading font-black text-2xl mb-1">Emergencias 24/7</h3>
+              <p class="font-medium text-purple-100 text-sm">Equipo de guardia siempre disponible.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. BRANDS MARQUEE -->
+    <section class="border-y border-slate-100 bg-white py-6 overflow-hidden">
+      <div class="flex items-center gap-16 opacity-40 grayscale whitespace-nowrap px-6 font-heading font-black text-2xl text-slate-500 animate-[marquee_20s_linear_infinite]">
+        <span>ROYAL CANIN</span> <span>&bull;</span>
+        <span>PRO PLAN</span> <span>&bull;</span>
+        <span>BRAVECTO</span> <span>&bull;</span>
+        <span>ZOETIS</span> <span>&bull;</span>
+        <span>HILL'S</span> <span>&bull;</span>
+        <span>ROYAL CANIN</span> <span>&bull;</span>
+        <span>PRO PLAN</span> <span>&bull;</span>
+      </div>
+    </section>
+
+    <!-- 3. EMPATHY LAYOUT -->
+    <section id="filosofia" class="py-24 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-5">
+            <span class="text-brand-purple font-black tracking-widest uppercase text-xs mb-3 block">Nuestra Filosof&iacute;a</span>
+            <h2 class="font-heading text-4xl lg:text-5xl font-black text-slate-800 mb-6 leading-tight">M&aacute;s premios, menos estr&eacute;s.</h2>
+            <p class="text-lg text-slate-600 leading-relaxed mb-8 font-medium">
+              Ir al veterinario no deber&iacute;a ser una pesadilla. Hemos reemplazado las fr&iacute;as mesas de acero y el olor a qu&iacute;micos por espacios c&aacute;lidos, feromonas relajantes y veterinarios que se tiran al piso a jugar antes de revisar a tu mascota.
+            </p>
+          </div>
+          <div class="lg:col-span-7 grid sm:grid-cols-2 gap-6">
+            <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-brand-100 transform sm:translate-y-8 transition-transform hover:-translate-y-2 duration-300">
+              <div class="w-14 h-14 bg-brand-50 text-brand-500 rounded-full flex items-center justify-center mb-6"><i data-lucide="microscope" class="w-6 h-6"></i></div>
+              <h3 class="font-heading font-black text-xl text-slate-800 mb-3">Laboratorio R&aacute;pido</h3>
+              <p class="text-slate-600 text-sm leading-relaxed font-medium">Ex&aacute;menes de sangre listos en 15 minutos mientras esperas tomando caf&eacute;.</p>
+            </div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-purple-100 transition-transform hover:-translate-y-2 duration-300">
+              <div class="w-14 h-14 bg-purple-50 text-brand-purple rounded-full flex items-center justify-center mb-6"><i data-lucide="activity" class="w-6 h-6"></i></div>
+              <h3 class="font-heading font-black text-xl text-slate-800 mb-3">Quir&oacute;fano Avanzado</h3>
+              <p class="text-slate-600 text-sm leading-relaxed font-medium">Anestesia inhalatoria segura y cirujanos especialistas en tejidos blandos y huesos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SPECIALTIES GRID -->
+    <section id="servicios" class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <h2 class="font-heading text-4xl md:text-5xl font-black text-slate-800 mb-4">M&uacute;ltiples Especialidades</h2>
+          <p class="text-slate-600 font-medium text-lg">Todo lo que tu mascota necesita, en un solo lugar.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Card 1: Medicina Preventiva -->
+          <div class="group relative h-[420px] rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80" alt="Consulta" class="absolute inset-0 w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent group-hover:from-brand-600/95 group-hover:via-brand-600/70 transition-colors duration-500"></div>
+            
+            <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end text-white z-10">
+              <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                <i data-lucide="stethoscope" class="w-6 h-6 text-white"></i>
+              </div>
+              <h3 class="font-heading text-2xl font-black mb-2">Medicina Preventiva</h3>
+              <p class="text-white/90 text-sm font-medium leading-relaxed max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+                Vacunaci&oacute;n, desparasitaci&oacute;n y chequeos anuales para cachorros y adultos.
+              </p>
+              <div class="pt-3 flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white/90 group-hover:text-white">
+                <span>Conocer m&aacute;s</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Cirugía Especializada -->
+          <div class="group relative h-[420px] rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=800&q=80" alt="Cirugía" class="absolute inset-0 w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent group-hover:from-indigo-600/95 group-hover:via-indigo-600/70 transition-colors duration-500"></div>
+            
+            <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end text-white z-10">
+              <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                <i data-lucide="activity" class="w-6 h-6 text-white"></i>
+              </div>
+              <h3 class="font-heading text-2xl font-black mb-2">Cirug&iacute;a Especializada</h3>
+              <p class="text-white/90 text-sm font-medium leading-relaxed max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+                Quir&oacute;fano est&eacute;ril para esterilizaciones, traumatolog&iacute;a y cirug&iacute;as complejas.
+              </p>
+              <div class="pt-3 flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white/90 group-hover:text-white">
+                <span>Conocer m&aacute;s</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Spa & Grooming -->
+          <div class="group relative h-[420px] rounded-[2.5rem] overflow-hidden shadow-lg border border-slate-100 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=800&q=80" alt="Spa" class="absolute inset-0 w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent group-hover:from-pink-600/95 group-hover:via-pink-600/70 transition-colors duration-500"></div>
+            
+            <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end text-white z-10">
+              <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                <i data-lucide="scissors" class="w-6 h-6 text-white"></i>
+              </div>
+              <h3 class="font-heading text-2xl font-black mb-2">Spa &amp; Grooming</h3>
+              <p class="text-white/90 text-sm font-medium leading-relaxed max-h-0 opacity-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+                Ba&ntilde;os medicados, cortes de raza y masajes relajantes sin uso de sedantes.
+              </p>
+              <div class="pt-3 flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white/90 group-hover:text-white">
+                <span>Conocer m&aacute;s</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW SECTION 1: PLANES PREVENTIVOS (Dynamic Tabs) -->
+    <section id="planes" class="py-24 bg-brand-50 border-t border-brand-100">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="font-heading text-4xl md:text-5xl font-black text-slate-800 mb-4">Planes Preventivos</h2>
+          <p class="text-slate-600 font-medium text-lg">Ahorra en salud anual. Selecciona la especie de tu mascota:</p>
+        </div>
+        
+        <!-- Dynamic Tabs Controls -->
+        <div class="flex justify-center mb-12">
+          <div class="bg-white p-1 rounded-full shadow-sm flex items-center border border-slate-200">
+            <button onclick="switchTab('perros')" id="btn-perros" class="px-8 py-3 rounded-full text-sm font-black transition-colors bg-brand-500 text-white shadow-md">Para Perros <i data-lucide="dog" class="inline w-4 h-4 ml-1"></i></button>
+            <button onclick="switchTab('gatos')" id="btn-gatos" class="px-8 py-3 rounded-full text-sm font-black transition-colors text-slate-500 hover:text-brand-500">Para Gatos <i data-lucide="cat" class="inline w-4 h-4 ml-1"></i></button>
+          </div>
+        </div>
+
+        <!-- Perros Content -->
+        <div id="tab-perros" class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-brand-100 relative hover:-translate-y-2 transition-transform">
+            <h3 class="font-heading font-black text-2xl text-slate-800">Cachorro Plus</h3>
+            <p class="text-brand-500 font-black text-3xl my-4">$25<span class="text-sm text-slate-400 font-medium">/mes</span></p>
+            <ul class="space-y-3 mb-8 text-sm font-medium text-slate-600">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-emerald-500 w-4 h-4"></i> Todas las vacunas iniciales</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-emerald-500 w-4 h-4"></i> Desparasitaci&oacute;n mensual</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-emerald-500 w-4 h-4"></i> 3 consultas pedi&aacute;tricas</li>
+            </ul>
+            <button class="w-full bg-brand-50 text-brand-600 py-3 rounded-full font-black hover:bg-brand-100 transition-colors">Contratar</button>
+          </div>
+          <div class="bg-brand-500 p-8 rounded-[2rem] shadow-xl border border-brand-400 relative hover:-translate-y-2 transition-transform transform scale-105 z-10">
+            <div class="absolute top-0 right-8 bg-brand-purple text-white px-3 py-1 rounded-b-lg text-xs font-black tracking-widest">M&Aacute;S POPULAR</div>
+            <h3 class="font-heading font-black text-2xl text-white">Adulto Activo</h3>
+            <p class="text-white font-black text-4xl my-4">$35<span class="text-sm text-brand-100 font-medium">/mes</span></p>
+            <ul class="space-y-3 mb-8 text-sm font-medium text-white">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-brand-100 w-4 h-4"></i> Vacunas de refuerzo anuales</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-brand-100 w-4 h-4"></i> Limpieza dental profil&aacute;ctica</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-brand-100 w-4 h-4"></i> Perfil de sangre anual</li>
+            </ul>
+            <button class="w-full bg-white text-brand-500 py-3 rounded-full font-black hover:bg-slate-50 transition-colors shadow-sm">Contratar</button>
+          </div>
+          <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-brand-100 relative hover:-translate-y-2 transition-transform">
+            <h3 class="font-heading font-black text-2xl text-slate-800">Senior Care</h3>
+            <p class="text-brand-500 font-black text-3xl my-4">$45<span class="text-sm text-slate-400 font-medium">/mes</span></p>
+            <ul class="space-y-3 mb-8 text-sm font-medium text-slate-600">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-emerald-500 w-4 h-4"></i> Consultas geri&aacute;tricas ilimitadas</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-emerald-500 w-4 h-4"></i> Ecocardiograma anual</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-emerald-500 w-4 h-4"></i> Rayos X y perfil renal</li>
+            </ul>
+            <button class="w-full bg-brand-50 text-brand-600 py-3 rounded-full font-black hover:bg-brand-100 transition-colors">Contratar</button>
+          </div>
+        </div>
+
+        <!-- Gatos Content (Hidden by default) -->
+        <div id="tab-gatos" class="grid md:grid-cols-2 gap-8 hidden max-w-4xl mx-auto">
+          <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-brand-100 relative hover:-translate-y-2 transition-transform">
+            <h3 class="font-heading font-black text-2xl text-slate-800">Gatito Indoor</h3>
+            <p class="text-brand-purple font-black text-3xl my-4">$20<span class="text-sm text-slate-400 font-medium">/mes</span></p>
+            <ul class="space-y-3 mb-8 text-sm font-medium text-slate-600">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-emerald-500 w-4 h-4"></i> Vacunas Triple Felina y Leucemia</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-emerald-500 w-4 h-4"></i> Test de Leucemia/SIDA</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-emerald-500 w-4 h-4"></i> Desparasitaci&oacute;n en pipeta</li>
+            </ul>
+            <button class="w-full bg-purple-50 text-brand-purple py-3 rounded-full font-black hover:bg-purple-100 transition-colors">Contratar</button>
+          </div>
+          <div class="bg-brand-purple p-8 rounded-[2rem] shadow-xl border border-brand-purpleDark relative hover:-translate-y-2 transition-transform">
+            <div class="absolute top-0 right-8 bg-brand-500 text-white px-3 py-1 rounded-b-lg text-xs font-black tracking-widest">M&Aacute;S POPULAR</div>
+            <h3 class="font-heading font-black text-2xl text-white">Gato Adulto</h3>
+            <p class="text-white font-black text-4xl my-4">$30<span class="text-sm text-purple-200 font-medium">/mes</span></p>
+            <ul class="space-y-3 mb-8 text-sm font-medium text-white">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-purple-200 w-4 h-4"></i> Perfil renal y tiroideo anual</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-purple-200 w-4 h-4"></i> Limpieza dental bajo anestesia segura</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="text-purple-200 w-4 h-4"></i> Refuerzos anuales</li>
+            </ul>
+            <button class="w-full bg-white text-brand-purple py-3 rounded-full font-black hover:bg-slate-50 transition-colors">Contratar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW SECTION 2: INSTALACIONES (Interactive Gallery) -->
+    <section class="py-24 bg-white border-t border-slate-100">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+          <div>
+            <h2 class="font-heading text-4xl font-black text-slate-800 mb-2">Conoce el hospital</h2>
+            <p class="text-slate-600 font-medium">Instalaciones de primer mundo, dise&ntilde;adas para su confort.</p>
+          </div>
+          <a href="#" class="text-brand-500 font-black hover:text-brand-600 flex items-center gap-2">Ver tour virtual <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <!-- Masonry layout style using spans -->
+          <div class="col-span-2 row-span-2 gallery-item overflow-hidden rounded-[2rem] relative h-[300px] md:h-[450px]">
+            <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800&q=80" class="gallery-img absolute inset-0 w-full h-full object-cover" alt="Sala de espera">
+            <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-black shadow-lg">Recepci&oacute;n</div>
+          </div>
+          <div class="gallery-item overflow-hidden rounded-[2rem] relative h-[150px] md:h-[215px]">
+            <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=400&q=80" class="gallery-img absolute inset-0 w-full h-full object-cover" alt="Quirófano">
+            <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-black shadow-lg">Quir&oacute;fano</div>
+          </div>
+          <div class="gallery-item overflow-hidden rounded-[2rem] relative h-[150px] md:h-[215px]">
+            <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=400&q=80" class="gallery-img absolute inset-0 w-full h-full object-cover" alt="Spa">
+            <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-black shadow-lg">Spa Area</div>
+          </div>
+          <div class="col-span-2 gallery-item overflow-hidden rounded-[2rem] relative h-[150px] md:h-[215px]">
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80" class="gallery-img absolute inset-0 w-full h-full object-cover" alt="Parque de juegos">
+            <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-black shadow-lg">&Aacute;rea de Juegos</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW SECTION 3: PREGUNTAS FRECUENTES (Dynamic Accordion) -->
+    <section id="faq" class="py-24 bg-brand-50 border-t border-brand-100">
+      <div class="max-w-3xl mx-auto px-6">
+        <div class="text-center mb-12">
+          <i data-lucide="help-circle" class="w-12 h-12 text-brand-500 mx-auto mb-4"></i>
+          <h2 class="font-heading text-4xl font-black text-slate-800 mb-4">Preguntas Frecuentes</h2>
+          <p class="text-slate-600 font-medium">Resolvemos tus dudas antes de que nos visites.</p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Item 1 -->
+          <details class="bg-white rounded-2xl shadow-sm border border-brand-100 overflow-hidden group">
+            <summary class="px-6 py-5 font-black text-slate-800 flex justify-between items-center outline-none">
+              &iquest;Qu&eacute; hago si tengo una emergencia en la madrugada?
+              <i data-lucide="chevron-down" class="w-5 h-5 text-brand-500 transition-transform group-open:rotate-180"></i>
+            </summary>
+            <div class="px-6 pb-6 pt-2 text-slate-600 text-sm leading-relaxed font-medium">
+              Solo toma tu tel&eacute;fono y ll&aacute;manos al 2222-0000. No importa si son las 3:00 AM, siempre hay un m&eacute;dico veterinario y un t&eacute;cnico en las instalaciones listos para recibirte por la puerta de emergencias.
+            </div>
+          </details>
+          <!-- Item 2 -->
+          <details class="bg-white rounded-2xl shadow-sm border border-brand-100 overflow-hidden group">
+            <summary class="px-6 py-5 font-black text-slate-800 flex justify-between items-center outline-none">
+              &iquest;Aceptan seguros para mascotas o facilidades de pago?
+              <i data-lucide="chevron-down" class="w-5 h-5 text-brand-500 transition-transform group-open:rotate-180"></i>
+            </summary>
+            <div class="px-6 pb-6 pt-2 text-slate-600 text-sm leading-relaxed font-medium">
+              ¡S&iacute;! Aceptamos seguros como Sagicor Pets y Mapfre. Adem&aacute;s, para cirug&iacute;as mayores ofrecemos financiamiento Tasa Cero a 3 y 6 meses con tarjetas BAC Credomatic.
+            </div>
+          </details>
+          <!-- Item 3 -->
+          <details class="bg-white rounded-2xl shadow-sm border border-brand-100 overflow-hidden group">
+            <summary class="px-6 py-5 font-black text-slate-800 flex justify-between items-center outline-none">
+              &iquest;A qu&eacute; edad recomiendan castrar a un perro o gato?
+              <i data-lucide="chevron-down" class="w-5 h-5 text-brand-500 transition-transform group-open:rotate-180"></i>
+            </summary>
+            <div class="px-6 pb-6 pt-2 text-slate-600 text-sm leading-relaxed font-medium">
+              Generalmente recomendamos entre los 6 y 8 meses de edad para prevenir c&aacute;ncer y problemas de comportamiento, pero depende mucho de la raza. Agenda una consulta y evaluaremos el caso espec&iacute;fico de tu mascota.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCTOR & TEAM -->
+    <section id="equipo" class="py-16 bg-white border-y border-slate-100">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row items-center gap-12 bg-slate-50 p-8 md:p-12 rounded-[3rem] shadow-sm relative overflow-hidden border border-brand-100">
+          <i data-lucide="heart" class="absolute -right-10 -bottom-10 w-64 h-64 text-brand-100 opacity-30"></i>
+          <div class="relative shrink-0">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&q=80" alt="Dra. Laura" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-8 border-brand-100 z-10 relative">
+            <div class="absolute -bottom-4 -right-4 bg-brand-500 text-white w-16 h-16 rounded-full flex items-center justify-center font-black text-xl border-4 border-white z-20 shadow-lg transform rotate-12">Vet</div>
+          </div>
+          <div class="relative z-10 text-center lg:text-left">
+            <span class="text-brand-500 font-black tracking-widest uppercase text-xs mb-2 block">Directora M&eacute;dica</span>
+            <h2 class="font-heading text-3xl md:text-4xl font-black text-slate-800 mb-4">Dra. Laura G&oacute;mez</h2>
+            <p class="text-slate-600 font-medium text-lg leading-relaxed mb-6 max-w-2xl">
+              "Para m&iacute;, cada paciente tiene nombre, personalidad y una familia que lo ama. Nuestro equipo est&aacute; entrenado no solo en medicina veterinaria avanzada, sino en empat&iacute;a y cari&ntilde;o."
+            </p>
+            <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+              <span class="inline-flex items-center gap-2 bg-white text-slate-700 px-4 py-2 rounded-full text-sm font-bold shadow-sm"><i data-lucide="graduation-cap" class="w-4 h-4 text-brand-purple"></i> Esp. Medicina Interna</span>
+              <span class="inline-flex items-center gap-2 bg-white text-slate-700 px-4 py-2 rounded-full text-sm font-bold shadow-sm"><i data-lucide="cat" class="w-4 h-4 text-brand-500"></i> Certificada Cat-Friendly</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MASSIVE QUOTE TESTIMONIAL -->
+    <section class="py-32 bg-white text-center">
+      <div class="max-w-4xl mx-auto px-6">
+        <i data-lucide="quote" class="w-16 h-16 text-brand-100 mx-auto mb-8 fill-brand-100"></i>
+        <h2 class="font-heading text-3xl md:text-4xl font-black text-slate-800 leading-tight mb-12">
+          "Salvaron a mi perrito Toby de un virus grav&iacute;simo. Se quedaron con &eacute;l toda la madrugada cuid&aacute;ndolo. Son unos verdaderos &aacute;ngeles."
+        </h2>
+        <div class="flex flex-col items-center justify-center">
+          <div class="flex -space-x-4 mb-4">
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=100&q=80" class="w-16 h-16 rounded-full border-4 border-white object-cover shadow-lg relative z-20" alt="Toby">
+            <div class="w-12 h-12 rounded-full border-4 border-white bg-slate-200 opacity-60 mt-2 object-cover relative z-10"></div>
+          </div>
+          <p class="font-black text-slate-800 text-lg">Mar&iacute;a & Toby</p>
+          <p class="text-sm text-brand-500 font-bold">Rese&ntilde;a en Google (5 estrellas)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section id="contacto" class="py-24 bg-brand-500 text-white text-center relative overflow-hidden">
+      <i data-lucide="paw-print" class="absolute top-10 left-10 w-32 h-32 text-brand-600 opacity-50 transform -rotate-12"></i>
+      <i data-lucide="bone" class="absolute bottom-10 right-10 w-40 h-40 text-brand-600 opacity-50 transform rotate-45"></i>
+      <div class="max-w-4xl mx-auto px-6 relative z-10">
+        <h2 class="font-heading text-4xl md:text-5xl font-black mb-8 tracking-tighter">Haz que tu mascota mueva la cola.</h2>
+        <p class="text-xl text-brand-50 mb-10 max-w-2xl mx-auto font-medium">
+          Agenda hoy una revisi&oacute;n general y dale a tu mejor amigo la salud y felicidad que necesita para acompa&ntilde;arte muchos a&ntilde;os m&aacute;s.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="https://wa.me/50600000000" class="bg-white text-brand-600 px-10 py-5 rounded-full font-black text-lg shadow-xl hover:bg-slate-50 hover:scale-105 hover:-rotate-2 transition-all flex items-center gap-2">
+            Escribir por WhatsApp <i data-lucide="message-circle" class="w-5 h-5"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEGA FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 pt-24 pb-8 relative overflow-hidden">
+      <!-- Decoración de fondo sutil -->
+      <i data-lucide="bone" class="absolute -top-10 -right-10 w-64 h-64 text-slate-800 opacity-20 transform rotate-45"></i>
+      
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        
+        <!-- Newsletter Box -->
+        <div class="bg-brand-500 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 mb-20 shadow-2xl relative overflow-hidden">
+          <i data-lucide="paw-print" class="absolute -bottom-6 -left-6 w-32 h-32 text-brand-600 opacity-30 transform -rotate-12"></i>
+          <div class="relative z-10 text-center md:text-left">
+            <h3 class="font-heading text-3xl font-black text-white mb-2">&Uacute;nete al Club PetCare</h3>
+            <p class="text-brand-50 font-medium max-w-md">Recibe tips semanales de salud, recordatorios de vacunas y descuentos exclusivos en el Spa.</p>
+          </div>
+          <form class="relative z-10 w-full md:w-auto flex flex-col sm:flex-row gap-2 max-w-md">
+            <input type="email" placeholder="Tu correo..." class="w-full px-6 py-4 rounded-full bg-white text-slate-800 focus:outline-none focus:ring-4 focus:ring-brand-300 font-medium">
+            <button type="submit" class="bg-slate-900 text-white px-8 py-4 rounded-full font-black hover:bg-slate-800 transition-colors shadow-lg mt-2 sm:mt-0">Suscribirme</button>
+          </form>
+        </div>
+
+        <!-- 4 Columns -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+          
+          <!-- Col 1 -->
+          <div>
+            <div class="flex items-center gap-2 text-white transform -rotate-2 mb-6 w-max">
+              <div class="w-10 h-10 bg-brand-500 rounded-full flex items-center justify-center"><i data-lucide="paw-print" class="w-5 h-5"></i></div>
+              <span class="font-heading font-black text-3xl tracking-tight">Pet<span class="text-brand-500">Care</span></span>
+            </div>
+            <p class="text-sm leading-relaxed mb-8 font-medium text-slate-400">
+              Transformando la medicina veterinaria con tecnolog&iacute;a de punta y toneladas de amor. Porque ellos merecen lo mejor.
+            </p>
+            <div class="flex gap-3">
+               <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:bg-brand-500 transition-all hover:-translate-y-1"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+               <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:bg-brand-500 transition-all hover:-translate-y-1"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+               <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:bg-brand-500 transition-all hover:-translate-y-1"><i data-lucide="youtube" class="w-4 h-4"></i></a>
+            </div>
+          </div>
+
+          <!-- Col 2 -->
+          <div>
+            <h4 class="font-heading font-black text-white text-lg mb-6">Nuestros Servicios</h4>
+            <ul class="space-y-4 text-sm font-medium">
+              <li><a href="#" class="hover:text-brand-500 transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-brand-500"></i> Medicina Preventiva</a></li>
+              <li><a href="#" class="hover:text-brand-500 transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-brand-500"></i> Cirug&iacute;a Especializada</a></li>
+              <li><a href="#" class="hover:text-brand-500 transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-brand-500"></i> Spa & Grooming</a></li>
+              <li><a href="#" class="hover:text-brand-500 transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-brand-500"></i> Laboratorio 3D</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3 -->
+          <div>
+            <h4 class="font-heading font-black text-white text-lg mb-6">Enlaces R&aacute;pidos</h4>
+            <ul class="space-y-4 text-sm font-medium">
+              <li><a href="#filosofia" class="hover:text-white transition-colors">Nosotros</a></li>
+              <li><a href="#planes" class="hover:text-white transition-colors">Planes de Salud</a></li>
+              <li><a href="#faq" class="hover:text-white transition-colors">Preguntas Frecuentes</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Trabaja con Nosotros</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 4 -->
+          <div>
+            <h4 class="font-heading font-black text-white text-lg mb-6">Contacto</h4>
+            <ul class="space-y-4 text-sm font-medium">
+              <li class="flex items-start gap-3">
+                <i data-lucide="map-pin" class="w-5 h-5 text-brand-500 shrink-0"></i>
+                <span>Plaza Las Mascotas, Local 4.<br>Escaz&uacute;, Costa Rica.</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <i data-lucide="phone" class="w-5 h-5 text-brand-500 shrink-0"></i>
+                <a href="tel:+50622220000" class="hover:text-white transition-colors">+506 2222-0000</a>
+              </li>
+              <li class="flex items-start gap-3 pt-4 border-t border-slate-800 mt-4">
+                <i data-lucide="clock" class="w-5 h-5 text-brand-500 shrink-0"></i>
+                <div>
+                  <p class="text-white font-bold mb-1">Lun - Vie: 8:00 AM - 7:00 PM</p>
+                  <p class="text-xs text-brand-400 font-bold uppercase tracking-wider">Emergencias 24/7</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Bottom -->
+        <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium">
+          <p>&copy; 2025 PetCare Veterinaria. Dise&ntilde;ado con <i data-lucide="heart" class="inline w-3 h-3 text-brand-500 fill-brand-500"></i> para peludos.</p>
+          <div class="flex flex-wrap justify-center gap-6">
+            <a href="#" class="hover:text-white transition-colors">Privacidad</a>
+            <a href="#" class="hover:text-white transition-colors">T&eacute;rminos</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <style>
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+  <script>
+    lucide.createIcons();
+
+    // Lógica dinámica para los TABS de Planes Preventivos
+    function switchTab(tabName) {
+      // Ocultar todos los tabs
+      document.getElementById('tab-perros').classList.add('hidden');
+      document.getElementById('tab-gatos').classList.add('hidden');
+      
+      // Restablecer estilos de botones (grises)
+      document.getElementById('btn-perros').className = "px-8 py-3 rounded-full text-sm font-black transition-colors text-slate-500 hover:text-brand-500";
+      document.getElementById('btn-gatos').className = "px-8 py-3 rounded-full text-sm font-black transition-colors text-slate-500 hover:text-brand-500";
+      
+      // Mostrar tab seleccionado y aplicar estilos activos
+      if(tabName === 'perros') {
+        document.getElementById('tab-perros').classList.remove('hidden');
+        document.getElementById('btn-perros').className = "px-8 py-3 rounded-full text-sm font-black transition-colors bg-brand-500 text-white shadow-md";
+      } else {
+        document.getElementById('tab-gatos').classList.remove('hidden');
+        document.getElementById('btn-gatos').className = "px-8 py-3 rounded-full text-sm font-black transition-colors bg-brand-purple text-white shadow-md";
+      }
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

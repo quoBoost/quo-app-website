@@ -1,0 +1,99 @@
+/* === Interactive Modern Styles === */
+html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
+
+/* GSAP Pre-hide */
+.reveal-up { visibility: hidden; }
+
+/* Image Hover Zoom Extremo */
+.img-zoom-container { overflow: hidden; border-radius: 1.5rem; }
+.img-zoom-container img { transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease; }
+.img-zoom-container:hover img { transform: scale(1.1); filter: brightness(1.05); }
+
+/* FAQ Accordion */
+.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.87, 0, 0.13, 1); }
+.faq-item.active .faq-content { max-height: 500px; }
+.faq-icon { transition: transform 0.5s cubic-bezier(0.87, 0, 0.13, 1); }
+.faq-item.active .faq-icon { transform: rotate(180deg); }
+
+/* Mobile Menu */
+#mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+#mobile-menu.open { max-height: 100vh; }
+
+/* WhatsApp Pulse */
+@keyframes wa-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+  60% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+}
+#wa-float { animation: wa-pulse 2.5s infinite; }
+
+/* NEW: Infinite Auto-Scroll Marquee */
+.marquee-container {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+.marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 100%;
+  animation: marquee 25s linear infinite;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* NEW: Card Hover Glow & Float */
+.interactive-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.interactive-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(2, 132, 199, 0.08);
+  border-color: rgba(2, 132, 199, 0.3);
+}
+.interactive-card:hover i {
+  transform: scale(1.2) rotate(5deg);
+  transition: transform 0.4s ease;
+}
+
+/* NEW: Magnetic Button Glow */
+.magnetic-btn {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+.magnetic-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 150%; height: 150%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+.magnetic-btn:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Parallax Wrapper */
+.parallax-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.parallax-bg {
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 100%;
+  height: 140%;
+  object-fit: cover;
+  will-change: transform;
+}

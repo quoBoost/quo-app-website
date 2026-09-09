@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HappyPaws Vet &amp; Resort — Veterinaria &amp; Hotel de Mascotas</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pawYellow: '#FBBF24',
+            pawOrange: '#F97316',
+            pawCoral: '#FB7185',
+            pawMint: '#34D399',
+            pawDark: '#1E1B2E',
+            pawBg: '#FFFDF9'
+          },
+          fontFamily: {
+            display: ['Fredoka', 'Quicksand', 'sans-serif'],
+            sans: ['Quicksand', 'system-ui', 'sans-serif']
+          },
+          borderRadius: {
+            '4xl': '2rem',
+            '5xl': '2.5rem'
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body { font-family: 'Quicksand', sans-serif; background: #FFFDF9; color: #1E1B2E; overflow-x: hidden; }
+    h1, h2, h3, h4, .font-fun { font-family: 'Fredoka', sans-serif; }
+    @keyframes bouncePaw { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(4deg); } }
+    .animate-paw-bounce { animation: bouncePaw 3s ease-in-out infinite; }
+    @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    .animate-wiggle { animation: wiggle 2s ease-in-out infinite; }
+    @keyframes pulseGlow { 0%, 100% { box-shadow: 0 8px 25px rgba(249, 115, 22, 0.4); } 50% { box-shadow: 0 12px 35px rgba(249, 115, 22, 0.7); } }
+    .btn-wa-float { animation: pulseGlow 2.5s infinite; }
+  </style>
+</head>
+<body class="selection:bg-pawOrange selection:text-white">
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <aside class="bg-gradient-to-r from-pawOrange via-pawCoral to-pawYellow text-white text-xs sm:text-sm font-bold py-2.5 px-4 text-center flex items-center justify-center gap-2 shadow-sm">
+    <span>🐾</span>
+    <span>¡Urgencias y Hospital 24/7 en Curridabat &amp; Escazú! Ambulancia y Pet-Taxi:</span>
+    <a href="tel:+50622007297" class="underline hover:text-white/90 font-extrabold ml-1">2200-PAWS (7297)</a>
+  </aside>
+
+  <!-- NAVBAR JUGUETONA -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b-2 border-amber-100">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 bg-pawOrange text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-pawOrange/30 group-hover:rotate-12 transition-transform duration-300">🐶</div>
+        <div>
+          <span class="font-fun text-2xl font-bold tracking-tight text-pawDark flex items-center gap-1">
+            Happy<span class="text-pawOrange">Paws</span><span class="text-pawMint text-3xl leading-none">.</span>
+          </span>
+          <span class="block text-[11px] font-bold uppercase tracking-widest text-amber-600 -mt-1">Vet &amp; Pet Resort CR</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-bold text-gray-700">
+        <a href="#servicios" class="hover:text-pawOrange transition-colors">Servicios</a>
+        <a href="#calculadora" class="hover:text-pawOrange transition-colors flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-pawMint animate-ping"></span>
+          Calculadora de Edad
+        </a>
+        <a href="#equipo" class="hover:text-pawOrange transition-colors">Nuestro Equipo</a>
+        <a href="#testimonios" class="hover:text-pawOrange transition-colors">Familias Felices</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/50663152104?text=Hola%20HappyPaws%2C%20quiero%20agendar%20una%20cita" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-pawOrange hover:bg-orange-600 text-white font-fun font-bold px-6 py-3 rounded-full shadow-md shadow-pawOrange/30 hover:scale-105 active:scale-95 transition-all text-base">
+          <i data-lucide="calendar-heart" class="w-5 h-5"></i>
+          <span>Agendar con Mimo</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1. HERO SECTION JUGUETÓN -->
+  <section class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden bg-gradient-to-b from-amber-50/70 via-white to-orange-50/40">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 text-xs sm:text-sm font-bold px-4 py-2 rounded-full border border-amber-300 animate-paw-bounce">
+          <span>✨</span>
+          <span>Atención Veterinaria Sin Estrés &middot; Certificación Fear-Free</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-pawDark leading-[1.15]">
+          Amor, mimos y <span class="text-transparent bg-clip-text bg-gradient-to-r from-pawOrange via-pawCoral to-amber-500">medicina experta</span> para colitas felices.
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-600 font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          En HappyPaws cuidamos de tus perros, gatos y exóticos sin jaulas frías ni batas que asusten. Vacunación, spa con masajes y hotel campestre con amor de verdad.
+        </p>
+
+        <!-- Selector rápido de tipo de mascota -->
+        <div class="p-4 bg-white rounded-3xl border-2 border-amber-200 shadow-xl shadow-amber-900/5 max-w-md mx-auto lg:mx-0">
+          <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">¿A quién vamos a consentir hoy?</p>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="selectPetTab('perro')" id="pet-btn-perro" class="pet-tab-btn active py-2.5 px-3 rounded-2xl bg-amber-100 text-amber-900 font-fun font-bold text-sm flex items-center justify-center gap-1.5 transition-all">
+              <span>🐶</span> Perro
+            </button>
+            <button onclick="selectPetTab('gato')" id="pet-btn-gato" class="pet-tab-btn py-2.5 px-3 rounded-2xl bg-gray-50 text-gray-600 hover:bg-amber-50 font-fun font-bold text-sm flex items-center justify-center gap-1.5 transition-all">
+              <span>🐱</span> Gato
+            </button>
+            <button onclick="selectPetTab('exotico')" id="pet-btn-exotico" class="pet-tab-btn py-2.5 px-3 rounded-2xl bg-gray-50 text-gray-600 hover:bg-amber-50 font-fun font-bold text-sm flex items-center justify-center gap-1.5 transition-all">
+              <span>🐰</span> Exótico
+            </button>
+          </div>
+          <div id="pet-tab-text" class="text-xs font-semibold text-pawOrange mt-3 flex items-center gap-1.5 justify-center lg:justify-start">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>¡Gabinete canino con premios deliciosos y juguetes anti-ansiedad!</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+          <a href="https://wa.me/50663152104?text=Hola%20HappyPaws%2C%20quiero%20agendar%20una%20cita" target="_blank" class="inline-flex items-center justify-center gap-2 bg-pawOrange hover:bg-orange-600 text-white font-fun font-bold text-lg px-8 py-4 rounded-full shadow-lg shadow-pawOrange/35 hover:-translate-y-1 transition-all">
+            <i data-lucide="message-circle" class="w-5 h-5"></i>
+            <span>Agendar Cita por WhatsApp</span>
+          </a>
+          <a href="#servicios" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-amber-50 text-pawDark font-fun font-bold text-lg px-8 py-4 rounded-full border-2 border-amber-200 transition-all">
+            <span>Ver Servicios</span>
+            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 relative">
+        <div class="relative mx-auto max-w-md">
+          <div class="bg-gradient-to-tr from-pawOrange via-amber-300 to-pawMint p-3 rounded-[3rem] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div class="rounded-[2.5rem] overflow-hidden bg-white">
+              <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=900&auto=format&fit=crop&q=80" alt="Veterinaria jugando con perro feliz" class="w-full h-[460px] object-cover hover:scale-105 transition-transform duration-700">
+            </div>
+          </div>
+          <div class="absolute -top-6 -left-6 bg-white border-2 border-pawYellow rounded-2xl p-4 shadow-xl flex items-center gap-3 animate-wiggle">
+            <div class="w-11 h-11 bg-pawYellow/20 rounded-xl flex items-center justify-center text-2xl">🦴</div>
+            <div>
+              <p class="font-fun text-sm font-bold text-gray-900 leading-tight">100% Cero Miedo</p>
+              <p class="text-xs text-gray-500 font-semibold">Premios &amp; mimos incluidos</p>
+            </div>
+          </div>
+          <div class="absolute -bottom-6 -right-4 bg-white border-2 border-pawMint rounded-2xl p-4 shadow-xl flex items-center gap-3">
+            <div class="w-11 h-11 bg-pawMint/20 rounded-xl flex items-center justify-center text-2xl">🏆</div>
+            <div>
+              <p class="font-fun text-sm font-bold text-gray-900 leading-tight">+14,000 Pacientes</p>
+              <p class="text-xs text-emerald-600 font-bold">4.9 ★ en Google Maps</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. TRUST STATS BAR -->
+  <section class="py-12 bg-pawDark text-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="p-4">
+        <span class="text-3xl sm:text-4xl font-fun font-bold text-pawYellow block mb-1">15+ Años</span>
+        <span class="text-sm text-gray-300 font-semibold">Cuidando peluditos en Costa Rica</span>
+      </div>
+      <div class="p-4">
+        <span class="text-3xl sm:text-4xl font-fun font-bold text-pawMint block mb-1">24 / 7</span>
+        <span class="text-sm text-gray-300 font-semibold">Guardia médica de emergencias</span>
+      </div>
+      <div class="p-4">
+        <span class="text-3xl sm:text-4xl font-fun font-bold text-pawCoral block mb-1">0 Jaulas</span>
+        <span class="text-sm text-gray-300 font-semibold">Suites abiertas y áreas verdes</span>
+      </div>
+      <div class="p-4">
+        <span class="text-3xl sm:text-4xl font-fun font-bold text-pawOrange block mb-1">100%</span>
+        <span class="text-sm text-gray-300 font-semibold">Amor y dedicación garantizada</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SERVICIOS JUGUETONES (BENTO GRID COLORIDO) -->
+  <section id="servicios" class="py-24 bg-white relative">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="inline-block bg-pawCoral/10 text-pawCoral text-sm font-fun font-bold px-4 py-1.5 rounded-full border border-pawCoral/20">
+          Servicios con Mucho Amor 🩺
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-pawDark">
+          Todo lo que tu mascota necesita para estar sana y feliz.
+        </h2>
+        <p class="text-gray-600 font-medium">Equipos de vanguardia, médicos con vocación y un ambiente alegre sin olores agresivos.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-amber-50/60 rounded-4xl p-8 border-2 border-amber-200/80 hover:shadow-xl hover:-translate-y-2 transition-all group">
+          <div class="w-16 h-16 rounded-3xl bg-pawYellow/30 text-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">🩺</div>
+          <h3 class="font-fun text-2xl font-bold text-pawDark mb-3">Consulta &amp; Preventiva</h3>
+          <p class="text-gray-600 font-medium leading-relaxed mb-6">Chequeos completos, esquemas de vacunación, ecografía digital y planes nutricionales para cada etapa de vida.</p>
+          <ul class="space-y-2 text-sm font-bold text-gray-700">
+            <li class="flex items-center gap-2"><span>🐾</span> Vacunación con carnet digital</li>
+            <li class="flex items-center gap-2"><span>🐾</span> Control de peso y nutrición</li>
+            <li class="flex items-center gap-2"><span>🐾</span> Odontología profiláctica suave</li>
+          </ul>
+        </div>
+
+        <div class="bg-emerald-50/60 rounded-4xl p-8 border-2 border-emerald-200/80 hover:shadow-xl hover:-translate-y-2 transition-all group">
+          <div class="w-16 h-16 rounded-3xl bg-pawMint/30 text-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">🛁</div>
+          <h3 class="font-fun text-2xl font-bold text-pawDark mb-3">Spa &amp; Peluquería Canina</h3>
+          <p class="text-gray-600 font-medium leading-relaxed mb-6">Baño terapéutico con champú orgánico de avena, secador insonorizado anti-susto y corte estilizado de raza.</p>
+          <ul class="space-y-2 text-sm font-bold text-gray-700">
+            <li class="flex items-center gap-2"><span>🐾</span> Turbinas de aire silenciosas</li>
+            <li class="flex items-center gap-2"><span>🐾</span> Deslanado y corte estético</li>
+            <li class="flex items-center gap-2"><span>🐾</span> Masaje relajante con lavanda</li>
+          </ul>
+        </div>
+
+        <div class="bg-rose-50/60 rounded-4xl p-8 border-2 border-rose-200/80 hover:shadow-xl hover:-translate-y-2 transition-all group">
+          <div class="w-16 h-16 rounded-3xl bg-pawCoral/30 text-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">🏨</div>
+          <h3 class="font-fun text-2xl font-bold text-pawDark mb-3">Hotel &amp; Daycare Campestre</h3>
+          <p class="text-gray-600 font-medium leading-relaxed mb-6">Cero jaulas. Habitaciones privadas con camas ortopédicas, cámara web HD en vivo para los tutores y áreas de pasto para correr.</p>
+          <ul class="space-y-2 text-sm font-bold text-gray-700">
+            <li class="flex items-center gap-2"><span>🐾</span> Webcam en vivo 24/7 en tu app</li>
+            <li class="flex items-center gap-2"><span>🐾</span> Piscina y juegos supervisados</li>
+            <li class="flex items-center gap-2"><span>🐾</span> Médico veterinario en turno</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CALCULADORA INTERACTIVA DE EDAD Y BIENESTAR -->
+  <section id="calculadora" class="py-24 bg-gradient-to-br from-amber-100 via-orange-100 to-rose-100 relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-5 lg:px-8">
+      <div class="bg-white rounded-5xl p-8 sm:p-12 shadow-2xl border-4 border-amber-200">
+        <div class="text-center mb-10 space-y-2">
+          <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-pawOrange bg-orange-100 px-4 py-1.5 rounded-full">
+            <span>🧮</span> Herramienta Interactiva
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-pawDark">Calculadora de Edad Canina &amp; Felina</h2>
+          <p class="text-gray-600 font-medium">Un año de tu mascota no equivale simplemente a 7 años humanos. Descubre su edad biológica real:</p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+          <button onclick="setCalcType('small-dog', this)" class="calc-type-btn active p-3 rounded-2xl border-2 border-pawOrange bg-orange-50 font-fun font-bold text-sm text-center">
+            🐶 Perro Pequeño<br/><span class="text-xs font-normal text-gray-500">(&lt; 10 kg)</span>
+          </button>
+          <button onclick="setCalcType('med-dog', this)" class="calc-type-btn p-3 rounded-2xl border-2 border-gray-200 bg-white font-fun font-bold text-sm text-center">
+            🐕 Perro Mediano<br/><span class="text-xs font-normal text-gray-500">(10 - 25 kg)</span>
+          </button>
+          <button onclick="setCalcType('big-dog', this)" class="calc-type-btn p-3 rounded-2xl border-2 border-gray-200 bg-white font-fun font-bold text-sm text-center">
+            🦮 Perro Grande<br/><span class="text-xs font-normal text-gray-500">(&gt; 25 kg)</span>
+          </button>
+          <button onclick="setCalcType('cat', this)" class="calc-type-btn p-3 rounded-2xl border-2 border-gray-200 bg-white font-fun font-bold text-sm text-center">
+            🐱 Gato<br/><span class="text-xs font-normal text-gray-500">(Felinos)</span>
+          </button>
+        </div>
+
+        <div class="space-y-4 mb-10">
+          <div class="flex justify-between items-center">
+            <span class="font-fun font-bold text-lg text-gray-800">Años de vida de tu mascota:</span>
+            <span id="pet-years-display" class="font-fun font-extrabold text-2xl text-pawOrange bg-amber-100 px-4 py-1 rounded-xl">3 Años</span>
+          </div>
+          <input type="range" id="pet-age-slider" min="1" max="18" value="3" oninput="updatePetCalculation()" class="w-full h-3 bg-amber-200 rounded-lg appearance-none cursor-pointer accent-pawOrange">
+          <div class="flex justify-between text-xs font-bold text-gray-400 px-1">
+            <span>1 Año</span>
+            <span>5 Años</span>
+            <span>10 Años</span>
+            <span>15 Años</span>
+            <span>18+ Años</span>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-amber-500 via-pawOrange to-pawCoral text-white rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-amber-200 font-bold block mb-1">Edad Humana Equivalente:</span>
+            <div class="flex items-baseline gap-2">
+              <span id="human-age-result" class="text-5xl font-fun font-bold">28</span>
+              <span class="text-xl font-bold">Años Humanos</span>
+            </div>
+            <p id="life-stage-text" class="text-sm text-white/90 font-medium mt-2">Etapa: Adulto Joven en plenitud física y energía.</p>
+          </div>
+          <a href="https://wa.me/50663152104?text=Hola%20HappyPaws%2C%20calcule%20la%20edad%20de%20mi%20mascota%20y%20quiero%20agendar%20su%20chequeo" target="_blank" class="bg-white text-pawOrange hover:bg-amber-50 font-fun font-bold px-6 py-3.5 rounded-full whitespace-nowrap shadow-md text-sm transition-all hover:scale-105">
+            Agendar Chequeo Preventivo 🐾
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. EQUIPO DE VETERINARIOS -->
+  <section id="equipo" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="inline-block bg-pawYellow/30 text-amber-900 text-sm font-fun font-bold px-4 py-1.5 rounded-full">
+          Vocación &amp; Cariño 💙
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-pawDark">
+          El equipo médico que cuidará de tu familia.
+        </h2>
+        <p class="text-gray-600 font-medium">Veterinarios colegiados con amor incondicional por los animales.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-amber-50/50 rounded-4xl p-6 border-2 border-amber-200/60 text-center group hover:shadow-xl transition-all">
+          <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&auto=format&fit=crop&q=80" alt="Dra. Sofía Mora" class="w-36 h-36 rounded-full mx-auto object-cover border-4 border-white shadow-md mb-4 group-hover:scale-105 transition-transform">
+          <h3 class="font-fun text-xl font-bold text-pawDark">Dra. Sofía Mora</h3>
+          <p class="text-pawOrange text-xs font-bold uppercase tracking-wider mb-3">Directora Médica &bull; Cirugía Láser</p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">12 años de experiencia. Especialista en medicina felina y anestesia inhalada segura.</p>
+          <span class="inline-block text-xs bg-white text-gray-700 font-bold px-3 py-1 rounded-full border border-amber-200">Mamá de 3 michis 🐱</span>
+        </div>
+
+        <div class="bg-emerald-50/50 rounded-4xl p-6 border-2 border-emerald-200/60 text-center group hover:shadow-xl transition-all">
+          <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&auto=format&fit=crop&q=80" alt="Dr. Andrés Fallas" class="w-36 h-36 rounded-full mx-auto object-cover border-4 border-white shadow-md mb-4 group-hover:scale-105 transition-transform">
+          <h3 class="font-fun text-xl font-bold text-pawDark">Dr. Andrés Fallas</h3>
+          <p class="text-pawMint text-xs font-bold uppercase tracking-wider mb-3">Cardiología &amp; Ecografía</p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Egresado UCR con posgrado internacional. Experto en diagnóstico por imagen sin sedación.</p>
+          <span class="inline-block text-xs bg-white text-gray-700 font-bold px-3 py-1 rounded-full border border-emerald-200">Papá de Rocky (Golden) 🐶</span>
+        </div>
+
+        <div class="bg-rose-50/50 rounded-4xl p-6 border-2 border-rose-200/60 text-center group hover:shadow-xl transition-all">
+          <img src="https://images.unsplash.com/photo-1594824813515-58580c85c07c?w=400&auto=format&fit=crop&q=80" alt="Dra. Valery Chen" class="w-36 h-36 rounded-full mx-auto object-cover border-4 border-white shadow-md mb-4 group-hover:scale-105 transition-transform">
+          <h3 class="font-fun text-xl font-bold text-pawDark">Dra. Valery Chen</h3>
+          <p class="text-pawCoral text-xs font-bold uppercase tracking-wider mb-3">Dermatología &amp; Spa Terapéutico</p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Especialista en alergias estacionales, otitis y terapias de ozono para el pelaje.</p>
+          <span class="inline-block text-xs bg-white text-gray-700 font-bold px-3 py-1 rounded-full border border-rose-200">Tutora de Pompón (Conejo) 🐰</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. TESTIMONIOS FAMILIAS FELICES -->
+  <section id="testimonios" class="py-24 bg-amber-50/60 relative">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="inline-block bg-white text-pawOrange text-sm font-fun font-bold px-4 py-1.5 rounded-full border border-amber-200">
+          Comunidad HappyPaws 💬
+        </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-pawDark">
+          Historias de colitas y tutores agradecidos.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-3xl p-8 shadow-sm border border-amber-200 space-y-4">
+          <div class="text-amber-400 text-lg">★★★★★</div>
+          <p class="text-gray-700 font-medium italic">"Mi perrita Toby le tenía pánico al veterinario. En HappyPaws se sientan en el suelo a darle galletas antes de revisarla. Ahora entra moviendo la colita feliz."</p>
+          <div class="flex items-center gap-3 pt-2">
+            <div class="w-10 h-10 rounded-full bg-pawOrange text-white font-fun font-bold flex items-center justify-center">LR</div>
+            <div>
+              <strong class="font-fun text-sm text-gray-900 block">Lucía Rojas &bull; Toby</strong>
+              <span class="text-xs text-gray-500">Escazú</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 shadow-sm border border-amber-200 space-y-4">
+          <div class="text-amber-400 text-lg">★★★★★</div>
+          <p class="text-gray-700 font-medium italic">"Dejamos a nuestro gato Oliver en el resort durante dos semanas. Las fotos y videos diarios que nos enviaban nos dieron una tranquilidad total."</p>
+          <div class="flex items-center gap-3 pt-2">
+            <div class="w-10 h-10 rounded-full bg-pawMint text-white font-fun font-bold flex items-center justify-center">EA</div>
+            <div>
+              <strong class="font-fun text-sm text-gray-900 block">Esteban Alfaro &bull; Oliver</strong>
+              <span class="text-xs text-gray-500">Curridabat</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 shadow-sm border border-amber-200 space-y-4">
+          <div class="text-amber-400 text-lg">★★★★★</div>
+          <p class="text-gray-700 font-medium italic">"Llegamos de madrugada por una emergencia gástrica. El equipo actuó de inmediato y le salvaron la vida a Bruno. Profesionales de oro."</p>
+          <div class="flex items-center gap-3 pt-2">
+            <div class="w-10 h-10 rounded-full bg-pawCoral text-white font-fun font-bold flex items-center justify-center">MV</div>
+            <div>
+              <strong class="font-fun text-sm text-gray-900 block">Mónica Valverde &bull; Bruno</strong>
+              <span class="text-xs text-gray-500">San José</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FOOTER JUGUETÓN -->
+  <footer class="bg-pawDark text-white pt-20 pb-12 border-t-4 border-pawYellow">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="text-3xl">🐶</span>
+          <span class="font-fun text-2xl font-bold text-white">Happy<span class="text-pawOrange">Paws</span></span>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed">Clínica veterinaria integral, spa y hotel de mascotas con amor verdadero en Costa Rica.</p>
+        <p class="text-xs text-amber-400 font-bold">Atención de Emergencias 24h / 365 días</p>
+      </div>
+
+      <div>
+        <h4 class="font-fun text-lg font-bold text-pawYellow mb-4">Sedes en San José</h4>
+        <ul class="space-y-2 text-sm text-gray-300">
+          <li><strong>Curridabat:</strong> 200m Sur de Pops</li>
+          <li><strong>Escazú:</strong> Guachipelín, Plaza Natura</li>
+          <li><strong>Tel:</strong> (506) 2200-7297</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-fun text-lg font-bold text-pawYellow mb-4">Horarios</h4>
+        <ul class="space-y-1.5 text-sm text-gray-300">
+          <li>Lunes a Sábado: 7:00 am - 7:00 pm</li>
+          <li>Domingos: 8:00 am - 4:00 pm</li>
+          <li class="text-emerald-400 font-bold">Hospital Urgencias: 24 Horas</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-fun text-lg font-bold text-pawYellow mb-4">Contacto Inmediato</h4>
+        <a href="https://wa.me/50663152104" target="_blank" class="inline-flex items-center gap-2 bg-pawOrange hover:bg-orange-600 text-white font-fun font-bold px-6 py-3 rounded-full text-sm shadow-lg">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Chat por WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
+      &copy; 2026 HappyPaws Vet &amp; Pet Resort Costa Rica. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- BOTÓN FLOTANTE WHATSAPP JUGUETÓN -->
+  <a href="https://wa.me/50663152104?text=Hola%20HappyPaws%2C%20quiero%20consultar%20por%20un%20servicio" target="_blank" class="btn-wa-float fixed bottom-6 right-6 z-50 bg-pawOrange text-white font-fun font-bold text-sm px-5 py-3.5 rounded-full flex items-center gap-2.5 shadow-2xl hover:scale-105 active:scale-95 transition-all">
+    <span class="text-xl">🐾</span>
+    <span>¡Escríbenos al WhatsApp!</span>
+  </a>
+
+  <script>
+    lucide.createIcons();
+
+    function selectPetTab(type) {
+      document.querySelectorAll('.pet-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-100', 'text-amber-900');
+        btn.classList.add('bg-gray-50', 'text-gray-600');
+      });
+      const activeBtn = document.getElementById('pet-btn-' + type);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-amber-100', 'text-amber-900');
+        activeBtn.classList.remove('bg-gray-50', 'text-gray-600');
+      }
+      const textEl = document.getElementById('pet-tab-text');
+      if (type === 'perro') {
+        textEl.innerHTML = '<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> <span>¡Gabinete canino con premios y juegos anti-ansiedad!</span>';
+      } else if (type === 'gato') {
+        textEl.innerHTML = '<i data-lucide="heart" class="w-3.5 h-3.5"></i> <span>¡Zona Cat-Friendly exclusiva libre de ladridos y olores extraños!</span>';
+      } else {
+        textEl.innerHTML = '<i data-lucide="star" class="w-3.5 h-3.5"></i> <span>¡Especialista certificado en conejos, aves y pequeños roedores!</span>';
+      }
+      lucide.createIcons();
+    }
+
+    let currentCalcType = 'small-dog';
+
+    function setCalcType(type, btn) {
+      currentCalcType = type;
+      document.querySelectorAll('.calc-type-btn').forEach(b => {
+        b.classList.remove('border-pawOrange', 'bg-orange-50');
+        b.classList.add('border-gray-200', 'bg-white');
+      });
+      btn.classList.add('border-pawOrange', 'bg-orange-50');
+      btn.classList.remove('border-gray-200', 'bg-white');
+      updatePetCalculation();
+    }
+
+    function updatePetCalculation() {
+      const years = parseInt(document.getElementById('pet-age-slider').value);
+      document.getElementById('pet-years-display').textContent = years + (years === 1 ? ' Año' : ' Años');
+      
+      let humanAge = 0;
+      let stage = '';
+
+      if (currentCalcType === 'small-dog') {
+        if (years === 1) humanAge = 15;
+        else if (years === 2) humanAge = 24;
+        else humanAge = 24 + (years - 2) * 4;
+      } else if (currentCalcType === 'med-dog') {
+        if (years === 1) humanAge = 15;
+        else if (years === 2) humanAge = 24;
+        else humanAge = 24 + (years - 2) * 5;
+      } else if (currentCalcType === 'big-dog') {
+        if (years === 1) humanAge = 12;
+        else if (years === 2) humanAge = 22;
+        else humanAge = 22 + (years - 2) * 7;
+      } else {
+        if (years === 1) humanAge = 15;
+        else if (years === 2) humanAge = 24;
+        else humanAge = 24 + (years - 2) * 4;
+      }
+
+      if (humanAge < 20) stage = 'Etapa: Cachorro / Joven explorador en pleno desarrollo.';
+      else if (humanAge < 50) stage = 'Etapa: Adulto en plenitud física. Clave el chequeo anual preventivo.';
+      else if (humanAge < 70) stage = 'Etapa: Senior sabio. Recomendado control articular y nutrición ligera.';
+      else stage = 'Etapa: Geriatra consentido. Cuidado cardíaco, dental y mucho amor.';
+
+      document.getElementById('human-age-result').textContent = humanAge;
+      document.getElementById('life-stage-text').textContent = stage;
+    }
+  </script>
+</body>
+</html>

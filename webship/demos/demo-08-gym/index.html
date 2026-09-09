@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TITAN &mdash; Performance Lab &amp; Athletic Combat Club</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Syne + Barlow Condensed + Space Grotesk + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            titan: {
+              black:    '#090A0C', // Asfalto ultra oscuro
+              carbon:   '#121418', // Fondo secundario
+              surface:  '#181B22', // Tarjetas
+              surfaceAlt:'#1F232C',
+              border:   '#2A2F3B',
+              borderLight:'#3D4454',
+              volt:     '#CCFF00', // Verde Lima Eléctrico / Fluorescente
+              voltDark: '#99BF00',
+              neon:     '#FF5500', // Naranja Neón secundario
+              silver:   '#A5ACB8',
+              muted:    '#687082',
+            }
+          },
+          fontFamily: {
+            impact:  ['"Barlow Condensed"', 'sans-serif'],
+            syne:    ['"Syne"', 'sans-serif'],
+            mono:    ['"Space Grotesk"', 'monospace'],
+            sans:    ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom High-Tech Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #090A0C; }
+    ::-webkit-scrollbar-thumb { background: #CCFF00; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #99BF00; }
+
+    /* Volt Electric Glow */
+    .glow-volt {
+      box-shadow: 0 0 35px rgba(204, 255, 0, 0.25);
+    }
+    .glow-volt-text {
+      text-shadow: 0 0 20px rgba(204, 255, 0, 0.6);
+    }
+    .glow-orange {
+      box-shadow: 0 0 30px rgba(255, 85, 0, 0.3);
+    }
+
+    /* Outlined Giant Text Effect */
+    .text-stroke-volt {
+      -webkit-text-stroke: 1.5px rgba(204, 255, 0, 0.3);
+      color: transparent;
+    }
+    .text-stroke-white {
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.15);
+      color: transparent;
+    }
+
+    /* Infinite Marquee Ticker */
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-ticker {
+      display: flex;
+      width: 200%;
+      animation: ticker-scroll 25s linear infinite;
+    }
+    .animate-ticker:hover {
+      animation-play-state: paused;
+    }
+
+    /* Modal Animation */
+    #booking-modal {
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    #booking-modal.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #booking-modal:not(.hidden) {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body class="bg-titan-black text-white font-sans antialiased selection:bg-titan-volt selection:text-titan-black">
+
+  <!-- =========================================================================
+       BOTÓN FLOTANTE WHATSAPP VIP & TELEMETRÍA
+       ========================================================================= -->
+  <aside aria-label="Contacto Rápido" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <!-- Live Capacity Status Pill -->
+    <div class="hidden sm:flex items-center gap-2.5 bg-titan-surface/90 backdrop-blur-md text-white px-4 py-2 rounded-full border border-titan-volt/40 shadow-2xl text-xs font-mono">
+      <span class="w-2.5 h-2.5 rounded-full bg-titan-volt animate-ping"></span>
+      <span class="text-titan-volt font-bold">AFORO EN VIVO:</span>
+      <span class="text-white">38% &middot; Puestos Libres</span>
+    </div>
+
+    <!-- WhatsApp Performance Coach Link -->
+    <a href="https://wa.me/50600000000?text=Hola%2C%20quiero%20reclamar%20mi%20Pase%20de%201%20D%C3%ADa%20Gratis%20en%20TITAN%20Lab" 
+       target="_blank" 
+       rel="noopener"
+       aria-label="Atención Inmediata WhatsApp" 
+       class="group flex items-center gap-3 bg-titan-volt hover:bg-white text-titan-black px-5 py-3.5 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 glow-volt font-bold">
+      <div class="relative flex items-center justify-center">
+        <i data-lucide="zap" class="w-5 h-5 text-titan-black fill-current"></i>
+      </div>
+      <div class="text-left leading-tight hidden sm:block">
+        <p class="text-[10px] uppercase font-mono tracking-widest text-titan-black/70">Coaching Directo</p>
+        <p class="text-xs font-black tracking-tight uppercase font-syne">WhatsApp VIP</p>
+      </div>
+    </a>
+  </aside>
+
+  <!-- =========================================================================
+       1. HEADER & NAVBAR FLOTANTE CON ACENTOS VOLT
+       ========================================================================= -->
+  <header class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-4 transition-all duration-300">
+    <div class="max-w-7xl mx-auto bg-titan-carbon/90 backdrop-blur-xl text-white rounded-2xl px-5 sm:px-8 py-3.5 flex items-center justify-between border border-titan-volt/30 shadow-2xl">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-titan-volt rounded-xl flex items-center justify-center text-titan-black font-impact font-black text-2xl tracking-tighter shadow-inner group-hover:rotate-6 transition-transform duration-300">
+          T
+        </div>
+        <div class="flex flex-col">
+          <span class="font-syne tracking-wider text-lg sm:text-xl font-black uppercase leading-none">TITAN</span>
+          <span class="text-[9px] uppercase tracking-[0.3em] text-titan-volt font-mono font-bold mt-0.5">Performance Lab</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7 text-xs uppercase tracking-widest text-titan-silver font-semibold font-mono">
+        <a href="#disciplinas" class="hover:text-titan-volt transition-colors">Zonas &amp; RPE</a>
+        <a href="#horario" class="hover:text-titan-volt transition-colors">Horario de Clases</a>
+        <a href="#coaches" class="hover:text-titan-volt transition-colors">Staff Élite</a>
+        <a href="#membresias" class="hover:text-titan-volt transition-colors">Membresías</a>
+        <a href="#pase-gratis" class="hover:text-titan-volt transition-colors">Pase Gratis</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <a href="#pase-gratis" class="hidden sm:inline-flex items-center gap-2 bg-titan-volt hover:bg-white text-titan-black text-xs font-black uppercase tracking-wider px-5 py-2.5 rounded-xl transition-all duration-300 glow-volt">
+          <i data-lucide="flame" class="w-4 h-4 fill-current"></i>
+          <span>Pase 1 Día Gratis</span>
+        </a>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobile-menu-btn" class="md:hidden p-1.5 text-titan-silver hover:text-white" aria-label="Menú">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden max-w-7xl mx-auto mt-2 bg-titan-carbon/95 backdrop-blur-2xl border border-titan-volt/30 rounded-2xl p-5 text-white shadow-2xl">
+      <nav class="flex flex-col gap-3 text-sm font-mono uppercase tracking-wider">
+        <a href="#disciplinas" class="py-2 border-b border-white/5 hover:text-titan-volt" onclick="toggleMobileMenu()">Disciplinas &amp; Zonas</a>
+        <a href="#horario" class="py-2 border-b border-white/5 hover:text-titan-volt" onclick="toggleMobileMenu()">Horario Semanal</a>
+        <a href="#coaches" class="py-2 border-b border-white/5 hover:text-titan-volt" onclick="toggleMobileMenu()">Head Coaches</a>
+        <a href="#membresias" class="py-2 border-b border-white/5 hover:text-titan-volt" onclick="toggleMobileMenu()">Planes &amp; Membresías</a>
+        <a href="#pase-gratis" class="py-2 text-titan-volt font-bold" onclick="toggleMobileMenu()">Reclamar Pase de 1 Día &rarr;</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO SECTION CYBER ATHLETIC & TICKER EN VIVO
+       ========================================================================= -->
+  <section class="relative min-h-screen flex flex-col justify-between pt-28 pb-10 px-4 sm:px-8 bg-titan-black overflow-hidden">
+    <!-- Background Athlete Image -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80&auto=format&fit=crop" 
+           alt="Atleta TITAN Training" 
+           class="w-full h-full object-cover object-top opacity-35 filter contrast-125">
+      <div class="absolute inset-0 bg-gradient-to-t from-titan-black via-titan-black/80 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-titan-black via-titan-black/70 to-transparent"></div>
+    </div>
+
+    <!-- Giant Outlined Background Text -->
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none z-0 whitespace-nowrap opacity-25">
+      <span class="font-impact text-[14vw] font-black uppercase text-stroke-white tracking-widest">DOMINATE</span>
+    </div>
+
+    <!-- Hero Content Container -->
+    <div class="relative z-10 max-w-7xl mx-auto w-full pt-16 sm:pt-24 flex-1 flex flex-col justify-center">
+      
+      <!-- Top Tag Badge -->
+      <div class="inline-flex items-center gap-2.5 bg-titan-surface/90 border border-titan-volt/50 px-4 py-1.5 rounded-full mb-6 self-start glow-volt">
+        <span class="w-2 h-2 rounded-full bg-titan-volt animate-ping"></span>
+        <span class="text-[11px] uppercase tracking-[0.25em] text-titan-volt font-mono font-bold">Oficial HYROX &bull; Underground Boxing &bull; Eleiko Pro</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="font-impact uppercase text-5xl sm:text-7xl lg:text-9xl font-black tracking-tight leading-[0.9] max-w-5xl text-white mb-6">
+        No entrenamos para encajar.<br>
+        <span class="text-titan-volt glow-volt-text">Entrenamos para dominar.</span>
+      </h1>
+
+      <p class="text-titan-silver text-base sm:text-xl max-w-2xl font-sans font-normal leading-relaxed mb-10">
+        El centro de acondicionamiento de alta exigencia donde la ciencia deportiva se une al combate underground. 1,800 m² de equipamiento olímpico, monitoreo biométrico y recuperación en frío extremo.
+      </p>
+
+      <!-- Action CTAs -->
+      <div class="flex flex-wrap items-center gap-4 mb-12">
+        <a href="#pase-gratis" class="inline-flex items-center gap-3 bg-titan-volt hover:bg-white text-titan-black px-8 py-4 rounded-xl font-black text-sm uppercase tracking-wider transition-all duration-300 glow-volt hover:scale-105 font-syne">
+          <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
+          <span>Reclamar Pase 1 Día Gratis</span>
+        </a>
+        <a href="#horario" class="inline-flex items-center gap-3 bg-titan-surface hover:bg-titan-surfaceAlt text-white border border-titan-border px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-300 font-mono">
+          <i data-lucide="calendar" class="w-4 h-4 text-titan-volt"></i>
+          <span>Ver Horario Semanal</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Infinite Live Ticker Bar -->
+    <div class="relative z-10 w-full overflow-hidden bg-titan-volt text-titan-black py-3 font-impact text-xl sm:text-2xl font-black uppercase tracking-widest border-y-2 border-white shadow-2xl">
+      <div class="animate-ticker whitespace-nowrap flex items-center">
+        <span class="mx-6">⚡ HYROX TRAINING CENTER</span>
+        <span class="mx-6">&bull; UNDERGROUND BOXING CLUB</span>
+        <span class="mx-6">&bull; OLYMPIC WEIGHTLIFTING</span>
+        <span class="mx-6">&bull; CRYO RECOVERY -110°C</span>
+        <span class="mx-6">&bull; ELEIKO OFFICIAL PARTNER</span>
+        <span class="mx-6">&bull; METCON HIGH-VOLTAGE</span>
+        <span class="mx-6">⚡ HYROX TRAINING CENTER</span>
+        <span class="mx-6">&bull; UNDERGROUND BOXING CLUB</span>
+        <span class="mx-6">&bull; OLYMPIC WEIGHTLIFTING</span>
+        <span class="mx-6">&bull; CRYO RECOVERY -110°C</span>
+        <span class="mx-6">&bull; ELEIKO OFFICIAL PARTNER</span>
+        <span class="mx-6">&bull; METCON HIGH-VOLTAGE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       2. TELEMETRÍA & STATS DE AUTORIDAD (PERFORMANCE BAR)
+       ========================================================================= -->
+  <section class="py-12 bg-titan-carbon border-b border-titan-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+          <span class="text-[10px] uppercase font-mono tracking-[0.25em] text-titan-muted font-bold mb-1">Comunidad Activa</span>
+          <p class="font-impact text-4xl sm:text-5xl font-black text-white tracking-tight">+1,450 <span class="text-titan-volt text-2xl font-sans">ATLETAS</span></p>
+          <p class="text-xs text-titan-silver mt-1 font-sans">Entrenando bajo estándares competitivos</p>
+        </div>
+
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left border-l-0 sm:border-l border-titan-border sm:pl-8">
+          <span class="text-[10px] uppercase font-mono tracking-[0.25em] text-titan-muted font-bold mb-1">Instalaciones Pro</span>
+          <p class="font-impact text-4xl sm:text-5xl font-black text-white tracking-tight">1,800 <span class="text-titan-volt text-2xl font-sans">m²</span></p>
+          <p class="text-xs text-titan-silver mt-1 font-sans">Equipamiento oficial Eleiko e IWF Certified</p>
+        </div>
+
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left border-l-0 lg:border-l border-titan-border lg:pl-8">
+          <span class="text-[10px] uppercase font-mono tracking-[0.25em] text-titan-muted font-bold mb-1">Staff Certificado</span>
+          <p class="font-impact text-4xl sm:text-5xl font-black text-white tracking-tight">14 <span class="text-titan-volt text-2xl font-sans">COACHES</span></p>
+          <p class="text-xs text-titan-silver mt-1 font-sans">Ex-atletas olímpicos y preparadores CSCS</p>
+        </div>
+
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left border-l-0 sm:border-l border-titan-border sm:pl-8">
+          <span class="text-[10px] uppercase font-mono tracking-[0.25em] text-titan-muted font-bold mb-1">Efectividad Demostrada</span>
+          <p class="font-impact text-4xl sm:text-5xl font-black text-white tracking-tight">98.7<span class="text-titan-volt text-2xl font-sans">%</span></p>
+          <p class="text-xs text-titan-silver mt-1 font-sans">Ratio de superación de marcas personales (PR)</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       3. DISCIPLINAS & ZONAS (BENTO GRID CON BADGES DE RPE)
+       ========================================================================= -->
+  <section id="disciplinas" class="py-24 px-4 sm:px-8 bg-titan-black">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-titan-volt font-bold text-xs uppercase font-mono tracking-[0.25em] mb-3 bg-titan-surface px-4 py-1.5 rounded-full border border-titan-volt/30">
+          <i data-lucide="crosshair" class="w-3.5 h-3.5"></i>
+          <span>Sistemas de Entrenamiento</span>
+        </div>
+        <h2 class="font-impact text-4xl sm:text-6xl font-black text-white uppercase tracking-tight">
+          4 Pilares de <span class="text-titan-volt glow-volt-text">Alto Impacto</span>
+        </h2>
+        <p class="text-titan-silver text-sm sm:text-base mt-3 font-sans">
+          Cada zona está diseñada biomecánicamente para empujar tus límites fisiológicos con monitoreo de esfuerzo percibido (RPE).
+        </p>
+      </div>
+
+      <!-- Bento Grid (4 Cards) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Bento 1: HYROX & Conditioning (Large Span 2 cols) -->
+        <div class="lg:col-span-2 relative bg-titan-surface rounded-3xl overflow-hidden border border-titan-border group hover:border-titan-volt transition-all duration-500 flex flex-col justify-between min-h-[420px]">
+          <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1200&q=80&auto=format&fit=crop" 
+                 alt="HYROX & Conditioning" 
+                 class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-titan-surface via-titan-surface/70 to-transparent"></div>
+          </div>
+
+          <div class="relative z-10 p-8 sm:p-10 flex justify-between items-start">
+            <div class="w-12 h-12 rounded-2xl bg-titan-volt flex items-center justify-center text-titan-black font-impact text-2xl font-black">
+              01
+            </div>
+            <div class="flex gap-2">
+              <span class="bg-titan-black/80 backdrop-blur-md text-titan-volt border border-titan-volt/40 font-mono text-xs font-bold px-3 py-1 rounded-full">RPE 9.0 / 10</span>
+              <span class="bg-titan-neon/20 text-titan-neon border border-titan-neon/40 font-mono text-xs font-bold px-3 py-1 rounded-full">~850 kcal/h</span>
+            </div>
+          </div>
+
+          <div class="relative z-10 p-8 sm:p-10">
+            <h3 class="font-impact text-3xl sm:text-4xl font-black uppercase text-white mb-3 group-hover:text-titan-volt transition-colors">
+              HYROX &bull; Conditioning &amp; Resistencia Metabólica
+            </h3>
+            <p class="text-titan-silver text-sm max-w-xl leading-relaxed">
+              Circuitos de potencia continua con trineos de empuje (Sled Push/Pull), remos Concept2, SkiErgs, wall balls y carrera técnica. Diseñado para preparar atletas de HYROX y elevar el VO2 Max al siguiente nivel.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bento 2: Underground Boxing -->
+        <div class="relative bg-titan-surface rounded-3xl overflow-hidden border border-titan-border group hover:border-titan-volt transition-all duration-500 flex flex-col justify-between min-h-[420px]">
+          <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=1200&q=80&auto=format&fit=crop" 
+                 alt="Underground Boxing" 
+                 class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-titan-surface via-titan-surface/70 to-transparent"></div>
+          </div>
+
+          <div class="relative z-10 p-8 flex justify-between items-start">
+            <div class="w-12 h-12 rounded-2xl bg-titan-volt flex items-center justify-center text-titan-black font-impact text-2xl font-black">
+              02
+            </div>
+            <span class="bg-titan-black/80 backdrop-blur-md text-titan-volt border border-titan-volt/40 font-mono text-xs font-bold px-3 py-1 rounded-full">RPE 8.5 / 10</span>
+          </div>
+
+          <div class="relative z-10 p-8">
+            <h3 class="font-impact text-3xl font-black uppercase text-white mb-2 group-hover:text-titan-volt transition-colors">
+              Boxing &amp; Striking Club
+            </h3>
+            <p class="text-titan-silver text-xs leading-relaxed">
+              Ring oficial de combate, sacos de agua AquaBag hidrodinámicos para absorción de impacto y sesiones de manopleo técnico con ex-boxeadores profesionales.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bento 3: Olympic Lifting -->
+        <div class="relative bg-titan-surface rounded-3xl overflow-hidden border border-titan-border group hover:border-titan-volt transition-all duration-500 flex flex-col justify-between min-h-[420px]">
+          <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=1200&q=80&auto=format&fit=crop" 
+                 alt="Olympic Weightlifting" 
+                 class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-titan-surface via-titan-surface/70 to-transparent"></div>
+          </div>
+
+          <div class="relative z-10 p-8 flex justify-between items-start">
+            <div class="w-12 h-12 rounded-2xl bg-titan-volt flex items-center justify-center text-titan-black font-impact text-2xl font-black">
+              03
+            </div>
+            <span class="bg-titan-black/80 backdrop-blur-md text-titan-volt border border-titan-volt/40 font-mono text-xs font-bold px-3 py-1 rounded-full">RPE 9.5 / 10</span>
+          </div>
+
+          <div class="relative z-10 p-8">
+            <h3 class="font-impact text-3xl font-black uppercase text-white mb-2 group-hover:text-titan-volt transition-colors">
+              Olympic Lifting &amp; Power
+            </h3>
+            <p class="text-titan-silver text-xs leading-relaxed">
+              8 plataformas de madera y caucho olímpico, barras Eleiko IWF de rotación precisa y calibración milimétrica para Snatch, Clean &amp; Jerk y Powerlifting pesado.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bento 4: Biohacking & Recovery (Large Span 2 cols) -->
+        <div class="lg:col-span-2 relative bg-titan-surface rounded-3xl overflow-hidden border border-titan-border group hover:border-titan-volt transition-all duration-500 flex flex-col justify-between min-h-[420px]">
+          <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=1200&q=80&auto=format&fit=crop" 
+                 alt="Biohacking & Recovery Zone" 
+                 class="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-titan-surface via-titan-surface/70 to-transparent"></div>
+          </div>
+
+          <div class="relative z-10 p-8 sm:p-10 flex justify-between items-start">
+            <div class="w-12 h-12 rounded-2xl bg-titan-volt flex items-center justify-center text-titan-black font-impact text-2xl font-black">
+              04
+            </div>
+            <div class="flex gap-2">
+              <span class="bg-titan-black/80 backdrop-blur-md text-emerald-400 border border-emerald-500/40 font-mono text-xs font-bold px-3 py-1 rounded-full">Recuperación Rápida</span>
+              <span class="bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 font-mono text-xs font-bold px-3 py-1 rounded-full">Criogenia -110°C</span>
+            </div>
+          </div>
+
+          <div class="relative z-10 p-8 sm:p-10">
+            <h3 class="font-impact text-3xl sm:text-4xl font-black uppercase text-white mb-3 group-hover:text-titan-volt transition-colors">
+              Biohacking Lab &amp; Regeneración Celular
+            </h3>
+            <p class="text-titan-silver text-sm max-w-xl leading-relaxed">
+              Cámaras de crioterapia eléctrica de cuerpo entero a -110°C, tinas de inmersión en agua helada (Ice Baths a 3°C), sauna finlandés de infrarrojos y botas de compresión neumática NormaTec 3 para acelerar el vaciado de lactato.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       4. HORARIO SEMANAL INTERACTIVO DE CLASES & RESERVA EN VIVO
+       ========================================================================= -->
+  <section id="horario" class="py-24 px-4 sm:px-8 bg-titan-carbon border-y border-titan-border">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <div class="inline-flex items-center gap-2 text-titan-volt font-bold text-xs uppercase font-mono tracking-[0.25em] mb-3">
+            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+            <span>Horarios en Tiempo Real</span>
+          </div>
+          <h2 class="font-impact text-4xl sm:text-6xl font-black text-white uppercase tracking-tight">
+            Parrilla Semanal de <span class="text-titan-volt glow-volt-text">Sesiones</span>
+          </h2>
+        </div>
+
+        <!-- Discipline Filter Pills -->
+        <div class="flex flex-wrap items-center gap-2 bg-titan-surface p-1.5 rounded-xl border border-titan-border font-mono text-xs font-bold self-start md:self-auto">
+          <button onclick="filterScheduleCategory('all')" class="sched-cat-btn active px-4 py-2 rounded-lg transition-all bg-titan-volt text-titan-black shadow-md" data-cat="all">Todas</button>
+          <button onclick="filterScheduleCategory('hyrox')" class="sched-cat-btn px-4 py-2 rounded-lg text-titan-silver hover:text-white transition-all" data-cat="hyrox">Hyrox</button>
+          <button onclick="filterScheduleCategory('boxing')" class="sched-cat-btn px-4 py-2 rounded-lg text-titan-silver hover:text-white transition-all" data-cat="boxing">Boxeo</button>
+          <button onclick="filterScheduleCategory('power')" class="sched-cat-btn px-4 py-2 rounded-lg text-titan-silver hover:text-white transition-all" data-cat="power">Lifting</button>
+          <button onclick="filterScheduleCategory('recovery')" class="sched-cat-btn px-4 py-2 rounded-lg text-titan-silver hover:text-white transition-all" data-cat="recovery">Cryo &amp; Ice</button>
+        </div>
+      </div>
+
+      <!-- Day Selector Tabs -->
+      <div class="flex overflow-x-auto gap-2 pb-4 mb-8 border-b border-titan-border font-mono text-xs font-bold no-scrollbar">
+        <button onclick="selectDay('lun')" class="day-tab active px-5 py-3 rounded-xl bg-titan-surface border border-titan-volt text-titan-volt shrink-0 flex items-center gap-2 shadow-lg" data-day="lun">
+          <span>LUNES</span> <span class="text-[10px] opacity-70 bg-titan-black px-1.5 py-0.5 rounded">6 Sesiones</span>
+        </button>
+        <button onclick="selectDay('mar')" class="day-tab px-5 py-3 rounded-xl bg-titan-surface/50 border border-titan-border text-titan-silver hover:text-white shrink-0 flex items-center gap-2" data-day="mar">
+          <span>MARTES</span> <span class="text-[10px] opacity-70 bg-titan-black px-1.5 py-0.5 rounded">5 Sesiones</span>
+        </button>
+        <button onclick="selectDay('mie')" class="day-tab px-5 py-3 rounded-xl bg-titan-surface/50 border border-titan-border text-titan-silver hover:text-white shrink-0 flex items-center gap-2" data-day="mie">
+          <span>MIÉRCOLES</span> <span class="text-[10px] opacity-70 bg-titan-black px-1.5 py-0.5 rounded">6 Sesiones</span>
+        </button>
+        <button onclick="selectDay('jue')" class="day-tab px-5 py-3 rounded-xl bg-titan-surface/50 border border-titan-border text-titan-silver hover:text-white shrink-0 flex items-center gap-2" data-day="jue">
+          <span>JUEVES</span> <span class="text-[10px] opacity-70 bg-titan-black px-1.5 py-0.5 rounded">5 Sesiones</span>
+        </button>
+        <button onclick="selectDay('vie')" class="day-tab px-5 py-3 rounded-xl bg-titan-surface/50 border border-titan-border text-titan-silver hover:text-white shrink-0 flex items-center gap-2" data-day="vie">
+          <span>VIERNES</span> <span class="text-[10px] opacity-70 bg-titan-black px-1.5 py-0.5 rounded">6 Sesiones</span>
+        </button>
+        <button onclick="selectDay('sab')" class="day-tab px-5 py-3 rounded-xl bg-titan-surface/50 border border-titan-border text-titan-silver hover:text-white shrink-0 flex items-center gap-2" data-day="sab">
+          <span>SÁBADO &bull; PRO</span> <span class="text-[10px] opacity-70 bg-titan-black px-1.5 py-0.5 rounded">4 Sesiones</span>
+        </button>
+      </div>
+
+      <!-- Class Cards Container -->
+      <div id="schedule-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Class 1 -->
+        <div class="sched-card bg-titan-surface p-6 rounded-2xl border border-titan-border hover:border-titan-volt transition-all group flex flex-col justify-between" data-day="lun" data-cat="hyrox">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="font-mono text-sm font-bold text-titan-volt bg-titan-black px-3 py-1 rounded-lg border border-titan-volt/30">06:00 &ndash; 07:00 AM</span>
+              <span class="text-[10px] font-mono uppercase bg-emerald-950 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">4 Cupos Libres</span>
+            </div>
+            <h4 class="font-impact text-2xl font-black uppercase text-white group-hover:text-titan-volt transition-colors mb-1">TITAN METCON 60</h4>
+            <p class="text-xs text-titan-silver mb-4 font-sans">Entrenamiento de resistencia láctica y potencia en trineos y ergómetros.</p>
+          </div>
+
+          <div class="pt-4 border-t border-titan-border/70 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-titan-volt flex items-center justify-center text-titan-black font-bold text-xs">MR</div>
+              <div class="text-[11px] leading-tight">
+                <p class="font-bold text-white">Coach Marcos R.</p>
+                <p class="text-titan-muted font-mono">Head Conditioning</p>
+              </div>
+            </div>
+            <button onclick="openBookingModal('TITAN METCON 60', '06:00 AM', 'Lunes', 'Coach Marcos R.')" class="bg-titan-volt hover:bg-white text-titan-black font-mono text-xs font-bold px-4 py-2 rounded-lg transition-all">
+              Reservar
+            </button>
+          </div>
+        </div>
+
+        <!-- Class 2 -->
+        <div class="sched-card bg-titan-surface p-6 rounded-2xl border border-titan-border hover:border-titan-volt transition-all group flex flex-col justify-between" data-day="lun" data-cat="boxing">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="font-mono text-sm font-bold text-titan-volt bg-titan-black px-3 py-1 rounded-lg border border-titan-volt/30">07:30 &ndash; 08:30 AM</span>
+              <span class="text-[10px] font-mono uppercase bg-amber-950 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded font-bold">2 Cupos Libres</span>
+            </div>
+            <h4 class="font-impact text-2xl font-black uppercase text-white group-hover:text-titan-volt transition-colors mb-1">FIGHT CLUB: STRIKING 101</h4>
+            <p class="text-xs text-titan-silver mb-4 font-sans">Técnica de guardia, golpeo en AquaBag y desplazamientos de ring.</p>
+          </div>
+
+          <div class="pt-4 border-t border-titan-border/70 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-titan-neon flex items-center justify-center text-white font-bold text-xs">DV</div>
+              <div class="text-[11px] leading-tight">
+                <p class="font-bold text-white">Coach Diego Vega</p>
+                <p class="text-titan-muted font-mono">Ex-Pro Boxer</p>
+              </div>
+            </div>
+            <button onclick="openBookingModal('FIGHT CLUB: STRIKING 101', '07:30 AM', 'Lunes', 'Coach Diego Vega')" class="bg-titan-volt hover:bg-white text-titan-black font-mono text-xs font-bold px-4 py-2 rounded-lg transition-all">
+              Reservar
+            </button>
+          </div>
+        </div>
+
+        <!-- Class 3 -->
+        <div class="sched-card bg-titan-surface p-6 rounded-2xl border border-titan-border hover:border-titan-volt transition-all group flex flex-col justify-between" data-day="lun" data-cat="power">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="font-mono text-sm font-bold text-titan-volt bg-titan-black px-3 py-1 rounded-lg border border-titan-volt/30">05:00 &ndash; 06:15 PM</span>
+              <span class="text-[10px] font-mono uppercase bg-emerald-950 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">5 Cupos Libres</span>
+            </div>
+            <h4 class="font-impact text-2xl font-black uppercase text-white group-hover:text-titan-volt transition-colors mb-1">OLYMPIC BARBELL LAB</h4>
+            <p class="text-xs text-titan-silver mb-4 font-sans">Snatch y Clean &amp; Jerk con análisis de trayectoria por video en vivo.</p>
+          </div>
+
+          <div class="pt-4 border-t border-titan-border/70 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-titan-volt flex items-center justify-center text-titan-black font-bold text-xs">VL</div>
+              <div class="text-[11px] leading-tight">
+                <p class="font-bold text-white">Coach Valeria Luna</p>
+                <p class="text-titan-muted font-mono">Campeona Nacional Halterofilia</p>
+              </div>
+            </div>
+            <button onclick="openBookingModal('OLYMPIC BARBELL LAB', '05:00 PM', 'Lunes', 'Coach Valeria Luna')" class="bg-titan-volt hover:bg-white text-titan-black font-mono text-xs font-bold px-4 py-2 rounded-lg transition-all">
+              Reservar
+            </button>
+          </div>
+        </div>
+
+        <!-- Class 4 -->
+        <div class="sched-card bg-titan-surface p-6 rounded-2xl border border-titan-border hover:border-titan-volt transition-all group flex flex-col justify-between" data-day="lun" data-cat="hyrox">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="font-mono text-sm font-bold text-titan-volt bg-titan-black px-3 py-1 rounded-lg border border-titan-volt/30">06:30 &ndash; 07:30 PM</span>
+              <span class="text-[10px] font-mono uppercase bg-rose-950 text-rose-300 border border-rose-500/30 px-2 py-0.5 rounded font-bold">Último Cupo</span>
+            </div>
+            <h4 class="font-impact text-2xl font-black uppercase text-white group-hover:text-titan-volt transition-colors mb-1">HYROX SIMULATOR 8X</h4>
+            <p class="text-xs text-titan-silver mb-4 font-sans">Simulación de carrera oficial HYROX con transiciones de alta velocidad.</p>
+          </div>
+
+          <div class="pt-4 border-t border-titan-border/70 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-titan-volt flex items-center justify-center text-titan-black font-bold text-xs">MR</div>
+              <div class="text-[11px] leading-tight">
+                <p class="font-bold text-white">Coach Marcos R.</p>
+                <p class="text-titan-muted font-mono">Head Conditioning</p>
+              </div>
+            </div>
+            <button onclick="openBookingModal('HYROX SIMULATOR 8X', '06:30 PM', 'Lunes', 'Coach Marcos R.')" class="bg-titan-volt hover:bg-white text-titan-black font-mono text-xs font-bold px-4 py-2 rounded-lg transition-all">
+              Reservar
+            </button>
+          </div>
+        </div>
+
+        <!-- Class 5 -->
+        <div class="sched-card bg-titan-surface p-6 rounded-2xl border border-titan-border hover:border-titan-volt transition-all group flex flex-col justify-between" data-day="lun" data-cat="boxing">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="font-mono text-sm font-bold text-titan-volt bg-titan-black px-3 py-1 rounded-lg border border-titan-volt/30">07:45 &ndash; 08:45 PM</span>
+              <span class="text-[10px] font-mono uppercase bg-emerald-950 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">3 Cupos Libres</span>
+            </div>
+            <h4 class="font-impact text-2xl font-black uppercase text-white group-hover:text-titan-volt transition-colors mb-1">NIGHT SPARRING &amp; COMBAT</h4>
+            <p class="text-xs text-titan-silver mb-4 font-sans">Rondas controladas de sparring táctico con protectores de grado competición.</p>
+          </div>
+
+          <div class="pt-4 border-t border-titan-border/70 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-titan-neon flex items-center justify-center text-white font-bold text-xs">DV</div>
+              <div class="text-[11px] leading-tight">
+                <p class="font-bold text-white">Coach Diego Vega</p>
+                <p class="text-titan-muted font-mono">Ex-Pro Boxer</p>
+              </div>
+            </div>
+            <button onclick="openBookingModal('NIGHT SPARRING & COMBAT', '07:45 PM', 'Lunes', 'Coach Diego Vega')" class="bg-titan-volt hover:bg-white text-titan-black font-mono text-xs font-bold px-4 py-2 rounded-lg transition-all">
+              Reservar
+            </button>
+          </div>
+        </div>
+
+        <!-- Class 6 -->
+        <div class="sched-card bg-titan-surface p-6 rounded-2xl border border-titan-border hover:border-titan-volt transition-all group flex flex-col justify-between" data-day="lun" data-cat="recovery">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="font-mono text-sm font-bold text-cyan-300 bg-cyan-950/80 px-3 py-1 rounded-lg border border-cyan-500/30">08:45 &ndash; 09:45 PM</span>
+              <span class="text-[10px] font-mono uppercase bg-cyan-950 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded font-bold">Crioterapia &amp; Ice</span>
+            </div>
+            <h4 class="font-impact text-2xl font-black uppercase text-white group-hover:text-cyan-300 transition-colors mb-1">BIO-RECOVERY &amp; ICE PROTOCOL</h4>
+            <p class="text-xs text-titan-silver mb-4 font-sans">Inmersión en contraste térmico (Ice Bath 3°C + Sauna Infrarrojo) y botas NormaTec.</p>
+          </div>
+
+          <div class="pt-4 border-t border-titan-border/70 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-cyan-400 flex items-center justify-center text-titan-black font-bold text-xs">EA</div>
+              <div class="text-[11px] leading-tight">
+                <p class="font-bold text-white">Dra. Elena Albarrán</p>
+                <p class="text-titan-muted font-mono">Fisioterapeuta Élite</p>
+              </div>
+            </div>
+            <button onclick="openBookingModal('BIO-RECOVERY & ICE PROTOCOL', '08:45 PM', 'Lunes', 'Dra. Elena Albarrán')" class="bg-cyan-400 hover:bg-white text-titan-black font-mono text-xs font-bold px-4 py-2 rounded-lg transition-all">
+              Reservar
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. STAFF DE COACHES DE ÉLITE & BIOHACKING
+       ========================================================================= -->
+  <section id="coaches" class="py-24 px-4 sm:px-8 bg-titan-black">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-titan-volt font-bold text-xs uppercase font-mono tracking-[0.25em] mb-3 bg-titan-surface px-4 py-1.5 rounded-full border border-titan-volt/30">
+          <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
+          <span>Mentores de Alto Rendimiento</span>
+        </div>
+        <h2 class="font-impact text-4xl sm:text-6xl font-black text-white uppercase tracking-tight">
+          Entrena con la <span class="text-titan-volt glow-volt-text">Élite Real</span>
+        </h2>
+        <p class="text-titan-silver text-sm sm:text-base mt-3 font-sans">
+          Sin monitores genéricos. Nuestro equipo está compuesto por atletas de competición activa, científicos del deporte y preparadores físicos de élite.
+        </p>
+      </div>
+
+      <!-- Coaches Grid (3 Columns) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Coach 1 -->
+        <div class="bg-titan-surface rounded-3xl overflow-hidden border border-titan-border group hover:border-titan-volt transition-all duration-300">
+          <div class="h-80 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=600&q=80&auto=format&fit=crop" 
+                 alt="Marcos Ramírez Head Coach" 
+                 class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-titan-surface via-transparent to-transparent"></div>
+            <div class="absolute top-4 right-4 bg-titan-volt text-titan-black font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+              CSCS &bull; HYROX Pro
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-impact text-2xl font-black uppercase text-white mb-1">Marcos Ramírez</h3>
+            <p class="text-xs text-titan-volt font-mono font-bold mb-4">Director de Rendimiento &amp; Fuerza</p>
+            <p class="text-xs text-titan-silver leading-relaxed mb-6">
+              Ex-preparador físico de atletas profesionales de rugby y competidor Top 10 en HYROX European Championships. Especialista en optimización de potencia anaeróbica.
+            </p>
+            <div class="pt-4 border-t border-titan-border flex items-center justify-between text-xs font-mono text-titan-muted">
+              <span>+10 Años Exp.</span>
+              <span class="text-titan-volt">Evaluación 1-on-1</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coach 2 -->
+        <div class="bg-titan-surface rounded-3xl overflow-hidden border border-titan-border group hover:border-titan-volt transition-all duration-300">
+          <div class="h-80 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80&auto=format&fit=crop" 
+                 alt="Diego Vega Boxing Coach" 
+                 class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-titan-surface via-transparent to-transparent"></div>
+            <div class="absolute top-4 right-4 bg-titan-neon text-white font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+              18-2 Record Pro
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-impact text-2xl font-black uppercase text-white mb-1">Diego "Martillo" Vega</h3>
+            <p class="text-xs text-titan-neon font-mono font-bold mb-4">Head Coach de Boxeo &amp; Striking</p>
+            <p class="text-xs text-titan-silver leading-relaxed mb-6">
+              Ex-campeón nacional de peso wélter con más de 20 combates profesionales. Experto en biomecánica de impacto, esquiva angular y acondicionamiento cardiovascular de choque.
+            </p>
+            <div class="pt-4 border-t border-titan-border flex items-center justify-between text-xs font-mono text-titan-muted">
+              <span>WBC Certified</span>
+              <span class="text-titan-neon">Ring Master</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coach 3 -->
+        <div class="bg-titan-surface rounded-3xl overflow-hidden border border-titan-border group hover:border-titan-volt transition-all duration-300">
+          <div class="h-80 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&q=80&auto=format&fit=crop" 
+                 alt="Dra. Elena Albarrán Biohacking" 
+                 class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-titan-surface via-transparent to-transparent"></div>
+            <div class="absolute top-4 right-4 bg-cyan-400 text-titan-black font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+              PhD Fisiología
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-impact text-2xl font-black uppercase text-white mb-1">Dra. Elena Albarrán</h3>
+            <p class="text-xs text-cyan-400 font-mono font-bold mb-4">Directora de Biohacking &amp; Recuperación</p>
+            <p class="text-xs text-titan-silver leading-relaxed mb-6">
+              Doctora en Fisiología del Ejercicio y asesora de deportistas olímpicos. Lidera los protocolos de crioterapia, contrastes térmicos, suplementación y análisis de variabilidad cardíaca (HRV).
+            </p>
+            <div class="pt-4 border-t border-titan-border flex items-center justify-between text-xs font-mono text-titan-muted">
+              <span>Biohacking Lab</span>
+              <span class="text-cyan-400">Recovery Pro</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. MEMBRESÍAS & SELECTOR INTERACTIVO DE PLANES (PRICING SWITCHER)
+       ========================================================================= -->
+  <section id="membresias" class="py-24 px-4 sm:px-8 bg-titan-carbon border-y border-titan-border">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-titan-volt font-bold text-xs uppercase font-mono tracking-[0.25em] mb-3 bg-titan-surface px-4 py-1.5 rounded-full border border-titan-volt/30">
+          <i data-lucide="tag" class="w-3.5 h-3.5"></i>
+          <span>Planes de Acceso Total</span>
+        </div>
+        <h2 class="font-impact text-4xl sm:text-6xl font-black text-white uppercase tracking-tight">
+          Invierte en tu <span class="text-titan-volt glow-volt-text">Superioridad Física</span>
+        </h2>
+        <p class="text-titan-silver text-sm sm:text-base mt-3 font-sans">
+          Sin contratos de permanencia engañosos. Acceso de élite a las instalaciones, clases guiadas y área de biohacking.
+        </p>
+
+        <!-- Billing Switcher -->
+        <div class="mt-8 inline-flex items-center gap-3 bg-titan-surface p-1.5 rounded-2xl border border-titan-border font-mono text-xs font-bold">
+          <button onclick="switchBilling('monthly')" id="btn-billing-monthly" class="px-5 py-2.5 rounded-xl bg-titan-volt text-titan-black shadow-md transition-all">
+            Mensual Flexible
+          </button>
+          <button onclick="switchBilling('annual')" id="btn-billing-annual" class="px-5 py-2.5 rounded-xl text-titan-silver hover:text-white transition-all flex items-center gap-1.5">
+            <span>Pase Anual Black</span>
+            <span class="bg-titan-neon text-white text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">Ahorra 25%</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pricing Cards Grid (3 Plans) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- Plan 1: Athletic Pass -->
+        <div class="bg-titan-surface p-8 rounded-3xl border border-titan-border flex flex-col justify-between hover:border-titan-silver transition-all">
+          <div>
+            <span class="font-mono text-xs font-bold text-titan-silver uppercase tracking-widest block mb-2">Base de Fuerza</span>
+            <h3 class="font-impact text-3xl font-black uppercase text-white mb-4">ATHLETIC PASS</h3>
+            <p class="text-xs text-titan-silver mb-6">Ideal para quienes buscan entrenamiento libre en zona olímpica y máquinas Eleiko.</p>
+            
+            <div class="mb-8">
+              <span id="price-athletic" class="font-impact text-5xl font-black text-white">$89</span>
+              <span class="text-xs text-titan-muted font-mono">/ mes</span>
+            </div>
+
+            <ul class="space-y-3.5 text-xs text-titan-silver font-sans mb-8">
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-titan-volt shrink-0"></i> Acceso ilimitado a zona de pesas Eleiko &amp; Cardio</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-titan-volt shrink-0"></i> Horario completo 5:00 AM &ndash; 11:00 PM</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-titan-volt shrink-0"></i> Lockers de alta seguridad y duchas premium</li>
+              <li class="flex items-center gap-3 text-titan-muted line-through"><i data-lucide="x" class="w-4 h-4 text-titan-muted shrink-0"></i> Clases grupales guiadas de Hyrox &amp; Boxeo</li>
+              <li class="flex items-center gap-3 text-titan-muted line-through"><i data-lucide="x" class="w-4 h-4 text-titan-muted shrink-0"></i> Crioterapia y Biohacking Lab</li>
+            </ul>
+          </div>
+
+          <a href="#pase-gratis" class="w-full bg-titan-surfaceAlt hover:bg-white hover:text-titan-black text-white font-mono text-xs font-bold py-3.5 rounded-xl text-center uppercase tracking-wider transition-all border border-titan-border">
+            Elegir Athletic Pass
+          </a>
+        </div>
+
+        <!-- Plan 2: Black Lab All-Access (Featured) -->
+        <div class="bg-gradient-to-b from-titan-surfaceAlt to-titan-surface p-8 rounded-3xl border-2 border-titan-volt flex flex-col justify-between relative shadow-2xl glow-volt">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-titan-volt text-titan-black font-mono text-[10px] font-black uppercase px-4 py-1 rounded-full tracking-widest shadow-md">
+            MÁS POPULAR &bull; ALL ACCESS
+          </div>
+
+          <div>
+            <span class="font-mono text-xs font-bold text-titan-volt uppercase tracking-widest block mb-2">Rendimiento Total</span>
+            <h3 class="font-impact text-3xl font-black uppercase text-white mb-4">BLACK LAB PRO</h3>
+            <p class="text-xs text-titan-silver mb-6">Acceso total a todas las disciplinas de combate, Hyrox ilimitado y tarimas olímpicas.</p>
+            
+            <div class="mb-8">
+              <span id="price-blacklab" class="font-impact text-5xl font-black text-titan-volt">$149</span>
+              <span class="text-xs text-titan-muted font-mono">/ mes</span>
+            </div>
+
+            <ul class="space-y-3.5 text-xs text-white font-sans mb-8">
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-titan-volt shrink-0"></i> <strong>Clases ilimitadas:</strong> Hyrox, Boxeo, Metcon y Lifting</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-titan-volt shrink-0"></i> Acceso libre 24/7 a toda la instalación</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-titan-volt shrink-0"></i> Reserva prioritaria en App móvil con 48h de antelación</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-titan-volt shrink-0"></i> 2 Sesiones de Sauna Infrarrojo &amp; Ice Bath al mes</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-titan-volt shrink-0"></i> Evaluación antropométrica InBody 770 trimestral</li>
+            </ul>
+          </div>
+
+          <a href="#pase-gratis" class="w-full bg-titan-volt hover:bg-white text-titan-black font-syne text-xs font-black py-4 rounded-xl text-center uppercase tracking-wider transition-all glow-volt">
+            Inscribirme en Black Lab Pro
+          </a>
+        </div>
+
+        <!-- Plan 3: VIP Biohacking & Performance -->
+        <div class="bg-titan-surface p-8 rounded-3xl border border-titan-border flex flex-col justify-between hover:border-cyan-400 transition-all">
+          <div>
+            <span class="font-mono text-xs font-bold text-cyan-400 uppercase tracking-widest block mb-2">Máximo Nivel &bull; VIP</span>
+            <h3 class="font-impact text-3xl font-black uppercase text-white mb-4">TITAN ELITE BIO</h3>
+            <p class="text-xs text-titan-silver mb-6">Para atletas y ejecutivos de alto rendimiento que exigen regeneración acelerada.</p>
+            
+            <div class="mb-8">
+              <span id="price-elite" class="font-impact text-5xl font-black text-white">$249</span>
+              <span class="text-xs text-titan-muted font-mono">/ mes</span>
+            </div>
+
+            <ul class="space-y-3.5 text-xs text-titan-silver font-sans mb-8">
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Todo lo incluido en Black Lab Pro</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> <strong>Crioterapia ilimitada a -110°C</strong> y tinas de hielo</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Presoterapia NormaTec y sauna infrarrojo sin límite</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> 1 Sesión mensual 1-on-1 con Head Coach</li>
+              <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Servicio de toallas y suplementación post-workout</li>
+            </ul>
+          </div>
+
+          <a href="#pase-gratis" class="w-full bg-titan-surfaceAlt hover:bg-cyan-400 hover:text-titan-black text-white font-mono text-xs font-bold py-3.5 rounded-xl text-center uppercase tracking-wider transition-all border border-titan-border">
+            Elegir Titan Elite Bio
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. FORMULARIO PASE GRATIS 1 DÍA & INDUSTRIAL MEGA FOOTER
+       ========================================================================= -->
+  <section id="pase-gratis" class="py-24 px-4 sm:px-8 bg-titan-black relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Column: Manifesto & Value Proposition -->
+        <div class="lg:col-span-5">
+          <div class="inline-flex items-center gap-2 text-titan-volt font-bold text-xs uppercase font-mono tracking-[0.25em] mb-4 bg-titan-surface px-4 py-1.5 rounded-full border border-titan-volt/30">
+            <i data-lucide="gift" class="w-3.5 h-3.5"></i>
+            <span>Prueba de Fuego Sin Costo</span>
+          </div>
+
+          <h2 class="font-impact text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-none mb-6">
+            Reclama tu <span class="text-titan-volt glow-volt-text">Pase de 1 Día</span> Gratis
+          </h2>
+
+          <p class="text-titan-silver text-sm leading-relaxed mb-8">
+            Ven y experimenta una sesión real en TITAN. Tendrás acceso completo a una clase guiada de Hyrox o Boxeo, más el uso libre de las tarimas olímpicas.
+          </p>
+
+          <div class="space-y-4 text-xs font-mono text-titan-silver">
+            <div class="flex items-center gap-3 p-3.5 bg-titan-surface rounded-2xl border border-titan-border">
+              <i data-lucide="shield-check" class="w-5 h-5 text-titan-volt shrink-0"></i>
+              <span>Cero compromiso de compra &middot; Cupos limitados por aforo diario</span>
+            </div>
+            <div class="flex items-center gap-3 p-3.5 bg-titan-surface rounded-2xl border border-titan-border">
+              <i data-lucide="zap" class="w-5 h-5 text-titan-volt shrink-0"></i>
+              <span>Incluye diagnóstico físico inicial y asesoría técnica de coach</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Pass Claim Form -->
+        <div class="lg:col-span-7 bg-titan-surface p-8 sm:p-10 rounded-3xl border border-titan-volt/40 shadow-2xl glow-volt">
+          <form id="pass-form" onsubmit="handlePassSubmit(event)" class="space-y-6 font-sans">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-[11px] uppercase font-mono tracking-wider text-titan-silver font-semibold mb-2">Nombre Completo *</label>
+                <input type="text" required placeholder="Ej. Mateo Castillo" class="w-full bg-titan-black border border-titan-border focus:border-titan-volt rounded-xl px-4 py-3 text-white text-sm outline-none font-sans transition-colors">
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase font-mono tracking-wider text-titan-silver font-semibold mb-2">Teléfono / WhatsApp *</label>
+                <input type="tel" required placeholder="+506 8888-9999" class="w-full bg-titan-black border border-titan-border focus:border-titan-volt rounded-xl px-4 py-3 text-white text-sm outline-none font-sans transition-colors">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-[11px] uppercase font-mono tracking-wider text-titan-silver font-semibold mb-2">Correo Electrónico *</label>
+                <input type="email" required placeholder="tu@correo.com" class="w-full bg-titan-black border border-titan-border focus:border-titan-volt rounded-xl px-4 py-3 text-white text-sm outline-none font-sans transition-colors">
+              </div>
+              <div>
+                <label class="block text-[11px] uppercase font-mono tracking-wider text-titan-silver font-semibold mb-2">Disciplina Principal</label>
+                <select class="w-full bg-titan-black border border-titan-border focus:border-titan-volt rounded-xl px-4 py-3 text-white text-sm outline-none font-sans transition-colors cursor-pointer">
+                  <option>HYROX &amp; Conditioning</option>
+                  <option>Underground Boxing &amp; Striking</option>
+                  <option>Olympic Weightlifting</option>
+                  <option>Biohacking &amp; Cryo Recovery</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase font-mono tracking-wider text-titan-silver font-semibold mb-2">Objetivo de Rendimiento</label>
+              <select class="w-full bg-titan-black border border-titan-border focus:border-titan-volt rounded-xl px-4 py-3 text-white text-sm outline-none font-sans transition-colors cursor-pointer">
+                <option>Aumentar Fuerza &amp; Potencia Máxima</option>
+                <option>Preparación para Competencia HYROX / Triatlón</option>
+                <option>Aprender Boxeo Técnico &amp; Pérdida de Grasa</option>
+                <option>Recuperación Muscular &amp; Biohacking</option>
+              </select>
+            </div>
+
+            <button type="submit" class="w-full bg-titan-volt hover:bg-white text-titan-black font-syne font-black text-sm uppercase tracking-wider py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 glow-volt hover:scale-[1.01]">
+              <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
+              <span>Reclamar mi Pase de 1 Día Gratis</span>
+            </button>
+
+            <p id="pass-success-msg" class="hidden text-center text-xs text-titan-volt font-mono font-bold pt-2">
+              ✓ Pase generado con éxito. Recibirás tu código QR de acceso VIP por WhatsApp en segundos.
+            </p>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Industrial Mega Footer -->
+      <footer class="mt-24 pt-12 border-t border-titan-border text-titan-silver text-xs font-sans">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 bg-titan-volt rounded-lg flex items-center justify-center text-titan-black font-impact font-black text-lg">T</div>
+              <span class="font-syne font-black tracking-wider text-white text-base">TITAN LAB</span>
+            </div>
+            <p class="text-xs text-titan-silver leading-relaxed mb-4">
+              Centro de acondicionamiento físico de élite, combate underground y biohacking deportivo.
+            </p>
+            <p class="font-mono text-[11px] text-titan-volt">&copy; 2026 TITAN Athletic Club. All rights reserved.</p>
+          </div>
+
+          <div>
+            <h4 class="font-mono uppercase tracking-widest text-[11px] font-bold text-white mb-4">Horarios de Operación</h4>
+            <ul class="space-y-2 font-mono text-xs text-titan-silver">
+              <li class="flex justify-between"><span>Lunes &ndash; Viernes:</span> <strong class="text-white">05:00 &ndash; 23:00</strong></li>
+              <li class="flex justify-between"><span>Sábados:</span> <strong class="text-white">07:00 &ndash; 20:00</strong></li>
+              <li class="flex justify-between"><span>Domingos &amp; Feriados:</span> <strong class="text-white">08:00 &ndash; 16:00</strong></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-mono uppercase tracking-widest text-[11px] font-bold text-white mb-4">Instalaciones &amp; Sede</h4>
+            <p class="text-xs text-titan-silver leading-relaxed mb-2">
+              Parque Empresarial Forum 2, Edificio A<br>
+              Santa Ana, San José, Costa Rica
+            </p>
+            <p class="font-mono text-xs text-titan-volt">Estacionamiento privado gratuito &bull; 120 plazas</p>
+          </div>
+
+          <div>
+            <h4 class="font-mono uppercase tracking-widest text-[11px] font-bold text-white mb-4">Protocolo de la Casa</h4>
+            <ul class="space-y-1.5 text-xs text-titan-muted">
+              <li>&bull; Toalla de entrenamiento obligatoria</li>
+              <li>&bull; Descarga de barras tras su uso</li>
+              <li>&bull; Uso obligatorio de magnesio en tiza líquida</li>
+              <li>&bull; Calzado técnico según disciplina</li>
+            </ul>
+          </div>
+
+        </div>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MODAL DE RESERVA EXPRESS DE CLASE
+       ========================================================================= -->
+  <div id="booking-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="bg-titan-carbon rounded-3xl max-w-md w-full p-6 sm:p-8 border border-titan-volt shadow-2xl relative">
+      
+      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-titan-silver hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-titan-volt flex items-center justify-center text-titan-black mx-auto mb-3 font-impact text-2xl font-black">
+          ⚡
+        </div>
+        <h3 class="font-impact text-3xl font-black uppercase text-white" id="modal-class-title">RESERVAR CLASE</h3>
+        <p class="text-xs font-mono text-titan-volt mt-1" id="modal-class-meta"></p>
+      </div>
+
+      <form onsubmit="handleBookingSubmit(event)" class="space-y-4 font-sans text-xs">
+        <div>
+          <label class="block uppercase font-mono text-titan-silver font-bold mb-1">Nombre Completo</label>
+          <input type="text" required placeholder="Tu nombre" class="w-full bg-titan-surface border border-titan-border focus:border-titan-volt rounded-xl px-4 py-2.5 text-white outline-none">
+        </div>
+        <div>
+          <label class="block uppercase font-mono text-titan-silver font-bold mb-1">WhatsApp para Confirmación</label>
+          <input type="tel" required placeholder="+506 0000-0000" class="w-full bg-titan-surface border border-titan-border focus:border-titan-volt rounded-xl px-4 py-2.5 text-white outline-none">
+        </div>
+        <button type="submit" class="w-full bg-titan-volt hover:bg-white text-titan-black font-syne font-black text-xs uppercase tracking-wider py-3.5 rounded-xl transition-all glow-volt mt-4">
+          Confirmar Cupo Inmediato
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       JAVASCRIPT AUTÓNOMO (HORARIOS, SWITCH DE PRECIOS, MODALES)
+       ========================================================================= -->
+  <script>
+    // Inicializar Iconos Lucide
+    lucide.createIcons();
+
+    // -------------------------------------------------------------------------
+    // 1. MOBILE MENU TOGGLE
+    // -------------------------------------------------------------------------
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('hidden');
+    }
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', toggleMobileMenu);
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. HORARIO SEMANAL INTERACTIVO (DÍAS Y CATEGORÍAS)
+    // -------------------------------------------------------------------------
+    let currentSelectedDay = 'lun';
+    let currentSelectedCat = 'all';
+
+    function selectDay(day) {
+      currentSelectedDay = day;
+      document.querySelectorAll('.day-tab').forEach(tab => {
+        if (tab.getAttribute('data-day') === day) {
+          tab.classList.remove('bg-titan-surface/50', 'border-titan-border', 'text-titan-silver');
+          tab.classList.add('active', 'bg-titan-surface', 'border-titan-volt', 'text-titan-volt', 'shadow-lg');
+        } else {
+          tab.classList.remove('active', 'bg-titan-surface', 'border-titan-volt', 'text-titan-volt', 'shadow-lg');
+          tab.classList.add('bg-titan-surface/50', 'border-titan-border', 'text-titan-silver');
+        }
+      });
+      applyScheduleFilter();
+    }
+
+    function filterScheduleCategory(cat) {
+      currentSelectedCat = cat;
+      document.querySelectorAll('.sched-cat-btn').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.classList.remove('text-titan-silver');
+          btn.classList.add('active', 'bg-titan-volt', 'text-titan-black', 'shadow-md');
+        } else {
+          btn.classList.remove('active', 'bg-titan-volt', 'text-titan-black', 'shadow-md');
+          btn.classList.add('text-titan-silver');
+        }
+      });
+      applyScheduleFilter();
+    }
+
+    function applyScheduleFilter() {
+      const cards = document.querySelectorAll('.sched-card');
+      cards.forEach(card => {
+        const cardDay = card.getAttribute('data-day');
+        const cardCat = card.getAttribute('data-cat');
+
+        const matchDay = (currentSelectedDay === 'all' || cardDay === currentSelectedDay);
+        const matchCat = (currentSelectedCat === 'all' || cardCat === currentSelectedCat);
+
+        if (matchDay && matchCat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // -------------------------------------------------------------------------
+    // 3. BILLING SWITCHER (MENSUAL / ANUAL)
+    // -------------------------------------------------------------------------
+    function switchBilling(type) {
+      const btnMonthly = document.getElementById('btn-billing-monthly');
+      const btnAnnual = document.getElementById('btn-billing-annual');
+      const pAthletic = document.getElementById('price-athletic');
+      const pBlackLab = document.getElementById('price-blacklab');
+      const pElite = document.getElementById('price-elite');
+
+      if (type === 'annual') {
+        btnAnnual.classList.add('bg-titan-volt', 'text-titan-black', 'shadow-md');
+        btnAnnual.classList.remove('text-titan-silver');
+        btnMonthly.classList.remove('bg-titan-volt', 'text-titan-black', 'shadow-md');
+        btnMonthly.classList.add('text-titan-silver');
+
+        pAthletic.textContent = '$66';
+        pBlackLab.textContent = '$111';
+        pElite.textContent = '$186';
+      } else {
+        btnMonthly.classList.add('bg-titan-volt', 'text-titan-black', 'shadow-md');
+        btnMonthly.classList.remove('text-titan-silver');
+        btnAnnual.classList.remove('bg-titan-volt', 'text-titan-black', 'shadow-md');
+        btnAnnual.classList.add('text-titan-silver');
+
+        pAthletic.textContent = '$89';
+        pBlackLab.textContent = '$149';
+        pElite.textContent = '$249';
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. MODAL DE RESERVA DE CLASES
+    // -------------------------------------------------------------------------
+    const bookingModal = document.getElementById('booking-modal');
+    const modalClassTitle = document.getElementById('modal-class-title');
+    const modalClassMeta = document.getElementById('modal-class-meta');
+
+    function openBookingModal(title, time, day, coach) {
+      modalClassTitle.textContent = title;
+      modalClassMeta.textContent = `${day} &bull; ${time} &bull; ${coach}`;
+      bookingModal.classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+      bookingModal.classList.add('hidden');
+    }
+
+    if (bookingModal) {
+      bookingModal.addEventListener('click', (e) => {
+        if (e.target === bookingModal) closeBookingModal();
+      });
+    }
+
+    function handleBookingSubmit(e) {
+      e.preventDefault();
+      alert('¡Reserva confirmada con éxito! Te esperamos 10 minutos antes de la sesión con tu toalla y botella de hidratación.');
+      closeBookingModal();
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. PASE DE 1 DÍA GRATIS SUBMISSION
+    // -------------------------------------------------------------------------
+    function handlePassSubmit(e) {
+      e.preventDefault();
+      const successMsg = document.getElementById('pass-success-msg');
+      if (successMsg) {
+        successMsg.classList.remove('hidden');
+      }
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>
