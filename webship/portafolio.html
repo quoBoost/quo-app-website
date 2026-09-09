@@ -2,7 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#0A0A12"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <title>Portafolio &mdash; WebShip &bull; Los Mejores en Diseño Web en Costa Rica</title>
 
   <!-- Fonts: Inter + DM Serif Display (Exact same as WebShip) -->
@@ -333,7 +336,7 @@
       pointer-events: none;
       transition: opacity 0.4s var(--ease-lux), transform 0.4s var(--ease-lux);
       transform: translateY(-8px);
-      padding: 20px;
+      padding: calc(20px + env(safe-area-inset-top, 0px)) 20px calc(24px + env(safe-area-inset-bottom, 0px)) 20px;
     }
     #mobile-menu-drawer.open {
       opacity: 1; pointer-events: auto;
@@ -389,8 +392,8 @@
     /* ── Botón Flotante Obsidian Dark Luxury Glass ─────────────────── */
     .floating-wa-btn {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+      right: calc(20px + env(safe-area-inset-right, 0px));
       z-index: 9999;
       display: inline-flex;
       align-items: center;
@@ -468,8 +471,8 @@
     }
     @media (max-width: 640px) {
       .floating-wa-btn {
-        bottom: 16px;
-        right: 16px;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        right: calc(16px + env(safe-area-inset-right, 0px));
         padding: 8px 14px 8px 10px;
       }
       .f-wa-sub {
@@ -2245,6 +2248,8 @@
         nav.classList.add('nav-theme-dark');
         nav.classList.remove('nav-theme-light');
       }
+      const metaTc = document.querySelector('meta[name="theme-color"]');
+      if (metaTc) metaTc.setAttribute('content', isLight ? '#FAFAF8' : '#0A0A12');
     }
 
     function onNavScroll() {
