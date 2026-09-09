@@ -102,7 +102,7 @@
       if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:') || link.target === '_blank') return;
       if (href.includes('wa.me') || href.includes('whatsapp.com')) return;
 
-      var isToIndex = href.includes('index.html') || href.includes('webship.html');
+      var isToIndex = href.includes('index.html');
       var isToPort = href.includes('portafolio.html') || href.includes('portafolio');
 
       if (isToIndex || isToPort) {
@@ -112,30 +112,9 @@
     });
   }
 
-  /* ═══ 2. RESPLANDOR AMBIENTAL ENTRE SECCIONES DE DIFERENTES COLORES ═══ */
+  /* ═══ 2. TRANSICIONES ENTRE SECCIONES ═══ */
   function initDividerGlowAnimations() {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
-    var dividers = document.querySelectorAll('.color-transition-divider');
-    dividers.forEach(function (div) {
-      var glow = div.querySelector('.ctd-ambient-glow');
-      if (!glow) return;
-
-      gsap.fromTo(glow,
-        { opacity: 0.35, scale: 0.88 },
-        {
-          opacity: 0.95,
-          scale: 1.18,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: div,
-            start: 'top 95%',
-            end: 'bottom 10%',
-            scrub: 1.2,
-          }
-        }
-      );
-    });
+    // Las transiciones ahora son limpias y matemáticas mediante CSS oklab sin blobs invasivos
   }
 
   function init() {

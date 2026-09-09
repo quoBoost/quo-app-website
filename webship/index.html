@@ -818,6 +818,56 @@
       font-weight: 500;
       color: var(--fg-muted);
     }
+
+    /* ── Optimización Safari iOS: Barra Inferior, Safe Area y Overscroll ── */
+    html {
+      background-color: #0A0A12;
+    }
+    #hero {
+      position: relative;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      background: #0A0A12;
+      pointer-events: none;
+    }
+    .footer {
+      position: relative;
+      background: #0D0D0D !important;
+      color: rgba(255, 255, 255, 0.5);
+      padding: 48px 0 calc(48px + env(safe-area-inset-bottom, 24px)) 0 !important;
+    }
+    .footer::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      background: #0D0D0D;
+      pointer-events: none;
+    }
+    @media (max-width: 640px) {
+      .footer {
+        padding: 40px 0 calc(36px + env(safe-area-inset-bottom, 24px)) 0 !important;
+      }
+      .footer-inner {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 20px !important;
+      }
+      .footer-nav {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 12px 18px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1930,7 +1980,7 @@
       for (let i = 0; i < sections.length; i++) {
         const sec = sections[i];
         const rect = sec.getBoundingClientRect();
-        if (rect.top <= navProbeY && rect.bottom >= navProbeY) {
+        if (rect.top <= navProbeY) {
           const isDark = sec.classList.contains('dark-section') ||
                          sec.classList.contains('testimonials-section') ||
                          sec.id === 'hero' ||
@@ -1938,7 +1988,6 @@
                          sec.id === 'contacto' ||
                          sec.tagName.toLowerCase() === 'footer';
           activeTheme = isDark ? 'dark' : 'light';
-          break;
         }
       }
 

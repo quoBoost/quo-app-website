@@ -1571,7 +1571,29 @@
         justify-content: center;
       }
       .footer {
-        padding: 48px 0 calc(32px + env(safe-area-inset-bottom, 0px)) 0;
+        position: relative;
+        background: #0D0D0D !important;
+        padding: 48px 0 calc(36px + env(safe-area-inset-bottom, 24px)) 0 !important;
+      }
+      .footer::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        height: 100vh;
+        background: #0D0D0D;
+        pointer-events: none;
+      }
+      #hero-portfolio::before {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        height: 100vh;
+        background: #08080C;
+        pointer-events: none;
       }
       .footer-inner {
         flex-direction: column !important;
