@@ -26,12 +26,20 @@
 
 /* ── Reset ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: auto; }
+html {
+  scroll-behavior: auto;
+  background-color: #0A0A12;
+  min-height: 100%;
+  min-height: -webkit-fill-available;
+}
 html.lenis { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
 body {
-  background: var(--bg);
+  background-color: #0A0A12;
+  min-height: 100%;
+  min-height: -webkit-fill-available;
+  -webkit-overflow-scrolling: touch;
   color: var(--fg);
   font-family: var(--font-sans);
   font-size: 16px;
@@ -2454,7 +2462,7 @@ body.hovering #c-trail {
 .footer {
   background: var(--fg);
   color: rgba(255,255,255,0.5);
-  padding: 48px 0;
+  padding: 48px 0 calc(48px + env(safe-area-inset-bottom, 0px)) 0;
 }
 
 .footer-inner {
