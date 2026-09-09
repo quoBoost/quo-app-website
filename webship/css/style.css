@@ -26,7 +26,17 @@
 
 /* ── Reset ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: auto; }
+html {
+  scroll-behavior: auto;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
+  touch-action: pan-y;
+  background-color: #0A0A12;
+}
+@supports not (overflow-x: clip) {
+  html { overflow-x: hidden; }
+}
 html.lenis { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
@@ -38,7 +48,13 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   cursor: none;
-  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
+  touch-action: pan-y;
+}
+@supports not (overflow-x: clip) {
+  body { overflow-x: hidden; }
 }
 
 a { color: inherit; text-decoration: none; }
@@ -517,11 +533,16 @@ body.hovering #c-trail {
 
 /* ── Logos Band ────────────────────────────────────────── */
 .logos-band {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
   padding: 48px 0;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: var(--bg);
   overflow: hidden;
+  contain: paint;
+  touch-action: pan-y;
 }
 
 .logos-label {
@@ -724,7 +745,10 @@ body.hovering #c-trail {
 
 .launch-section {
   position: relative;
+  width: 100%;
+  max-width: 100vw;
   overflow: hidden;
+  contain: paint;
   isolation: isolate;
   min-height: 100vh;
   background: #090913;
@@ -1399,9 +1423,15 @@ body.hovering #c-trail {
 
   .launch-section {
     min-height: auto;
-
     padding-top: 5rem;
     padding-bottom: 4rem;
+    overflow: hidden !important;
+    max-width: 100vw !important;
+    contain: paint;
+  }
+
+  .launch-glow {
+    display: none !important;
   }
 
 
@@ -1411,20 +1441,16 @@ body.hovering #c-trail {
 
   .launch-model {
     position: absolute;
-
     top: 2rem;
-    left: 50%;
-
-    width: 145%;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
     height: 55%;
-
-    transform: translateX(-50%);
-
+    transform: none;
     opacity: 0.18;
-
     z-index: 1;
-
     pointer-events: none;
+    overflow: hidden;
   }
 
 
@@ -1883,7 +1909,14 @@ body.hovering #c-trail {
 .portfolio-cta { text-align: center; }
 
 /* ── Why Us ────────────────────────────────────────────── */
-.why-section { background: #fff; }
+.why-section {
+  background: #fff;
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  contain: paint;
+}
 
 .why-grid {
   display: grid;
@@ -1907,7 +1940,7 @@ body.hovering #c-trail {
   padding: 28px 0;
   border-bottom: 1px solid var(--border);
   opacity: 0;
-  transform: translateX(24px);
+  transform: translateY(20px);
 }
 .why-card:first-child { border-top: 1px solid var(--border); }
 
@@ -2456,11 +2489,37 @@ body.hovering #c-trail {
   margin-top: -8px;
 }
 
+/* ── Trust Badges en Sección de Contacto ────────────────────── */
+.trust-badges-grid {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.trust-badge-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #E5E7EB;
+}
+
+/* ── Contact Section ───────────────────────────────────── */
+#contacto.contact-section {
+  background: #0D0D0D;
+  color: #FFFFFF;
+  padding: 96px 0 60px 0;
+}
+
 /* ── Footer ────────────────────────────────────────────── */
 .footer {
-  background: var(--fg);
+  background: #0D0D0D;
   color: rgba(255,255,255,0.5);
-  padding: 48px 0 calc(48px + env(safe-area-inset-bottom, 0px)) 0;
+  padding: 36px 0 calc(36px + env(safe-area-inset-bottom, 0px)) 0;
 }
 
 .footer-inner {
@@ -2678,11 +2737,40 @@ body.hovering #c-trail {
     gap: 0 !important;
     margin-top: 20px !important;
   }
+  #contacto.contact-section { padding: 56px 0 28px 0 !important; }
+  #contacto .contact-info > .btn {
+    width: 100% !important;
+    max-width: 340px !important;
+    padding: 14px 20px !important;
+    font-size: 0.95rem !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+  .trust-badges-grid {
+    gap: 12px !important;
+    padding-top: 20px !important;
+  }
+  .trust-badge-item {
+    font-size: 0.75rem !important;
+  }
   #contacto .ci-row { width: 100%; justify-content: flex-start; }
   .ci-row strong { overflow-wrap: anywhere; }
 
-  .footer { padding: 36px 0 calc(36px + env(safe-area-inset-bottom, 0px)) 0; }
-  .footer-nav { flex-wrap: wrap; gap: 10px 18px; }
+  .footer { padding: 28px 0 calc(28px + env(safe-area-inset-bottom, 0px)) 0 !important; }
+  .footer-inner {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 20px !important;
+  }
+  .footer-nav {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 12px 18px !important;
+  }
+  .footer-brand p {
+    margin: 0 auto;
+  }
   .footer-copy { line-height: 1.5; }
 }
 

@@ -158,7 +158,7 @@ gsap.utils.toArray('.section-desc, .tag').forEach(el => {
 /* ═══ WHY-US CARDS ══════════════════════════════════════ */
 gsap.utils.toArray('.why-card').forEach((card, i) => {
   gsap.to(card, {
-    opacity: 1, x: 0, duration: 1.0, delay: i * 0.1, ease: 'power3.out',
+    opacity: 1, y: 0, duration: 1.0, delay: i * 0.1, ease: 'power3.out',
     scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none reverse' },
   });
 });

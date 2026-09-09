@@ -799,75 +799,6 @@
         font-size: 0.80rem;
       }
     }
-
-    /* ── Trust Badges en Sección de Contacto ────────────────────── */
-    .trust-badges-grid {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-top: 36px;
-      padding-top: 30px;
-      border-top: 1px solid var(--border);
-    }
-    .trust-badge-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--fg-muted);
-    }
-
-    /* ── Optimización Safari iOS: Barra Inferior, Safe Area y Overscroll ── */
-    html {
-      background-color: #0A0A12;
-    }
-    #hero {
-      position: relative;
-    }
-    #hero::before {
-      content: '';
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      right: 0;
-      height: 100vh;
-      background: #0A0A12;
-      pointer-events: none;
-    }
-    .footer {
-      position: relative;
-      background: #0D0D0D !important;
-      color: rgba(255, 255, 255, 0.5);
-      padding: 48px 0 calc(48px + env(safe-area-inset-bottom, 24px)) 0 !important;
-    }
-    .footer::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      height: 100vh;
-      background: #0D0D0D;
-      pointer-events: none;
-    }
-    @media (max-width: 640px) {
-      .footer {
-        padding: 40px 0 calc(36px + env(safe-area-inset-bottom, 24px)) 0 !important;
-      }
-      .footer-inner {
-        flex-direction: column !important;
-        align-items: center !important;
-        text-align: center !important;
-        gap: 20px !important;
-      }
-      .footer-nav {
-        justify-content: center !important;
-        flex-wrap: wrap !important;
-        gap: 12px 18px !important;
-      }
-    }
   </style>
 </head>
 <body>
@@ -1000,10 +931,6 @@
     </div>
   </section>
 
-  <!-- ═══ TRANSICIÓN: HERO (DARK) ➔ LOGOS / SERVICIOS (LIGHT) ═══ -->
-  <div class="color-transition-divider ctd-hero-to-light" aria-hidden="true">
-    <div class="ctd-ambient-glow"></div>
-  </div>
 
   <!-- ═══ LOGOS ══════════════════════════════════════════ -->
   <section class="logos-band">
@@ -1106,10 +1033,6 @@
     </div>
   </section>
 
-  <!-- ═══ TRANSICIÓN: SERVICIOS (LIGHT) ➔ PROCESO (DARK) ═══ -->
-  <div class="color-transition-divider ctd-light-to-proceso" aria-hidden="true">
-    <div class="ctd-ambient-glow glow-warm"></div>
-  </div>
 
   <!-- ═══ PROCESO EN 5 DÍAS ═══════════════════════════════ -->
   <section id="proceso" class="section launch-section dark-section">
@@ -1182,10 +1105,6 @@
     </div>
   </section>
 
-  <!-- ═══ TRANSICIÓN: PROCESO (DARK) ➔ PORTAFOLIO (LIGHT) ═══ -->
-  <div class="color-transition-divider ctd-proceso-to-light" aria-hidden="true">
-    <div class="ctd-ambient-glow glow-cyan"></div>
-  </div>
 
   <!-- ═══ PORTAFOLIO EN VIVO (ROTADOR ALEATORIO DE 3 PROYECTOS) ════ -->
   <section id="portafolio" class="section" style="background: #FAFAF8;">
@@ -1293,10 +1212,6 @@
     </div>
   </section>
 
-  <!-- ═══ TRANSICIÓN: WHY (LIGHT) ➔ TESTIMONIOS (DARK) ═══ -->
-  <div class="color-transition-divider ctd-light-to-testimonials" aria-hidden="true">
-    <div class="ctd-ambient-glow glow-warm"></div>
-  </div>
 
   <!-- ═══ TESTIMONIOS (DARK LUXURY EXPERT SHOWCASE) ═══════════════ -->
   <section class="section testimonials-section">
@@ -1477,10 +1392,6 @@
     </div>
   </section>
 
-  <!-- ═══ TRANSICIÓN: TESTIMONIOS (DARK) ➔ FAQ (LIGHT) ═══ -->
-  <div class="color-transition-divider ctd-testimonials-to-light" aria-hidden="true">
-    <div class="ctd-ambient-glow"></div>
-  </div>
 
   <!-- ═══ FAQ ════════════════════════════════════════════ -->
   <section id="faq" class="section faq-section">
@@ -1536,13 +1447,9 @@
     </div>
   </section>
 
-  <!-- ═══ TRANSICIÓN: FAQ (LIGHT) ➔ CONTACTO (DARK) ═══ -->
-  <div class="color-transition-divider ctd-light-to-contact" aria-hidden="true">
-    <div class="ctd-ambient-glow glow-warm"></div>
-  </div>
 
   <!-- ═══ CONTACTO ═══════════════════════════════════════ -->
-  <section id="contacto" class="section contact-section" style="background: #0D0D0D; color: #FFFFFF; padding: 120px 0;">
+  <section id="contacto" class="section contact-section" style="background: #0D0D0D; color: #FFFFFF;">
     <div class="container" style="max-width: 840px; text-align: center;">
       <span class="tag" style="background: rgba(255,255,255,0.1); color: #FFFFFF; border-color: rgba(255,255,255,0.2);">Contacto Directo</span>
       <h2 class="section-title" style="color: #FFFFFF; margin-top: 16px;">Iniciemos tu<br/><em>próximo éxito web.</em></h2>
@@ -1998,8 +1905,11 @@
         nav.classList.add('nav-theme-dark');
         nav.classList.remove('nav-theme-light');
       }
+      // Mantener siempre #0A0A12 en móviles para que la barra de búsqueda de Safari nunca tome fondo blanco
       const metaTc = document.querySelector('meta[name="theme-color"]');
-      if (metaTc) metaTc.setAttribute('content', activeTheme === 'light' ? '#FAFAF8' : '#0A0A12');
+      if (metaTc) {
+        metaTc.setAttribute('content', (window.innerWidth > 768 && activeTheme === 'light') ? '#FAFAF8' : '#0A0A12');
+      }
     }
 
     function onNavScroll() {

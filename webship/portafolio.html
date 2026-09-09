@@ -1571,29 +1571,8 @@
         justify-content: center;
       }
       .footer {
-        position: relative;
         background: #0D0D0D !important;
-        padding: 48px 0 calc(36px + env(safe-area-inset-bottom, 24px)) 0 !important;
-      }
-      .footer::after {
-        content: '';
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        height: 100vh;
-        background: #0D0D0D;
-        pointer-events: none;
-      }
-      #hero-portfolio::before {
-        content: '';
-        position: absolute;
-        bottom: 100%;
-        left: 0;
-        right: 0;
-        height: 100vh;
-        background: #08080C;
-        pointer-events: none;
+        padding: 28px 0 !important;
       }
       .footer-inner {
         flex-direction: column !important;
@@ -1732,10 +1711,6 @@
     </div>
   </section>
 
-  <!-- ═══ TRANSICIÓN: HERO (DARK) ➔ GALERÍA (LIGHT) ═══ -->
-  <div class="color-transition-divider ctd-portfolio-hero-to-galeria" aria-hidden="true">
-    <div class="ctd-ambient-glow"></div>
-  </div>
 
   <!-- ═══ SECCIÓN DE PROYECTOS MODULAR (REGISTRO DINÁMICO) ══════════ -->
   <section id="galeria" class="section" style="padding-top: 80px; padding-bottom: 120px;">
@@ -1825,26 +1800,78 @@
     </div>
   </div>
 
-  <!-- ═══ TRANSICIÓN: GALERÍA (LIGHT) ➔ FOOTER (DARK) ═══ -->
-  <div class="color-transition-divider ctd-portfolio-galeria-to-footer" aria-hidden="true">
-    <div class="ctd-ambient-glow glow-warm"></div>
-  </div>
+  <!-- ═══ CONTACTO ═══════════════════════════════════════ -->
+  <section id="contacto" class="section contact-section" style="background: #0D0D0D; color: #FFFFFF;">
+    <div class="container" style="max-width: 840px; text-align: center;">
+      <span class="tag" style="background: rgba(255,255,255,0.1); color: #FFFFFF; border-color: rgba(255,255,255,0.2);">Contacto Directo</span>
+      <h2 class="section-title" style="color: #FFFFFF; margin-top: 16px;">Iniciemos tu<br/><em>próximo éxito web.</em></h2>
+      <p class="section-desc" style="margin: 0 auto 40px auto; max-width: 560px; color: #9CA3AF; font-size: 1.05rem;">
+        Cuéntanos tu idea por WhatsApp. Te asesoramos de inmediato, te mostramos referencias para tu sector y te cotizamos con presupuesto cerrado y transparente.
+      </p>
 
-  <!-- ═══ FOOTER WEBSHIP ══════════════════════════════════ -->
+      <div class="contact-info" style="display: flex; flex-direction: column; align-items: center; gap: 24px;">
+        <a href="https://wa.me/50663152104?text=Hola%20WebShip%2C%20quiero%20iniciar%20mi%20proyecto%20web" target="_blank" class="btn btn-primary" style="background: #FFFFFF; color: #0D0D0D; padding: 1.35rem 3.5rem; font-size: 1.15rem; font-weight: 700; border-radius: 9999px;">
+          <span>Hablar por WhatsApp Directo</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.845.509 3.57 1.391 5.064l-1.431 5.236 5.384-1.411c1.438.807 3.09 1.271 4.836 1.271 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/>
+          </svg>
+        </a>
+
+        <!-- Garantías de Confianza -->
+        <div class="trust-badges-grid" style="border-color: rgba(255,255,255,0.1);">
+          <div class="trust-badge-item" style="color: #E5E7EB;">
+            <i data-lucide="clock" style="width: 16px; height: 16px; color: #10B981;"></i>
+            <span>Entrega en 5 días</span>
+          </div>
+          <div class="trust-badge-item" style="color: #E5E7EB;">
+            <i data-lucide="shield-check" style="width: 16px; height: 16px; color: #60A5FA;"></i>
+            <span>Presupuesto transparente</span>
+          </div>
+          <div class="trust-badge-item" style="color: #E5E7EB;">
+            <i data-lucide="map-pin" style="width: 16px; height: 16px; color: #F59E0B;"></i>
+            <span>100% Costa Rica</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 40px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
+          <a href="mailto:webshipcr@gmail.com" class="ci-row" style="color: #9CA3AF;">
+            <div class="ci-icon" style="background: rgba(255,255,255,0.08); color: #FFFFFF;">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M2 6l7 5 7-5" stroke="currentColor" stroke-width="1.3"/></svg>
+            </div>
+            <div style="text-align: left;">
+              <span class="ci-label" style="color: #6B7280;">Correo</span>
+              <strong style="color: #FFFFFF;">webshipcr@gmail.com</strong>
+            </div>
+          </a>
+          <a href="https://instagram.com/webship.cr" target="_blank" class="ci-row" style="color: #9CA3AF;">
+            <div class="ci-icon" style="background: rgba(255,255,255,0.08); color: #FFFFFF;">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="4" stroke="currentColor" stroke-width="1.3"/><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.3"/><circle cx="13.5" cy="4.5" r="0.8" fill="currentColor"/></svg>
+            </div>
+            <div style="text-align: left;">
+              <span class="ci-label" style="color: #6B7280;">Instagram</span>
+              <strong style="color: #FFFFFF;">@webship.cr</strong>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═════════════════════════════════════════ -->
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand">
         <a href="index.html" class="nav-logo">WebShip<span class="dot">.</span></a>
-        <p>Creamos páginas web que funcionan y venden en Costa Rica.</p>
+        <p>Creamos páginas web de alto impacto que funcionan y venden en Costa Rica.</p>
       </div>
       <nav class="footer-nav">
         <a href="index.html#servicios">Servicios</a>
         <a href="index.html#proceso">Proceso</a>
         <a href="portafolio.html">Portafolio</a>
         <a href="index.html#faq">Preguntas</a>
-        <a href="index.html#contacto">Contacto</a>
+        <a href="#contacto">Contacto</a>
       </nav>
-      <p class="footer-copy">&copy; 2026 WebShip. Todos los derechos reservados.</p>
+      <p class="footer-copy">© 2026 WebShip. Todos los derechos reservados.</p>
     </div>
   </footer>
 
@@ -2271,7 +2298,9 @@
         nav.classList.remove('nav-theme-light');
       }
       const metaTc = document.querySelector('meta[name="theme-color"]');
-      if (metaTc) metaTc.setAttribute('content', isLight ? '#FAFAF8' : '#0A0A12');
+      if (metaTc) {
+        metaTc.setAttribute('content', (window.innerWidth > 768 && isLight) ? '#FAFAF8' : '#0A0A12');
+      }
     }
 
     function onNavScroll() {

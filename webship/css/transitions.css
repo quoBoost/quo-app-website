@@ -4,82 +4,15 @@
    de diferentes colores (Dark ↔ Light)
    ════════════════════════════════════════════════════════ */
 
-/* ── Divisores de Transición de Color ──────────────────── */
+/* ── Divisores de Transición de Color (Desactivados) ─────────── */
 .color-transition-divider {
-  position: relative;
-  width: 100%;
-  height: 54px;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 5;
-  margin-top: -1px;
-  margin-bottom: -1px;
-}
-
-/* 1. Hero (#0A0A12) ➔ Logos & Servicios (#FAFAF8) */
-.ctd-hero-to-light {
-  background: linear-gradient(to bottom, #0A0A12 0%, #1c1c2a 25%, #585869 50%, #b8b8c2 75%, #FAFAF8 100%);
-  background: linear-gradient(to bottom in oklab, #0A0A12 0%, #FAFAF8 100%);
-}
-
-/* 2. Servicios (#FAFAF8) ➔ Proceso (#090913) */
-.ctd-light-to-proceso {
-  background: linear-gradient(to bottom, #FAFAF8 0%, #b8b8c2 25%, #585869 50%, #1c1c2a 75%, #090913 100%);
-  background: linear-gradient(to bottom in oklab, #FAFAF8 0%, #090913 100%);
-}
-
-/* 3. Proceso (#090913) ➔ Portafolio (#FAFAF8) */
-.ctd-proceso-to-light {
-  background: linear-gradient(to bottom, #090913 0%, #1c1c2a 25%, #585869 50%, #b8b8c2 75%, #FAFAF8 100%);
-  background: linear-gradient(to bottom in oklab, #090913 0%, #FAFAF8 100%);
-}
-
-/* 4. Why-Us (#FFFFFF) ➔ Testimonios (#120F17) */
-.ctd-light-to-testimonials {
-  background: linear-gradient(to bottom, #FFFFFF 0%, #b8b2c2 25%, #585065 50%, #201b28 75%, #120F17 100%);
-  background: linear-gradient(to bottom in oklab, #FFFFFF 0%, #120F17 100%);
-}
-
-/* 5. Testimonios (#120F17) ➔ FAQ (#FFFFFF) */
-.ctd-testimonials-to-light {
-  background: linear-gradient(to bottom, #120F17 0%, #201b28 25%, #585065 50%, #b8b2c2 75%, #FFFFFF 100%);
-  background: linear-gradient(to bottom in oklab, #120F17 0%, #FFFFFF 100%);
-}
-
-/* 6. FAQ (#FFFFFF) ➔ Contacto (#0D0D0D) */
-.ctd-light-to-contact {
-  background: linear-gradient(to bottom, #FFFFFF 0%, #b2b2b2 25%, #545454 50%, #1f1f1f 75%, #0D0D0D 100%);
-  background: linear-gradient(to bottom in oklab, #FFFFFF 0%, #0D0D0D 100%);
-}
-
-/* 7. Portafolio Hero (#08080C) ➔ Galería (#FAFAF8) */
-.ctd-portfolio-hero-to-galeria {
-  background: linear-gradient(to bottom, #08080C 0%, #1a1a26 25%, #545464 50%, #b5b5bf 75%, #FAFAF8 100%);
-  background: linear-gradient(to bottom in oklab, #08080C 0%, #FAFAF8 100%);
-}
-
-/* 8. Portafolio Galería (#FAFAF8) ➔ Footer (#09090D) */
-.ctd-portfolio-galeria-to-footer {
-  background: linear-gradient(to bottom, #FAFAF8 0%, #b5b5bf 25%, #545464 50%, #1a1a26 75%, #09090D 100%);
-  background: linear-gradient(to bottom in oklab, #FAFAF8 0%, #09090D 100%);
-}
-
-/* Eliminar manchas o globos borrosos de luz artificial */
-.ctd-ambient-glow {
   display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
-/* Quitar bordes duros de logos-band para fusión perfecta */
-.logos-band {
-  border-top: none !important;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .color-transition-divider {
-    height: 32px;
-  }
-}
 
 /* ── Animación de Carga: Puntos Azules Dinámicos WebShip... ──── */
 .loader-dots {
