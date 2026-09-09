@@ -1571,7 +1571,7 @@
         justify-content: center;
       }
       .footer {
-        padding: 48px 0 32px 0;
+        padding: 48px 0 calc(32px + env(safe-area-inset-bottom, 0px)) 0;
       }
       .footer-inner {
         flex-direction: column !important;
